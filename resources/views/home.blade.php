@@ -7,9 +7,8 @@
             {{ session('status') }}
         </div>
     @endif
-
-    You are logged in!
 </div>
+
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
         <div class="col-sm-8">
@@ -27,7 +26,7 @@
                         </span>
                     </div>
                     <br/>
-                    <a href="/register">
+                    <a href="{{ route('children.create') }}">
                       <button type="button" class="btn btn-primary btn-sm pull-right">
                         <i class="fa fa-plus"></i> Register
                       </button>

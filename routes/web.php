@@ -11,11 +11,12 @@
 |
 */
 
-Route::get('/', function () {return view('welcome');});
-Route::get('/home', 'HomeController@index');
-Route::get('/store', 'RegisterController@index');
-Route::get('/followup', 'FollowupController@index');
-
 Auth::routes();
+Route::get('/login', function () {return view('login');})->name('auth.login');
+Route::get('/register', function () {return view('login');})->name('auth.register');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
+Route::resource('children', 'ChildrenController');
+Route::resource('community-followup', 'CommunityFollowupController');
+Route::resource('facility', 'FacilityController');
+Route::resource('facility-followup', 'FacilityFollowupController');
