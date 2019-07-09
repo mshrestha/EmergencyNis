@@ -5,7 +5,7 @@
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Children registration</h5>
+					<h5>Facility registration</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -16,11 +16,11 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('children.store') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('facility.store') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
-						@include('children.partials.fields')
-						
-						<button class="btn btn-primary ">Register</button>
+						@include('facility.partials.fields')
+
+						<button class="btn btn-success">Save</button>
 					</form>
 				</div> <!-- ibox-content -->
 			</div> <!-- ibox -->

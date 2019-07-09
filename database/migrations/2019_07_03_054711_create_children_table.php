@@ -20,7 +20,8 @@ class CreateChildrenTable extends Migration
             $table->date('date');
             $table->string('sub_block_no')->nullable();
             $table->string('hh_no')->nullable();
-            $table->string('gps_coordinates')->nullable();
+            $table->string('gps_coordinates_lat')->nullable();
+            $table->string('gps_coordinates_lng')->nullable();
             $table->string('family_count_no')->nullable();
             $table->text('mother_caregiver_name')->nullable();
             $table->text('fathers_name')->nullable();
@@ -29,6 +30,7 @@ class CreateChildrenTable extends Migration
             $table->date('date_of_birth')->nullable();
             $table->integer('age')->nullable();
             $table->enum('sex', ['male', 'female'])->default('male');
+            $table->string('phone')->nullable();
             $table->text('picture')->nullable();
             $table->text('barcode')->nullable();
             $table->timestamps();

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
+
 use Illuminate\Http\Request;
 
 class FacilityController extends Controller
@@ -23,7 +25,7 @@ class FacilityController extends Controller
      */
     public function create()
     {
-        //
+        return view('facility.create');
     }
 
     /**
@@ -34,7 +36,11 @@ class FacilityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            dd($request->all());
+        } catch (Exception $e) {
+            
+        }
     }
 
     /**

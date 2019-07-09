@@ -15,8 +15,12 @@ Auth::routes();
 Route::get('/login', function () {return view('login');})->name('auth.login');
 Route::get('/register', function () {return view('login');})->name('auth.register');
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('homepage');
 Route::resource('children', 'ChildrenController');
 Route::resource('community-followup', 'CommunityFollowupController');
 Route::resource('facility', 'FacilityController');
 Route::resource('facility-followup', 'FacilityFollowupController');
+
+Route::get('test', function() {
+	return view('register');
+});

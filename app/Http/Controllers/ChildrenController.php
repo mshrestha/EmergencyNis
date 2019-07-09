@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
+
 use Illuminate\Http\Request;
+// use Intervention\Image\Facades\Image;
 
 class ChildrenController extends Controller
 {
+    private $_notify_message = 'Children saved.';
+    private $_notify_type = 'success';
+    private $_children_image_location = 'uploads/children';
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +41,40 @@ class ChildrenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+            $image = $this->uploadImage($request);
+            $image ? $data['picture'] = $image : false ;
+            $data['date'] = date('y-m-d');
+            
+            Child::create($data);
+        } catch (Exception $e) {
+            $this->_notify_message = 'Failed to save child, Try again.';
+            $this->_notify_type = 'danger';
+        }
+
+        return redirect()->route('homepage')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
+    }
+
+    public function uploadImage($request) {
+        if($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $fileName = time() ."-". $file->getClientOriginalName();
+            $fileName = str_replace(' ', '-', $fileName);
+
+            $image = $this->_children_image_location. '/' .$fileName;
+            $upload_success= $file->move($this->_children_image_location, $fileName);
+
+            // $upload = Image::make($image);
+            // $upload->fit(380, 408)->save($this->_children_image_location .'/'. $fileName, 100);
+            
+            return $fileName;
+        }
+
+        return false;
     }
 
     /**
