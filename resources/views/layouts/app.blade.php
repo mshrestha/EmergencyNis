@@ -15,6 +15,7 @@
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/style.css')}}" rel="stylesheet">
+	@stack('styles')
 </head>
 <body>
 	<div id="wrapper">
@@ -40,13 +41,13 @@
 				</a>
 
 				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ route('logout') }}"
+					<a class="dropdown-item" href="{{ route('auth.logout') }}"
 					onclick="event.preventDefault();
 					document.getElementById('logout-form').submit();">
 					{{ __('Logout') }}
 				</a>
 
-				<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+				<form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
 					@csrf
 				</form>
 			</div>
@@ -80,7 +81,7 @@
 <script src="{{ asset('js/inspinia.js')}}"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js')}}"></script>
 
-@yield('scripts')
+@stack('scripts')
 
 </body>
 </html>

@@ -3,8 +3,11 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Sattlement</label>
 	<div class="col-sm-9">
-		<select name="sattlement" class="form-control">
-			<option value="Camp 1E">Camp 1E</option>	
+		<select name="camp_id" class="form-control" required>
+			<option value="">Select camp</option>
+			@foreach($camps as $camp)
+			<option value="{{ $camp->id }}">{{ $camp->name }}</option>	
+			@endforeach
 		</select>
 	</div>
 </div>

@@ -33,5 +33,4 @@
 <script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>
 <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>
-<script></script>
 @endsection

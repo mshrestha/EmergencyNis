@@ -15,8 +15,8 @@ class CreateCampsTable extends Migration
     {
         Schema::create('camps', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('block_letter');
+            $table->string('name')->nullable();
+            $table->string('block_letter')->nullable();
             $table->timestamps();
         });
     }
