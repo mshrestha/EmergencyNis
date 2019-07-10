@@ -2,7 +2,7 @@
     <div class="col-lg-4 text-center">
         <div>
             <img alt="image" src="{{ $child->child_image() }}"
-            style="width: 100%;height: 110px;">
+            style="width: 100%;height: 110px;object-fit:cover;">
         </div>
     </div>
     <div class="col-lg-8">
