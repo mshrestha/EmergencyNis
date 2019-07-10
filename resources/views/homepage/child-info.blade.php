@@ -1,14 +1,14 @@
 <div class="row m-b-lg">
-    <div class="col-lg-4 text-center">
-        <h2>{{ $child->children_name }}</h2>
+    <div class="col-lg-5 text-center">
+        <h3>{{ $child->children_name }}</h3>
 
-        <div class="m-b-sm">
+        <div class="m-b-sm m-t-md">
             <img alt="image" class="img-circle" src="{{ $child->child_image() }}"
             style="width: 62px; height: 62px;">
         </div>
     </div>
-    <div class="col-lg-8">
-        <strong>About me</strong>
+    <div class="col-lg-7">
+        <strong>About</strong>
         <p>
             {{ $child->age }} months old<br />
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
@@ -16,7 +16,7 @@
         </p>
         <a href="{{ route('community-followup.show', $child->id) }}">
             <button type="button" class="btn btn-primary btn-sm btn-block">
-                <i class="fa fa-envelope"></i> Add Follow Up
+                <i class="fa fa-plus"></i> Add Follow Up
             </button>
         </a>
     </div>
@@ -35,10 +35,6 @@
                 Received all EPI
             </li>
             <li class="list-group-item">
-                <span class="pull-right"> {{ $child_followups[0]->muac }} cm</span>
-                MUAC
-            </li>
-            <li class="list-group-item">
                 <span class="pull-right"> {{ $child_followups[0]->edema ? 'Yes' : 'No' }} </span>
                 Edema
             </li>
@@ -47,19 +43,15 @@
                 Nutritional Status
             </li>
         </ul>
-        <strong>Notes</strong>
-        <p>Identified as MAM patient and referred to TSFP</p>
-        <hr/>
         <strong>Timeline activity</strong>
         <div id="vertical-timeline" class="vertical-container dark-timeline">
             @foreach($child_followups as $children_followup)
             <div class="vertical-timeline-block">
                 <div class="vertical-timeline-icon gray-bg">
-                    <i class="fa fa-coffee"></i>
+                    <i class="fa fa-briefcase"></i>
                 </div>
                 <div class="vertical-timeline-content">
-                    <p>TSFP Visited
-                    </p>
+                    <p>Followup Visited</p>
                     <span class="vertical-date small text-muted"> {{ $children_followup->date }} </span>
                     <span class="pull-right">
                     <a href="{{ route('community-followup.edit', $children_followup->id) }}">Edit</a>

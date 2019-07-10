@@ -5,7 +5,7 @@
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Facility registration</h5>
+					<h5>Facility</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('facility.store') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('facility.update', $facility->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
 						@include('facility.partials.fields')
 
@@ -29,7 +29,7 @@
 </div> <!-- wrapper -->
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>
 <script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>
-@endsection
+@endpush

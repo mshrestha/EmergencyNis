@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Child;
+use App\Models\Facility;
+use App\Models\FacilityFollowup;
+
 use Illuminate\Http\Request;
 
 class FacilityFollowupController extends Controller
 {
+    private $_notify_message = "Facility followup saved.";
+    private $_notify_type = "success";
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +52,29 @@ class FacilityFollowupController extends Controller
      */
     public function show($id)
     {
-        //
+        $facility = Facility::findOrFail($id);
+        $children = Child::orderBy('created_at', 'desc')->get();
+
+        return view('facility_followup.create', compact('facility', 'children'));
+    }
+
+    public function save($id, Request $request) {
+        try {
+            $data = $request->all();
+            $data['facility_id'] = $id;
+            $data['date'] = date('Y-m-d');
+            $data['referal_slip_no'] = time(). rand(1000,9999);
+
+            FacilityFollowup::create($data);
+        } catch (Exception $e) {
+            $this->_notify_message = "Failed to save followup, Try again";
+            $this->_notify_type = "danger";
+        }
+
+        return redirect()->route('homepage')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
     }
 
     /**
@@ -56,7 +85,10 @@ class FacilityFollowupController extends Controller
      */
     public function edit($id)
     {
-        //
+        $facility_followup = FacilityFollowup::findOrFail($id);
+        $children = Child::orderBy('created_at', 'desc')->get();
+
+        return view('facility_followup.edit', compact('facility_followup', 'children'));
     }
 
     /**
@@ -68,7 +100,18 @@ class FacilityFollowupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            FacilityFollowup::findOrFail($id)->update($data);
+        } catch (Exception $e) {
+            $this->_notify_message = "Failed to save followup, Try again";
+            $this->_notify_type = "danger";
+        }
+
+        return redirect()->route('homepage')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
     }
 
     /**

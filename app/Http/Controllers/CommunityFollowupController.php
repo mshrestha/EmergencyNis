@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 
 class CommunityFollowupController extends Controller
 {
+    private $_notify_message = null;
+    private $_notify_type = 'success';
+
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +58,7 @@ class CommunityFollowupController extends Controller
         return view('community_followup.create', compact('child', 'facilities'));
     }
 
-    public function save($child) {
+    public function save(Request $request, $id) {
         try {
             $data = $request->all();
             $data['date'] = date('Y-m-d');
@@ -64,13 +67,20 @@ class CommunityFollowupController extends Controller
             $data['continued_breastfeeding'] = $request->continued_breastfeeding ?: 0;
             $data['received_all_epi_vaccination'] = $request->received_all_epi_vaccination ?: 0;
             $data['edema'] = $request->edema ?: 0;
-            
+            $data['referel_slip_no'] = time() . rand(1000,9999);
+
             CommunityFollowup::create($data);
+
+            $this->_notify_message = "Followup saved.";
         } catch (Exception $e) {
-            
+            $this->_notify_message = "Failed to save followup, Try again.";
+            $this->_notify_type = "danger";
         }
 
-        return redirect()->back();
+        return redirect()->route('homepage')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
     }
 
     /**
@@ -104,8 +114,10 @@ class CommunityFollowupController extends Controller
             $data['edema'] = $request->edema ?: 0;
 
             CommunityFollowup::findOrFail($id)->update($data);
+            $this->_notify_message = "Followup saved.";
         } catch (Exception $e) {
-            
+            $this->_notify_message = "Failed to save followup, Try again.";
+            $this->_notify_type = "danger";
         }
 
         return redirect()->back();
@@ -119,6 +131,14 @@ class CommunityFollowupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            CommunityFollowup::destroy($id);
+            $this->_notify_message = "Followup deleted.";
+        } catch (Exception $e) {
+            $this->_notify_message = "Failed to delete followup, Try again.";
+            $this->_notify_type = "danger";
+        }
+
+        return redirect()->back();
     }
 }

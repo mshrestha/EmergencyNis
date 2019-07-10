@@ -24,11 +24,11 @@ class CreateFacilityFollowupsTable extends Migration
             $table->date('date')->nullable();
             $table->date('next_visit_date')->nullable();
             $table->integer('age')->nullable();
-            $table->enum('attandance', ['present', 'abscent'])->nullable();
+            $table->enum('attandance', ['present', 'absent'])->nullable();
             $table->integer('muac')->nullable();
             $table->integer('weight')->nullable();
             $table->integer('height')->nullable();
-            $table->string('wfh_z_SCORE')->nullable();
+            $table->string('wfh_z_score')->nullable();
             $table->enum('oedema', ['0', '+', '++', '+++'])->nullable();
             $table->integer('medical_history_diarrhoea')->nullable();
             $table->integer('medical_history_vomiting')->nullable();
@@ -51,18 +51,18 @@ class CreateFacilityFollowupsTable extends Migration
             $table->enum('albendazole', ['200mg (12-23m)', '400mg (>24m)'])->nullable();
             $table->integer('no_of_rutf')->nullable();
             $table->integer('no_of_rusf')->nullable();
-            $table->integer('wsb++_kg')->nullable();
-            $table->integer('wsb+_kg')->nullable();
+            $table->integer('wsb_plus_plus_kg')->nullable();
+            $table->integer('wsb_plus_kg')->nullable();
             $table->integer('oil_kg')->nullable();
             $table->integer('others')->nullable();
-            $table->enum('discharge_criteria_exit', ['Recovered/Age>59m Death', 'Defaulted', 'Non recovered'])->nullable();
-            $table->enum('discharge_criteria_transfer_out', ['Trasnfer to SAM treatment Transfer to MAM treatment', 'Transfer to SC', 'Transfer to other OTP', 'Transfer to other TSFP', 'Transfer to other BSFP'])->nullable();
+            $table->enum('discharge_criteria_exit', ['Recovered/Age>59m', 'Death', 'Defaulted', 'Non recovered'])->nullable();
+            $table->enum('discharge_criteria_transfer_out', ['Transfer to SAM treatment', 'Transfer to MAM treatment', 'Transfer to SC', 'Transfer to other OTP', 'Transfer to other TSFP', 'Transfer to other BSFP'])->nullable();
             $table->enum('discharge_criteria_others', ['Medical transfer', 'Unkown'])->nullable();
             $table->integer('discharge_weight_kg')->nullable();
             $table->integer('lowest_weight_kg')->nullable();
             $table->integer('duration_between_lowest_weight_and_discharged_weight_days')->nullable();
             $table->integer('gain_of_weight')->nullable();
-            $table->integer('gain_of_duration_between_discharged_and_admission_days')->nullable();
+            $table->integer('duration_between_discharged_and_admission_days')->nullable();
             $table->timestamps();
         });
     }

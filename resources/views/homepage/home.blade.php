@@ -1,14 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="card-body">
-    @if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-    </div>
-    @endif
-</div>
-
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
         <div class="col-sm-8">
@@ -16,21 +8,24 @@
                 <div class="ibox-content">                    
                     <div class="clients-list">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Children</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Facilities</a></li>
+                            <li class="{{ request()->get('tab') !== 'facility' ? ' active' : '' }}"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Children</a></li>
+                            <li class="{{ request()->get('tab') == 'facility' ? ' active' : '' }}"><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Facilities</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div id="tab-1" class="tab-pane active">
+                            <div id="tab-1" class="tab-pane {{ request()->get('tab') !== 'facility' ? ' active' : '' }}">
                                 <div class="full-height-scroll">
                                     <div class="row" style="margin-top: 15px;">
                                         <div class="col-md-9">
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Search child " class="input form-control">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                                                </span>
-                                            </div>
+                                            <form action="{{ route('child-search') }}" method="get">
+                                                @csrf
+                                                <div class="input-group">
+                                                    <input type="text" placeholder="Search child (Child name)" class="input form-control" name="q" value="{{ request()->get('tab') !== 'facility' ? request()->get('q') : '' }}">
+                                                    <span class="input-group-btn">
+                                                        <button type="submit" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                                                    </span>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-md-3" style="padding-left: 0;">
                                             <div class="form-group">
@@ -55,7 +50,7 @@
                                                     <th>Date of birth</th>
                                                     <th>MNR no</th>
                                                     <th>Sex</th>
-                                                    <th>Action</th>
+                                                    <th width="100">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -81,16 +76,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab-2" class="tab-pane">
+                            <div id="tab-2" class="tab-pane {{ request()->get('tab') == 'facility' ? ' active' : '' }}">
                                 <div class="full-height-scroll">
                                     <div class="row" style="margin-top: 15px;">
                                         <div class="col-md-9">
-                                            <div class="input-group">
-                                                <input type="text" placeholder="Search facility " class="input form-control">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                                                </span>
-                                            </div>
+                                            <form action="{{ route('facility-search') }}">
+                                                @csrf
+                                                <div class="input-group">
+                                                    <input type="text" placeholder="Search facility (Facility ID)" name="q" class="input form-control" value="{{ request()->get('tab') == 'facility' ? request()->get('q') : '' }}">
+                                                    <input type="hidden" name="tab" value="facility">
+                                                    <span class="input-group-btn">
+                                                        <button type="submit" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
+                                                    </span>
+                                                </div>
+                                            </form>
                                         </div>
                                         <div class="col-md-3" style="padding-left: 0;">
                                             <div class="form-group">
@@ -111,16 +110,25 @@
                                                     <th>Implementing Partner</th>
                                                     <th>Program Partner</th>
                                                     <th>Service Type</th>
+                                                    <th width="100">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach($facilities as $facility)
-                                                <tr>
-                                                    <td><a data-toggle="tab" href="#company-1" class="client-link">{{ $facility->facility_id }}</a></td>
+                                                <tr class="facility-client" data-facility-id={{ $facility->id }}>
+                                                    <td><a class="client-link">{{ $facility->facility_id }}</a></td>
                                                     <td>{{ $facility->camp->name }}</td>
                                                     <td><i class="fa fa-flag"></i> {{ $facility->implementing_partner }}</td>
                                                     <td><i class="fa fa-flag"></i> {{ $facility->program_partner }}</td>
                                                     <td class="client-status"><span class="label label-warning">{{ $facility->service_type }}</span></td>
+                                                    <td>
+                                                        <a href="{{ route('facility.edit', $facility->id) }}" class="edit-btn">Edit</a>
+                                                        <form action="{{ route('facility.destroy', $facility->id) }}" method="post" class="delete-form">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button onclick="return confirm('Are you sure?')" class="delete-btn">Delete</button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
@@ -151,25 +159,44 @@
 @endsection
 
 @push('scripts')
-    <script>
+<script>
+    $(document).ready(function() {
         var first_child = {{ isset($children[0]) ? $children[0]->id : '' }}
         load_child(first_child);
+    });
 
-        function load_child(child) {
-            $.ajax({
-                url: '/child-info/'+ child,
-                type: 'get',
-                success: function(res) {
-                    $('#child-info').html(res);
-                }
-            });
-        }
-
-        $('.children-client').on('click', function() {
-            var child = $(this).data('child-id');
-            $('#child-info').html('Loading ...');
-
-            load_child(child);
+    function load_child(child) {
+        $.ajax({
+            url: '/child-info/'+ child,
+            type: 'get',
+            success: function(res) {
+                $('#child-info').html(res);
+            }
         });
-    </script>
+    }
+
+    $('.children-client').on('click', function() {
+        var child = $(this).data('child-id');
+        $('#child-info').html('Loading ...');
+
+        load_child(child);
+    });
+
+    function load_facility(facility) {
+        $.ajax({
+            url: '/facility-info/'+ facility,
+            type: 'get',
+            success: function(res) {
+                $('#child-info').html(res);
+            }
+        })
+    }
+
+    $('.facility-client').on('click', function() {
+        var facility = $(this).data('facility-id');
+
+        $('#child-info').html('Loading ...');
+        load_facility(facility);
+    });
+</script>
 @endpush

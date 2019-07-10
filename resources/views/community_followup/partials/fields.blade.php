@@ -184,7 +184,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Referral ID</label>
 				<div class="col-sm-9">
-					<input type="text" name="referel_slip_no" class="form-control" placeholder="Referral ID" value="{{ isset($community_followup) ? $community_followup->referel_slip_no : '' }}">
+					<input type="text" name="referel_slip_no" class="form-control" placeholder="Referral ID will be auto generated" value="{{ isset($community_followup) ? $community_followup->referel_slip_no : '' }}" disabled>
 				</div>
 			</div>
 		</div>

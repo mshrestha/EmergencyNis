@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Child;
 use App\Models\Facility;
+use App\Models\FacilityFollowup;
 use App\Models\CommunityFollowup;
 
 use Illuminate\Http\Request;
@@ -14,13 +15,34 @@ class HomeController extends Controller
     	$children = Child::orderBy('created_at', 'desc')->get();
     	$facilities = Facility::orderBy('created_at', 'desc')->get();
     	
-    	return view('home', compact('children', 'facilities'));
+    	return view('homepage.home', compact('children', 'facilities'));
     }
 
     public function childInfo($child_id) {
     	$child = Child::findOrFail($child_id);
     	$child_followups = CommunityFollowup::where('children_id', $child_id)->get();
     	
-    	return view('child-info', compact('child', 'child_followups'))->render();
+    	return view('homepage.child-info', compact('child', 'child_followups'))->render();
+    }
+
+    public function facilityInfo($facility_id) {
+        $facility = Facility::findOrFail($facility_id);
+        $facility_followups = FacilityFollowup::where('facility_id', $facility_id)->get();
+
+        return view('homepage.facility-info', compact('facility', 'facility_followups'));
+    }
+
+    public function childSearch(Request $request) {
+        $children = Child::where('children_name', 'LIKE', '%'.$request->q.'%')->orderBy('created_at', 'desc')->get();
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
+
+        return view('homepage.home', compact('children', 'facilities'));
+    }
+
+    public function facilitySearch(Request $request) {
+        $children = Child::orderBy('created_at', 'desc')->get();
+        $facilities = Facility::where('facility_id', 'LIKE', '%'.$request->q.'%')->orderBy('created_at', 'desc')->get();
+
+        return view('homepage.home', compact('children', 'facilities'));
     }
 }

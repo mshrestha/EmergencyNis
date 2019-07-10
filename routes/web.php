@@ -18,6 +18,9 @@ Route::get('/logout', 'AuthController@getLogout')->name('auth.logout');
 Route::group(['middleware' => ['auth']], function() {
 	Route::get('/', 'HomeController@index')->name('homepage');
 	Route::get('/child-info/{child}', 'HomeController@childInfo')->name('child-info');
+	Route::get('/facility-info/{facility}', 'HomeController@facilityInfo')->name('facility-info');
+	Route::get('/child-search', 'HomeController@childSearch')->name('child-search');
+	Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
 
 	Route::resource('children', 'ChildrenController');
 	Route::resource('community-followup', 'CommunityFollowupController');
@@ -25,4 +28,9 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::resource('facility', 'FacilityController');
 	Route::resource('facility-followup', 'FacilityFollowupController');
+	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');
+});
+
+Route::get('password', function() {
+	return bcrypt('unicef@dmin123');
 });

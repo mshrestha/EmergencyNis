@@ -18,53 +18,66 @@
 	<link href="{{ asset('css/custom.css')}}" rel="stylesheet">
 	@stack('styles')
 </head>
-<body>
+<body class="pace-done mini-navbar">
 	<div id="wrapper">
-		<div class="navbar-header">
-			<a class=" minimalize-styl-2 btn btn-primary"><i class="fa fa-bars"></i> </a>
+		<nav class="navbar-default navbar-static-side" role="navigation">
+			<div class="sidebar-collapse">
+				<ul class="nav metismenu" id="side-menu">
+					<li class="nav-header">
+						<div class="dropdown profile-element"> <span>
+							<a href="{{ route('homepage') }}">
+								<img alt="image" src="{{ asset('img/logo-nutrition.png')}}" width="160">
+							</a>
+						</span>
+						<a href="{{ route('homepage') }}">
+							<span class="clear" style="color: #ffffff;">
+								<span class="block m-t-md"><strong class="font-bold">UNICEF Bangladesh</strong></span>
+								<span class="text-muted text-xs block">{{ Auth::user()->name }}</span> 
+							</span> 
+						</a>
+					</div>
+					<div class="logo-element">
+						<a href="{{ route('homepage') }}" style="color: #fff;">
+							ENS
+						</a>
+					</div>
+				</li>
+			</ul>
+
 		</div>
-		<!-- Right Side Of Navbar -->
-		<ul class="navbar-nav ml-auto">
-			<!-- Authentication Links -->
-			@guest
-			<li class="nav-item">
-				<a class="nav-link" href="{{ route('auth.login') }}">{{ __('Login') }}</a>
-			</li>
-			@if (Route::has('register'))
-			<li class="nav-item">
-				<a class="nav-link" href="{{ route('auth.register') }}">{{ __('Register') }}</a>
-			</li>
-			@endif
-			@else
-			<li class="nav-item dropdown">
-				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-					{{ Auth::user()->name }} <span class="caret"></span>
-				</a>
-
-				<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ route('auth.logout') }}"
-					onclick="event.preventDefault();
-					document.getElementById('logout-form').submit();">
-					{{ __('Logout') }}
-				</a>
-
-				<form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
-					@csrf
-				</form>
-			</div>
-		</li>
-		@endguest
-	</ul>
+	</nav>
 
 	<div id="page-wrapper" class="gray-bg">
+		<div class="row border-bottom">
+			<nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+				<div class="navbar-header">
+					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+				</div>
+				<ul class="nav navbar-top-links navbar-right">
+					<li>
+						<span class="m-r-sm text-muted welcome-message">Welcome to Emergency Nutrition System.</span>
+					</li>
+
+					<li>
+						<a href="{{ route('auth.logout') }}">
+							<i class="fa fa-sign-out"></i> Log out
+						</a>
+					</li>
+				</ul>
+
+			</nav>
+		</div>
+		
+		@include('layouts.partials.alert')
+
 		@yield('content')
 		<!---- CONTENT GOES HERE -->
 		<div class="footer">
 			<div class="pull-right">
-				Beta Version 1.0
+				Version 1.0
 			</div>
 			<div>
-				<strong>Copyright</strong> UNICEF Bangladesh &copy; 2019
+				<strong>Copyright</strong> UNICEF Bangladesh &copy; {{ date('Y') }}
 			</div>
 		</div>
 	</div>

@@ -12,3 +12,50 @@ form.delete-form {
 a.edit-btn {
     float: left;
 }
+
+div#wrapper {
+    background: rgb(0, 153, 255);
+}
+
+.nav-header {
+    background-color: #99c3f7;
+	background-image: unset;
+}
+
+body.mini-navbar .nav-header {
+    background-color: #99c3f7;
+}
+
+.btn-primary {
+    background-color: rgb(255, 0, 153);
+    border-color: rgb(255, 0, 153);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary.active:hover, .btn-primary.active:focus {
+    background-color: rgb(51, 51, 153);
+    color: rgb(255, 255, 255);
+    border-color: rgb(51, 51, 153);
+}
+
+.client-detail {
+    position: relative;
+    height: 578px;
+}
+.facility-client-detail {
+    position: relative;
+    height: 630px;
+}
+
+div#vertical-timeline {
+    height: 330px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-right: 10px;
+    margin: 20px 10px;
+    width: 97%;
+}
+
+.clients-list .tab-pane {
+    position: relative;
+    height: 660px;
+}
