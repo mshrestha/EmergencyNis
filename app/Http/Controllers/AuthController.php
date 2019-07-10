@@ -32,7 +32,7 @@ class AuthController extends Controller
 		}
 
         $this->_notifyMessage = "Login Successful.";
-        return redirect()->intended('/backend/banner')->with([
+        return redirect()->intended('/')->with([
         	'notify_message' => $this->_notifyMessage,
         	'notify_type' => $this->_notifyType
         ]);
