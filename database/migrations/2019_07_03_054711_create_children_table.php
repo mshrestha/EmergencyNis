@@ -17,7 +17,7 @@ class CreateChildrenTable extends Migration
             $table->bigIncrements('id');
             $table->string('mnr_no')->nullable();
             $table->string('mrc_no')->nullable();
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->string('sub_block_no')->nullable();
             $table->string('hh_no')->nullable();
             $table->string('gps_coordinates_lat')->nullable();
@@ -29,7 +29,7 @@ class CreateChildrenTable extends Migration
             $table->text('children_name')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->integer('age')->nullable();
-            $table->enum('sex', ['male', 'female'])->default('male');
+            $table->enum('sex', ['male', 'female'])->default('male')->nullable();
             $table->string('phone')->nullable();
             $table->text('picture')->nullable();
             $table->text('barcode')->nullable();

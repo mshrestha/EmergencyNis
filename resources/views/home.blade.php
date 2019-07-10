@@ -55,6 +55,7 @@
                                                     <th>Date of birth</th>
                                                     <th>MNR no</th>
                                                     <th>Sex</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -65,6 +66,14 @@
                                                     <td>{{ $child->date_of_birth }}</td>
                                                     <td>{{ $child->mnr_no }}</td>
                                                     <td>{{ $child->sex }}</td>
+                                                    <td>
+                                                        <a href="{{ route('children.edit', $child->id) }}" class="edit-btn">Edit</a>
+                                                        <form action="{{ route('children.destroy', $child->id) }}" method="post" class="delete-form">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button onclick="return confirm('Are you sure?')" class="delete-btn">Delete</button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

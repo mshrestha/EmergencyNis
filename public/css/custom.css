@@ -1,0 +1,14 @@
+button.delete-btn {
+    background: none;
+    border: none;
+    color: #3a81bb;
+    line-height: 17px;
+}
+
+form.delete-form {
+    float: left;
+}
+
+a.edit-btn {
+    float: left;
+}

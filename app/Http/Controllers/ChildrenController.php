@@ -96,7 +96,9 @@ class ChildrenController extends Controller
      */
     public function edit($id)
     {
-        //
+        $child = Child::findOrFail($id);
+
+        return view('children.edit', compact('child'));
     }
 
     /**
@@ -108,7 +110,21 @@ class ChildrenController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            $image = $this->uploadImage($request);
+            $image ? $data['picture'] = $image : false ;
+            
+            Child::findOrFail($id)->update($data);
+        } catch (Exception $e) {
+            $this->_notify_message = 'Failed to save child, Try again.';
+            $this->_notify_type = 'danger';
+        }
+
+        return redirect()->route('homepage')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
     }
 
     /**
@@ -119,6 +135,17 @@ class ChildrenController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Child::destroy($id);
+            $this->_notify_message = 'Deleted child.';
+        } catch (Exception $e) {
+            $this->_notify_message = 'Failed to delete child, Try again.';
+            $this->_notify_type = 'danger';
+        }
+
+        return redirect()->route('homepage')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
     }
 }

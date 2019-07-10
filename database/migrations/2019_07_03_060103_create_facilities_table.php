@@ -16,7 +16,7 @@ class CreateFacilitiesTable extends Migration
         Schema::create('facilities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('facility_id');
-            $table->bigInteger('camp_id')->unsigned()->nullable();
+            $table->bigInteger('camp_id')->nullable()->unsigned();
             $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
             $table->string('program_partner')->nullable();
             $table->string('implementing_partner')->nullable();

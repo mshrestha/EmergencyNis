@@ -12,7 +12,11 @@ class Child extends Model
     ];
 
     public function child_image() {
-    	return asset('uploads/children/'. $this->picture);
+        if(is_file('uploads/children/'. $this->picture)) {
+    	   return asset('uploads/children/'. $this->picture);
+        } else {
+            return asset('img/default.jpeg');
+        }
     }
 
     public function followup() {

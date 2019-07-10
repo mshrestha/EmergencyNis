@@ -15,6 +15,7 @@
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/style.css')}}" rel="stylesheet">
+	<link href="{{ asset('css/custom.css')}}" rel="stylesheet">
 	@stack('styles')
 </head>
 <body>
