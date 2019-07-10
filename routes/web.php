@@ -30,7 +30,3 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');
 });
-
-Route::get('password', function() {
-	return bcrypt('unicef@dmin123');
-});

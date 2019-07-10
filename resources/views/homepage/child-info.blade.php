@@ -1,14 +1,12 @@
 <div class="row m-b-lg">
-    <div class="col-lg-5 text-center">
-        <h3>{{ $child->children_name }}</h3>
-
-        <div class="m-b-sm m-t-md">
-            <img alt="image" class="img-circle" src="{{ $child->child_image() }}"
-            style="width: 62px; height: 62px;">
+    <div class="col-lg-4 text-center">
+        <div>
+            <img alt="image" src="{{ $child->child_image() }}"
+            style="width: 100%;height: 110px;">
         </div>
     </div>
-    <div class="col-lg-7">
-        <strong>About</strong>
+    <div class="col-lg-8">
+        <strong>{{ $child->children_name }}</strong>
         <p>
             {{ $child->age }} months old<br />
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
