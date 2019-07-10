@@ -59,3 +59,7 @@ div#vertical-timeline {
     position: relative;
     height: 660px;
 }
+
+.alert-custom {
+    margin: 20px 10px 0 10px;
+}
