@@ -66,7 +66,7 @@
                                 <i class="fa fa-briefcase"></i>
                             </div>
                             <div class="vertical-timeline-content">
-                                <p>Followup Visited</p>
+                                <p>Community Followup Visited</p>
                                 <span class="vertical-date small text-muted"> {{ $community_followup->date }} </span>
                                 <span class="pull-right">
                                 <a href="{{ route('community-followup.edit', $community_followup->id) }}">Edit</a>
