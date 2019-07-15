@@ -11,8 +11,16 @@
 		<div class="form-group">
 			<label>Child</label>
 			<select name="children_id" class="form-control" required>
-				@foreach($children as $child)
-				<option value="{{ $child->id }}" {{ (isset($facility_followup) && $facility_followup->children_id == $child->id) ? ' selected' : '' }}>{{ $child->children_name }}</option>
+				<option value="{{ $children->id }}" selected>{{ $children->children_name }}</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label>Facility</label>
+			<select name="facility_id" class="form-control" required>
+				<option value="">Select Facility</option>
+				@foreach($facilities as $facility)
+				<option value="{{ $facility->id }}" {{ (isset($facility_followup) && $facility_followup->facility_id == $facility->id) ? ' selected' : '' }}>{{ $facility->facility_id }}</option>
 				@endforeach
 			</select>
 		</div>
@@ -36,7 +44,7 @@
 
 		<div class="form-group">
 			<label for="">Age</label>
-			<input type="number" name="age" class="form-control" placeholder="Age" value="{{ isset($facility_followup) ? $facility_followup->age : '' }}">
+			<input type="number" name="age" class="form-control" placeholder="Age" value="{{ isset($facility_followup) ? $facility_followup->age : '' }}" min="0">
 		</div>
 
 		<div class="form-group">
@@ -61,19 +69,19 @@
 	<div class="ibox-content">
 		<div class="form-group">
 			<label for="">MUAC (cm)</label>
-			<input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}">
+			<input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Weight (kg)</label>
-			<input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}">
+			<input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Height (cm)</label>
-			<input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}">
+			<input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">WFH Z Score</label>
-			<input type="number" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}">
+			<input type="number" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
 		</div>
 
 		<div class="form-group">
@@ -100,19 +108,19 @@
 	<div class="ibox-content">
 		<div class="form-group">
 			<label for="">Dirrhoea (no of days)</label>
-			<input type="number" name="medical_history_diarrhoea" class="form-control" placeholder="Dirrhoea (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}">
+			<input type="number" name="medical_history_diarrhoea" class="form-control" placeholder="Dirrhoea (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Vomiting (no of days)</label>
-			<input type="number" name="medical_history_vomiting" class="form-control" placeholder="Vomiting (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_vomiting : '' }}">
+			<input type="number" name="medical_history_vomiting" class="form-control" placeholder="Vomiting (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_vomiting : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Fever (no of days)</label>
-			<input type="number" name="medical_history_fever" class="form-control" placeholder="Fever (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_fever : '' }}">
+			<input type="number" name="medical_history_fever" class="form-control" placeholder="Fever (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_fever : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Cought (no of days)</label>
-			<input type="number" name="medical_history_cough" class="form-control" placeholder="Cought (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}">
+			<input type="number" name="medical_history_cough" class="form-control" placeholder="Cought (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}" min="0">
 		</div>
 		<div class="row">
 			<div class="col-md-6">
@@ -124,7 +132,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="">Others (specific)(no of days)</label>
-					<input type="number" name="medical_history_others" class="form-control" placeholder="Others (specific)(no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_others : '' }}">
+					<input type="number" name="medical_history_others" class="form-control" placeholder="Others (specific)(no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_others : '' }}" min="0">
 				</div>
 			</div>
 		</div>
@@ -144,11 +152,11 @@
 	<div class="ibox-content">
 		<div class="form-group">
 			<label for="">Temperature (oC)</label>
-			<input type="number" name="temperature" class="form-control" placeholder="Temperature (oC)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}">
+			<input type="number" name="temperature" class="form-control" placeholder="Temperature (oC)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Respiratory rate (breaths/min)</label>
-			<input type="number" name="respiratory_rate" class="form-control" placeholder="Respiratory rate (breaths/min)" value="{{ isset($facility_followup) ? $facility_followup->respiratory_rate : '' }}">
+			<input type="number" name="respiratory_rate" class="form-control" placeholder="Respiratory rate (breaths/min)" value="{{ isset($facility_followup) ? $facility_followup->respiratory_rate : '' }}" min="0">
 		</div>
 
 		<div class="form-group">
@@ -288,27 +296,27 @@
 	<div class="ibox-content">
 		<div class="form-group">
 			<label for="">No of RUTF</label>
-			<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}">
+			<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">No of RUSF</label>
-			<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}">
+			<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">WSB++ (kg)</label>
-			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}">
+			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">WSB+ (kg)</label>
-			<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}">
+			<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Oil (kg)</label>
-			<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}">
+			<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Others</label>
-			<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}">
+			<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
 		</div>
 	</div>
 </div>
@@ -365,23 +373,23 @@
 	<div class="ibox-content">
 		<div class="form-group">
 			<label for="">Discharge weight (kg)</label>
-			<input type="number" name="discharge_weight_kg" class="form-control" placeholder="Discharge weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->discharge_weight_kg : '' }}">
+			<input type="number" name="discharge_weight_kg" class="form-control" placeholder="Discharge weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->discharge_weight_kg : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Lowest weight (kg)</label>
-			<input type="number" name="lowest_weight_kg" class="form-control" placeholder="Lowest weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->lowest_weight_kg : '' }}">
+			<input type="number" name="lowest_weight_kg" class="form-control" placeholder="Lowest weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->lowest_weight_kg : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Duration between lowest weight and discharged weight (days)</label>
-			<input type="number" name="duration_between_lowest_weight_and_discharged_weight_days" class="form-control" placeholder="Duration between lowest weight and discharged weight (days)" value="{{ isset($facility_followup) ? $facility_followup->duration_between_lowest_weight_and_discharged_weight_days : '' }}">
+			<input type="number" name="duration_between_lowest_weight_and_discharged_weight_days" class="form-control" placeholder="Duration between lowest weight and discharged weight (days)" value="{{ isset($facility_followup) ? $facility_followup->duration_between_lowest_weight_and_discharged_weight_days : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Gain of weight</label>
-			<input type="number" name="gain_of_weight" class="form-control" placeholder="Gain of weight" value="{{ isset($facility_followup) ? $facility_followup->gain_of_weight : '' }}">
+			<input type="number" name="gain_of_weight" class="form-control" placeholder="Gain of weight" value="{{ isset($facility_followup) ? $facility_followup->gain_of_weight : '' }}" min="0">
 		</div>
 		<div class="form-group">
 			<label for="">Duration between discharged and admission days (LOS) (days)</label>
-			<input type="number" name="duration_between_discharged_and_admission_days" class="form-control" placeholder="Duration between discharged and admission days (LOS) (days)" value="{{ isset($facility_followup) ? $facility_followup->duration_between_discharged_and_admission_days : '' }}">
+			<input type="number" name="duration_between_discharged_and_admission_days" class="form-control" placeholder="Duration between discharged and admission days (LOS) (days)" value="{{ isset($facility_followup) ? $facility_followup->duration_between_discharged_and_admission_days : '' }}" min="0">
 		</div>
 	</div>
 </div>

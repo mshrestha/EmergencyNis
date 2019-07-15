@@ -52,16 +52,15 @@ class FacilityFollowupController extends Controller
      */
     public function show($id)
     {
-        $facility = Facility::findOrFail($id);
-        $children = Child::orderBy('created_at', 'desc')->get();
+        $children = Child::findOrFail($id);
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
 
-        return view('facility_followup.create', compact('facility', 'children'));
+        return view('facility_followup.create', compact('facilities', 'children'));
     }
 
     public function save($id, Request $request) {
         try {
             $data = $request->all();
-            $data['facility_id'] = $id;
             $data['date'] = date('Y-m-d');
             $data['referal_slip_no'] = time(). rand(1000,9999);
 
@@ -86,9 +85,10 @@ class FacilityFollowupController extends Controller
     public function edit($id)
     {
         $facility_followup = FacilityFollowup::findOrFail($id);
-        $children = Child::orderBy('created_at', 'desc')->get();
+        $children = Child::findOrFail($facility_followup->children_id);
+        $facilities = Facility::where('id', $facility_followup->facility_id)->get();
 
-        return view('facility_followup.edit', compact('facility_followup', 'children'));
+        return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities'));
     }
 
     /**

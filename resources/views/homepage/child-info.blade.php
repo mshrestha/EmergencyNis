@@ -14,50 +14,108 @@
         </p>
         <a href="{{ route('community-followup.show', $child->id) }}">
             <button type="button" class="btn btn-primary btn-sm btn-block">
-                <i class="fa fa-plus"></i> Add Follow Up
+                <i class="fa fa-plus"></i> Add Community Follow Up
+            </button>
+        </a>
+        <a href="{{ route('facility-followup.show', $child->id) }}">
+            <button type="button" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">
+                <i class="fa fa-plus"></i> Add Facility Follow Up
             </button>
         </a>
     </div>
 </div>
-@if($child_followups->count())
+
 <div class="client-detail">
     <div class="full-height-scroll">
-        <strong>Nutrition Report</strong>
-        <ul class="list-group clear-list">
-            <li class="list-group-item fist-item">
-                <span class="pull-right"> {{ $child_followups[0]->exclusive_breastfeeding ? 'Yes' : 'No' }} </span>
-                Exclusive Breastfeeding
-            </li>
-            <li class="list-group-item">
-                <span class="pull-right"> {{ $child_followups[0]->received_all_epi_vaccination ? 'Yes' : 'No' }} </span>
-                Received all EPI
-            </li>
-            <li class="list-group-item">
-                <span class="pull-right"> {{ $child_followups[0]->edema ? 'Yes' : 'No' }} </span>
-                Edema
-            </li>
-            <li class="list-group-item">
-                <span class="pull-right"> {{ $child_followups[0]->nutritional_status }} </span>
-                Nutritional Status
-            </li>
+        <ul class="nav nav-tabs" style="font-size: 10px;">
+            <li class="active"><a data-toggle="tab" href="#followup-1">Community Followup</a></li>
+            <li><a data-toggle="tab" href="#followup-2">Facility Followup</a></li>
         </ul>
-        <strong>Timeline activity</strong>
-        <div id="vertical-timeline" class="vertical-container dark-timeline">
-            @foreach($child_followups as $children_followup)
-            <div class="vertical-timeline-block">
-                <div class="vertical-timeline-icon gray-bg">
-                    <i class="fa fa-briefcase"></i>
+        <div class="tab-content">
+            <div id="followup-1" class="tab-pane active">
+                @if($community_followups->count())
+                <div style="margin-top: 10px;">
+                    <strong>Nutrition Report</strong>
+                    <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                            <span class="pull-right"> {{ $community_followups[0]->exclusive_breastfeeding ? 'Yes' : 'No' }} </span>
+                            Exclusive Breastfeeding
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $community_followups[0]->received_all_epi_vaccination ? 'Yes' : 'No' }} </span>
+                            Received all EPI
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $community_followups[0]->edema ? 'Yes' : 'No' }} </span>
+                            Edema
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $community_followups[0]->nutritional_status }} </span>
+                            Nutritional Status
+                        </li>
+                    </ul>
+
+                    <div id="vertical-timeline" class="vertical-container dark-timeline">
+                        @foreach($community_followups as $community_followup)
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon gray-bg">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <div class="vertical-timeline-content">
+                                <p>Followup Visited</p>
+                                <span class="vertical-date small text-muted"> {{ $community_followup->date }} </span>
+                                <span class="pull-right">
+                                <a href="{{ route('community-followup.edit', $community_followup->id) }}">Edit</a>
+                                </span>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
-                <div class="vertical-timeline-content">
-                    <p>Followup Visited</p>
-                    <span class="vertical-date small text-muted"> {{ $children_followup->date }} </span>
-                    <span class="pull-right">
-                    <a href="{{ route('community-followup.edit', $children_followup->id) }}">Edit</a>
-                    </span>
-                </div>
+                @endif
             </div>
-            @endforeach
+            <div id="followup-2" class="tab-pane">
+                @if($facility_followups->count())
+                <div style="margin-top: 10px;">
+                    <strong>Latest Medical History</strong>
+                    <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                            <span class="pull-right"> {{ $facility_followups[0]->medical_history_diarrhoea }} </span>
+                            Dirrhoea (no of days)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $facility_followups[0]->medical_history_vomiting }} </span>
+                            Vomiting (no of days)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $facility_followups[0]->medical_history_fever }} </span>
+                            Fever (no of days)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $facility_followups[0]->medical_history_cough }} </span>
+                            Cought (no of days)
+                        </li>
+                    </ul>
+                    <div id="vertical-timeline" class="vertical-container dark-timeline">
+                        @foreach($facility_followups as $facility_followup)
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon gray-bg">
+                                <i class="fa fa-briefcase"></i>
+                            </div>
+                            <div class="vertical-timeline-content">
+                                <p>Visited {{ $facility_followup->facility->facility_id }}</p>
+                                <span class="vertical-date small text-muted"> {{ $facility_followup->date }} </span>
+                                <span class="pull-right">
+                                <a href="{{ route('facility-followup.edit', $facility_followup->id) }}">Edit</a>
+                                </span>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
         </div>
+        
     </div>
 </div>
-@endif

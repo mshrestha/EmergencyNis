@@ -1,9 +1,6 @@
 <div>
     <div class="m-b-md">
         <h2>{{ $facility->facility_id }} </h2>
-        <div>
-            <a href="{{ route('facility-followup.show', $facility->id) }}" class="btn btn-primary btn-sm" style="width: 100%"><i class="fa fa-plus"></i> Add Facility Followup</a>
-        </div>
     </div>
     <div class="facility-client-detail">
         <div class="full-height-scroll">
@@ -36,7 +33,7 @@
                         <i class="fa fa-briefcase"></i>
                     </div>
                     <div class="vertical-timeline-content">
-                        <p style="margin-top: 0;">Facility Followup</p>
+                        <p style="margin-top: 0;">{{ $facility_followup->child->children_name }}</p>
                         <span class="vertical-date small text-muted">{{ $facility_followup->date }}</span>
                         <span class="pull-right">
                             <a href="{{ route('facility-followup.edit', $facility_followup->id) }}">Edit</a>

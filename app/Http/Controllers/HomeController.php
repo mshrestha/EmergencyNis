@@ -20,9 +20,10 @@ class HomeController extends Controller
 
     public function childInfo($child_id) {
     	$child = Child::findOrFail($child_id);
-    	$child_followups = CommunityFollowup::where('children_id', $child_id)->get();
-    	
-    	return view('homepage.child-info', compact('child', 'child_followups'))->render();
+    	$community_followups = CommunityFollowup::where('children_id', $child_id)->orderBy('created_at', 'desc')->get();
+    	$facility_followups = FacilityFollowup::where('children_id', $child_id)->orderBy('created_at', 'desc')->get();
+
+    	return view('homepage.child-info', compact('child', 'community_followups', 'facility_followups'))->render();
     }
 
     public function facilityInfo($facility_id) {
