@@ -12,16 +12,20 @@
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
             Date of Birth: {{ $child->date_of_birth }}
         </p>
+        @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
         <a href="{{ route('community-followup.show', $child->id) }}">
             <button type="button" class="btn btn-primary btn-sm btn-block">
                 <i class="fa fa-plus"></i> Add Community Follow Up
             </button>
         </a>
+        @endif
+        @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
         <a href="{{ route('facility-followup.show', $child->id) }}">
             <button type="button" class="btn btn-primary btn-sm btn-block" style="margin-top: 10px;">
                 <i class="fa fa-plus"></i> Add Facility Follow Up
             </button>
         </a>
+        @endif
     </div>
 </div>
 
