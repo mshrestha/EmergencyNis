@@ -1,9 +1,9 @@
 --
 -- Dumping data for table `users`
 --
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', 'admin@ens.com', '2019-07-09 07:20:53', '$2y$10$H2cy6xmnnyyC8MjnF0hsf.yKmp8oL4epUEUSyCz2dsvkCXO3HN.XW', NULL, '2019-07-09 07:20:58', '2019-07-09 07:21:01'),
-(2, 'Nutrition Admin', 'nutrition@unicef.org', NULL, '$2y$10$dHq13P2.dS1Jm9fgIIzpDuzVzY3q1XgyeaT3GJryxFzU8.QAaZ.8i', NULL, '2019-07-09 18:15:00', '2019-07-09 18:15:00');
+INSERT INTO `users` (`id`, `role`, `category`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'both', 'Admin', 'admin@ens.com', '2019-07-09 07:20:53', '$2y$10$H2cy6xmnnyyC8MjnF0hsf.yKmp8oL4epUEUSyCz2dsvkCXO3HN.XW', NULL, '2019-07-09 07:20:58', '2019-07-09 07:21:01'),
+(2, 'admin', 'both', 'Nutrition Admin', 'nutrition@unicef.org', NULL, '$2y$10$dHq13P2.dS1Jm9fgIIzpDuzVzY3q1XgyeaT3GJryxFzU8.QAaZ.8i', NULL, '2019-07-09 18:15:00', '2019-07-09 18:15:00');
 
 
 --
