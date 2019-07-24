@@ -13,7 +13,7 @@
 		<select name="camp_id" class="form-control" required>
 			<option value="">Select Camp</option>
 			@foreach($camps as $camp)
-			<option value="{{ $camp->id }}" {{ (isset($child) && $child->camp_id == $camp->id) ? ' selected' : '' }}>{{ $camp->name }}</option>
+			<option value="{{ $camp->id }}" {{ (isset($child) && $child->camp_id == $camp->id) ? ' selected' : '' }}>{{ $camp->name }} - {{ $camp->block_letter }}</option>
 			@endforeach
 		</select>
 	</div>
