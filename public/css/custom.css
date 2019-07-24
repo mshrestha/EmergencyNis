@@ -18,12 +18,12 @@ div#wrapper {
 }
 
 .nav-header {
-    background-color: #99c3f7;
+    background-color: #6eafff;
 	background-image: unset;
 }
 
 body.mini-navbar .nav-header {
-    background-color: #99c3f7;
+    background-color: #6eafff;
 }
 
 .btn-primary {

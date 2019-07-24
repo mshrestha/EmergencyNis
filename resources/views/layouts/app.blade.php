@@ -33,7 +33,7 @@
 							<a href="{{ route('homepage') }}">
 								<span class="clear" style="color: #ffffff;">
 									<span class="block m-t-md"><strong class="font-bold">UNICEF Bangladesh</strong></span>
-									<span class="text-muted text-xs block">{{ Auth::user()->name }}</span> 
+									<span class="text-xs block">{{ Auth::user()->name }}</span> 
 								</span> 
 							</a>
 						</div>
