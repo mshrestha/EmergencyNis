@@ -44,7 +44,7 @@
 						</div>
 					</li>
 					@if(Auth::user()->role == 'admin')
-					<li>
+					<li class="{{ request()->segment(1) == 'user' ? 'active' : '' }}">
                         <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-users"></i> <span class="nav-label">Manage Users</span></a>
                     </li>
 					@endif
