@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Child;
+use App\Models\Camp;
 
 use Illuminate\Http\Request;
 // use Intervention\Image\Facades\Image;
@@ -30,7 +31,9 @@ class ChildrenController extends Controller
      */
     public function create()
     {
-        return view('children.create');
+        $camps = Camp::orderBy('id', 'asc')->get();
+
+        return view('children.create', compact('camps'));
     }
 
     /**
@@ -97,8 +100,9 @@ class ChildrenController extends Controller
     public function edit($id)
     {
         $child = Child::findOrFail($id);
+        $camps = Camp::orderBy('id', 'asc')->get();
 
-        return view('children.edit', compact('child'));
+        return view('children.edit', compact('child', 'camps'));
     }
 
     /**

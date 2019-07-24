@@ -8,6 +8,16 @@
 		value="{{ isset($child) ? $child->mrc_no : '' }}" required>
 	</div>
 </div>
+<div class="form-group"><label class="col-sm-3 control-label">Camp</label>
+	<div class="col-sm-9">
+		<select name="camp_id" class="form-control" required>
+			<option value="">Select Camp</option>
+			@foreach($camps as $camp)
+			<option value="{{ $camp->id }}" {{ (isset($child) && $child->camp_id == $camp->id) ? ' selected' : '' }}>{{ $camp->name }}</option>
+			@endforeach
+		</select>
+	</div>
+</div>
 <div class="hr-line-dashed"></div>
 
 <div class="form-group"><label class="col-sm-3 control-label">Sub Block Number</label>
@@ -80,7 +90,7 @@
 <div class="form-group"><label class="col-sm-3 control-label">Picture</label>
 	<div class="col-sm-9">
 		<button type="button" style="display:block; height:30px;" onclick="document.getElementById('getPicture').click()">
-			{{ isset($child) ? $child->picture : 'Select image' }}
+			{{ (isset($child) && $child->picture) ? $child->picture : 'Select image' }}
 		</button>
 		<input type="file" class="form-control" name="picture" id="getPicture" style="display: none;">
 	</div>

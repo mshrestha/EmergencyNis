@@ -17,6 +17,8 @@ class CreateChildrenTable extends Migration
             $table->bigIncrements('id');
             $table->string('mnr_no')->nullable();
             $table->string('mrc_no')->nullable();
+            $table->integer('camp_id')->unsigned()->nullable();
+            $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
             $table->date('date')->nullable();
             $table->string('sub_block_no')->nullable();
             $table->string('hh_no')->nullable();
