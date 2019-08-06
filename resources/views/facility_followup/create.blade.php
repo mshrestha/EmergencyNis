@@ -3,7 +3,7 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-lg-12">
 			<form action="{{ route('facility-followup.save', $children->id) }}" method="post">
 				@csrf
 				@include('facility_followup.partials.fields')

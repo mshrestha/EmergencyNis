@@ -3,6 +3,64 @@
 @section('content')
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-success pull-right">Monthly</span>
+                                <h5>Admissions</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">376</h1>
+                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                                <small>children</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-info pull-right">August</span>
+                                <h5>Duration for treatment</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">7.38</h1>
+                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                <small>weeks</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-danger pull-right">Low value</span>
+                                <h5>Average Weight at dismissal</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">6.2</h1>
+                                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
+                                <small>Kgs</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Average Weight Gain (Kgs)</h5>
+                        <div class="ibox-tools">
+                            
+                        </div>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <div class="flot-chart m-t-lg" style="height: 55px;">
+                            <div class="flot-chart-content" id="flot-chart1" style="padding: 0px; position: relative;"><canvas class="flot-base" width="713" height="110" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 356.656px; height: 55px;"></canvas><canvas class="flot-overlay" width="713" height="110" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 356.656px; height: 55px;"></canvas></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    <div class="row">
         <div class="col-sm-8">
             <div class="ibox">
                 <div class="ibox-content">                    
@@ -159,10 +217,77 @@
 @endsection
 
 @push('scripts')
+ <!-- Flot -->
+    <script src="js/plugins/flot/jquery.flot.js"></script>
+    <script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="js/plugins/flot/jquery.flot.spline.js"></script>
+    <script src="js/plugins/flot/jquery.flot.resize.js"></script>
+    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="js/plugins/flot/jquery.flot.symbol.js"></script>
+    <script src="js/plugins/flot/curvedLines.js"></script>
+
+    <!-- Peity -->
+    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="js/demo/peity-demo.js"></script>
+
+    <!-- Jvectormap -->
+    <script src="js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+    <!-- Sparkline -->
+    <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Sparkline demo data  -->
+    <script src="js/demo/sparkline-demo.js"></script>
+
+    <!-- ChartJS-->
+    <script src="js/plugins/chartJs/Chart.min.js"></script>
 <script>
+    
     $(document).ready(function() {
         var first_child = {{ isset($children[0]) ? $children[0]->id : '' }}
         load_child(first_child);
+    var d1 = [[1262304000000, 6], [1264982400000, 3057], [1267401600000, 20434], [1270080000000, 31982], [1272672000000, 26602], [1275350400000, 27826], [1277942400000, 29302], [1280620800000, 34237], [1283299200000, 41004], [1285891200000, 51044], [1288569600000, 55577], [1291161600000, 59295]];
+           
+            var data1 = [
+                { label: "Avg. Weight Gain", data: d1, color: '#17a084'},
+              
+            ];
+            $.plot($("#flot-chart1"), data1, {
+                xaxis: {
+                    tickDecimals: 0
+                },
+                series: {
+                    lines: {
+                        show: true,
+                        fill: true,
+                        fillColor: {
+                            colors: [{
+                                opacity: 1
+                            }, {
+                                opacity: 1
+                            }]
+                        },
+                    },
+                    points: {
+                        width: 0.1,
+                        show: false
+                    },
+                },
+                grid: {
+                    show: false,
+                    borderWidth: 1
+                },
+                legend: {
+                    show: false,
+                }
+            });
+
+           
+
+
+            
+
     });
 
     function load_child(child) {
