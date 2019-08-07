@@ -64,10 +64,16 @@
 <div class="ibox float-e-margins">
 	<div class="ibox-title">
 		<h5>Anthropometric Measurement</h5>
+        
 		<div class="ibox-tools">
-			<a class="collapse-link">
-				<i class="fa fa-chevron-up"></i>
+			<a class="dropdown-toggle" data-toggle="dropdown">
+				<small>Aug 8 2019 <i class="fa fa-pencil"></i></small>
 			</a>
+            <ul class="dropdown-menu dropdown-user">
+                                            <li> Date: <input type="date" name="date" value="07/08/2019"> 
+                                            </li>
+                                            
+                                        </ul>
 		</div>
 	</div>
 	<div class="ibox-content">
@@ -101,6 +107,19 @@
 </div>
     <button class="btn btn-success">Save</button>
 </div>
+    <div class="col-sm-4">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="tab-content">
+                        <div id="contact-1" class="tab-pane active">
+                            <div id="child-info">
+                                Loading ...
+                            </div>
+                        </div> <!-- tab-pane -->
+                    </div> <!-- tab-content -->
+                </div> <!-- ibox-content -->
+            </div> <!-- ibox -->
+        </div> <!-- col -->
 </div>
 
 <div class="row">

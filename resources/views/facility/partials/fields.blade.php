@@ -1,7 +1,7 @@
 <div class="form-group"><label class="col-sm-3 control-label">Facility ID</label>
 	<div class="col-sm-9"><input type="text" name="facility_id" class="form-control" placeholder="Example - NS-C1E-XXXX/XXX-XXXX" required value="{{ isset($facility) ? $facility->facility_id : '' }}"></div>
 </div>
-<div class="form-group"><label class="col-sm-3 control-label">Sattlement</label>
+<div class="form-group"><label class="col-sm-3 control-label">Settlement</label>
 	<div class="col-sm-9">
 		<select name="camp_id" class="form-control" required>
 			<option value="">Select camp</option>

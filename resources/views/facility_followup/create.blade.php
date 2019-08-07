@@ -15,3 +15,20 @@
 	</div> <!-- row -->
 </div> <!-- wrapper -->
 @endsection
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        load_child({{$children->id}})
+    })
+function load_child(child) {
+        $.ajax({
+            url: '/child-info/'+ child,
+            type: 'get',
+            success: function(res) {
+                $('#child-info').html(res);
+            }
+        });
+    }
+</script>
+@endpush

@@ -18,10 +18,10 @@
 	<link href="{{ asset('css/custom.css')}}" rel="stylesheet">
 	@stack('styles')
 </head>
-<body class="pace-done mini-navbar">
+<body class="pace-done">
 	<div id="wrapper">
 		<nav class="navbar-default navbar-static-side" role="navigation">
-			<div class="sidebar-collapse">
+			<div class="sidebar">
 				<ul class="nav metismenu" id="side-menu">
 					<li class="nav-header">
 						<div class="dropdown profile-element"> 
@@ -47,7 +47,16 @@
 					<li class="{{ request()->segment(1) == 'user' ? 'active' : '' }}">
                         <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-users"></i> <span class="nav-label">Manage Users</span></a>
                     </li>
+                    <li class="{{ request()->segment(2) == 'user' ? 'active' : '' }}">
+                        <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-home"></i> <span class="nav-label">Manage Facilities</span></a>
+                    </li>
+                    <li class="{{ request()->segment(3) == 'user' ? 'active' : '' }}">
+                        <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span class="nav-label">Generate Reports</span></a>
+                    </li>
 					@endif
+                    <li class="{{ request()->segment(3) == 'user' ? 'active' : '' }}">
+                        <a href="{{ route('children.create') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span class="nav-label">Register New Child</span></a>
+                    </li>
 				</ul>
 
 			</div>
