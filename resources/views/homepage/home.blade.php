@@ -19,18 +19,61 @@
                     <div class="col-lg-3">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <span class="label label-info pull-right">August</span>
-                                <h5>Average Length of Stay</h5>
+                                <span class="label label-info pull-right">Normal</span>
+                                <h5>Cure Rate</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">7.38</h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small>weeks</small>
+                                <h1 class="no-margins">96%</h1>
+                                <div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>
+                                <small>August</small>
                             </div>
                         </div>
                     </div>
                     
                     <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-danger pull-right">Low</span>
+                                <h5>Death Rate</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">1%</h1>
+                                <div class="stat-percent font-bold text-danger">0.5% <i class="fa fa-level-down"></i></div>
+                                <small>August</small>
+                            </div>
+                        </div>
+                    </div>
+            
+        
+        <!--Second Line -->
+        
+        <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-success pull-right">High</span>
+                                <h5>Default Rate</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">2%</h1>
+                                <div class="stat-percent font-bold text-success">0.5% <i class="fa fa-bolt"></i></div>
+                                <small>August</small>
+                            </div>
+                        </div>
+                    </div>
+        <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-success pull-right">High</span>
+                                <h5>Non Respondent Rate</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">1%</h1>
+                                <div class="stat-percent font-bold text-success">0.5% <i class="fa fa-bolt"></i></div>
+                                <small>August</small>
+                            </div>
+                        </div>
+                    </div>
+        <div class="col-lg-3">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <span class="label label-danger pull-right">Low</span>
@@ -44,6 +87,21 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-info pull-right">August</span>
+                                <h5>Average Length of Stay</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">7.38</h1>
+                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                <small>weeks</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+            <div class="col-lg-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>Average Weight Gain (Kgs)</h5>
@@ -59,6 +117,8 @@
 
                 </div>
             </div>
+        
+        <!-- End of Consoles -->
         </div>
     <div class="row">
         <div class="col-sm-8">

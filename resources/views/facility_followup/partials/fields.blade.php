@@ -107,22 +107,20 @@
 </div>
     <button class="btn btn-success">Save</button>
 </div>
-    <div class="col-sm-4">
-            <div class="ibox ">
-                <div class="ibox-content">
-                    <div class="tab-content">
-                        <div id="contact-1" class="tab-pane active">
-                            <div id="child-info">
-                                Loading ...
-                            </div>
-                        </div> <!-- tab-pane -->
-                    </div> <!-- tab-content -->
-                </div> <!-- ibox-content -->
-            </div> <!-- ibox -->
-        </div> <!-- col -->
-</div>
+<div class="col-lg-4">
+        <div class="ibox ">
+            <div class="ibox-content">
+                <div class="tab-content">
+                    <div id="contact-1" class="tab-pane active">
+                        <div id="child-info">
+                            Loading ...
+                        </div>
+                    </div> <!-- tab-pane -->
+                </div> <!-- tab-content -->
+            </div> <!-- ibox-content -->
+        </div> <!-- ibox -->
+    </div> <!-- col -->
 
-<div class="row">
     <div class="col-lg-4">
         <div class="ibox float-e-margins collapsed">
             <div class="ibox-title">
