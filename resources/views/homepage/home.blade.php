@@ -20,7 +20,7 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <span class="label label-info pull-right">August</span>
-                                <h5>Duration for treatment</h5>
+                                <h5>Average Length of Stay</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">7.38</h1>
@@ -74,21 +74,11 @@
                             <div id="tab-1" class="tab-pane {{ request()->get('tab') !== 'facility' ? ' active' : '' }}">
                                 <div class="full-height-scroll">
                                     <div class="row" style="margin-top: 15px;">
-                                        <div class="col-md-9">
-                                            <form action="{{ route('child-search') }}" method="get">
-                                                @csrf
-                                                <div class="input-group">
-                                                    <input type="text" placeholder="Search child (Child name)" class="input form-control" name="q" value="{{ request()->get('tab') !== 'facility' ? request()->get('q') : '' }}">
-                                                    <span class="input-group-btn">
-                                                        <button type="submit" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>
-                                                    </span>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-3" style="padding-left: 0;">
+                                        
+                                        <div class="col-md-3 pull-right">
                                             <div class="form-group">
                                                 <a href="{{ route('children.create') }}">
-                                                    <button type="button" class="form-control btn btn-danger">
+                                                    <button type="button" class="btn btn-primary btn-sm btn-block pull-right">
                                                         <i class="fa fa-plus"></i> Register New Child
                                                     </button>
                                                 </a> 
@@ -100,7 +90,7 @@
                                         All child needs to be registered in order to use this system.
                                     </p>
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered table-hover">
+                                        <table class="table dataTables table-striped table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>Image</th>
@@ -225,6 +215,8 @@
     <script src="js/plugins/flot/jquery.flot.pie.js"></script>
     <script src="js/plugins/flot/jquery.flot.symbol.js"></script>
     <script src="js/plugins/flot/curvedLines.js"></script>
+    
+    <script src="js/plugins/dataTables/datatables.min.js"></script>
 
     <!-- Peity -->
     <script src="js/plugins/peity/jquery.peity.min.js"></script>
@@ -284,6 +276,30 @@
             });
 
            
+
+ $('.dataTables').DataTable({
+                pageLength: 25,
+                responsive: true,
+                dom: '<"html5buttons"B>lTfgitp',
+                buttons: [
+                    { extend: 'copy'},
+                    {extend: 'csv'},
+                    {extend: 'excel', title: 'RegisteredChildren'},
+                    {extend: 'pdf', title: 'RegisteredChildren'},
+
+                    {extend: 'print',
+                     customize: function (win){
+                            $(win.document.body).addClass('white-bg');
+                            $(win.document.body).css('font-size', '10px');
+
+                            $(win.document.body).find('table')
+                                    .addClass('compact')
+                                    .css('font-size', 'inherit');
+                    }
+                    }
+                ]
+
+            });
 
 
             

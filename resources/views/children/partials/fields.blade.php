@@ -1,11 +1,6 @@
-<div class="form-group"><label class="col-sm-3 control-label">MNR No</label>
+<div class="form-group"><label class="col-sm-3 control-label">Unique ID</label>
 	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="MNR No" 
 		value="{{ isset($child) ? $child->mnr_no : '' }}" required>
-	</div>
-</div>
-<div class="form-group"><label class="col-sm-3 control-label">MRC No</label>
-	<div class="col-sm-9"><input type="text" name="mrc_no" class="form-control" placeholder="MRC No"
-		value="{{ isset($child) ? $child->mrc_no : '' }}" required>
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Camp</label>
