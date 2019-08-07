@@ -33,7 +33,7 @@
                     <div class="col-lg-3">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <span class="label label-danger pull-right">Low value</span>
+                                <span class="label label-danger pull-right">Low</span>
                                 <h5>Average Weight at dismissal</h5>
                             </div>
                             <div class="ibox-content">
