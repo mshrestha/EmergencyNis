@@ -32,53 +32,82 @@
 <div class="client-detail">
     <div class="full-height-scroll">
         <ul class="nav nav-tabs" style="font-size: 10px;">
-            <li class="active"><a data-toggle="tab" href="#followup-1">Community Followup</a></li>
-            <li><a data-toggle="tab" href="#followup-2">Facility Followup</a></li>
+            <li class="active"><a data-toggle="tab" href="#followup-1">Followup</a></li>
         </ul>
         <div class="tab-content">
             <div id="followup-1" class="tab-pane active">
-                @if($community_followups->count())
+                @if(count($followups))
                 <div style="margin-top: 10px;">
                     <strong>Nutrition Report</strong>
+                    @if(isset($followups[0]['facility_id']))
                     <ul class="list-group clear-list">
                         <li class="list-group-item fist-item">
-                            <span class="pull-right"> {{ $community_followups[0]->exclusive_breastfeeding ? 'Yes' : 'No' }} </span>
+                            <span class="pull-right"> {{ $followups[0]['medical_history_diarrhoea'] }} </span>
+                            Dirrhoea (no of days)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $followups[0]['medical_history_vomiting'] }} </span>
+                            Vomiting (no of days)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $followups[0]['medical_history_fever'] }} </span>
+                            Fever (no of days)
+                        </li>
+                        <li class="list-group-item">
+                            <span class="pull-right"> {{ $followups[0]['medical_history_cough'] }} </span>
+                            Cought (no of days)
+                        </li>
+                    </ul>
+                    @else
+                    <ul class="list-group clear-list">
+                        <li class="list-group-item fist-item">
+                            <span class="pull-right"> {{ $followups[0]['exclusive_breastfeeding'] ? 'Yes' : 'No' }} </span>
                             Exclusive Breastfeeding
                         </li>
                         <li class="list-group-item">
-                            <span class="pull-right"> {{ $community_followups[0]->received_all_epi_vaccination ? 'Yes' : 'No' }} </span>
+                            <span class="pull-right"> {{ $followups[0]['received_all_epi_vaccination'] ? 'Yes' : 'No' }} </span>
                             Received all EPI
                         </li>
                         <li class="list-group-item">
-                            <span class="pull-right"> {{ $community_followups[0]->edema ? 'Yes' : 'No' }} </span>
+                            <span class="pull-right"> {{ $followups[0]['edema'] ? 'Yes' : 'No' }} </span>
                             Edema
                         </li>
                         <li class="list-group-item">
-                            <span class="pull-right"> {{ $community_followups[0]->nutritional_status }} </span>
+                            <span class="pull-right"> {{ $followups[0]['nutritional_status'] }} </span>
                             Nutritional Status
                         </li>
                     </ul>
-
+                    @endif
                     <div id="vertical-timeline" class="vertical-container dark-timeline">
-                        @foreach($community_followups as $community_followup)
+                        @foreach($followups as $followup)
                         <div class="vertical-timeline-block">
                             <div class="vertical-timeline-icon gray-bg">
                                 <i class="fa fa-briefcase"></i>
                             </div>
+                            @if(isset($followup['facility_id']))
                             <div class="vertical-timeline-content">
-                                <p>Community Followup Visited</p>
-                                <span class="vertical-date small text-muted"> {{ $community_followup->date }} </span>
+                                <p>Visited {{ $followup['facility']['facility_id'] }}</p>
+                                <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span>
                                 <span class="pull-right">
-                                <a href="{{ route('community-followup.edit', $community_followup->id) }}">Edit</a>
+                                <a href="{{ route('facility-followup.edit', $followup['id']) }}">Edit</a>
                                 </span>
                             </div>
+                            @else
+                            <div class="vertical-timeline-content">
+                                <p>Visited Community Followup</p>
+                                <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span>
+                                <span class="pull-right">
+                                <a href="{{ route('community-followup.edit', $followup['id']) }}">Edit</a>
+                                </span>
+                            </div>
+                            @endif
                         </div>
                         @endforeach
                     </div>
                 </div>
                 @endif
             </div>
-            <div id="followup-2" class="tab-pane">
+            {{-- <div id="followup-2" class="tab-pane">
                 @if($facility_followups->count())
                 <div style="margin-top: 10px;">
                     <strong>Latest Medical History</strong>
@@ -118,7 +147,7 @@
                     </div>
                 </div>
                 @endif
-            </div>
+            </div> --}}
         </div>
         
     </div>

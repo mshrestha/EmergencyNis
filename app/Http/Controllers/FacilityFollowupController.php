@@ -61,7 +61,6 @@ class FacilityFollowupController extends Controller
     public function save($id, Request $request) {
         try {
             $data = $request->all();
-            $data['date'] = date('Y-m-d');
             $data['referal_slip_no'] = time(). rand(1000,9999);
 
             FacilityFollowup::create($data);
