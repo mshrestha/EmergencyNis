@@ -1,5 +1,5 @@
 <div class="form-group"><label class="col-sm-3 control-label">Unique ID</label>
-	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="MNR No" 
+	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="ID Number" 
 		value="{{ isset($child) ? $child->mnr_no : '' }}" required>
 	</div>
 </div>

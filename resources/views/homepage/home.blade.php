@@ -170,12 +170,10 @@
                                                     <td>{{ $child->mnr_no }}</td>
                                                     <td>{{ $child->sex }}</td>
                                                     <td>
-                                                        <a href="{{ route('children.edit', $child->id) }}" class="edit-btn">Edit</a>
-                                                        <form action="{{ route('children.destroy', $child->id) }}" method="post" class="delete-form">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button onclick="return confirm('Are you sure?')" class="delete-btn">Delete</button>
-                                                        </form>
+                                                        <a href="{{ route('children.edit', $child->id) }}" class="edit-btn">
+                                                            <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
+                                                        </a> 
+                                                        
                                                     </td>
                                                 </tr>
                                                 @endforeach
@@ -230,11 +228,15 @@
                                                     <td><i class="fa fa-flag"></i> {{ $facility->program_partner }}</td>
                                                     <td class="client-status"><span class="label label-warning">{{ $facility->service_type }}</span></td>
                                                     <td>
-                                                        <a href="{{ route('facility.edit', $facility->id) }}" class="edit-btn">Edit</a>
+                                                        <a href="{{ route('facility.edit', $facility->id) }}" class="edit-btn">
+                                                        
+                                                        <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
+                                                        </a>
                                                         <form action="{{ route('facility.destroy', $facility->id) }}" method="post" class="delete-form">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button onclick="return confirm('Are you sure?')" class="delete-btn">Delete</button>
+                                                            
+                                                            <button  class="btn btn-danger btn-circle" type="button" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
                                                         </form>
                                                     </td>
                                                 </tr>
