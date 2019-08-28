@@ -8,15 +8,19 @@
 		<select name="camp_id" class="form-control" required>
 			<option value="">Select Camp</option>
 			@foreach($camps as $camp)
-			<option value="{{ $camp->id }}" {{ (isset($child) && $child->camp_id == $camp->id) ? ' selected' : '' }}>{{ $camp->name }} - {{ $camp->block_letter }}</option>
+            
+			<option value="{{ $camp->id }}" 
+                    @if ( $camp->id === 24 ) 
+                        selected 
+                    @endif {{ (isset($child) && $child->camp_id == $camp->id) ? ' selected' : '' }}  >{{ $camp->name }} </option>
 			@endforeach
 		</select>
 	</div>
 </div>
 <div class="hr-line-dashed"></div>
 
-<div class="form-group"><label class="col-sm-3 control-label">Sub Block Number</label>
-	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Sub Block Number"
+<div class="form-group"><label class="col-sm-3 control-label">Block Number</label>
+	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Block Number"
 		value="{{ isset($child) ? $child->sub_block_no : '' }}" required>
 	</div>
 </div>
@@ -28,15 +32,15 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
 	<div class="col-sm-3"><input type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
-		value="{{ isset($child) ? $child->gps_coordinates_lat : '' }}" required>
+		value="{{ isset($child) ? $child->gps_coordinates_lat : '' }}" >
 	</div><div class="col-sm-3"><input type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng" 
-		value="{{ isset($child) ? $child->gps_coordinates_lng : '' }}" required>
+		value="{{ isset($child) ? $child->gps_coordinates_lng : '' }}" >
 	</div>
 </div>
 <div class="hr-line-dashed"></div>
 <div class="form-group"><label class="col-sm-3 control-label">Family Count</label>
 	<div class="col-sm-9"><input type="number" class="form-control" name="family_count_no" placeholder="Family Count" 
-		value="{{ isset($child) ? $child->family_count_no : '' }}" required>
+		value="{{ isset($child) ? $child->family_count_no : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Mother's Name</label>
@@ -62,12 +66,12 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Date of Birth</label>
 	<div class="col-sm-9"><input type="date" class="form-control" name="date_of_birth" 
-		value="{{ isset($child) ? $child->date_of_birth : '' }}" required>
+		value="{{ isset($child) ? $child->date_of_birth : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Age</label>
-	<div class="col-sm-9"><input type="number" class="form-control" name="age" placeholder="Age" 
-		value="{{ isset($child) ? $child->age : '' }}" required>
+	<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age" 
+		value="{{ isset($child) ? $child->age : '' }}" required><span class="small">(months)</span>
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Sex</label>
@@ -79,7 +83,7 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Phone</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="phone" placeholder="Phone" 
-		value="{{ isset($child) ? $child->phone : '' }}" required>
+		value="{{ isset($child) ? $child->phone : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Picture</label>

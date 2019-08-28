@@ -21,6 +21,8 @@ class FacilityFollowupController extends Controller
     public function index()
     {
         //
+        
+        
     }
 
     /**

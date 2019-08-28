@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class ChildrenController extends Controller
 {
-    private $_notify_message = 'Children saved.';
+    private $_notify_message = 'Child information saved successfully.';
     private $_notify_type = 'success';
     private $_children_image_location = 'uploads/children';
 
@@ -50,13 +50,13 @@ class ChildrenController extends Controller
             $image ? $data['picture'] = $image : false ;
             $data['date'] = date('y-m-d');
             
-            Child::create($data);
+            $id = Child::create($data)->id;
         } catch (Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
             $this->_notify_type = 'danger';
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect('facility-followup/'.$id)->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -125,7 +125,7 @@ class ChildrenController extends Controller
             $this->_notify_type = 'danger';
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('register')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);

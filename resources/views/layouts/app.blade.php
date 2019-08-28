@@ -16,6 +16,8 @@
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/style.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/custom.css')}}" rel="stylesheet">
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet' />
 	@stack('styles')
 </head>
 <body class="pace-done">
@@ -48,14 +50,14 @@
                         <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-users"></i> <span class="nav-label">Manage Users</span></a>
                     </li>
                     <li class="{{ request()->segment(2) == 'user' ? 'active' : '' }}">
-                        <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-home"></i> <span class="nav-label">Manage Facilities</span></a>
+                        <a href="{{ route('facility.index') }}" style="color: #fff;"><i class="fa fa-home"></i> <span class="nav-label">Manage Facilities</span></a>
                     </li>
                     <li class="{{ request()->segment(3) == 'user' ? 'active' : '' }}">
                         <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span class="nav-label">Generate Reports</span></a>
                     </li>
 					@endif
                     <li class="{{ request()->segment(3) == 'user' ? 'active' : '' }}">
-                        <a href="{{ route('children.create') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span class="nav-label">Register New Child</span></a>
+                        <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span class="nav-label">Register</span></a>
                     </li>
 				</ul>
 

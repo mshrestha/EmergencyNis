@@ -1,68 +1,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<div class="row">
-			<div class="col-lg-6">
-				<div class="ibox float-e-margins">
-					<div class="ibox-title">
-						<h5>General Information</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label>Child</label>
-							<select name="children_id" class="form-control" required>
-								<option value="{{ $children->id }}" selected>{{ $children->children_name }}</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label>Facility</label>
-							<select name="facility_id" class="form-control" required>
-								<option value="">Select Facility</option>
-								@foreach($facilities as $facility)
-								<option value="{{ $facility->id }}" {{ (isset($facility_followup) && $facility_followup->facility_id == $facility->id) ? ' selected' : '' }}>{{ $facility->facility_id }}</option>
-								@endforeach
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label>Refered by</label>
-							<select name="refered_by" class="form-control">
-								<option value="">Select refered by</option>
-								<option value="CNV" {{ (isset($facility_followup) && $facility_followup->refered_by == 'CNV') ? ' selected' : '' }}>CNV</option>
-								<option value="BSFP" {{ (isset($facility_followup) && $facility_followup->refered_by == 'BSFP') ? ' selected' : '' }}>BSFP</option>
-								<option value="TSFP" {{ (isset($facility_followup) && $facility_followup->refered_by == 'TSFP') ? ' selected' : '' }}>TSFP</option>
-								<option value="Other service center" {{ (isset($facility_followup) && $facility_followup->refered_by == 'Other service center') ? ' selected' : '' }}>Other service center</option>
-								<option value="Self" {{ (isset($facility_followup) && $facility_followup->refered_by == 'Self') ? ' selected' : '' }}>Self</option>
-								<option value="Others" {{ (isset($facility_followup) && $facility_followup->refered_by == 'Others') ? ' selected' : '' }}>Others</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label>Next visit date</label>
-							<input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
-						</div>
-
-						<div class="form-group">
-							<label for="">Age</label>
-							<input type="number" name="age" class="form-control" placeholder="Age" value="{{ isset($facility_followup) ? $facility_followup->age : '' }}" min="0">
-						</div>
-
-						<div class="form-group">
-							<label for="">Attandance</label>
-							<select name="attandance" class="form-control">
-								<option value="">Select Attandance</option>
-								<option value="present" {{ (isset($facility_followup) && $facility_followup->attandance == 'present') ? ' selected' : '' }}>Present</option>
-								<option value="absent" {{ (isset($facility_followup) && $facility_followup->attandance == 'absent') ? ' selected' : '' }}>Absent</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins">
@@ -104,6 +43,11 @@
 								<option value="++" {{ (isset($facility_followup) && $facility_followup->oedema == '++') ? ' selected' : '' }}>++</option>
 								<option value="+++" {{ (isset($facility_followup) && $facility_followup->oedema == '+++') ? ' selected' : '' }}>+++</option>
 							</select>
+						</div>
+                        
+                        <div class="form-group">
+							<label>Next visit date</label>
+							<input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
 						</div>
 					</div>
 				</div>

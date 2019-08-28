@@ -19,7 +19,10 @@ class FacilityController extends Controller
      */
     public function index()
     {
-        //
+        
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
+    	
+    	return view('facility.home', compact('facilities'));
     }
 
     /**
