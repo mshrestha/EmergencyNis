@@ -3,7 +3,7 @@
 		<div class="row">
 			
 
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
 						<h5>Anthropometric Measurement</h5>
@@ -14,50 +14,160 @@
 						</div>
 					</div>
 					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">Date</label>
-							<input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
-						</div>
-						<div class="form-group">
-							<label for="">MUAC (cm)</label>
-							<input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">Weight (kg)</label>
-							<input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">Height (cm)</label>
-							<input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">WFH Z Score</label>
-							<input type="number" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
-						</div>
-
-						<div class="form-group">
-							<label for="">Oedema</label>
-							<select name="oedema" class="form-control">
-								<option value="0" {{ (isset($facility_followup) && $facility_followup->oedema == '0') ? ' selected' : '' }}>0</option>
-								<option value="+" {{ (isset($facility_followup) && $facility_followup->oedema == '+') ? ' selected' : '' }}>+</option>
-								<option value="++" {{ (isset($facility_followup) && $facility_followup->oedema == '++') ? ' selected' : '' }}>++</option>
-								<option value="+++" {{ (isset($facility_followup) && $facility_followup->oedema == '+++') ? ' selected' : '' }}>+++</option>
-							</select>
+						<div class="form-group row" >
+                            <div class="col-md-5">
+                                <label for="">Date</label>
+                                <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
+                            </div>
 						</div>
                         
-                        <div class="form-group">
-							<label>Next visit date</label>
-							<input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
+						<div class="form-group row">
+                            <div class="col-md-3">
+                                <label for="">MUAC (cm)</label>
+                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Weight (kg)</label>
+                                <input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0">
+						    </div>
+                            <div class="col-md-3">
+                                <label for="">Height (cm)</label>
+                                <input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0">
+                            </div>
+						</div>
+						<div class="form-group row">
+                            <div class="col-md-5">
+                                <label for="">WFH Z Score (SD)</label>
+                                <input type="number" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
+                            </div>
+                            <div class="col-md-5">
+                                <label for="">Oedema</label>
+                                <select name="oedema" class="form-control">
+                                    <option value="0" {{ (isset($facility_followup) && $facility_followup->oedema == '0') ? ' selected' : '' }}>0</option>
+                                    <option value="+" {{ (isset($facility_followup) && $facility_followup->oedema == '+') ? ' selected' : '' }}>+</option>
+                                    <option value="++" {{ (isset($facility_followup) && $facility_followup->oedema == '++') ? ' selected' : '' }}>++</option>
+                                    <option value="+++" {{ (isset($facility_followup) && $facility_followup->oedema == '+++') ? ' selected' : '' }}>+++</option>
+                                
+							     </select>
+                                </div>
+						</div>
+
+                        
+                        <div class="form-group row">
+                            <div class="col-md-5">
+                                <label>Next visit date</label>
+                                <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
+                            </div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<button class="btn btn-success form-control" style="background: #ec2999; color: #fff;">Save</button>
+		<div class="form-group row">
+            <div class="col-md-3">
+                <button class="btn btn-success form-control" style="background: #ec2999; color: #fff;">Save</button>
+            </div>
+			
 		</div>
 
 		<div class="row">
+            
+            <div class="col-lg-6">
+				<div class="ibox float-e-margins collapsed">
+					<div class="ibox-title">
+						<h5>Admission criteria</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label for="">New admission</label>
+							<select name="new_admission" class="form-control">
+								<option value="">Select new admission</option>
+								<option value="MUAC" {{ (isset($facility_followup) && $facility_followup->new_admission == 'MUAC') ? ' selected' : '' }}>MUAC</option>
+								<option value="WFH Zscore" {{ (isset($facility_followup) && $facility_followup->new_admission == 'WFH Zscore') ? ' selected' : '' }}>WFH Zscore</option>
+                                <option value="MUAC and WFH Zscore" {{ (isset($facility_followup) && $facility_followup->new_admission == 'MUAC and WFH Zscore') ? ' selected' : '' }}>MUAC and WFH Zscore</option>
+								<option value="Oedema" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Oedema') ? ' selected' : '' }}>Oedema</option>
+								<option value="Age 6 to 59m" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Age 6 to 59m') ? ' selected' : '' }}>Age 6 to 59m</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Readmission</label>
+							<select name="readmission" class="form-control">
+								<option value="">Select readmission</option>
+								<option value="Readmission after default" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after default') ? ' selected' : '' }}>Readmission after default</option>
+								<option value="Readmission after recovery" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after recovery') ? ' selected' : '' }}>Readmission after recovery</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Transfer in</label>
+							<select name="transfer_in" class="form-control">
+								<option value="">Select transfer in</option>
+								<option value="Transfer in from TSFP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from TSFP') ? ' selected' : '' }}>Transfer in from TSFP</option>
+								<option value="Transfer in from SC" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from SC') ? ' selected' : '' }}>Transfer in from SC</option>
+								<option value="Transfer in from OTP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from OTP') ? ' selected' : '' }}>Transfer in from OTP</option>
+								<option value="Transfer in from BSFP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from BSFP') ? ' selected' : '' }}>Transfer in from BSFP</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Return from</label>
+							<select name="return_from" class="form-control">
+								<option value="">Select return from</option>
+								<option value="SAM Treatment" {{ (isset($facility_followup) && $facility_followup->return_from == 'SAM Treatment') ? ' selected' : '' }}>SAM Treatment</option>
+								<option value="MAM Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'MAM Treatement') ? ' selected' : '' }}>MAM Treatement</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-lg-6">
+				<div class="ibox float-e-margins collapsed">
+					<div class="ibox-title">
+						<h5>Discharge Critera</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label for="">Exit</label>
+							<select name="discharge_criteria_exit" class="form-control">
+								<option value="">Select exit</option>
+								<option value="Recovered" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Recovered') ? ' selected' : '' }}>Recovered</option>
+                                <option value="Age > 59m" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Age > 59m') ? ' selected' : '' }}>Age > 59m</option>
+								<option value="Death" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Death') ? ' selected' : '' }}>Death</option>
+								<option value="Defaulted" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Defaulted') ? ' selected' : '' }}>Defaulted</option>
+								<option value="Non responder" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Non responder') ? ' selected' : '' }}>Non responder </option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Transfer out</label>
+							<select name="discharge_criteria_transfer_out" class="form-control">
+								<option value="">Select transfer out</option>
+								<option value="Transfer to SAM treatment" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to SAM treatment') ? ' selected' : '' }}>Transfer to SAM treatment</option>
+								<option value="Transfer to MAM treatment" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to MAM treatment') ? ' selected' : '' }}>Transfer to MAM treatment</option>
+								<option value="Transfer to SC" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to SC') ? ' selected' : '' }}>Transfer to SC</option>
+								<option value="Transfer to other OTP" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to other OTP') ? ' selected' : '' }}>Transfer to other OTP</option>
+								<option value="Transfer to other TSFP" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to other TSFP') ? ' selected' : '' }}>Transfer to other TSFP</option>
+								<option value="Transfer to other BSFP" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to other BSFP') ? ' selected' : '' }}>Transfer to other BSFP</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Others</label>
+							<select name="discharge_criteria_others" class="form-control">
+								<option value="">Select others</option>
+								<option value="Medical transfer" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_others == 'Medical transfer') ? ' selected' : '' }}>Medical transfer</option>
+								<option value="Unkown" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_others == 'Unkown') ? ' selected' : '' }}>Unkown</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">
 					<div class="ibox-title">
@@ -184,56 +294,7 @@
 				</div>
 			</div>
 
-			<div class="col-lg-6">
-				<div class="ibox float-e-margins collapsed">
-					<div class="ibox-title">
-						<h5>Admission criteria</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">New admission</label>
-							<select name="new_admission" class="form-control">
-								<option value="">Select new admission</option>
-								<option value="MUAC" {{ (isset($facility_followup) && $facility_followup->new_admission == 'MUAC') ? ' selected' : '' }}>MUAC</option>
-								<option value="WFH Zscore" {{ (isset($facility_followup) && $facility_followup->new_admission == 'WFH Zscore') ? ' selected' : '' }}>WFH Zscore</option>
-								<option value="Oedema" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Oedema') ? ' selected' : '' }}>Oedema</option>
-								<option value="Age 6 to 59m" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Age 6 to 59m') ? ' selected' : '' }}>Age 6 to 59m</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="">Readmission</label>
-							<select name="readmission" class="form-control">
-								<option value="">Select readmission</option>
-								<option value="Readmission after default" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after default') ? ' selected' : '' }}>Readmission after default</option>
-								<option value="Readmission after recovery" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after recovery') ? ' selected' : '' }}>Readmission after recovery</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="">Transfer in</label>
-							<select name="transfer_in" class="form-control">
-								<option value="">Select transfer in</option>
-								<option value="Transfer in from TSFP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from TSFP') ? ' selected' : '' }}>Transfer in from TSFP</option>
-								<option value="Transfer in from SC" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from SC') ? ' selected' : '' }}>Transfer in from SC</option>
-								<option value="Transfer in from OTP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from OTP') ? ' selected' : '' }}>Transfer in from OTP</option>
-								<option value="Transfer in from BSFP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from BSFP') ? ' selected' : '' }}>Transfer in from BSFP</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="">Return from</label>
-							<select name="return_from" class="form-control">
-								<option value="">Select return from</option>
-								<option value="SAM Treatment" {{ (isset($facility_followup) && $facility_followup->return_from == 'SAM Treatment') ? ' selected' : '' }}>SAM Treatment</option>
-								<option value="MAM Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'MAM Treatement') ? ' selected' : '' }}>MAM Treatement</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">
@@ -270,7 +331,7 @@
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">
 					<div class="ibox-title">
-						<h5>Theraputic food</h5>
+						<h5>Therapeutic food</h5>
 						<div class="ibox-tools">
 							<a class="collapse-link">
 								<i class="fa fa-chevron-up"></i>
@@ -306,50 +367,7 @@
 				</div>
 			</div>
 
-			<div class="col-lg-6">
-				<div class="ibox float-e-margins collapsed">
-					<div class="ibox-title">
-						<h5>Discharge Critera</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">Exit</label>
-							<select name="discharge_criteria_exit" class="form-control">
-								<option value="">Select exit</option>
-								<option value="Recovered/Age>59m" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Recovered/Age>59m') ? ' selected' : '' }}>Recovered/Age>59m</option>
-								<option value="Death" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Death') ? ' selected' : '' }}>Death</option>
-								<option value="Defaulted" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Defaulted') ? ' selected' : '' }}>Defaulted</option>
-								<option value="Non responder" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Non responder') ? ' selected' : '' }}>Non responder </option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="">Transfer out</label>
-							<select name="discharge_criteria_transfer_out" class="form-control">
-								<option value="">Select transfer out</option>
-								<option value="Transfer to SAM treatment" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to SAM treatment') ? ' selected' : '' }}>Transfer to SAM treatment</option>
-								<option value="Transfer to MAM treatment" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to MAM treatment') ? ' selected' : '' }}>Transfer to MAM treatment</option>
-								<option value="Transfer to SC" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to SC') ? ' selected' : '' }}>Transfer to SC</option>
-								<option value="Transfer to other OTP" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to other OTP') ? ' selected' : '' }}>Transfer to other OTP</option>
-								<option value="Transfer to other TSFP" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to other TSFP') ? ' selected' : '' }}>Transfer to other TSFP</option>
-								<option value="Transfer to other BSFP" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_transfer_out == 'Transfer to other BSFP') ? ' selected' : '' }}>Transfer to other BSFP</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="">Others</label>
-							<select name="discharge_criteria_others" class="form-control">
-								<option value="">Select others</option>
-								<option value="Medical transfer" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_others == 'Medical transfer') ? ' selected' : '' }}>Medical transfer</option>
-								<option value="Unkown" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_others == 'Unkown') ? ' selected' : '' }}>Unkown</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">

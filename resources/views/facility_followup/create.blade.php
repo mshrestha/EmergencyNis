@@ -7,8 +7,11 @@
 			<form action="{{ route('facility-followup.save', $children->id) }}" method="post">
 				@csrf
 				@include('facility_followup.partials.fields')
-				<div class="form-group">
-					<button class="btn btn-primary" style="width: 100%;">Save</button>
+				<div class="form-group row">
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" style="width: 100%;">Save</button>
+                    </div>
+					
 				</div>
 			</form>
 		</div> <!-- col -->

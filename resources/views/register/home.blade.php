@@ -52,7 +52,7 @@
                                                         @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
                                                             <a href="{{ route('community-followup.show', $child->id) }}">
                                                                 <button type="button" class="btn btn-default btn-circle">
-                                                                    <i class="fa fa-plus"></i> 
+                                                                    <i class="fa fa-child"></i> 
                                                                 </button>
                                                             </a>
                                                         @endif

@@ -114,6 +114,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-4">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            
+                            <h5>Admission Criteria</h5>
+                        </div>
+                        <div class="ibox-content">
+                            
+                            <canvas id="doughnutChart" width="200" height="150" style="margin: 18px auto 0"></canvas>
+                                    
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -136,7 +149,7 @@
                                 <div class="col-lg-3">
                                     <ul class="stat-list">
                                         <li>
-                                            <h2 class="no-margins">376</h2>
+                                            <h2 class="no-margins">{{ count($children) }}</h2>
                                             <small>Total admissions</small>
                                             <div class="stat-percent">3% <i class="fa fa-level-up text-navy"></i></div>
                                             <div class="progress progress-mini">
@@ -144,8 +157,8 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <h2 class="no-margins ">370</h2>
-                                            <small>Cured this month</small>
+                                            <h2 class="no-margins ">60</h2>
+                                            <small>Currently enrolled</small>
                                             <div class="stat-percent">96% <i class="fa fa-level-down text-navy"></i></div>
                                             <div class="progress progress-mini">
                                                 <div style="width: 60%;" class="progress-bar"></div>
@@ -449,52 +462,55 @@
 </script>
 
 
-
-
-
 <!-- Mapping Script starts here -->
 <script>
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
 var map = new mapboxgl.Map({
 container: 'map',
-style: 'mapbox://styles/mapbox/light-v10',
-zoom: 11,
-center: [-122.204303, 37.730574]
-//center: [91.924089, 21.647142]
+style: 'mapbox://styles/kazistudios/cjl5hbcc36in92sp9uzflvcsf',
+zoom: 10,
+//center: [-122.204303, 37.730574]
+center: [92.146278, 21.226305]
 });
 var nav = new mapboxgl.NavigationControl();
 map.addControl(nav, 'bottom-left');
     
 map.on('load', function () {
 
-map.addLayer({
-    'id': 'population',
-    'type': 'circle',
-    'source': {
-        type: 'vector',
-        url: 'mapbox://examples.8fgz4egr'
-    },
-    'source-layer': 'sf2010',
-    'paint': {
-        // make circles larger as the user zooms from z12 to z22
-        'circle-radius': {
-            'base': 1.75,
-            'stops': [[12, 2], [22, 180]]
-        },
-        // color circles by ethnicity, using a match expression
-        // https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
-        'circle-color': [
-            'match',
-            ['get', 'ethnicity'],
-            'White', '#fbb03b',
-            'Black', '#223b53',
-            'Hispanic', '#e55e5e',
-            'Asian', '#3bb2d0',
-            /* other */ '#ccc'
-            ]
-        }
-    });
+
 });
+    
+    setTimeout(function() {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.warning('', 'Welcome to Emergency Nutrition');
+
+            }, 1300);
+
+    var doughnutData = {
+                labels: ["MUAC","Z-Score","Both" ],
+                datasets: [{
+                    data: [70,27,85],
+                    backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
+                }]
+            } ;
+
+
+            var doughnutOptions = {
+                responsive: false,
+                legend: {
+                    display: true
+                }
+            };
+    var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+
+            
+
 </script>
 <!-- Mapping script ends here -->
 @endpush
