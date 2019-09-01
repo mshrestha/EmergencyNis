@@ -149,7 +149,7 @@
 						</div>
 						<div class="form-group">
 							<label for="">Cough (no of days)</label>
-							<input type="number" name="medical_history_cough" class="form-control" placeholder="Cought (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}" min="0">
+							<input type="number" name="medical_history_cough" class="form-control" placeholder="Cough (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}" min="0">
 						</div>
 						<div class="row">
 							<div class="col-md-6">
