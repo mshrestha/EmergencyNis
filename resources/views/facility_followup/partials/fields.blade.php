@@ -351,6 +351,7 @@
 								<option value="Transfer in from SC" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from SC') ? ' selected' : '' }}>Transfer in from SC</option>
 								<option value="Transfer in from OTP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from OTP') ? ' selected' : '' }}>Transfer in from OTP</option>
 								<option value="Transfer in from BSFP" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from BSFP') ? ' selected' : '' }}>Transfer in from BSFP</option>
+                                <option value="Transfer in from Medical Center" {{ (isset($facility_followup) && $facility_followup->transfer_in == 'Transfer in from Medical Center') ? ' selected' : '' }}>Transfer in from Medical Center</option>
 							</select>
 						</div>
 						<div class="form-group">
