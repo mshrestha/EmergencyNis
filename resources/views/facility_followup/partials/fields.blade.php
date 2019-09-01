@@ -340,7 +340,7 @@
 							<select name="readmission" class="form-control">
 								<option value="">Select readmission</option>
 								<option value="Readmission after default" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after default') ? ' selected' : '' }}>Readmission after default</option>
-								<option value="Readmission after recovery" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after recovery') ? ' selected' : '' }}>Readmission after recovery</option>
+								<option value="Readmission after non recovery" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after non recovery') ? ' selected' : '' }}>Readmission after non recovery</option>
 							</select>
 						</div>
 						<div class="form-group">
