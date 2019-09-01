@@ -118,7 +118,7 @@
 							</div>
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="">Others (specific)(no of days)</label>
+									<label for="">No of days</label>
 									<input type="number" name="medical_history_others" class="form-control" placeholder="Others (specific)(no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_others : '' }}" min="0">
 								</div>
 							</div>
