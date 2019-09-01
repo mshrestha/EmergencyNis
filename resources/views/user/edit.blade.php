@@ -21,7 +21,7 @@
 						@method('PATCH')
 						@include('user.partials.fields')
 						
-						<button class="btn btn-primary pull-right">Register</button>
+						<button class="btn btn-primary pull-right">Save</button>
 						<div class="clearfix"></div>
 					</form>
 				</div> <!-- ibox-content -->

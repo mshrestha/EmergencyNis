@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
+use App\Models\Facility;
 
 class UserController extends Controller
 {
@@ -30,6 +31,7 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at', 'desc')->get();
 
+        
         return view('user.index', compact('users'));
     }
 
@@ -96,8 +98,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $facilities = Facility::all();
 
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'facilities'));
     }
 
     /**
@@ -118,10 +121,11 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             if ($request->password) {
-                $user->password = bcrypt($request->name);
+                $user->password = bcrypt($request->password);
             }
             $user->role = $request->role;
             $user->category = $request->category;
+            $user->facility_id = $request->facility_id;
             $user->save();
         } catch (Exception $e) {
             $this->_notify_message = "Failed to update user, try again.";

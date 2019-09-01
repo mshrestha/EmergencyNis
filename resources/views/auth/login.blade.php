@@ -22,8 +22,7 @@
                 <h2 class="font-bold"><img src="./img/logo-nutrition.png" width="200px" /></h2>
                 <h2>Emergency Nutrition System</h2>
                 <p>Authorized log-ins only.</p>
-                <p>If you need to get access to this system, please contact UNICEF Bangladesh Nutrition Section</p>
-                <p><small>Any unauthorized login attempts will be logged and reported</small></p>
+                <p>Please contact: bangladesh.nut@humanitarianresponse.info</p>
             </div>
             <div class="col-md-6">
                 <div class="ibox-content">
@@ -41,7 +40,7 @@
                         </a>
                     </form>
                     <p class="m-t">
-                        <small>Emergency Nutrition System by UNICEF Bangladesh</small>
+                        <small>Emergency Nutrition System</small>
                     </p>
                 </div>
             </div>
@@ -49,10 +48,10 @@
         <hr/>
         <div class="row">
             <div class="col-md-6">
-                Copyright UNICEF Bangladesh
+                
             </div>
             <div class="col-md-6 text-right">
-               <small>© 2019</small>
+               <small>Technical support provided by UNICEF Bangladesh</small>
             </div>
         </div>
     </div>

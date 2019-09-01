@@ -17,10 +17,12 @@
 						<div class="form-group row" >
                             <div class="col-md-5">
                                 <label for="">Date</label>
-                                <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
+                                <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}" />
+                                <input type="hidden" name="children_id" value="{{ $children->id }}" />
+                                <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}"> 
                             </div>
 						</div>
-                        
+
 						<div class="form-group row">
                             <div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
@@ -38,7 +40,7 @@
 						<div class="form-group row">
                             <div class="col-md-5">
                                 <label for="">WFH Z Score (SD)</label>
-                                <input type="number" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
+                                <input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
                             </div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
@@ -52,7 +54,6 @@
                                 </div>
 						</div>
 
-                        
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label>Next visit date</label>
@@ -65,11 +66,9 @@
 		</div>
 		<div class="form-group row">
             <div class="col-md-3">
-                <button class="btn btn-success form-control" style="background: #ec2999; color: #fff;">Save</button>
+                <button type="submit" class="btn btn-success form-control" style="background: #ec2999; color: #fff;">Save</button>
             </div>
-			
 		</div>
-
 		<div class="row">
             
             <div class="col-lg-6">

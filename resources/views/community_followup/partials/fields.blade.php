@@ -23,6 +23,7 @@
 		<div class="form-group"><label class="col-sm-3 control-label">Age</label>
 			<div class="col-sm-9">
 				<input type="number" name="age" class="form-control" placeholder="Age" value="{{ isset($community_followup) ? $community_followup->age : '' }}" style="width:240px !important">
+                <small>in months</small>
 			</div>
 		</div>
 
@@ -113,7 +114,7 @@
 			<div class="col-sm-9">
 				<select name="quantity_of_food" class="form-control" >
 					<option value="<125ml" {{ (isset($community_followup) && $community_followup->quantity_of_food == '<125ml') ? ' selected' : '' }}><125ml</option>
-					<option value="=>125 ml" {{ (isset($community_followup) && $community_followup->quantity_of_food == '=>125 ml') ? ' selected' : '' }}><=>125 ml</option>
+					<option value="=>125 ml" {{ (isset($community_followup) && $community_followup->quantity_of_food == '=>125 ml') ? ' selected' : '' }}>125 ml</option>
 					<option value=">125ml to <250ml" {{ (isset($community_followup) && $community_followup->quantity_of_food == '>125ml to <250ml') ? ' selected' : '' }}>>125ml to <250ml</option>
 					<option value="=>250ml" {{ (isset($community_followup) && $community_followup->quantity_of_food == '=>250ml') ? ' selected' : '' }}>=>250ml</option>
 				</select>

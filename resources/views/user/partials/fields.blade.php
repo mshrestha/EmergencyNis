@@ -37,6 +37,18 @@
 </div>
 
 <div class="form-group">
+			<label class="col-sm-3 control-label">Facility</label>
+            <div class="col-sm-9">
+                <select name="facility_id" class="form-control" required>
+                    <option value="">Select Facility</option>
+                    @foreach($facilities as $facility)
+                    <option value="{{ $facility->id }}" {{ (isset($user) && $user->facility_id == $facility->id) ? ' selected' : '' }}>{{ $facility->facility_id }}</option>
+                    @endforeach
+                </select>
+            </div>
+		</div>
+
+<div class="form-group">
 	<label class="col-sm-3 control-label">Password</label>
 	<div class="col-sm-9">
 		<input type="password" name="password" class="form-control" placeholder="Password">

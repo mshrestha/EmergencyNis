@@ -10,7 +10,7 @@
 			@foreach($camps as $camp)
             
 			<option value="{{ $camp->id }}" 
-                    @if ( $camp->id === 24 ) 
+                    @if ( $camp->id === $facility->camp->id ) 
                         selected 
                     @endif {{ (isset($child) && $child->camp_id == $camp->id) ? ' selected' : '' }}  >{{ $camp->name }} </option>
 			@endforeach
@@ -32,17 +32,17 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
 	<div class="col-sm-3"><input type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
-		value="{{ isset($child) ? $child->gps_coordinates_lat : '' }}" >
+		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" >
 	</div><div class="col-sm-3"><input type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng" 
-		value="{{ isset($child) ? $child->gps_coordinates_lng : '' }}" >
+		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" >
 	</div>
 </div>
 <div class="hr-line-dashed"></div>
-<div class="form-group"><label class="col-sm-3 control-label">Family Count</label>
+<!-- div class="form-group"><label class="col-sm-3 control-label">Family Count</label>
 	<div class="col-sm-9"><input type="number" class="form-control" name="family_count_no" placeholder="Family Count" 
 		value="{{ isset($child) ? $child->family_count_no : '' }}" >
 	</div>
-</div>
+</div -->
 <div class="form-group"><label class="col-sm-3 control-label">Mother's Name</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="mother_caregiver_name" placeholder="Mother's Name" 
 		value="{{ isset($child) ? $child->mother_caregiver_name : '' }}" required>
@@ -71,7 +71,7 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Age</label>
 	<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age" 
-		value="{{ isset($child) ? $child->age : '' }}" required><span class="small">(months)</span>
+		value="{{ isset($child) ? $child->age : '' }}" ><span class="small">(months)</span>
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Sex</label>

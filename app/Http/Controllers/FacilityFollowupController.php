@@ -71,7 +71,7 @@ class FacilityFollowupController extends Controller
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('register')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -87,6 +87,7 @@ class FacilityFollowupController extends Controller
     {
         $facility_followup = FacilityFollowup::findOrFail($id);
         $children = Child::findOrFail($facility_followup->children_id);
+        
         $facilities = Facility::where('id', $facility_followup->facility_id)->get();
 
         return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities'));
@@ -109,7 +110,7 @@ class FacilityFollowupController extends Controller
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('register')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);

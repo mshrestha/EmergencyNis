@@ -19,17 +19,15 @@
             <div class="col-lg-12">
                 <a href="{{ route('children.edit', $child->id) }}" class="edit-btn">
                     <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
-                    </a>
-                    <form action="{{ route('children.destroy', $child->id) }}" method="post" class="delete-form">
-                        @csrf
-                        @method('DELETE')
+                </a>
+                <form action="{{ route('children.destroy', $child->id) }}" method="post" class="delete-form">
+                    @csrf
+                    @method('DELETE')
 
-                        <button  class="btn btn-danger btn-circle" type="button" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
-                    </form>
+                    <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
+                </form>      
             </div>
         </div>
-        
-        
     </div>
 </div>
 
@@ -62,22 +60,30 @@
                     </ul>
                     @else
                     <ul class="list-group clear-list">
+                        @if (isset($followups[0]['exclusive_breastfeeding']))
                         <li class="list-group-item fist-item">
                             <span class="pull-right"> {{ $followups[0]['exclusive_breastfeeding'] ? 'Yes' : 'No' }} </span>
                             Exclusive Breastfeeding
                         </li>
+                        @endif
+                        @if (isset($followups[0]['received_all_epi_vaccination']))
                         <li class="list-group-item">
                             <span class="pull-right"> {{ $followups[0]['received_all_epi_vaccination'] ? 'Yes' : 'No' }} </span>
                             Received all EPI
                         </li>
+                        @endif
+                        @if (isset($followups[0]['edema']))
                         <li class="list-group-item">
                             <span class="pull-right"> {{ $followups[0]['edema'] ? 'Yes' : 'No' }} </span>
                             Edema
                         </li>
+                        @endif
+                        @if(isset($followups[0]['nutritional_status']))
                         <li class="list-group-item">
                             <span class="pull-right"> {{ $followups[0]['nutritional_status'] }} </span>
                             Nutritional Status
                         </li>
+                        @endif
                     </ul>
                     @endif
                     <div id="vertical-timeline" class="vertical-container dark-timeline">

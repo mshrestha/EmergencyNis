@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Child;
 use App\Models\Camp;
+use App\Models\Facility;
 
 use Illuminate\Http\Request;
 // use Intervention\Image\Facades\Image;
@@ -31,9 +33,13 @@ class ChildrenController extends Controller
      */
     public function create()
     {
+        
         $camps = Camp::orderBy('id', 'asc')->get();
+        $facility_id= Auth::user()->facility_id;
+        $facility = Facility::findOrFail($facility_id);
+        
 
-        return view('children.create', compact('camps'));
+        return view('children.create', compact('camps', 'facility'));
     }
 
     /**
@@ -147,7 +153,7 @@ class ChildrenController extends Controller
             $this->_notify_type = 'danger';
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('register')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
