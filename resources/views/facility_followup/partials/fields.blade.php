@@ -361,7 +361,7 @@
 								<option value="MAM Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'MAM Treatement') ? ' selected' : '' }}>MAM Treatement</option>
 							</select>
 						</div>
-                        <div class="form-group row">
+                        <div class="form-group">
                             
                                 <label>Next visit date</label>
                                 <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
