@@ -136,7 +136,7 @@
 					</div>
 					<div class="ibox-content">
 						<div class="form-group">
-							<label for="">Dirrhoea (no of days)</label>
+							<label for="">Diarrhoea (no of days)</label>
 							<input type="number" name="medical_history_diarrhoea" class="form-control" placeholder="Dirrhoea (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}" min="0">
 						</div>
 						<div class="form-group">
