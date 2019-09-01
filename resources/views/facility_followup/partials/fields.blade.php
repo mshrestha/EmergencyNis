@@ -360,6 +360,7 @@
 								<option value="">Select return from</option>
 								<option value="SAM Treatment" {{ (isset($facility_followup) && $facility_followup->return_from == 'SAM Treatment') ? ' selected' : '' }}>SAM Treatment</option>
 								<option value="MAM Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'MAM Treatement') ? ' selected' : '' }}>MAM Treatement</option>
+                                <option value="Inpatient Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'Inpatient Treatement') ? ' selected' : '' }}>Inpatient Treatement</option>
 							</select>
 						</div>
                         <div class="form-group">
