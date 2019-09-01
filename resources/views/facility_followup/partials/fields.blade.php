@@ -285,6 +285,17 @@
 								<option value="">Select albendazole</option>
 								<option value="200mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '200mg (12-23m)') ? ' selected' : '' }}>200mg (12-23m)</option>
 								<option value="400mg (>24m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '400mg (>24m)') ? ' selected' : '' }}>400mg (>24m)</option>
+                                <option value="Not applicable" {{ (isset($facility_followup) && $facility_followup->albendazole == 'Not applicable') ? ' selected' : '' }}>Not Applicable</option>
+							</select>
+						</div>
+                        <div class="form-group">
+							<label for="">Received Measles Vaccination</label>
+							<select name="albendazole" class="form-control">
+								<option value="">Select Measles</option>
+								<option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="Not Applicable">Not Applicable</option>
+								
 							</select>
 						</div>
 					</div>
