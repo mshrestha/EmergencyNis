@@ -361,10 +361,10 @@
 							</select>
 						</div>
                         <div class="form-group row">
-                            <div class="col-md-5">
+                            
                                 <label>Next visit date</label>
                                 <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
-                            </div>
+                            
 						</div>
 					</div>
 				</div>
