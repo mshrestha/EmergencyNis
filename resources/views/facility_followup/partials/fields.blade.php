@@ -70,6 +70,19 @@
 							     </select>
                                 </div>
 						</div>
+                        <div class="form-group row">
+                        <div class="col-md-5">
+                                <label for="">Nutrition Status</label>
+                                <select name="oedema" class="form-control">
+                                    <option value="" >Nutrition Status</option>
+                                    <option value="" >SAM</option>
+                                    <option value="" >MAM</option>
+                                    <option value="" >Normal</option>
+                                    
+                                
+							     </select>
+                            </div>
+                        </div>
 
                         
 					</div>
