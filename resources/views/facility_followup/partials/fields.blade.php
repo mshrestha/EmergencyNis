@@ -326,10 +326,11 @@
 							<select name="new_admission" class="form-control">
 								<option value="">Select new admission</option>
 								<option value="MUAC" {{ (isset($facility_followup) && $facility_followup->new_admission == 'MUAC') ? ' selected' : '' }}>MUAC</option>
-								<option value="WFH Zscore" {{ (isset($facility_followup) && $facility_followup->new_admission == 'WFH Zscore') ? ' selected' : '' }}>WFH Zscore</option>
+								<option value="WFH Zscore" {{ (isset($facility_followup) && $facility_followup->new_admission == 'WFH Zscore') ? ' selected' : '' }}>WFH Z score</option>
                                 <option value="MUAC and WFH Zscore" {{ (isset($facility_followup) && $facility_followup->new_admission == 'MUAC and WFH Zscore') ? ' selected' : '' }}>MUAC and WFH Zscore</option>
 								<option value="Oedema" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Oedema') ? ' selected' : '' }}>Oedema</option>
 								<option value="Age 6 to 59m" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Age 6 to 59m') ? ' selected' : '' }}>Age 6 to 59m</option>
+                                <option value="Relapse" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Relapse') ? ' selected' : '' }}>Relapse</option>
 							</select>
                             
 						</div>
