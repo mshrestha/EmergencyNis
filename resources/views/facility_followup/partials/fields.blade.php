@@ -375,6 +375,45 @@
             <div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">
 					<div class="ibox-title">
+						<h5>Therapeutic food</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label for="">No of RUTF</label>
+							<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
+						</div>
+						<div class="form-group">
+							<label for="">No of RUSF</label>
+							<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
+						</div>
+						<div class="form-group">
+							<label for="">WSB++ (kg)</label>
+							<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
+						</div>
+						<div class="form-group">
+							<label for="">WSB+ (kg)</label>
+							<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
+						</div>
+						<div class="form-group">
+							<label for="">Oil (kg)</label>
+							<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
+						</div>
+						<div class="form-group">
+							<label for="">Others</label>
+							<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
+						</div>
+					</div>
+				</div>
+			</div>
+            
+                <div class="col-lg-6">
+				<div class="ibox float-e-margins collapsed">
+					<div class="ibox-title">
 						<h5>Discharge Critera</h5>
 						<div class="ibox-tools">
 							<a class="collapse-link">
@@ -423,44 +462,7 @@
 
 			
 
-			<div class="col-lg-6">
-				<div class="ibox float-e-margins collapsed">
-					<div class="ibox-title">
-						<h5>Therapeutic food</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">No of RUTF</label>
-							<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">No of RUSF</label>
-							<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">WSB++ (kg)</label>
-							<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">WSB+ (kg)</label>
-							<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">Oil (kg)</label>
-							<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">Others</label>
-							<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
-						</div>
-					</div>
-				</div>
-			</div>
+			
 
 			
 
