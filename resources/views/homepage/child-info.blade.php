@@ -27,6 +27,7 @@
                     <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
                 </form>      
             </div>
+            
         </div>
     </div>
 </div>
@@ -121,3 +122,7 @@
         
     </div>
 </div>
+<div class=" text-center" onclick="printDiv('qrcode')" id="qrcode">
+   {!! QrCode::size(200)->generate(route('facility-followup.show', $child->id)); !!}
+</div>
+

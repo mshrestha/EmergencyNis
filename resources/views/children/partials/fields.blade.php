@@ -19,6 +19,7 @@
 </div>
 <div class="hr-line-dashed"></div>
 
+
 <div class="form-group"><label class="col-sm-3 control-label">Block Number</label>
 	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Block Number"
 		value="{{ isset($child) ? $child->sub_block_no : '' }}" required>
@@ -32,9 +33,9 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
 	<div class="col-sm-3"><input type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
-		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" >
+		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" disabled>
 	</div><div class="col-sm-3"><input type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng" 
-		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" >
+		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" disabled>
 	</div>
 </div>
 <div class="hr-line-dashed"></div>

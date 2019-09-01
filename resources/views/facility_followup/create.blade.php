@@ -33,5 +33,8 @@ function load_child(child) {
             }
         });
     }
+    
+
 </script>
+
 @endpush
