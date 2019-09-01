@@ -73,12 +73,41 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="oedema" class="form-control">
+                                <select name="nutritionstatus" class="form-control">
                                     <option value="" >Nutrition Status</option>
                                     <option value="" >SAM</option>
                                     <option value="" >MAM</option>
                                     <option value="" >Normal</option>
                                     
+                                
+							     </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="">Identification Outcome</label>
+                                <select name="outcome" class="form-control">
+                                    <optgroup label="SAM">
+                                        <option value="New case" >New case</option>
+                                        <option value="Followup visit at OTP" >Followup visit at OTP</option>
+                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
+                                        <option value="Referred to OTP" >Referred to OTP</option>
+                                        
+                                    </optgroup>
+                                    <optgroup label="MAM">
+                                        <option value="OTP follow up visit" >OTP follow up visit</option>
+                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
+                                        <option value="Referred to TSFP" >Referred to TSFP</option>
+                                        
+                                        <option value="New Case" >New Case</option>
+                                        <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
+                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
+                                        <option value="Referred to TSFP" >Referred to TSFP</option>
+                                    </optgroup>
+                                    <optgroup label="normal">
+                                        <option value="Already in Program" >Already in program</option>
+                                        <option value="" >Referred to BSFP</option>
+                                        <option value="" >Follow up visit</option>
+                                    </optgroup>
+                                        
                                 
 							     </select>
                             </div>
@@ -119,7 +148,7 @@
 							<input type="number" name="medical_history_fever" class="form-control" placeholder="Fever (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_fever : '' }}" min="0">
 						</div>
 						<div class="form-group">
-							<label for="">Cought (no of days)</label>
+							<label for="">Cough (no of days)</label>
 							<input type="number" name="medical_history_cough" class="form-control" placeholder="Cought (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}" min="0">
 						</div>
 						<div class="row">
