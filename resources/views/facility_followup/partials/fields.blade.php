@@ -22,7 +22,24 @@
                                 <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}"> 
                             </div>
 						</div>
+                        <div class="form-group row">
+                        <div class="col-md-5">
+                                <label for="">Referred From</label>
+                                <select name="oedema" class="form-control">
+                                    <option value="" >Please Select Referral</option>
+                                    <option value="" >MUAC Assessed at Community</option>
+                                    <option value="" >Other Service centre</option>
+                                    <option value="" >Inpatient (SC)</option>
+                                    <option value="" >Self</option>
+                                    <option value="" >OTP</option>
+                                    <option value="" >TSFP</option>
+                                    <option value="" >BSFP</option>
+                                    <option value="" >Health Facility</option>
 
+                                
+							     </select>
+                            </div>
+                        </div>
 						<div class="form-group row">
                             <div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
