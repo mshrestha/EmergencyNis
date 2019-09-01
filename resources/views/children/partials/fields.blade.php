@@ -82,11 +82,7 @@
 		<input type="radio" name="sex" value="other" {{ (isset($child) && $child->sex == 'other') ? ' checked' : '' }}> Other
 	</div>
 </div>
-<div class="form-group"><label class="col-sm-3 control-label">Phone</label>
-	<div class="col-sm-9"><input type="text" class="form-control" name="phone" placeholder="Phone" 
-		value="{{ isset($child) ? $child->phone : '' }}" >
-	</div>
-</div>
+
 <div class="form-group"><label class="col-sm-3 control-label">Picture</label>
 	<div class="col-sm-9">
 		<button type="button" style="display:block; height:30px;" onclick="document.getElementById('getPicture').click()">
