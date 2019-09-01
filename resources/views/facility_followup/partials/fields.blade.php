@@ -277,6 +277,7 @@
 								<option value="125mg (6-11m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '125mg (6-11m)') ? ' selected' : '' }}>125mg (6-11m)</option>
 								<option value="187.5mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '187.5mg (12-23m)') ? ' selected' : '' }}>187.5mg (12-23m)</option>
 								<option value="250mg (24-59m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '250mg (24-59m)') ? ' selected' : '' }}>250mg (24-59m)</option>
+                                <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->antibiotic == 'Not Applicable') ? ' selected' : '' }}>Not Applicable</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -364,10 +365,8 @@
 							</select>
 						</div>
                         <div class="form-group">
-                            
                                 <label>Next visit date</label>
-                                <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
-                            
+                                <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">    
 						</div>
 					</div>
 				</div>
