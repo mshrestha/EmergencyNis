@@ -44,7 +44,7 @@
 		value="{{ isset($child) ? $child->family_count_no : '' }}" >
 	</div>
 </div -->
-<div class="form-group"><label class="col-sm-3 control-label">Mother's Name</label>
+<div class="form-group"><label class="col-sm-3 control-label">Mother's Name / Caregiver Name</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="mother_caregiver_name" placeholder="Mother's Name" 
 		value="{{ isset($child) ? $child->mother_caregiver_name : '' }}" required>
 	</div>
