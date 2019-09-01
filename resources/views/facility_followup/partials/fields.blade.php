@@ -206,6 +206,15 @@
 								<option value="Severe" {{ (isset($facility_followup) && $facility_followup->pneumonia == 'Severe') ? ' selected' : '' }}>Severe</option>
 							</select>
 						</div>
+                        <div class="form-group">
+							<label for="">Signs of anaemia/Palmar</label>
+							<select name="anaemiapalmer" class="form-control">
+								<option value="">Signs of anaemia/palmer</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->pneumonia == 'Yes') ? ' selected' : '' }}>Yes</option>
+								<option value="No" {{ (isset($facility_followup) && $facility_followup->pneumonia == 'No') ? ' selected' : '' }}>No</option>
+								
+							</select>
+						</div>
 						<div class="form-group">
 							<label for="">Skin changes/lesions</label>
 							<select name="skin_changes" class="form-control">
@@ -220,6 +229,62 @@
 								<option value="">Select pale conjunctiva</option>
 								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->pale_conjunctiva == 'Yes') ? ' selected' : '' }}>Yes</option>
 								<option value="No" {{ (isset($facility_followup) && $facility_followup->pale_conjunctiva == 'No') ? ' selected' : '' }}>No</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-lg-6">
+				<div class="ibox float-e-margins collapsed">
+					<div class="ibox-title">
+						<h5>Appetite test</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label for="">Presence of appetite</label>
+							<select name="presence_of_appetite" class="form-control">
+								<option value="">Select presence of appetite</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'Yes') ? ' selected' : '' }}>Yes</option>
+								<option value="No" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'No') ? ' selected' : '' }}>No</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+
+			<div class="col-lg-6">
+				<div class="ibox float-e-margins collapsed">
+					<div class="ibox-title">
+						<h5>Systemetic treatment</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+						<div class="form-group">
+							<label for="">Antibiotic</label>
+							<select name="antibiotic" class="form-control">
+								<option value="">Select antibiotic</option>
+								<option value="125mg (6-11m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '125mg (6-11m)') ? ' selected' : '' }}>125mg (6-11m)</option>
+								<option value="187.5mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '187.5mg (12-23m)') ? ' selected' : '' }}>187.5mg (12-23m)</option>
+								<option value="250mg (24-59m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '250mg (24-59m)') ? ' selected' : '' }}>250mg (24-59m)</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Albendazole</label>
+							<select name="albendazole" class="form-control">
+								<option value="">Select albendazole</option>
+								<option value="200mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '200mg (12-23m)') ? ' selected' : '' }}>200mg (12-23m)</option>
+								<option value="400mg (>24m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '400mg (>24m)') ? ' selected' : '' }}>400mg (>24m)</option>
 							</select>
 						</div>
 					</div>
@@ -342,62 +407,7 @@
 
 			
 
-			<div class="col-lg-6">
-				<div class="ibox float-e-margins collapsed">
-					<div class="ibox-title">
-						<h5>Appetite test</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">Presence of appetite</label>
-							<select name="presence_of_appetite" class="form-control">
-								<option value="">Select presence of appetite</option>
-								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'Yes') ? ' selected' : '' }}>Yes</option>
-								<option value="No" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'No') ? ' selected' : '' }}>No</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
-
 			
-
-			<div class="col-lg-6">
-				<div class="ibox float-e-margins collapsed">
-					<div class="ibox-title">
-						<h5>Systemetic treatment</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">Antibiotic</label>
-							<select name="antibiotic" class="form-control">
-								<option value="">Select antibiotic</option>
-								<option value="125mg (6-11m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '125mg (6-11m)') ? ' selected' : '' }}>125mg (6-11m)</option>
-								<option value="187.5mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '187.5mg (12-23m)') ? ' selected' : '' }}>187.5mg (12-23m)</option>
-								<option value="250mg (24-59m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '250mg (24-59m)') ? ' selected' : '' }}>250mg (24-59m)</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="">Albendazole</label>
-							<select name="albendazole" class="form-control">
-								<option value="">Select albendazole</option>
-								<option value="200mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '200mg (12-23m)') ? ' selected' : '' }}>200mg (12-23m)</option>
-								<option value="400mg (>24m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '400mg (>24m)') ? ' selected' : '' }}>400mg (>24m)</option>
-							</select>
-						</div>
-					</div>
-				</div>
-			</div>
 
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">
