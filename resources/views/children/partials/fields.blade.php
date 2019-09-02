@@ -26,7 +26,7 @@
 	</div>
 </div>
 
-<div class="form-group"><label class="col-sm-3 control-label">Household Number</label>
+<div class="form-group"><label class="col-sm-3 control-label">Household Number/FCN</label>
 	<div class="col-sm-9"><input type="text" name="hh_no" class="form-control" placeholder="Household Number" 
 		value="{{ isset($child) ? $child->hh_no : '' }}" required>
 	</div>
@@ -56,7 +56,7 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Block Leader</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="block_leader_name" placeholder="Block Leader" 
-		value="{{ isset($child) ? $child->block_leader_name : '' }}" required>
+		value="{{ isset($child) ? $child->block_leader_name : '' }}" >
 	</div>
 </div>
 <div class="hr-line-dashed"></div>

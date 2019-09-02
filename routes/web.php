@@ -27,7 +27,8 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('children', 'ChildrenController');
 	Route::resource('community-followup', 'CommunityFollowupController');
 	Route::post('community-followup/{child}/save', 'CommunityFollowupController@save')->name('community-followup.save');
-
+    
+    
 	Route::resource('facility', 'FacilityController');
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');

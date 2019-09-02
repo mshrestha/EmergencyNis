@@ -3,9 +3,10 @@
 @section('content')
 <div class="wrapper wrapper-content animated fadeInRight">
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-lg-8">
 			<form action="{{ route('facility-followup.save', $children->id) }}" method="post">
 				@csrf
+                @method('POST')
 				@include('facility_followup.partials.fields')
 				<div class="form-group row">
                     <div class="col-md-3">
@@ -15,6 +16,19 @@
 				</div>
 			</form>
 		</div> <!-- col -->
+        <div class="col-lg-4">
+		<div class="ibox ">
+			<div class="ibox-content">
+				<div class="tab-content">
+					<div id="contact-1" class="tab-pane active">
+						<div id="child-info">
+							Loading ...
+						</div>
+					</div> <!-- tab-pane -->
+				</div> <!-- tab-content -->
+			</div> <!-- ibox-content -->
+		</div> <!-- ibox -->
+	</div> <!-- col -->
 	</div> <!-- row -->
 </div> <!-- wrapper -->
 @endsection

@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-12">
 		<div class="row">
 			
 
@@ -43,15 +43,15 @@
 						<div class="form-group row">
                             <div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
-                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0">
+                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
                             </div>
                             <div class="col-md-3">
                                 <label for="">Weight (kg)</label>
-                                <input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0">
+                                <input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.01">
 						    </div>
                             <div class="col-md-3">
                                 <label for="">Height (cm)</label>
-                                <input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0">
+                                <input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.01">
                             </div>
 						</div>
 						<div class="form-group row">
@@ -137,7 +137,7 @@
 					<div class="ibox-content">
 						<div class="form-group">
 							<label for="">Diarrhoea (no of days)</label>
-							<input type="number" name="medical_history_diarrhoea" class="form-control" placeholder="Dirrhoea (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}" min="0">
+							<input type="number" name="medical_history_diarrhoea" class="form-control" placeholder="Diarrhoea (no of days)" value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}" min="0">
 						</div>
 						<div class="form-group">
 							<label for="">Vomiting (no of days)</label>
@@ -458,14 +458,6 @@
 			</div>
 			
 
-			
-
-			
-
-			
-
-			
-
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins collapsed">
 					<div class="ibox-title">
@@ -503,17 +495,5 @@
 		</div><!-- End of Second Row -->
 	</div>
 
-	<div class="col-lg-4">
-		<div class="ibox ">
-			<div class="ibox-content">
-				<div class="tab-content">
-					<div id="contact-1" class="tab-pane active">
-						<div id="child-info">
-							Loading ...
-						</div>
-					</div> <!-- tab-pane -->
-				</div> <!-- tab-content -->
-			</div> <!-- ibox-content -->
-		</div> <!-- ibox -->
-	</div> <!-- col -->
+	
 </div>
