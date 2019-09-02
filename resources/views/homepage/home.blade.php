@@ -28,7 +28,7 @@
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ count($children)}}</h1>
-                            <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
+                            <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
                             <small>children</small>
                         </div>
                     </div>
@@ -40,8 +40,8 @@
                             <h5>Cure Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">96%</h1>
-                            <div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>
+                            <h1 class="no-margins">0%</h1>
+                            <div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                             <h5>Death Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">1%</h1>
-                            <div class="stat-percent font-bold text-danger">0.5% <i class="fa fa-level-down"></i></div>
+                            <h1 class="no-margins">0%</h1>
+                            <div class="stat-percent font-bold text-danger">0% <i class="fa fa-level-down"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -65,12 +65,12 @@
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-danger pull-right">High</span>
+                            <span class="label label-danger pull-right">Normal</span>
                             <h5>Default Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">16%</h1>
-                            <div class="stat-percent font-bold text-success">0.5% <i class="fa fa-bolt"></i></div>
+                            <h1 class="no-margins">0%</h1>
+                            <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -78,12 +78,12 @@
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-success pull-right">High</span>
+                            <span class="label label-success pull-right">Normal</span>
                             <h5>Non Respondent Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">1%</h1>
-                            <div class="stat-percent font-bold text-success">0.5% <i class="fa fa-bolt"></i></div>
+                            <h1 class="no-margins">0%</h1>
+                            <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -95,8 +95,8 @@
                             <h5>Average Weight Gain</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">6.2</h1>
-                            <div class="stat-percent font-bold text-info">5% <i class="fa fa-level-up"></i></div>
+                            <h1 class="no-margins">0</h1>
+                            <div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>
                             <small>Kgs</small>
                         </div>
                     </div>
@@ -108,8 +108,8 @@
                             <h5>Avg. Length of Stay</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">50</h1>
-                            <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
+                            <h1 class="no-margins">0</h1>
+                            <div class="stat-percent font-bold text-danger">0% <i class="fa fa-level-down"></i></div>
                             <small>days</small>
                         </div>
                     </div>
@@ -151,23 +151,23 @@
                                         <li>
                                             <h2 class="no-margins">{{ count($children) }}</h2>
                                             <small>Total admissions</small>
-                                            <div class="stat-percent">3% <i class="fa fa-level-up text-navy"></i></div>
+                                            <div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>
                                             <div class="progress progress-mini">
                                                 <div style="width: 48%;" class="progress-bar"></div>
                                             </div>
                                         </li>
                                         <li>
-                                            <h2 class="no-margins ">60</h2>
+                                            <h2 class="no-margins ">0</h2>
                                             <small>Currently enrolled</small>
-                                            <div class="stat-percent">96% <i class="fa fa-level-down text-navy"></i></div>
+                                            <div class="stat-percent">0% <i class="fa fa-level-down text-navy"></i></div>
                                             <div class="progress progress-mini">
                                                 <div style="width: 60%;" class="progress-bar"></div>
                                             </div>
                                         </li>
                                         <li>
-                                            <h2 class="no-margins ">5</h2>
+                                            <h2 class="no-margins ">0</h2>
                                             <small>Deaths this month</small>
-                                            <div class="stat-percent">1% <i class="fa fa-bolt text-navy"></i></div>
+                                            <div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>
                                             <div class="progress progress-mini">
                                                 <div style="width: 22%;" class="progress-bar"></div>
                                             </div>
