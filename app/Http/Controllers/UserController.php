@@ -151,11 +151,11 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            if($user->role !== 'admin') {
+            if($user->role == 'admin') {
                 $user->delete();
                 $this->_notify_message = "User deleted.";
             } else {
-                $this->_notify_message = "Can't delete user with admin role.";
+                $this->_notify_message = "Can't delete user without admin role.";
                 $this->_notify_type = "danger";
             }
         } catch (Exception $e) {
