@@ -106,9 +106,11 @@ class ChildrenController extends Controller
     public function edit($id)
     {
         $child = Child::findOrFail($id);
+        $facility_id= Auth::user()->facility_id;
+        $facility = Facility::findOrFail($facility_id);
         $camps = Camp::orderBy('id', 'asc')->get();
 
-        return view('children.edit', compact('child', 'camps'));
+        return view('children.edit', compact('child', 'camps', 'facility'));
     }
 
     /**

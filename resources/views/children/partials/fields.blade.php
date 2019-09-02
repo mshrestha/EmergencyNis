@@ -1,8 +1,8 @@
-<!-- div class="form-group"><label class="col-sm-3 control-label">Unique ID</label>
-	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="ID Number" 
-		value="{{ isset($child) ? $child->mnr_no : '' }}" required>
+<div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>
+	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="Registration ID" 
+		value="{{ isset($child) ? $child->mnr_no : '' }}">
 	</div>
-</div -->
+</div>
 <div class="form-group"><label class="col-sm-3 control-label">Camp</label>
 	<div class="col-sm-9">
 		<select name="camp_id" class="form-control" required>
