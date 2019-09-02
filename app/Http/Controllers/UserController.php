@@ -68,6 +68,7 @@ class UserController extends Controller
             }
             $user->role = $request->role;
             $user->category = $request->category;
+            $user->facility_id = $request->facility_id;
             $user->save();
         } catch (Exception $e) {
             $this->_notify_message = "Failed to create user, try again.";
