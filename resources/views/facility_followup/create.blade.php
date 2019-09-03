@@ -4,16 +4,11 @@
 <div class="wrapper wrapper-content animated fadeInRight">
 	<div class="row">
 		<div class="col-lg-8">
-			<form action="{{ route('facility-followup.save', $children->id) }}" method="post">
+			<form action="{{ route('facility-followup.save', $children->id) }}" method="post" id="followupform">
 				@csrf
                 @method('POST')
 				@include('facility_followup.partials.fields')
-				<div class="form-group row">
-                    <div class="col-md-3">
-                        <button class="btn btn-primary" style="width: 100%;">Save</button>
-                    </div>
-					
-				</div>
+				
 			</form>
 		</div> <!-- col -->
         <div class="col-lg-4">
@@ -34,8 +29,17 @@
 @endsection
 
 @push('scripts')
+
+<script src="{{ asset('js/plugins/steps/jquery.steps.min.js')}}"></script>
+
 <script>
     $(document).ready(function() {
+        $("#wizard").steps({
+            onFinished: function (event, currentIndex)
+            {
+                $('#followupform').submit();
+            }
+        });
         load_child({{$children->id}})
     })
 function load_child(child) {

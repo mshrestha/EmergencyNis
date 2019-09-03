@@ -31,7 +31,7 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Child name</th>
-                                                    <th>Date of birth</th>
+                                                    <th>Age</th>
                                                     <th>Sex</th>
                                                     <th>Status</th>
                                                     <th>Follow up</th>
@@ -42,7 +42,7 @@
                                                 <tr class="children-client" data-child-id="{{ $child->id }}">
                                                     <td>{{ $child->mnr_no }}</td>
                                                     <td><a href="#child-{{ $child->id }}" class="client-link">{{ $child->children_name }}</a></td>
-                                                    <td>{{ $child->date_of_birth }}</td>
+                                                    <td>{{ $child->age }} months</td>
                                                     
                                                     
                                                     <td>{{ $child->sex }}</td>

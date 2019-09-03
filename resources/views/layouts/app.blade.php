@@ -14,6 +14,8 @@
 	<link href="{{ asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
+    <link href="{{ asset('css/plugins/steps/jquery.steps.css')}}" rel="stylesheet">
+    
 	<link href="{{ asset('css/style.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/custom.css')}}" rel="stylesheet">
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.js'></script>

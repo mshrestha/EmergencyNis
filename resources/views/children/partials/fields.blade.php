@@ -28,7 +28,7 @@
 
 <div class="form-group"><label class="col-sm-3 control-label">Household Number/FCN</label>
 	<div class="col-sm-9"><input type="text" name="hh_no" class="form-control" placeholder="Household Number" 
-		value="{{ isset($child) ? $child->hh_no : '' }}" required>
+		value="{{ isset($child) ? $child->hh_no : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>

@@ -12,8 +12,25 @@
             {{ $child->mnr_no}}<br />
             {{ $child->age }} months old<br />
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
-            Date of Birth: {{ $child->date_of_birth }}
             
+            
+            @if(count($followups))
+                @if(isset($followups[0]['muac']))
+                    MUAC: {{ $followups[0]['muac'] }} cm <br />
+                @endif
+                @if(isset($followups[0]['weight']))
+                    Weight: {{ $followups[0]['weight'] }} kg <br />
+                @endif
+                @if(isset($followups[0]['height']))
+                    Height: {{ $followups[0]['height'] }} cm <br />
+                @endif
+                @if(isset($followups[0]['wfh_z_score']))
+                    Z-Score: {{ $followups[0]['wfh_z_score'] }} <br />
+                @endif
+                @if(isset($followups[0]['Oedema']))
+                    Oedema: {{ $followups[0]['oedema'] }} <br />
+                @endif
+            @endif
         </p>
         <div class="row">
             <div class="col-lg-12">
@@ -37,6 +54,7 @@
             <div id="followup-1" class="tab-pane active">
                 @if(count($followups))
                 <div style="margin-top: 10px;">
+                    
                     <strong>Nutrition Report</strong>
                     @if(isset($followups[0]['medical_history_diarrhoea']))
                     <ul class="list-group clear-list">
