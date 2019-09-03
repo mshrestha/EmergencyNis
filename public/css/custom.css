@@ -63,3 +63,13 @@ div#vertical-timeline {
 .alert-custom {
     margin: 20px 10px 0 10px;
 }
+
+.wizard > .steps .current a, .wizard > .steps .current a:hover, .wizard > .steps .current a:active{
+    background: rgb(255, 0, 153);
+}
+.wizard > .steps .done a, .wizard > .steps .done a:hover, .wizard > .steps .done a:active{
+    background: rgb(251, 193, 226);
+}
+.wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active{
+    background: rgb(255, 0, 153);
+}

@@ -14,23 +14,7 @@
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
             
             
-            @if(count($followups))
-                @if(isset($followups[0]['muac']))
-                    MUAC: {{ $followups[0]['muac'] }} cm <br />
-                @endif
-                @if(isset($followups[0]['weight']))
-                    Weight: {{ $followups[0]['weight'] }} kg <br />
-                @endif
-                @if(isset($followups[0]['height']))
-                    Height: {{ $followups[0]['height'] }} cm <br />
-                @endif
-                @if(isset($followups[0]['wfh_z_score']))
-                    Z-Score: {{ $followups[0]['wfh_z_score'] }} <br />
-                @endif
-                @if(isset($followups[0]['Oedema']))
-                    Oedema: {{ $followups[0]['oedema'] }} <br />
-                @endif
-            @endif
+           
         </p>
         <div class="row">
             <div class="col-lg-12">
@@ -113,9 +97,26 @@
                             </div>
                             @if(isset($followup['facility']['facility_id']))
                             <div class="vertical-timeline-content">
+                                <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span><br />
                                 <p>Visited {{ $followup['facility']['facility_id'] }}</p>
-                                <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span>
+                                
+                                @if(isset($followup['muac']))
+                                    <strong>MUAC: </strong> {{ $followup['muac'] }} cm <br />
+                                @endif
+                                @if(isset($followup['weight']))
+                                    <strong>Weight: </strong> {{ $followup['weight'] }} kg <br />
+                                @endif
+
+                                @if(isset($followup['wfh_z_score']))
+                                    <strong>Z-score: </strong> {{ $followup['wfh_z_score'] }} <br />
+                                @endif
+                                
+                                
                                 <span class="pull-right">
+                                    
+ 
+                
+            
                                 <a href="{{ route('facility-followup.edit', $followup['id']) }}">Edit</a>
                                 </span>
                             </div>

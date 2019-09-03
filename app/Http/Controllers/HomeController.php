@@ -20,8 +20,8 @@ class HomeController extends Controller
 
     public function childInfo($child_id) {
     	$child = Child::findOrFail($child_id);
-    	$community_followups = CommunityFollowup::where('children_id', $child_id)->orderBy('created_at', 'desc')->get()->toArray();
-    	$facility_followups = FacilityFollowup::with('facility')->where('children_id', $child_id)->orderBy('created_at', 'desc')->get()->toArray();
+    	$community_followups = CommunityFollowup::where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
+    	$facility_followups = FacilityFollowup::with('facility')->where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
 
         $followups = array_merge($community_followups, $facility_followups);
         // dd($followups);
