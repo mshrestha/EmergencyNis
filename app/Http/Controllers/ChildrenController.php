@@ -55,6 +55,7 @@ class ChildrenController extends Controller
             $image = $this->uploadImage($request);
             $image ? $data['picture'] = $image : false ;
             $data['date'] = date('y-m-d');
+            $data['facility_id'] = Auth::user()->facility_id;
             
             $id = Child::create($data)->id;
         } catch (Exception $e) {
