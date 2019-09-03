@@ -181,7 +181,7 @@
 					<div class="ibox-content">
 						<div class="form-group">
 							<label for="">Temperature (oC)</label>
-							<input type="number" name="temperature" class="form-control" placeholder="Temperature (oC)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0">
+							<input type="number" name="temperature" class="form-control" placeholder="Temperature (oC)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0" step="0.01">
 						</div>
 						<div class="form-group">
 							<label for="">Respiratory rate (breaths/min)</label>
