@@ -32,9 +32,9 @@
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
-	<div class="col-sm-3"><input type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
+	<div class="col-sm-3"><input id="currentLatitude" type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
 		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" disabled>
-	</div><div class="col-sm-3"><input type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng" 
+	</div><div class="col-sm-3"><input id="currentLongitude" type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng" 
 		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" disabled>
 	</div>
 </div>
