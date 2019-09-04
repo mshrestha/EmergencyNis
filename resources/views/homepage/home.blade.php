@@ -23,7 +23,7 @@
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-success pull-right">Monthly</span>
+                            <span class="label label-info pull-right">August</span>
                             <h5>Admissions</h5>
                         </div>
                         <div class="ibox-content">
@@ -36,12 +36,12 @@
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-info pull-right">Normal</span>
+                            <span class="label label-success pull-right">Normal</span>
                             <h5>Cure Rate</h5>
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">96%</h1>
-                            <div class="stat-percent font-bold text-info">10% <i class="fa fa-level-up"></i></div>
+                            <div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">1%</h1>
-                            <div class="stat-percent font-bold text-danger">0.3% <i class="fa fa-level-down"></i></div>
+                            <div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -65,12 +65,12 @@
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <span class="label label-danger pull-right">Normal</span>
+                            <span class="label label-success pull-right">Normal</span>
                             <h5>Default Rate</h5>
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">2%</h1>
-                            <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
+                            <div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">50</h1>
-                            <div class="stat-percent font-bold text-danger">0% <i class="fa fa-level-down"></i></div>
+                            <div class="stat-percent font-bold text-danger">2 days <i class="fa fa-level-down"></i></div>
                             <small>days</small>
                         </div>
                     </div>

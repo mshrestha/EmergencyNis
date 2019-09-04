@@ -26,19 +26,32 @@
 						</div>
                         <div class="form-group row">
                         <div class="col-md-5">
-                                <label for="">Referred From</label>
-                                <select name="oedema" class="form-control">
+                                <label for="refered_by">Referred From</label>
+                                <select name="refered_by" class="form-control">
                                     <option value="" >Please Select Referral</option>
-                                    <option value="" >MUAC Assessed at Community</option>
-                                    <option value="" >Other Service centre</option>
-                                    <option value="" >Inpatient (SC)</option>
-                                    <option value="" >Self</option>
-                                    <option value="" >OTP</option>
-                                    <option value="" >TSFP</option>
-                                    <option value="" >BSFP</option>
-                                    <option value="" >Health Facility</option>
-
-                                
+                                    <option value="MUAC Assessed at Community" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'MUAC Assessed at Community') ? ' selected' : '' }}>
+                                        MUAC Assessed at Community
+                                    </option>
+                                    <option value="Other Service centre" {{ (isset($facility_followup) && $facility_followup->refered_by == 'Other Service centre') ? ' selected' : '' }}>Other Service centre</option>
+                                    <option value="Inpatient (SC)" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'Inpatient (SC)') ? ' selected' : '' }}>
+                                            Inpatient (SC)</option>
+                                    <option value="Self" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'Self') ? ' selected' : '' }}>
+                                            Self</option>
+                                    <option value="OTP" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'OTP') ? ' selected' : '' }}>
+                                            OTP</option>
+                                    <option value="TSFP" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'TSFP') ? ' selected' : '' }}>
+                                            TSFP</option>
+                                    <option value="BSFP" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'BSFP') ? ' selected' : '' }}>
+                                            BSFP</option>
+                                    <option value="Health Facility" 
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'Health Facility') ? ' selected' : '' }}>
+                                            Health Facility</option>
 							     </select>
                             </div>
                         </div>
@@ -289,12 +302,12 @@
 							</select>
 						</div>
                         <div class="form-group">
-							<label for="">Received Measles Vaccination</label>
-							<select name="albendazole" class="form-control">
-								<option value="">Select Measles</option>
-								<option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                                <option value="Not Applicable">Not Applicable</option>
+							<label for="measles">Received Measles Vaccination</label>
+							<select name="measles" class="form-control">
+								<option value="" >Select Measles</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->measles == 'Yes') ? ' selected' : '' }}>Yes</option>
+                                <option value="No"{{ (isset($facility_followup) && $facility_followup->measles == 'No') ? ' selected' : '' }}>No</option>
+                                <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->measles == 'Not Applicable') ? ' selected' : '' }}>Not Applicable</option>
 								
 							</select>
 						</div>
