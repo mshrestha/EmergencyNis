@@ -504,7 +504,7 @@ map.on('load', function () {
                 responsive: true,
                 legend: {
                     display: true,
-                    fullWidth: true,
+                    
                     labels: {
                         boxWidth: 10
                     }
