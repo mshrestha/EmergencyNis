@@ -14,9 +14,11 @@
 Route::get('/login', 'AuthController@getLogin')->name('auth.login');
 Route::post('/login', 'AuthController@postLogin')->name('auth.login');
 Route::get('/logout', 'AuthController@getLogout')->name('auth.logout');
+Route::get('/view', 'ViewController@index')->name('facility-home');
 
 Route::group(['middleware' => ['auth']], function() {
 	Route::get('/', 'HomeController@index')->name('homepage');
+    
 	Route::get('/child-info/{child}', 'HomeController@childInfo')->name('child-info');
 	Route::get('/facility-info/{facility}', 'HomeController@facilityInfo')->name('facility-info');
 	Route::get('/child-search', 'HomeController@childSearch')->name('child-search');
