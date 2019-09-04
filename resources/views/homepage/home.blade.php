@@ -494,16 +494,20 @@ map.on('load', function () {
     var doughnutData = {
                 labels: ["MUAC","Z-Score","Both" ],
                 datasets: [{
-                    data: [70,27,85],
+                    data: [73,22,5],
                     backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
                 }]
             } ;
 
 
             var doughnutOptions = {
-                responsive: false,
+                responsive: true,
                 legend: {
-                    display: true
+                    display: true,
+                    fullWidth: true,
+                    labels: {
+                        boxWidth: 10
+                    }
                 }
             };
     var ctx4 = document.getElementById("doughnutChart").getContext("2d");
