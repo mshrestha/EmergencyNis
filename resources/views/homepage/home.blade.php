@@ -40,8 +40,8 @@
                             <h5>Cure Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">0%</h1>
-                            <div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>
+                            <h1 class="no-margins">96%</h1>
+                            <div class="stat-percent font-bold text-info">10% <i class="fa fa-level-up"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -54,8 +54,8 @@
                             <h5>Death Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">0%</h1>
-                            <div class="stat-percent font-bold text-danger">0% <i class="fa fa-level-down"></i></div>
+                            <h1 class="no-margins">1%</h1>
+                            <div class="stat-percent font-bold text-danger">0.3% <i class="fa fa-level-down"></i></div>
                             <small>August</small>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                             <h5>Default Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">0%</h1>
+                            <h1 class="no-margins">2%</h1>
                             <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
                             <small>August</small>
                         </div>
@@ -82,7 +82,7 @@
                             <h5>Non Respondent Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">0%</h1>
+                            <h1 class="no-margins">1%</h1>
                             <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
                             <small>August</small>
                         </div>
@@ -95,7 +95,7 @@
                             <h5>Average Weight Gain</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">0</h1>
+                            <h1 class="no-margins">6.2</h1>
                             <div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>
                             <small>Kgs</small>
                         </div>
@@ -108,7 +108,7 @@
                             <h5>Avg. Length of Stay</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">0</h1>
+                            <h1 class="no-margins">50</h1>
                             <div class="stat-percent font-bold text-danger">0% <i class="fa fa-level-down"></i></div>
                             <small>days</small>
                         </div>
