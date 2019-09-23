@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Models\Child;
 use App\Models\Facility;
 use App\Models\FacilityFollowup;
@@ -12,7 +13,16 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-    	$children = Child::orderBy('created_at', 'desc')->get();
+        if(Auth::user()->facility_id){
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+    	   //$children = Child::where('camp_id', $facility->camp_id)->get();    
+            $children = Child::where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->get();
+            $facilityFollowup = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->get();
+        }else{
+            $children = Child::orderBy('created_at', 'desc')->get();    
+            $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
+        }
+    	
     	$facilities = Facility::orderBy('created_at', 'desc')->get();
     	
     	return view('homepage.home', compact('children', 'facilities'));

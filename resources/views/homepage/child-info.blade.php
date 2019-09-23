@@ -12,9 +12,7 @@
             {{ $child->mnr_no}}<br />
             {{ $child->age }} months old<br />
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
-            
-            
-           
+   
         </p>
         <div class="row">
             <div class="col-lg-12">
@@ -113,11 +111,7 @@
                                 
                                 
                                 <span class="pull-right">
-                                    
- 
-                
-            
-                                <a href="{{ route('facility-followup.edit', $followup['id']) }}">Edit</a>
+                                    <a href="{{ route('facility-followup.edit', $followup['id']) }}">Edit</a>
                                 </span>
                             </div>
                             @else
