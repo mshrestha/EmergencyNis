@@ -83,13 +83,24 @@ class HomeController extends Controller
             if(isset($child->discharge_criteria_exit)){
                 $dashboard['count']++;
             }
+            if($child->new_admission == ''){
+                
+            }
             
             
         }
-        $rate['cureRate'] = $dashboard['cureRate'] / $dashboard['count'] * 100;
-        $rate['deathRate'] = $dashboard['deathRate'] / $dashboard['count'] * 100;
-        $rate['defaultRate'] = $dashboard['defaultRate'] / $dashboard['count'] * 100;
-        $rate['nonRespondantRate'] = $dashboard['nonRespondantRate'] / $dashboard['count'] * 100;
+        if($dashboard['count'] == 0){
+            $rate['cureRate'] = 0;
+            $rate['deathRate'] = 0;
+            $rate['defaultRate'] = 0;
+            $rate['nonRespondantRate'] = 0;
+        }else{
+            $rate['cureRate'] = $dashboard['cureRate'] / $dashboard['count'] * 100;
+            $rate['deathRate'] = $dashboard['deathRate'] / $dashboard['count'] * 100;
+            $rate['defaultRate'] = $dashboard['defaultRate'] / $dashboard['count'] * 100;
+            $rate['nonRespondantRate'] = $dashboard['nonRespondantRate'] / $dashboard['count'] * 100;    
+        }
+        
         return $rate;
         
     }
