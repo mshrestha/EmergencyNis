@@ -31,8 +31,9 @@
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Child name</th>
-                                                    <th>Age</th>
+                                                    
                                                     <th>Sex</th>
+                                                    <th>Facility</th>
                                                     <th>Status</th>
                                                     <th>Follow up</th>
                                                 </tr>
@@ -42,10 +43,11 @@
                                                 <tr class="children-client" data-child-id="{{ $child->id }}">
                                                     <td>{{ $child->mnr_no }}</td>
                                                     <td><a href="#child-{{ $child->id }}" class="client-link">{{ $child->children_name }}</a></td>
-                                                    <td>{{ $child->age }} months</td>
+                                                    
                                                     
                                                     
                                                     <td>{{ $child->sex }}</td>
+                                                    <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
                                                     <td><small class="label label-danger"> Severe</small></td>
                                                     <td>
                                                         

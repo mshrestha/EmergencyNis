@@ -16,7 +16,7 @@ class HomeController extends Controller
         if(Auth::user()->facility_id){
             $facility = Facility::findOrFail(Auth::user()->facility_id);
     	   //$children = Child::where('camp_id', $facility->camp_id)->get();    
-            $children = Child::where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->get();
+            $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
             $facilityFollowup = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->get();
         }else{
             $children = Child::orderBy('created_at', 'desc')->get();    
@@ -24,9 +24,11 @@ class HomeController extends Controller
         }
     	
     	$facilities = Facility::orderBy('created_at', 'desc')->get();
-    	
-    	return view('homepage.home', compact('children', 'facilities'));
+    	$dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
+        
+    	return view('homepage.home', compact('children', 'facilities', 'dashboard'));
     }
+    
 
     public function childInfo($child_id) {
     	$child = Child::findOrFail($child_id);
@@ -61,5 +63,34 @@ class HomeController extends Controller
         $facilities = Facility::where('facility_id', 'LIKE', '%'.$request->q.'%')->orderBy('created_at', 'desc')->get();
 
         return view('homepage.home', compact('children', 'facilities'));
+    }
+    private function findDataFromFacilityFollowup($data){
+        $dashboard['cureRate'] =  0;
+        $dashboard['deathRate'] = 0;
+        $dashboard['defaultRate'] = 0;
+        $dashboard['nonRespondantRate'] = 0;
+        $dashboard['count']=0;
+        foreach($data as $child){
+            if($child->discharge_criteria_exit == 'Recovered'){
+                $dashboard['cureRate']++;
+            }
+            if($child->discharge_criteria_exit == 'Death'){
+                $dashboard['deathRate']++;
+            }
+            if($child->discharge_criteria_exit == 'Defaulted'){
+                $dashboard['defaultRate']++;
+            }
+            if(isset($child->discharge_criteria_exit)){
+                $dashboard['count']++;
+            }
+            
+            
+        }
+        $rate['cureRate'] = $dashboard['cureRate'] / $dashboard['count'] * 100;
+        $rate['deathRate'] = $dashboard['deathRate'] / $dashboard['count'] * 100;
+        $rate['defaultRate'] = $dashboard['defaultRate'] / $dashboard['count'] * 100;
+        $rate['nonRespondantRate'] = $dashboard['nonRespondantRate'] / $dashboard['count'] * 100;
+        return $rate;
+        
     }
 }

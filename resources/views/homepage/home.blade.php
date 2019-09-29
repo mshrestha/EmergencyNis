@@ -40,7 +40,7 @@
                             <h5>Cure Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">96%</h1>
+                            <h1 class="no-margins">{{ $dashboard['cureRate'] }}%</h1>
                             <div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>
                             <small>August</small>
                         </div>
@@ -54,7 +54,7 @@
                             <h5>Death Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">1%</h1>
+                            <h1 class="no-margins">{{ $dashboard['deathRate'] }}%</h1>
                             <div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>
                             <small>August</small>
                         </div>
@@ -69,7 +69,7 @@
                             <h5>Default Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">2%</h1>
+                            <h1 class="no-margins">{{ $dashboard['defaultRate'] }}%</h1>
                             <div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>
                             <small>August</small>
                         </div>
@@ -82,7 +82,7 @@
                             <h5>Non Respondent Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">1%</h1>
+                            <h1 class="no-margins">{{ $dashboard['nonRespondantRate'] }}%</h1>
                             <div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>
                             <small>August</small>
                         </div>
