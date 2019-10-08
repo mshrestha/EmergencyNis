@@ -48,7 +48,12 @@
                                                     
                                                     <td>{{ $child->sex }}</td>
                                                     <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
-                                                    <td><small class="label label-danger"> Severe</small></td>
+                                                    <td>
+                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
+                                                            <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
+                                                        @endif
+
+                                                    </td>
                                                     <td>
                                                         
                                                         @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')

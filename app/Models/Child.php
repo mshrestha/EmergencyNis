@@ -26,4 +26,9 @@ class Child extends Model
     public function facility() {
     	return $this->belongsTo('App\Models\Facility', 'facility_id');
     }
+
+    public function facility_followup() {
+        return $this->hasMany('App\Models\FacilityFollowup', 'children_id');
+    }
+
 }
