@@ -37,6 +37,12 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
+// set the public path to this directory Now you dont need to change your public path when your public directory
+// has changed. Elixir has a hardcoded public path!
+$app->bind('path.public', function() {
+    return __DIR__;
+});
+
 /*
 |--------------------------------------------------------------------------
 | Run The Application

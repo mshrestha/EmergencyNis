@@ -54,6 +54,7 @@ class FacilityFollowupController extends Controller
      */
     public function show($id)
     {
+//        dd($id);
         $children = Child::findOrFail($id);
         $facilities = Facility::orderBy('created_at', 'desc')->get();
 
