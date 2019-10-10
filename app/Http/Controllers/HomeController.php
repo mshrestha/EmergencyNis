@@ -85,9 +85,7 @@ class HomeController extends Controller
             }
             if($child->new_admission == ''){
                 
-            }
-            
-            
+            }   
         }
         if($dashboard['count'] == 0){
             $rate['cureRate'] = 0;

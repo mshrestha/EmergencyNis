@@ -54,10 +54,11 @@
                     <li class="{{ request()->segment(1) == 'facility' ? 'active' : '' }}">
                         <a href="{{ route('facility.index') }}" style="color: #fff;"><i class="fa fa-home"></i> <span class="nav-label">Manage Facilities</span></a>
                     </li>
-                    <li class="{{ request()->segment(3) == 'user' ? 'active' : '' }}">
-                        <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span class="nav-label">Generate Reports</span></a>
-                    </li>
+                    
 					@endif
+                    <li class="{{ request()->segment(1) == 'user' ? 'active' : '' }}">
+                        <a href="{{ route('reports') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span class="nav-label">Generate Reports</span></a>
+                    </li>
                     <li class="{{ request()->segment(1) == 'register' ? 'active' : '' }}">
                         <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span class="nav-label">Register</span></a>
                     </li>
