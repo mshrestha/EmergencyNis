@@ -41,7 +41,12 @@ class HomeController extends Controller
             return $a['date'] <=> $b['date'];
         });
 
-    	return view('homepage.child-info', compact('child', 'followups'))->render();
+        $chart_date= array_column($facility_followups, 'created_at');
+        $chart_weight= array_column($facility_followups, 'weight');
+        $chart_height= array_column($facility_followups, 'height');
+//        $chart_followup=array_keys($facility_followups);
+
+        return view('homepage.child-info', compact('child', 'followups','chart_date','chart_weight','chart_height'))->render();
     }
 
     public function facilityInfo($facility_id) {
@@ -100,6 +105,7 @@ class HomeController extends Controller
         }
         
         return $rate;
-        
     }
+
+
 }

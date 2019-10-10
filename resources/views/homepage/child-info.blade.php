@@ -31,6 +31,11 @@
     </div>
 </div>
 
+<div>
+    <canvas id="childWeight" width="400" height="400"></canvas>
+
+</div>
+
 <div class="client-detail">
     <div class="full-height-scroll">
             <div id="followup-1" class="tab-pane active">
@@ -139,3 +144,40 @@
    {!! QrCode::size(200)->generate(route('facility-followup.show', $child->id)); !!}
 </div>
 
+<script>
+    var ctx = document.getElementById('childWeight').getContext('2d');
+    var jsArrayweight = JSON.parse('<?php echo json_encode($chart_weight); ?>');
+    var jsArrayheight = JSON.parse('<?php echo json_encode($chart_height); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($chart_date); ?>');
+    var childWeight = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: jsArraydate,
+            datasets: [{
+                label: 'Child Weight',
+                data: jsArrayweight,
+                backgroundColor: 'rgba(255, 129, 214, 0.6)',
+                borderColor : 'rgba(200, 129, 214, 0.6)',
+                borderWidth: 1
+            },
+                {
+                    label: 'Child Height',
+                    data: jsArrayheight,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor : 'rgba(100, 129, 14, 0.6)',
+                    borderWidth: 1
+                }
+    ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>

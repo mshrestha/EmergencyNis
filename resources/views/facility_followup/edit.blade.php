@@ -7,6 +7,7 @@
 			<form action="{{ route('facility-followup.update', $facility_followup->id) }}" method="post" id="followupform">
 				@csrf
 				@method('PATCH')
+
 				@include('facility_followup.partials.fields')
 				<!-- div class="form-group">
 					<button class="btn btn-primary" style="width: 100%;">Save</button>
@@ -15,6 +16,7 @@
 		</div> <!-- col -->
 	</div> <!-- row -->
 </div> <!-- wrapper -->
+
 @endsection
 @push('scripts')
 

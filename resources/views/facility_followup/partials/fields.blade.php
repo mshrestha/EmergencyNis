@@ -90,9 +90,9 @@
                                 <label for="">Nutrition Status</label>
                                 <select name="nutritionstatus" class="form-control">
                                     <option value="" >Nutrition Status</option>
-                                    <option value="" >SAM</option>
-                                    <option value="" >MAM</option>
-                                    <option value="" >Normal</option>
+									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
+									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
+									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
                                     
                                 
 							     </select>

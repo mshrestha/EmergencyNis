@@ -18,7 +18,7 @@ Route::get('/view', 'ViewController@index')->name('facility-home');
 
 Route::group(['middleware' => ['auth']], function() {
 	Route::get('/', 'HomeController@index')->name('homepage');
-    
+
 	Route::get('/child-info/{child}', 'HomeController@childInfo')->name('child-info');
 	Route::get('/facility-info/{facility}', 'HomeController@facilityInfo')->name('facility-info');
 	Route::get('/child-search', 'HomeController@childSearch')->name('child-search');
