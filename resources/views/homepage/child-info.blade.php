@@ -4,7 +4,7 @@
             <img alt="image" src="{{ $child->child_image() }}"
             style="width: 100%;height: 110px;object-fit:cover;">
         </div>
-        
+
     </div>
     <div class="col-lg-8">
         <strong>{{ $child->children_name }}</strong>
@@ -12,7 +12,7 @@
             {{ $child->mnr_no}}<br />
             {{ $child->age }} months old<br />
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
-   
+
         </p>
         <div class="row">
             <div class="col-lg-12">
@@ -24,9 +24,9 @@
                     @method('DELETE')
 
                     <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
-                </form>      
+                </form>
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -41,7 +41,7 @@
             <div id="followup-1" class="tab-pane active">
                 @if(count($followups))
                 <div style="margin-top: 10px;">
-                    
+
                     <strong>Nutrition Report</strong>
                     @if(isset($followups[0]['medical_history_diarrhoea']))
                     <ul class="list-group clear-list">
@@ -102,7 +102,7 @@
                             <div class="vertical-timeline-content">
                                 <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span><br />
                                 <p>Visited {{ $followup['facility']['facility_id'] }}</p>
-                                
+
                                 @if(isset($followup['muac']))
                                     <strong>MUAC: </strong> {{ $followup['muac'] }} cm <br />
                                 @endif
@@ -113,8 +113,8 @@
                                 @if(isset($followup['wfh_z_score']))
                                     <strong>Z-score: </strong> {{ $followup['wfh_z_score'] }} <br />
                                 @endif
-                                
-                                
+
+
                                 <span class="pull-right">
                                     <a href="{{ route('facility-followup.edit', $followup['id']) }}">Edit</a>
                                 </span>
@@ -133,11 +133,11 @@
                     </div>
                 </div>
                 @endif
-                
-                
+
+
             </div>
-        
-        
+
+
     </div>
 </div>
 <div class=" text-center" onclick="printDiv('qrcode')" id="qrcode">
@@ -147,7 +147,6 @@
 <script>
     var ctx = document.getElementById('childWeight').getContext('2d');
     var jsArrayweight = JSON.parse('<?php echo json_encode($chart_weight); ?>');
-    var jsArrayheight = JSON.parse('<?php echo json_encode($chart_height); ?>');
     var jsArraydate = JSON.parse('<?php echo json_encode($chart_date); ?>');
     var childWeight = new Chart(ctx, {
         type: 'line',
@@ -158,15 +157,9 @@
                 data: jsArrayweight,
                 backgroundColor: 'rgba(255, 129, 214, 0.6)',
                 borderColor : 'rgba(200, 129, 214, 0.6)',
+                pointBackgroundColor : 'rgba(20, 12, 21, 0.6)',
                 borderWidth: 1
-            },
-                {
-                    label: 'Child Height',
-                    data: jsArrayheight,
-                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
-                    borderColor : 'rgba(100, 129, 14, 0.6)',
-                    borderWidth: 1
-                }
+            }
     ]
         },
         options: {
@@ -174,6 +167,14 @@
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        displayFormats: {
+                            labels: 'DD MMM YY'
+                        }
                     }
                 }]
             }

@@ -106,7 +106,10 @@
 
 <script src="{{ asset('js/plugins/dataTables/datatables.min.js')}}"></script>
 {{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.bundle.min.js"></script>--}}
+<script src="{!! asset('js/plugins/moment.min.js')!!}" type="text/javascript"></script>
 <script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+
+
 
 
 <script>
