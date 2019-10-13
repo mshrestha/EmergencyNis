@@ -19,9 +19,6 @@ class ReportController extends Controller
             
     	   $children = Child::orderBy('created_at', 'desc')->get();
         }
-        
-    	$facilities = Facility::orderBy('created_at', 'desc')->get();
-    	
     	return view('report.home', compact('children', 'facility'));
     }
 }

@@ -23,18 +23,18 @@
                         <table class="table table-marginless table-bordered table-hover">
                             <tbody>
                                 <tr>
-                                    <td>OTP ID: </td>
+                                    <td>Facility ID: <strong>{{ stripos($facility->facility_id, 12) }}</strong> </td>
                                     <td>Following Expanded Criteria: </td>
-                                    <td>Name of Camp: </td>
+                                    <td>Name of Camp: <strong>{{ $facility->camp->name }}</strong></td>
                                 </tr>
                                 <tr>
-                                    <td>OTP Name: </td>
-                                    <td>Program Partner: </td>
+                                    <td>Facility Name: <strong>{{ $facility->facility_id }}</strong></td>
+                                    <td>Program Partner: <strong>{{ $facility->program_partner }}</strong></td>
                                     <td>Month/Year: </td>
                                 </tr>
                                 <tr>
-                                    <td>Report prepared by: </td>
-                                    <td>Organization: </td>
+                                    <td>Report prepared by: <strong>ENIS System</strong> </td>
+                                    <td>Organization: <strong>{{ $facility->implementing_partner }}</strong></td>
                                     <td>Reporting Duration: </td>
                                 </tr>
                             </tbody>
@@ -246,12 +246,7 @@
                         <td>1</td>
                     </tr>
                     </tfoot>
-                    </table>
-                        
-                        
-
-                        
-                            
+                    </table>                            
                                 <div class="full-height-scroll">
                   
                                     
