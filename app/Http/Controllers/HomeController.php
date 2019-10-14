@@ -25,8 +25,17 @@ class HomeController extends Controller
     	
     	$facilities = Facility::orderBy('created_at', 'desc')->get();
     	$dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
-        
-    	return view('homepage.home', compact('children', 'facilities', 'dashboard'));
+
+    	$recovered_child = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->where('discharge_criteria_exit','Recovered')->get();
+        if($recovered_child->count() == 0){
+            $average_rate['weight_gain'] = 0;
+            $average_rate['length_of_stay'] = 0;
+        }else{
+            $average_rate['weight_gain'] = $recovered_child->sum('gain_of_weight') / $recovered_child->count();
+            $average_rate['length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
+        }
+
+    	return view('homepage.home', compact('children', 'facilities', 'dashboard','average_rate'));
     }
     
 
@@ -43,10 +52,9 @@ class HomeController extends Controller
 
         $chart_date= array_column($facility_followups, 'created_at');
         $chart_weight= array_column($facility_followups, 'weight');
-        $chart_height= array_column($facility_followups, 'height');
 //        $chart_followup=array_keys($facility_followups);
 
-        return view('homepage.child-info', compact('child', 'followups','chart_date','chart_weight','chart_height'))->render();
+        return view('homepage.child-info', compact('child', 'followups','chart_date','chart_weight'))->render();
     }
 
     public function facilityInfo($facility_id) {
@@ -91,6 +99,7 @@ class HomeController extends Controller
             if($child->new_admission == ''){
                 
             }   
+
         }
         if($dashboard['count'] == 0){
             $rate['cureRate'] = 0;
@@ -106,6 +115,21 @@ class HomeController extends Controller
         
         return $rate;
     }
+
+    public function test() {
+        $facility_followups = FacilityFollowup::with('facility')->where('children_id', 52)
+//            ->select('created_at')
+            ->orderBy('created_at', 'asc')->get()->toArray();
+
+//        dd($facility_followups);
+
+        $chart_date= array_column($facility_followups, 'created_at');
+
+        $chart_weight= array_column($facility_followups, 'weight');
+//        dd(json_encode(date_format($chart_date,"d/m/Y")));
+        dd(json_encode($chart_date));
+    }
+
 
 
 }
