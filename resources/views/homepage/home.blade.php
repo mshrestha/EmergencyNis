@@ -422,10 +422,13 @@
 
     }, 1300);
 
+    var chart_data =JSON.parse('<?php echo json_encode($chart_doughnut_value); ?>');
+//        JSON.parse($chart_doughnut);
     var doughnutData = {
         labels: ["MUAC", "Z-Score", "Both"],
         datasets: [{
-            data: [73, 22, 5],
+//            data: [73, 22, 5],
+            data: chart_data,
             backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
         }]
     };
