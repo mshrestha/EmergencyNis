@@ -47,8 +47,22 @@ class HomeController extends Controller
             else
                 $chart_doughnut['muac_zscore'] = $muac_zscore->count();
             $chart_doughnut_value = array_values($chart_doughnut);
-            //dashboard chart doughnut
-
+//end dashboard chart doughnut
+//dashboard chart bar
+            $fromDate = \Carbon\Carbon::now()->subDay(30)->toDateString();
+            $tillDate = \Carbon\Carbon::now()->subDay()->toDateString();
+            $admission= FacilityFollowup::where('facility_id', Auth::user()->facility_id)
+                ->selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
+                ->where('new_admission', 'MUAC')
+                ->orWhere('new_admission', 'WFH Zscore')
+                ->orWhere('new_admission', 'MUAC and WFH Zscore')
+                ->groupBy('dat')
+                ->whereBetween('created_at',[$fromDate, $tillDate] )
+                ->orderBy('dat', 'ASC')
+                ->pluck('cunt', 'dat')->toArray();
+            $chart_bar_count_value = array_values($admission);
+            $chart_bar_date_key = array_keys($admission);
+//end dashboard chart bar
         } else {
             $children = Child::orderBy('created_at', 'desc')->get();
             $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
@@ -81,11 +95,28 @@ class HomeController extends Controller
             $chart_doughnut_value = array_values($chart_doughnut);
 
 //dashboard chart doughnut without facility based user
+//dashboard chart bar without facility based user
+            $fromDate = \Carbon\Carbon::now()->subDay(30)->toDateString();
+            $tillDate = \Carbon\Carbon::now()->subDay()->toDateString();
+            $admission= FacilityFollowup::where('facility_id', Auth::user()->facility_id)
+                ->selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
+                ->where('new_admission', 'MUAC')
+                ->orWhere('new_admission', 'WFH Zscore')
+                ->orWhere('new_admission', 'MUAC and WFH Zscore')
+                ->groupBy('dat')
+                ->whereBetween('created_at',[$fromDate, $tillDate] )
+                ->orderBy('dat', 'ASC')
+                ->pluck('cunt', 'dat')->toArray();
+            $chart_bar_count_value = array_values($admission);
+            $chart_bar_date_key = array_keys($admission);
+//end dashboard chart bar
+
         }
         $facilities = Facility::orderBy('created_at', 'desc')->get();
         $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
 
-        return view('homepage.home', compact('children', 'facilities', 'dashboard', 'average_rate', 'chart_doughnut_value'));
+        return view('homepage.home', compact('children', 'facilities', 'dashboard', 'average_rate',
+            'chart_doughnut_value','chart_bar_count_value','chart_bar_date_key'));
     }
 
 
@@ -172,17 +203,37 @@ class HomeController extends Controller
 
     public function test()
     {
-        $facility_followups = FacilityFollowup::with('facility')->where('children_id', 52)
-//            ->select('created_at')
-            ->orderBy('created_at', 'asc')->get()->toArray();
+//        $b=FacilityFollowup::selectRaw('DATE(created_at) as x, COUNT(*) as y')
+//            ->where('new_admission', 'MUAC')
+//            ->groupBy('x')
+//            ->where('created_at', '>', \Carbon\Carbon::now()->subDays(30))
+//            ->pluck('x','y');
 
-//        dd($facility_followups);
+        $fromDate = \Carbon\Carbon::now()->subDay(30)->toDateString();
+        $tillDate = \Carbon\Carbon::now()->subDay()->toDateString();
+//dd($fromDate);
 
-        $chart_date = array_column($facility_followups, 'created_at');
+       $a= FacilityFollowup::selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
+            ->where('new_admission', 'MUAC')
+            ->orWhere('new_admission', 'WFH Zscore')
+            ->orWhere('new_admission', 'MUAC and WFH Zscore')
+        ->groupBy('dat')
+           ->whereBetween('created_at',[$fromDate, $tillDate] )
+//           ->whereBetween('created_at', [$min_createdat, $pre_date])
 
-        $chart_weight = array_column($facility_followups, 'weight');
-//        dd(json_encode(date_format($chart_date,"d/m/Y")));
-        dd(json_encode($chart_date));
+           ->orderBy('dat', 'ASC')
+        ->pluck('cunt', 'dat');
+
+        $c= FacilityFollowup::selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
+            ->where('new_admission', 'MUAC')
+            ->orWhere('new_admission', 'WFH Zscore')
+            ->orWhere('new_admission', 'MUAC and WFH Zscore')
+            ->groupBy('dat')
+            ->pluck('cunt', 'dat');
+
+       dd($a);
+
+
     }
 
 
