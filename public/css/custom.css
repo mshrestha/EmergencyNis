@@ -73,3 +73,6 @@ div#vertical-timeline {
 .wizard > .actions a, .wizard > .actions a:hover, .wizard > .actions a:active{
     background: rgb(255, 0, 153);
 }
+.table-marginless {
+    margin-bottom:0px;
+}

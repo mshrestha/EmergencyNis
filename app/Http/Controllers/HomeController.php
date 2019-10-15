@@ -187,6 +187,7 @@ class HomeController extends Controller
             if (isset($child->discharge_criteria_exit)) {
                 $dashboard['count']++;
             }
+
             if ($child->new_admission == '') {
 
             }

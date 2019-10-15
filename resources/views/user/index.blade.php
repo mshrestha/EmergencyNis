@@ -16,6 +16,7 @@
 							<tr>
 								<th>User</th>
 								<th>Email</th>
+                                <th>Facility</th>
 								<th>Role</th>
 								<th>Category</th>
 								<th>Action</th>
@@ -26,6 +27,7 @@
 							<tr>
 								<td>{{ $user->name }}</td>
 								<td>{{ $user->email }}</td>
+                                <td>{{ $user->facility['facility_id'] }}</td>
 								<td>{{ $user->role }}</td>
 								<td>{{ $user->category }}</td>
 								<td>

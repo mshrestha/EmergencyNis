@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
     
     Route::get('register', 'RegisterController@index')->name('register');
+    Route::get('reports', 'ReportController@index')->name('reports');
 
 	Route::resource('children', 'ChildrenController');
 	Route::resource('community-followup', 'CommunityFollowupController');
