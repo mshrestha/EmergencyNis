@@ -41,6 +41,19 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('user', 'UserController');
 });
 
+
+
+// SYNC ------------------------------------------------------------
+Route::get('/sync/children', [
+	'uses' => 'SyncDataClientController@syncChildrenClient',
+	'as' => 'sync.children.client'
+]);
+
+Route::get('/sync/facility-followup', [
+	'uses' => 'SyncDataClientController@syncFacilityFollowupClient',
+	'as' => 'sync.facility-followup.client'
+]);
+
 Route::get('fix-sync', function() {
 	// $childrens = App\Models\Child::all();
 

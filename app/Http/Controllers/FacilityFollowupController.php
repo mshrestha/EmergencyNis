@@ -70,6 +70,7 @@ class FacilityFollowupController extends Controller
             $latest_followup = FacilityFollowup::orderBy('id', 'desc')->first();
             $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
             $data['sync_id'] = 101 . $app_id;
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $facility_followup = FacilityFollowup::create($data);
         } catch (Exception $e) {
@@ -110,6 +111,8 @@ class FacilityFollowupController extends Controller
     {
         try {
             $data = $request->all();
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+
             FacilityFollowup::findOrFail($id)->update($data);
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save followup, Try again";
