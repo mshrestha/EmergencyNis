@@ -23,19 +23,19 @@
                         <table class="table table-marginless table-bordered table-hover">
                             <tbody>
                                 <tr>
-                                    <td>Facility ID: <strong>{{ stripos($facility->facility_id, 12) }}</strong> </td>
+                                    <td>Facility ID: <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong> </td>
                                     <td>Following Expanded Criteria: </td>
                                     <td>Name of Camp: <strong>{{ $facility->camp->name }}</strong></td>
                                 </tr>
                                 <tr>
                                     <td>Facility Name: <strong>{{ $facility->facility_id }}</strong></td>
                                     <td>Program Partner: <strong>{{ $facility->program_partner }}</strong></td>
-                                    <td>Month/Year: </td>
+                                    <td>Month/Year: <strong>{{ date("F Y",strtotime("-1 month")) }}</strong></td>
                                 </tr>
                                 <tr>
                                     <td>Report prepared by: <strong>ENIS System</strong> </td>
                                     <td>Organization: <strong>{{ $facility->implementing_partner }}</strong></td>
-                                    <td>Reporting Duration: </td>
+                                    <td>Reporting Duration: <strong>1 Month</strong></td>
                                 </tr>
                             </tbody>
                         </table>
