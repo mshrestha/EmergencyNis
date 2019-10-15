@@ -14,7 +14,10 @@ class ReportController extends Controller
     public function index() {
         if(Auth::user()->facility_id){
             $facility = Facility::findOrFail(Auth::user()->facility_id);
-    	   $children = Child::where('camp_id', $facility->camp_id)->get();    
+    	   $children = Child::where('camp_id', $facility->camp_id)->get();
+            //$facility_followup = FacilityFollowup::find();
+            
+            
         }else{
             
     	   $children = Child::orderBy('created_at', 'desc')->get();
