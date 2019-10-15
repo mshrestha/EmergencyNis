@@ -69,7 +69,7 @@ class FacilityFollowupController extends Controller
             //Create sync id
             $latest_followup = FacilityFollowup::orderBy('id', 'desc')->first();
             $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
-            $data['sync_id'] = 101 . $app_id;
+            $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $facility_followup = FacilityFollowup::create($data);

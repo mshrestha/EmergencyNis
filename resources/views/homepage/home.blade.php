@@ -197,7 +197,10 @@
                         <h5>Sync to live server</h5>
                     </div>
                     <div class="ibox-content">
+                        <p>Children data sync : {{ $children_sync_count }}</p>
+                        <p>Facility Followup data sync : {{ $facility_followup_sync_count }}</p>
                         <button class="btn btn-primary" id="btn-sync-now">Sync</button>
+                        <div id="syncing-msg" style="display: none;">Syncing ... </div>
                     </div>
                 </div>
             </div>
@@ -246,9 +249,10 @@
 
 <script>
     $('#btn-sync-now').on('click', function() {
-        // $(this).hide();
-        // $('.syncing-msg').show();
-        // alert('syncing');
+        $(this).hide();
+        $('#syncing-msg').html('Syncing ...');
+        $('#syncing-msg').show();
+
         sync_children();
     });
 
@@ -257,7 +261,6 @@
             type: 'get',
             url: '/sync/children',
             success: function (res) {
-                // $('.unemploy_sync_count').html(res.sync_left);
                 // update_progress_bar();
 
                 if(res.has_more == true) {
@@ -267,7 +270,7 @@
                 }
             }, error: function (err) {
                 // $('.unemploy_sync_count').html('Try again.');
-                $('.btn-sync-now').show();
+                $('#btn-sync-now').show();
             }
         });
     }
@@ -277,17 +280,17 @@
             type: 'get',
             url: '/sync/facility-followup',
             success: function (res) {
-                // $('.unemploy_sync_count').html(res.sync_left);
                 // update_progress_bar();
 
                 if(res.has_more == true) {
                     sync_facility_followup();
                 } else {
-                    alert('All data synced');
+                    $('#syncing-msg').html('All data synced.');
+                    $('#btn-sync-now').show();
                 }
             }, error: function (err) {
                 // $('.unemploy_sync_count').html('Try again.');
-                $('.btn-sync-now').show();
+                $('#btn-sync-now').show();
             }
         });
     }

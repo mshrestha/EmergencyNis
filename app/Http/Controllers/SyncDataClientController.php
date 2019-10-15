@@ -13,7 +13,7 @@ class SyncDataClientController extends Controller
 
     public function syncChildrenClient() {
     	$total_children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
-		$children_sync = Child::whereIn('sync_status', ['created', 'updated'])->limit(10)->get();
+		$children_sync = Child::whereIn('sync_status', ['created', 'updated'])->limit(10)->get()->toArray();
 		$has_more = ($total_children_sync_count > count($children_sync)) ? true : false;
 		$sync_left = $total_children_sync_count - count($children_sync);
 
@@ -24,10 +24,11 @@ class SyncDataClientController extends Controller
 		];
 
 		$synced_children_ids = $this->curlInit($post, $this->sync_url.'/api/sync/save-children');
-		if(is_array($synced_children_ids)) {	
+
+		if(is_array($synced_children_ids)) {
 			foreach($synced_children_ids as $synced_children_id) {
 				$children = Child::where('sync_id', $synced_children_id)->first();
-				$children->update(['sync' => 'synced']);
+				$children->update(['sync_status' => 'synced']);
 			}
 		}
 
@@ -36,7 +37,7 @@ class SyncDataClientController extends Controller
 
     public function syncFacilityFollowupClient() {
     	$total_facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-		$facility_followup_sync = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->limit(10)->get();
+		$facility_followup_sync = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->limit(10)->get()->toArray();
 		$has_more = ($total_facility_followup_sync_count > count($facility_followup_sync)) ? true : false;
 		$sync_left = $total_facility_followup_sync_count - count($facility_followup_sync);
 
@@ -50,7 +51,7 @@ class SyncDataClientController extends Controller
 		if(is_array($synced_facility_followup_ids)) {	
 			foreach($synced_facility_followup_ids as $synced_facility_followup_id) {
 				$facility_followup = FacilityFollowup::where('sync_id', $synced_facility_followup_id)->first();
-				$facility_followup->update(['sync' => 'synced']);
+				$facility_followup->update(['sync_status' => 'synced']);
 			}
 		}
 

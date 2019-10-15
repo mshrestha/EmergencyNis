@@ -115,8 +115,13 @@ class HomeController extends Controller
         $facilities = Facility::orderBy('created_at', 'desc')->get();
         $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
 
+
+        //Sync data count
+        $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
+        $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+
         return view('homepage.home', compact('children', 'facilities', 'dashboard', 'average_rate',
-            'chart_doughnut_value','chart_bar_count_value','chart_bar_date_key'));
+            'chart_doughnut_value','chart_bar_count_value','chart_bar_date_key', 'children_sync_count', 'facility_followup_sync_count'));
     }
 
 

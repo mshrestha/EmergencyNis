@@ -68,5 +68,11 @@ Route::get('fix-sync', function() {
 	// 	$facility_followup->save();
 	// }
 
+	// $facility_followups = App\Models\FacilityFollowup::all();
+	// foreach($facility_followups as $facility_followup) {
+	// 	$facility_followup->children_id = '101'. $facility_followup->children_id;
+	// 	$facility_followup->save();
+	// }
+
 	// dd('done');
 });

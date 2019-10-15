@@ -16,9 +16,9 @@ class RegisterController extends Controller
     public function index() {
         if(Auth::user()->facility_id){
             $facility = Facility::findOrFail(Auth::user()->facility_id);
-            $children = Child::where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->limit(10)->get();    
+            $children = Child::where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->get();    
         }else{
-            $children = Child::orderBy('created_at', 'desc')->limit(10)->get();
+            $children = Child::orderBy('created_at', 'desc')->get();
         }
         
         $facilities = Facility::orderBy('created_at', 'desc')->get();

@@ -60,7 +60,7 @@ class ChildrenController extends Controller
             //Create sync id
             $latest_child = Child::orderBy('id', 'desc')->first();
             $app_id = $latest_child ? $latest_child->id + 1 : 1;
-            $data['sync_id'] = 101 . $app_id;
+            $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $id = Child::create($data)->id;

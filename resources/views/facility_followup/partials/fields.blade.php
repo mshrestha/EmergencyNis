@@ -20,7 +20,7 @@
                             <div class="col-md-5">
                                 <label for="">Date</label>
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}" />
-                                <input type="hidden" name="children_id" value="{{ $children->id }}" />
+                                <input type="hidden" name="children_id" value="{{ $children->sync_id }}" />
                                 <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}"> 
                             </div>
 						</div>
