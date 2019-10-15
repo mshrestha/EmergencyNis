@@ -40,3 +40,20 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::resource('user', 'UserController');
 });
+
+Route::get('fix-sync', function() {
+	// $childrens = App\Models\Child::all();
+
+	// foreach($childrens as $child) {
+	// 	$child->sync_id = '101' . $child->id;
+	// 	$child->save();
+	// }
+
+	// $facility_followups = App\Models\FacilityFollowup::all();
+	// foreach($facility_followups as $facility_followup) {
+	// 	$facility_followup->sync_id = '101'. $facility_followup->id;
+	// 	$facility_followup->save();
+	// }
+
+	// dd('done');
+});
