@@ -57,6 +57,12 @@ class ChildrenController extends Controller
             $data['date'] = date('y-m-d');
             $data['facility_id'] = Auth::user()->facility_id;
             
+            //Create sync id
+            $latest_child = Child::orderBy('id', 'desc')->first();
+            $app_id = $latest_child ? $latest_child->id + 1 : 1;
+            $data['sync_id'] = 101 . $app_id;
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
+
             $id = Child::create($data)->id;
         } catch (Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
@@ -127,6 +133,7 @@ class ChildrenController extends Controller
             $data = $request->all();
             $image = $this->uploadImage($request);
             $image ? $data['picture'] = $image : false ;
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
             
             Child::findOrFail($id)->update($data);
         } catch (Exception $e) {

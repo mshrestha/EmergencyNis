@@ -65,8 +65,14 @@ class FacilityFollowupController extends Controller
         try {
             $data = $request->all();
             $data['referal_slip_no'] = time(). rand(1000,9999);
+            
+            //Create sync id
+            $latest_followup = FacilityFollowup::orderBy('id', 'desc')->first();
+            $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
+            $data['sync_id'] = 101 . $app_id;
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
-            FacilityFollowup::create($data);
+            $facility_followup = FacilityFollowup::create($data);
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save followup, Try again";
             $this->_notify_type = "danger";
@@ -105,6 +111,8 @@ class FacilityFollowupController extends Controller
     {
         try {
             $data = $request->all();
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+
             FacilityFollowup::findOrFail($id)->update($data);
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save followup, Try again";
