@@ -135,20 +135,22 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>ADMISSIONS</h5>
-                                <div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-xs btn-white active">Today</button>
-                                        <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                                        <button type="button" class="btn btn-xs btn-white">Annual</button>
-                                    </div>
-                                </div>
+                                <h5>ADMISSIONS (Last 30 days)</h5>
+                                {{--<div class="pull-right">--}}
+                                    {{--<div class="btn-group">--}}
+                                        {{--<button type="button" class="btn btn-xs btn-white active">Today</button>--}}
+                                        {{--<button type="button" class="btn btn-xs btn-white">Monthly</button>--}}
+                                        {{--<button type="button" class="btn btn-xs btn-white">Annual</button>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                             </div>
                             <div class="ibox-content">
                                 <div class="row">
                                     <div class="col-lg-9">
                                         <div class="flot-chart">
-                                            <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                                            {{--<div class="flot-chart-content" >--}}
+                                                <canvas id="childAdmission" class="flot-chart-content" ></canvas>
+                                            {{--</div>--}}
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
@@ -231,7 +233,9 @@
 <script src="js/demo/sparkline-demo.js"></script>
 
 <!-- ChartJS-->
-<script src="js/plugins/chartJs/Chart.min.js"></script>
+{{--<script src="js/plugins/chartJs/Chart.min.js"></script>--}}
+<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -264,98 +268,90 @@
 
         ///FLOT CHART STARTS HERE
 
-
-        var data2 = [
-            [gd(2012, 8, 1), 8], [gd(2012, 8, 2), 6], [gd(2012, 8, 3), 4], [gd(2012, 8, 4), 8],
-            [gd(2012, 8, 5), 10], [gd(2012, 8, 6), 7], [gd(2012, 8, 7), 5], [gd(2012, 8, 8), 4],
-            [gd(2012, 8, 9), 10], [gd(2012, 8, 10), 8], [gd(2012, 8, 11), 9], [gd(2012, 8, 12), 6],
-            [gd(2012, 8, 13), 4], [gd(2012, 8, 14), 5], [gd(2012, 8, 15), 11], [gd(2012, 8, 16), 8],
-            [gd(2012, 8, 17), 8], [gd(2012, 8, 18), 11], [gd(2012, 8, 19), 11], [gd(2012, 8, 20), 6],
-            [gd(2012, 8, 21), 6], [gd(2012, 8, 22), 8], [gd(2012, 8, 23), 11], [gd(2012, 8, 24), 13],
-            [gd(2012, 8, 25), 7], [gd(2012, 8, 26), 9], [gd(2012, 8, 27), 9], [gd(2012, 8, 25), 8],
-            [gd(2012, 8, 29), 5], [gd(2012, 8, 30), 8], [gd(2012, 8, 31), 15]
-        ];
-
-
-        var data3 = [
-            [gd(2012, 8, 1), 7], [gd(2012, 8, 2), 6], [gd(2012, 8, 3), 4], [gd(2012, 8, 4), 8],
-            [gd(2012, 8, 5), 9], [gd(2012, 8, 6), 7], [gd(2012, 8, 7), 5], [gd(2012, 8, 8), 4],
-            [gd(2012, 8, 9), 7], [gd(2012, 8, 10), 8], [gd(2012, 8, 11), 9], [gd(2012, 8, 12), 6],
-            [gd(2012, 8, 13), 4], [gd(2012, 8, 14), 5], [gd(2012, 8, 15), 11], [gd(2012, 8, 16), 8],
-            [gd(2012, 8, 17), 8], [gd(2012, 8, 18), 11], [gd(2012, 8, 19), 11], [gd(2012, 8, 20), 6],
-            [gd(2012, 8, 21), 6], [gd(2012, 8, 22), 8], [gd(2012, 8, 23), 11], [gd(2012, 8, 24), 13],
-            [gd(2012, 8, 25), 7], [gd(2012, 8, 26), 9], [gd(2012, 8, 27), 9], [gd(2012, 8, 28), 8],
-            [gd(2012, 8, 29), 5], [gd(2012, 8, 30), 8], [gd(2012, 8, 31), 25]
-        ];
-
-
-        var dataset = [
-            {
-                label: "Admissions",
-                data: data3,
-                color: "#1ab394",
-                bars: {
-                    show: true,
-                    align: "center",
-                    barWidth: 24 * 60 * 60 * 600,
-                    lineWidth: 0
-                }
-
-
-            }
-        ];
-
-
-        var options = {
-            xaxis: {
-                mode: "time",
-                tickSize: [3, "day"],
-                tickLength: 0,
-                axisLabel: "Date",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 12,
-                axisLabelFontFamily: 'Arial',
-                axisLabelPadding: 10,
-                color: "#d5d5d5"
-            },
-            yaxes: [{
-                position: "left",
-                max: 30,
-                color: "#d5d5d5",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 10,
-                axisLabelFontFamily: 'Arial',
-                axisLabelPadding: 3
-            }, {
-                position: "right",
-                clolor: "#d5d5d5",
-                axisLabelUseCanvas: true,
-                axisLabelFontSizePixels: 10,
-                axisLabelFontFamily: ' Arial',
-                axisLabelPadding: 67
-            }
-            ],
-            legend: {
-                noColumns: 1,
-                labelBoxBorderColor: "#000000",
-                position: "nw"
-            },
-            grid: {
-                hoverable: false,
-                borderWidth: 0
-            }
-        };
-
-        function gd(year, month, day) {
-            return new Date(year, month - 1, day).getTime();
-        }
-
-        var previousPoint = null, previousLabel = null;
-
-        $.plot($("#flot-dashboard-chart"), dataset, options);
-
+//        var data2 = [
+//            [gd(2012, 8, 1), 8], [gd(2012, 8, 2), 6], [gd(2012, 8, 3), 4], [gd(2012, 8, 4), 8],
+//            [gd(2012, 8, 5), 10], [gd(2012, 8, 6), 7], [gd(2012, 8, 7), 5], [gd(2012, 8, 8), 4],
+//            [gd(2012, 8, 9), 10], [gd(2012, 8, 10), 8], [gd(2012, 8, 11), 9], [gd(2012, 8, 12), 6],
+//            [gd(2012, 8, 13), 4], [gd(2012, 8, 14), 5], [gd(2012, 8, 15), 11], [gd(2012, 8, 16), 8],
+//            [gd(2012, 8, 17), 8], [gd(2012, 8, 18), 11], [gd(2012, 8, 19), 11], [gd(2012, 8, 20), 6],
+//            [gd(2012, 8, 21), 6], [gd(2012, 8, 22), 8], [gd(2012, 8, 23), 11], [gd(2012, 8, 24), 13],
+//            [gd(2012, 8, 25), 7], [gd(2012, 8, 26), 9], [gd(2012, 8, 27), 9], [gd(2012, 8, 25), 8],
+//            [gd(2012, 8, 29), 5], [gd(2012, 8, 30), 8], [gd(2012, 8, 31), 15]
+//        ];
+//        var data3 = [
+//            [gd(2012, 8, 1), 7], [gd(2012, 8, 2), 6], [gd(2012, 8, 3), 4], [gd(2012, 8, 4), 8],
+//            [gd(2012, 8, 5), 9], [gd(2012, 8, 6), 7], [gd(2012, 8, 7), 5], [gd(2012, 8, 8), 4],
+//            [gd(2012, 8, 9), 7], [gd(2012, 8, 10), 8], [gd(2012, 8, 11), 9], [gd(2012, 8, 12), 6],
+//            [gd(2012, 8, 13), 4], [gd(2012, 8, 14), 5], [gd(2012, 8, 15), 11], [gd(2012, 8, 16), 8],
+//            [gd(2012, 8, 17), 8], [gd(2012, 8, 18), 11], [gd(2012, 8, 19), 11], [gd(2012, 8, 20), 6],
+//            [gd(2012, 8, 21), 6], [gd(2012, 8, 22), 8], [gd(2012, 8, 23), 11], [gd(2012, 8, 24), 13],
+//            [gd(2012, 8, 25), 7], [gd(2012, 8, 26), 9], [gd(2012, 8, 27), 9], [gd(2012, 8, 28), 8],
+//            [gd(2012, 8, 29), 5], [gd(2012, 8, 30), 8], [gd(2012, 8, 31), 25]
+//        ];
+//        var dataset = [
+//            {
+//                label: "Admissions",
+//                data: data3,
+//                color: "#1ab394",
+//                bars: {
+//                    show: true,
+//                    align: "center",
+//                    barWidth: 24 * 60 * 60 * 600,
+//                    lineWidth: 0
+//                }
+//            }
+//        ];
+//        var options = {
+//            xaxis: {
+//                mode: "time",
+//                tickSize: [3, "day"],
+//                tickLength: 0,
+//                axisLabel: "Date",
+//                axisLabelUseCanvas: true,
+//                axisLabelFontSizePixels: 12,
+//                axisLabelFontFamily: 'Arial',
+//                axisLabelPadding: 10,
+//                color: "#d5d5d5"
+//            },
+//            yaxes: [{
+//                position: "left",
+//                max: 30,
+//                color: "#d5d5d5",
+//                axisLabelUseCanvas: true,
+//                axisLabelFontSizePixels: 10,
+//                axisLabelFontFamily: 'Arial',
+//                axisLabelPadding: 3
+//            }, {
+//                position: "right",
+//                clolor: "#d5d5d5",
+//                axisLabelUseCanvas: true,
+//                axisLabelFontSizePixels: 10,
+//                axisLabelFontFamily: ' Arial',
+//                axisLabelPadding: 67
+//            }
+//            ],
+//            legend: {
+//                noColumns: 1,
+//                labelBoxBorderColor: "#000000",
+//                position: "nw"
+//            },
+//            grid: {
+//                hoverable: false,
+//                borderWidth: 0
+//            }
+//        };
+//
+//        function gd(year, month, day) {
+//            return new Date(year, month - 1, day).getTime();
+//        }
+//
+//        var previousPoint = null, previousLabel = null;
+//
+//        $.plot($("#flot-dashboard-chart"), dataset, options);
 
     });//END OF ONREADY
+
+
 
     function load_child(child) {
         $.ajax({
@@ -390,11 +386,11 @@
         $('#child-info').html('Loading ...');
         load_facility(facility);
     });
-</script>
+    {{--</script>--}}
 
 
-<!-- Mapping Script starts here -->
-<script>
+    <!-- Mapping Script starts here -->
+    //<script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
     var map = new mapboxgl.Map({
         container: 'map',
@@ -407,8 +403,6 @@
     map.addControl(nav, 'bottom-left');
 
     map.on('load', function () {
-
-
     });
 
     setTimeout(function () {
@@ -422,8 +416,8 @@
 
     }, 1300);
 
-    var chart_data =JSON.parse('<?php echo json_encode($chart_doughnut_value); ?>');
-//        JSON.parse($chart_doughnut);
+    var chart_data = JSON.parse('<?php echo json_encode($chart_doughnut_value); ?>');
+    //        JSON.parse($chart_doughnut);
     var doughnutData = {
         labels: ["MUAC", "Z-Score", "Both"],
         datasets: [{
@@ -432,7 +426,6 @@
             backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
         }]
     };
-
 
     var doughnutOptions = {
         responsive: true,
@@ -450,4 +443,34 @@
 
 </script>
 <!-- Mapping script ends here -->
+<script>
+    var ctx = document.getElementById('childAdmission').getContext('2d');
+    var jsArraycount = JSON.parse('<?php echo json_encode($chart_bar_count_value); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($chart_bar_date_key); ?>');
+    var childAdmission = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: jsArraydate,
+            datasets: [{
+                label: 'Admission',
+                data: jsArraycount,
+                backgroundColor: 'rgba(255, 129, 214, 0.6)',
+                borderColor: 'rgba(200, 129, 214, 0.6)',
+                pointBackgroundColor: 'rgba(20, 12, 21, 0.6)',
+                borderWidth: 1
+            }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+            }
+        }
+    });
+
+</script>
 @endpush
