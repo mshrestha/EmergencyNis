@@ -9,7 +9,8 @@ use Illuminate\Http\Request;
 
 class SyncDataClientController extends Controller
 {
-	private $sync_url = 'http://localhost:9000';
+	// private $sync_url = 'http://localhost:9000';
+	private $sync_url = 'http://ens.kazi270.com';
 
     public function syncChildrenClient() {
     	$total_children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
