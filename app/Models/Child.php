@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Child extends Model
 {
+    public $incrementing = false;
+    protected $primaryKey = 'sync_id';
     protected $table = "children";
     protected $fillable = [
         'sync_id', 'sync_status', 'mnr_no', 'mrc_no','date','sub_block_no','hh_no','gps_coordinates_lat','gps_coordinates_lng','family_count_no','mother_caregiver_name','fathers_name','block_leader_name','children_name','date_of_birth','age','sex','phone','picture','barcode','camp_id', 'facility_id'

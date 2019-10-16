@@ -63,7 +63,7 @@ class ChildrenController extends Controller
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
-            $id = Child::create($data)->id;
+            $id = Child::create($data)->sync_id;
         } catch (Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
             $this->_notify_type = 'danger';

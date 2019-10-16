@@ -40,9 +40,9 @@
                                     </thead>
                                     <tbody>
                                     @foreach($children as $child)
-                                        <tr class="children-client" data-child-id="{{ $child->id }}">
+                                        <tr class="children-client" data-child-id="{{ $child->sync_id }}">
                                             <td>{{ $child->mnr_no }}</td>
-                                            <td><a href="#child-{{ $child->id }}"
+                                            <td><a href="#child-{{ $child->sync_id }}"
                                                    class="client-link">{{ $child->children_name }}</a></td>
 
 
@@ -52,19 +52,17 @@
                                                 @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
                                                     <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
                                                 @endif
-
                                             </td>
                                             <td>
-
                                                 @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
-                                                    <a href="{{ route('community-followup.show', $child->id) }}">
+                                                    <a href="{{ route('community-followup.show', $child->sync_id) }}">
                                                         <button type="button" class="btn btn-default btn-circle">
                                                             <i class="fa fa-child"></i>
                                                         </button>
                                                     </a>
                                                 @endif
                                                 @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
-                                                    <a href="{{ route('facility-followup.show', $child->id) }}"
+                                                    <a href="{{ route('facility-followup.show', $child->sync_id) }}"
                                                        class="edit-btn">
                                                         <button class="btn btn-default btn-circle" type="button"><i
                                                                     class="fa fa-plus"></i></button>

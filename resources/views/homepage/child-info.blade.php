@@ -16,10 +16,10 @@
         </p>
         <div class="row">
             <div class="col-lg-12">
-                <a href="{{ route('children.edit', $child->id) }}" class="edit-btn">
+                <a href="{{ route('children.edit', $child->sync_id) }}" class="edit-btn">
                     <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
                 </a>
-                <form action="{{ route('children.destroy', $child->id) }}" method="post" class="delete-form">
+                <form action="{{ route('children.destroy', $child->sync_id) }}" method="post" class="delete-form">
                     @csrf
                     @method('DELETE')
 

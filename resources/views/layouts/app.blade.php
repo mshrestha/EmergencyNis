@@ -56,10 +56,10 @@
                     </li>
                     
 					@endif
-                    <li class="{{ request()->segment(1) == 'user' ? 'active' : '' }}">
+                    <li class="{{ request()->segment(1) == 'reports' ? 'active' : '' }}">
                         <a href="{{ route('reports') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span class="nav-label">Generate Reports</span></a>
                     </li>
-                    <li class="{{ request()->segment(1) == 'register' ? 'active' : '' }}">
+                    <li class="{{ (request()->segment(1) == 'register' || request()->segment(1) ==  'children') ? 'active' : '' }}">
                         <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span class="nav-label">Register</span></a>
                     </li>
 				</ul>
