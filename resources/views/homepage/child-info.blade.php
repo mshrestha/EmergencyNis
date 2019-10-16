@@ -84,9 +84,9 @@
                             Edema
                         </li>
                         @endif
-                        @if(isset($followups[0]['nutritional_status']))
+                        @if(isset($followups[0]['nutritionstatus']))
                         <li class="list-group-item">
-                            <span class="pull-right"> {{ $followups[0]['nutritional_status'] }} </span>
+                            <span class="pull-right"> {{ $followups[0]['nutritionstatus'] }} </span>
                             Nutritional Status
                         </li>
                         @endif
