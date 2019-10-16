@@ -64,12 +64,12 @@ Route::get('fix-sync', function() {
 	// 	$facility_followup->save();
 	// }
 
-	$facility_followups = App\Models\FacilityFollowup::all();
-	foreach($facility_followups as $facility_followup) {
-		if(!$facility_followup->nutritionstatus) {
-			$facility_followup->nutritionstatus = 'SAM';
-			$facility_followup->save();
-		}
-	}
-	dd('done');
+	// $facility_followups = App\Models\FacilityFollowup::all();
+	// foreach($facility_followups as $facility_followup) {
+	// 	if(!$facility_followup->nutritionstatus) {
+	// 		$facility_followup->nutritionstatus = 'SAM';
+	// 		$facility_followup->save();
+	// 	}
+	// }
+	// dd('done');
 });
