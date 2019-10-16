@@ -116,7 +116,7 @@
 
 
                                 <span class="pull-right">
-                                    <a href="{{ route('facility-followup.edit', $followup['id']) }}">Edit</a>
+                                    <a href="{{ route('facility-followup.edit', $followup['sync_id']) }}">Edit</a>
                                 </span>
                             </div>
                             @else
