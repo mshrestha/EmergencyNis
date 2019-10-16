@@ -127,7 +127,14 @@ class HomeController extends Controller
 
     public function childInfo($child_id)
     {
+//                if ($request->ajax()) {
+//            return $request;
+//        }
+//        return response()->json($child_id);
+//        dd($child_id);
+
         $child = Child::findOrFail($child_id);
+
         $community_followups = CommunityFollowup::where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
         $facility_followups = FacilityFollowup::with('facility')->where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
 
@@ -139,6 +146,8 @@ class HomeController extends Controller
 
         $chart_date = array_column($facility_followups, 'created_at');
         $chart_weight = array_column($facility_followups, 'weight');
+
+        return response()->json($followups);
 
         return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();
     }

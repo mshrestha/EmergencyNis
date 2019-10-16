@@ -118,132 +118,177 @@
                     <tbody>
                     <tr class="gradeX">
                         <td>6-23 mnths</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        
+                        <td>_</td>
+                        <td>_</td>
+                        <td>_</td>
+
+                        <td>{{$report['muac_23_male']}}</td>
+                        <td>{{$report['muac_23_female']}}</td>
+                        <td>{{$report['zscore_23_male']}}</td>
+                        <td>{{$report['zscore_23_female']}}</td>
+                        <td>{{$report['oedema_23_male']}}</td>
+                        <td>{{$report['oedema_23_female']}}</td>
+                        <td>{{$report['relapse_23_male']}}</td>
+                        <td>{{$report['relapse_23_female']}}</td>
+
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']}}</td>
+                        <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']}}</td>
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']}}</td>
+
+                        <td>{{$report['return_default_23_male']}}</td>
+                        <td>{{$report['return_default_23_female']}}</td>
+                        <td>{{$report['transferin_tsfp_23_male']}}</td>
+                        <td>{{$report['transferin_tsfp_23_female']}}</td>
+                        <td>{{$report['transferin_sc_23_male']}}</td>
+                        <td>{{$report['transferin_sc_23_female']}}</td>
+                        <td>{{$report['transferin_otp_23_male']}}</td>
+                        <td>{{$report['transferin_otp_23_female']}}</td>
+
+                        <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']}}</td>
+                        <td>{{$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
+                        <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
+
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']}}</td>
+                        <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
+
                     </tr>
                     <tr class="gradeX">
                         <td>24-59 mnths</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        
+                        <td>_</td>
+                        <td>_</td>
+                        <td>_</td>
+
+                        <td>{{$report['muac_24to59_male']}}</td>
+                        <td>{{$report['muac_24to59_female']}}</td>
+                        <td>{{$report['zscore_24to59_male']}}</td>
+                        <td>{{$report['zscore_24to59_female']}}</td>
+                        <td>{{$report['oedema_24to59_male']}}</td>
+                        <td>{{$report['oedema_24to59_female']}}</td>
+                        <td>{{$report['relapse_24to59_male']}}</td>
+                        <td>{{$report['relapse_24to59_female']}}</td>
+
+                        <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']}}</td>
+                        <td>{{$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']}}</td>
+                        <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']}}</td>
+
+                        <td>{{$report['return_default_24to59_male']}}</td>
+                        <td>{{$report['return_default_24to59_female']}}</td>
+                        <td>{{$report['transferin_tsfp_24to59_male']}}</td>
+                        <td>{{$report['transferin_tsfp_24to59_female']}}</td>
+                        <td>{{$report['transferin_sc_24to59_male']}}</td>
+                        <td>{{$report['transferin_sc_24to59_female']}}</td>
+                        <td>{{$report['transferin_otp_24to59_male']}}</td>
+                        <td>{{$report['transferin_otp_24to59_female']}}</td>
+
+                        <td>{{$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']}}</td>
+                        <td>{{$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
+                        <td>{{$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
+
+                        <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']}}</td>
+                        <td>{{$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
+                        <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
+
                     </tr>
                     <tr class="gradeX">
                         <td>> 5 yrs</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        
+
+                        <td>_</td>
+                        <td>_</td>
+                        <td>_</td>
+
+                        <td>{{$report['muac_60_male']}}</td>
+                        <td>{{$report['muac_60_female']}}</td>
+                        <td>{{$report['zscore_60_male']}}</td>
+                        <td>{{$report['zscore_60_female']}}</td>
+                        <td>{{$report['oedema_60_male']}}</td>
+                        <td>{{$report['oedema_60_female']}}</td>
+                        <td>{{$report['relapse_60_male']}}</td>
+                        <td>{{$report['relapse_60_female']}}</td>
+
+                        <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']}}</td>
+                        <td>{{$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
+                        <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
+
+                        <td>{{$report['return_default_60_male']}}</td>
+                        <td>{{$report['return_default_60_female']}}</td>
+                        <td>{{$report['transferin_tsfp_60_male']}}</td>
+                        <td>{{$report['transferin_tsfp_60_female']}}</td>
+                        <td>{{$report['transferin_sc_60_male']}}</td>
+                        <td>{{$report['transferin_sc_60_female']}}</td>
+                        <td>{{$report['transferin_otp_60_male']}}</td>
+                        <td>{{$report['transferin_otp_60_female']}}</td>
+
+                        <td>{{$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
+                        <td>{{$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+                        <td>{{$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+
+                        <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
+                        <td>{{$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+                        <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+
                     </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <th>Total</th>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>0</td>
-                        <td>1</td>
-                        <td>1</td>
+                        <td>_</td>
+                        <td>_</td>
+                        <td>_</td>
+
+                        <td>{{$report['muac_23_male']+$report['muac_24to59_male']+$report['muac_60_male']}}</td>
+                        <td>{{$report['muac_23_female']+$report['muac_24to59_female']+$report['muac_60_female']}}</td>
+                        <td>{{$report['zscore_23_male']+$report['zscore_24to59_male']+$report['zscore_60_male']}}</td>
+                        <td>{{$report['zscore_23_female']+$report['zscore_24to59_female']+$report['zscore_60_female']}}</td>
+                        <td>{{$report['oedema_23_male']+$report['oedema_24to59_male']+$report['oedema_60_male']}}</td>
+                        <td>{{$report['oedema_23_female']+$report['oedema_24to59_female']+$report['oedema_60_female']}}</td>
+                        <td>{{$report['relapse_23_male']+$report['relapse_24to59_male']+$report['relapse_60_male']}}</td>
+                        <td>{{$report['relapse_23_female']+$report['relapse_24to59_female']+$report['relapse_60_female']}}</td>
+
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+
+                            $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+
+                            $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']}}</td>
+
+                        <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+
+                            $report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+
+                            $report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
+
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+
+                            $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+
+                            $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
+
+                        <td>{{$report['return_default_23_male']+$report['return_default_24to59_male']+$report['return_default_60_male']}}</td>
+                        <td>{{$report['return_default_23_female']+$report['return_default_24to59_female']+$report['return_default_60_female']}}</td>
+                        <td>{{$report['transferin_tsfp_23_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_tsfp_60_male']}}</td>
+                        <td>{{$report['transferin_tsfp_23_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_tsfp_60_female']}}</td>
+                        <td>{{$report['transferin_sc_23_male']+$report['transferin_sc_24to59_male']+$report['transferin_sc_60_male']}}</td>
+                        <td>{{$report['transferin_sc_23_female']+$report['transferin_sc_24to59_female']+$report['transferin_sc_60_female']}}</td>
+                        <td>{{$report['transferin_otp_23_male']+$report['transferin_otp_24to59_male']+$report['transferin_otp_60_male']}}</td>
+                        <td>{{$report['transferin_otp_23_female']+$report['transferin_otp_24to59_female']+$report['transferin_otp_60_female']}}</td>
+
+                        <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+
+                            $report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+
+                            $report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
+
+                        <td>{{$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
+                            $report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
+                            $report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+
+                        <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
+                            $report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
+                            $report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+
+                        $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+
+                        $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
+
+                        <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
+                        $report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
+                        $report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+
+                        <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
+                        $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
+                        $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
                     </tr>
                     </tfoot>
                     </table>                            
