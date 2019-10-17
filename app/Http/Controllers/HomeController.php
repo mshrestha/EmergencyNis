@@ -139,7 +139,7 @@ class HomeController extends Controller
             return $a['date'] <=> $b['date'];
         });
 
-        $chart_date = array_column($facility_followups, 'created_at');
+        $chart_date = array_column($facility_followups, 'date');
         $chart_weight = array_column($facility_followups, 'weight');
 
         return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();

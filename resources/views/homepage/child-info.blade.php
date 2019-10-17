@@ -169,14 +169,18 @@
                         beginAtZero: true
                     }
                 }],
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                        displayFormats: {
-                            labels: 'DD MMM YY'
-                        }
-                    }
-                }]
+//                xAxes: [{
+//                    type: 'time',
+//                    time: {
+//                        parser: 'YYYY-MM-DD',
+//                        displayFormats: {
+//                            'date': 'YYYY-MM',
+//                        }
+//                    },
+//                    ticks: {
+//                        source: 'data'
+//                    }
+//                }]
             }
         }
     });
