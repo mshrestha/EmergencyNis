@@ -155,7 +155,7 @@
             datasets: [{
                 label: 'Child Weight',
                 data: jsArrayweight,
-                backgroundColor: 'rgba(255, 129, 214, 0.6)',
+                backgroundColor: 'rgba(0, 129, 214, 0.6)',
                 borderColor : 'rgba(200, 129, 214, 0.6)',
                 pointBackgroundColor : 'rgba(20, 12, 21, 0.6)',
                 borderWidth: 1
