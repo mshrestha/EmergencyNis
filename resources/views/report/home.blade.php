@@ -30,7 +30,8 @@
                                 <tr>
                                     <td>Facility Name: <strong>{{ $facility->facility_id }}</strong></td>
                                     <td>Program Partner: <strong>{{ $facility->program_partner }}</strong></td>
-                                    <td>Month/Year: <strong>{{ date("F Y",strtotime("-1 month")) }}</strong></td>
+                                    {{--<td>Month/Year: <strong>{{ date("F Y",strtotime("-1 month")) }}</strong></td>--}}
+                                    <td>Month/Year: <strong>{{ date('F', mktime(0, 0, 0, $report['report_month'], 10)).'-'.$report['report_year'] }}</strong></td>
                                 </tr>
                                 <tr>
                                     <td>Report prepared by: <strong>ENIS System</strong> </td>
@@ -118,9 +119,10 @@
                     <tbody>
                     <tr class="gradeX">
                         <td>6-23 mnths</td>
-                        <td>_</td>
-                        <td>_</td>
-                        <td>_</td>
+
+                        <td>{{$report['begining_balance_23_male']}}</td>
+                        <td>{{$report['begining_balance_23_female']}}</td>
+                        <td>{{$report['begining_balance_23_male']+$report['begining_balance_23_female']}}</td>
 
                         <td>{{$report['muac_23_male']}}</td>
                         <td>{{$report['muac_23_female']}}</td>
@@ -155,9 +157,9 @@
                     </tr>
                     <tr class="gradeX">
                         <td>24-59 mnths</td>
-                        <td>_</td>
-                        <td>_</td>
-                        <td>_</td>
+                        <td>{{$report['begining_balance_24to59_male']}}</td>
+                        <td>{{$report['begining_balance_24to59_female']}}</td>
+                        <td>{{$report['begining_balance_24to59_male']+$report['begining_balance_24to59_female']}}</td>
 
                         <td>{{$report['muac_24to59_male']}}</td>
                         <td>{{$report['muac_24to59_female']}}</td>
@@ -193,9 +195,9 @@
                     <tr class="gradeX">
                         <td>> 5 yrs</td>
 
-                        <td>_</td>
-                        <td>_</td>
-                        <td>_</td>
+                        <td>{{$report['begining_balance_60_male']}}</td>
+                        <td>{{$report['begining_balance_60_female']}}</td>
+                        <td>{{$report['begining_balance_60_male']+$report['begining_balance_60_female']}}</td>
 
                         <td>{{$report['muac_60_male']}}</td>
                         <td>{{$report['muac_60_female']}}</td>
@@ -232,9 +234,9 @@
                     <tfoot>
                     <tr>
                         <th>Total</th>
-                        <td>_</td>
-                        <td>_</td>
-                        <td>_</td>
+                        <td>{{$report['begining_balance_23_male']+$report['begining_balance_24to59_male']+$report['begining_balance_60_male']}}</td>
+                        <td>{{$report['begining_balance_23_female']+$report['begining_balance_24to59_female']+$report['begining_balance_60_female']}}</td>
+                        <td>{{$report['begining_balance_23_male']+$report['begining_balance_24to59_male']+$report['begining_balance_60_male']+$report['begining_balance_23_female']+$report['begining_balance_24to59_female']+$report['begining_balance_60_female']}}</td>
 
                         <td>{{$report['muac_23_male']+$report['muac_24to59_male']+$report['muac_60_male']}}</td>
                         <td>{{$report['muac_23_female']+$report['muac_24to59_female']+$report['muac_60_female']}}</td>
