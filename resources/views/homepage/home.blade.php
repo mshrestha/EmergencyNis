@@ -54,7 +54,7 @@
                             <h5>Death Rate</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">{{ $dashboard['deathRate'] }}%</h1>
+                            <h1 class="no-margins">{{ number_format($dashboard['deathRate'],2) }}%</h1>
                             <div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i>
                             </div>
                             <small>August</small>
@@ -299,7 +299,6 @@
 <script>
     $(document).ready(function () {
 
-
         $('.dataTables').DataTable({
             pageLength: 25,
             responsive: true,
@@ -324,89 +323,6 @@
             ]
 
         });
-
-        ///FLOT CHART STARTS HERE
-
-//        var data2 = [
-//            [gd(2012, 8, 1), 8], [gd(2012, 8, 2), 6], [gd(2012, 8, 3), 4], [gd(2012, 8, 4), 8],
-//            [gd(2012, 8, 5), 10], [gd(2012, 8, 6), 7], [gd(2012, 8, 7), 5], [gd(2012, 8, 8), 4],
-//            [gd(2012, 8, 9), 10], [gd(2012, 8, 10), 8], [gd(2012, 8, 11), 9], [gd(2012, 8, 12), 6],
-//            [gd(2012, 8, 13), 4], [gd(2012, 8, 14), 5], [gd(2012, 8, 15), 11], [gd(2012, 8, 16), 8],
-//            [gd(2012, 8, 17), 8], [gd(2012, 8, 18), 11], [gd(2012, 8, 19), 11], [gd(2012, 8, 20), 6],
-//            [gd(2012, 8, 21), 6], [gd(2012, 8, 22), 8], [gd(2012, 8, 23), 11], [gd(2012, 8, 24), 13],
-//            [gd(2012, 8, 25), 7], [gd(2012, 8, 26), 9], [gd(2012, 8, 27), 9], [gd(2012, 8, 25), 8],
-//            [gd(2012, 8, 29), 5], [gd(2012, 8, 30), 8], [gd(2012, 8, 31), 15]
-//        ];
-//        var data3 = [
-//            [gd(2012, 8, 1), 7], [gd(2012, 8, 2), 6], [gd(2012, 8, 3), 4], [gd(2012, 8, 4), 8],
-//            [gd(2012, 8, 5), 9], [gd(2012, 8, 6), 7], [gd(2012, 8, 7), 5], [gd(2012, 8, 8), 4],
-//            [gd(2012, 8, 9), 7], [gd(2012, 8, 10), 8], [gd(2012, 8, 11), 9], [gd(2012, 8, 12), 6],
-//            [gd(2012, 8, 13), 4], [gd(2012, 8, 14), 5], [gd(2012, 8, 15), 11], [gd(2012, 8, 16), 8],
-//            [gd(2012, 8, 17), 8], [gd(2012, 8, 18), 11], [gd(2012, 8, 19), 11], [gd(2012, 8, 20), 6],
-//            [gd(2012, 8, 21), 6], [gd(2012, 8, 22), 8], [gd(2012, 8, 23), 11], [gd(2012, 8, 24), 13],
-//            [gd(2012, 8, 25), 7], [gd(2012, 8, 26), 9], [gd(2012, 8, 27), 9], [gd(2012, 8, 28), 8],
-//            [gd(2012, 8, 29), 5], [gd(2012, 8, 30), 8], [gd(2012, 8, 31), 25]
-//        ];
-//        var dataset = [
-//            {
-//                label: "Admissions",
-//                data: data3,
-//                color: "#1ab394",
-//                bars: {
-//                    show: true,
-//                    align: "center",
-//                    barWidth: 24 * 60 * 60 * 600,
-//                    lineWidth: 0
-//                }
-//            }
-//        ];
-//        var options = {
-//            xaxis: {
-//                mode: "time",
-//                tickSize: [3, "day"],
-//                tickLength: 0,
-//                axisLabel: "Date",
-//                axisLabelUseCanvas: true,
-//                axisLabelFontSizePixels: 12,
-//                axisLabelFontFamily: 'Arial',
-//                axisLabelPadding: 10,
-//                color: "#d5d5d5"
-//            },
-//            yaxes: [{
-//                position: "left",
-//                max: 30,
-//                color: "#d5d5d5",
-//                axisLabelUseCanvas: true,
-//                axisLabelFontSizePixels: 10,
-//                axisLabelFontFamily: 'Arial',
-//                axisLabelPadding: 3
-//            }, {
-//                position: "right",
-//                clolor: "#d5d5d5",
-//                axisLabelUseCanvas: true,
-//                axisLabelFontSizePixels: 10,
-//                axisLabelFontFamily: ' Arial',
-//                axisLabelPadding: 67
-//            }
-//            ],
-//            legend: {
-//                noColumns: 1,
-//                labelBoxBorderColor: "#000000",
-//                position: "nw"
-//            },
-//            grid: {
-//                hoverable: false,
-//                borderWidth: 0
-//            }
-//        };
-//
-//        function gd(year, month, day) {
-//            return new Date(year, month - 1, day).getTime();
-//        }
-//
-//        var previousPoint = null, previousLabel = null;
-//
-//        $.plot($("#flot-dashboard-chart"), dataset, options);
 
     });//END OF ONREADY
 
