@@ -40,13 +40,13 @@
                                 </tr>
                             </tbody>
                         </table>
-                         <table class="table table-striped table-bordered table-hover dataTables-example x-small small" >
+                <table class="table table-striped table-bordered table-hover dataTables-example x-small small" >
                     <thead>
                     <tr>
                         <th rowspan="3">Age Group</th>
                         <th rowspan="2" colspan="3">Total In Care Begining of month [A]</th>
-                        <th rowspan="1" colspan="8">New Enrollment [B]</th>
-                        <th rowspan="2" colspan="3">Total New Enrollment</th>
+                        <th rowspan="1" colspan="11">New Enrollment [B]</th>
+                        
                         <th rowspan="1" colspan="8">Transfer In [C]</th>
                         <th rowspan="2" colspan="3">Total Transfer In [C1+C2+C3+C4]</th>
                         <th rowspan="2" colspan="3">Total Enrollment [D=B+C]</th>
@@ -56,6 +56,8 @@
                         <th colspan="2">WFH &lt; -3SD (B2)</th>
                         <th colspan="2">Edema (B3)</th>
                         <th colspan="2">Relapse (B4)</th>
+                        
+                        <th colspan="3">Total New Enrollment</th>
                         
                         <th colspan="2">Return after Default (C1)</th>
                         <th colspan="2">Transfer in from TSFP (C2)</th>
@@ -293,7 +295,229 @@
                         $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
                     </tr>
                     </tfoot>
-                    </table>                            
+                    </table>
+                        
+                    <!-- Second Table -->
+                        
+                    <table class="table table-striped table-bordered table-hover dataTables-example x-small small" >
+                    <thead>
+                    <tr>
+                        <th rowspan="3">Age Group</th>
+                        
+                        <th rowspan="1" colspan="11">Discharge (E)</th>
+                        
+                        <th rowspan="1" colspan="8">Transfer Out [F]</th>
+                        <th rowspan="2" colspan="3">Total Exits [G=E+F]</th>
+                        <th rowspan="2" colspan="3">Total End of the month</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Recovered (E1)</th>
+                        <th colspan="2">Death (E2)</th>
+                        <th colspan="2">Defaulter (E3)</th>
+                        <th colspan="2">Nonrecover (E4)</th>
+                        
+                        <th colspan="3">Total Discharge</th>
+                        
+                        <th colspan="2">Medical Transfer (F1)</th>
+                        <th colspan="2">Transfer to other OTP (F2)</th>
+                        <th colspan="2">Transfer to inpatient (F3)</th>
+                        <th colspan="2">Unknown/Other (F4)</th>
+                    </tr>
+                    <tr>
+                       
+                        
+                        <!-- B1 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- B2 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- B3 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- B4 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- Total new enrollment -->
+                        <th>M</th>
+                        <th>F</th>
+                        <th>T</th>
+                        
+                        <!-- C1 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- C2 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- C3 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- C4 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- Total Transfer In -->
+                        <th>M</th>
+                        <th>F</th>
+                        <th>T</th>
+                        
+                        <!-- This is for D Total Enrollment -->
+                        <th>M</th>
+                        <th>F</th>
+                        <th>T</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="gradeX">
+                        <td>6-23 mnths</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                    </tr>
+                    <tr class="gradeX">
+                        <td>24-59 mnths</td>
+                        
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                    </tr>
+                    <tr class="gradeX">
+                        <td>> 5 yrs</td>
+
+                        
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tfoot>
+                    </table> 
                                 <div class="full-height-scroll">
                   
                                     
