@@ -144,6 +144,14 @@ class HomeController extends Controller
 
         return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();
     }
+    
+    public function programManagerDashboard(){
+        
+        $facilityFollowup = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->get();
+        $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
+        //$dashboard = '';
+        return view('homepage.program-manager', compact('dashboard'))->render();
+    }
 
     public function facilityInfo($facility_id)
     {
