@@ -12,6 +12,8 @@
 	<link href="{{ asset('css/animate.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/switchery/switchery.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
+	<link href="{{ asset('custom/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet">
+
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.css')}}" rel="stylesheet">
 	<link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
     <link href="{{ asset('css/plugins/steps/jquery.steps.css')}}" rel="stylesheet">
@@ -114,8 +116,10 @@
 	<!-- Custom and plugin javascript -->
 	<script src="{{ asset('js/inspinia.js')}}"></script>
 	<script src="{{ asset('js/plugins/pace/pace.min.js')}}"></script>
-    
-    <!-- Toastr -->
+	<script src="{{ asset('custom/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
+
+
+	<!-- Toastr -->
     <script src="{{ asset('js/plugins/toastr/toastr.min.js')}}"></script>
     <script>
         function printDiv(divName) {
