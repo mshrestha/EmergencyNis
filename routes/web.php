@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/login', 'AuthController@getLogin')->name('auth.login');
 Route::post('/login', 'AuthController@postLogin')->name('auth.login');
 Route::get('/logout', 'AuthController@getLogout')->name('auth.logout');

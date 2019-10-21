@@ -219,35 +219,8 @@ class HomeController extends Controller
 
     public function test()
     {
-//        $b=FacilityFollowup::selectRaw('DATE(created_at) as x, COUNT(*) as y')
-//            ->where('new_admission', 'MUAC')
-//            ->groupBy('x')
-//            ->where('created_at', '>', \Carbon\Carbon::now()->subDays(30))
-//            ->pluck('x','y');
 
-        $fromDate = \Carbon\Carbon::now()->subDay(30)->toDateString();
-        $tillDate = \Carbon\Carbon::now()->subDay()->toDateString();
-//dd($fromDate);
-
-       $a= FacilityFollowup::selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
-            ->where('new_admission', 'MUAC')
-            ->orWhere('new_admission', 'WFH Zscore')
-            ->orWhere('new_admission', 'MUAC and WFH Zscore')
-        ->groupBy('dat')
-           ->whereBetween('created_at',[$fromDate, $tillDate] )
-//           ->whereBetween('created_at', [$min_createdat, $pre_date])
-
-           ->orderBy('dat', 'ASC')
-        ->pluck('cunt', 'dat');
-
-        $c= FacilityFollowup::selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
-            ->where('new_admission', 'MUAC')
-            ->orWhere('new_admission', 'WFH Zscore')
-            ->orWhere('new_admission', 'MUAC and WFH Zscore')
-            ->groupBy('dat')
-            ->pluck('cunt', 'dat');
-
-       dd($a);
+        return view('test');
 
 
     }
