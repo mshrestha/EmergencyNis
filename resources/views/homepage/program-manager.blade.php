@@ -3,7 +3,8 @@
 @section('content')
 
  <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-8">
+        <h2>Admissions</h2>
         <div class="small pull-left col-md-3 m-l-lg m-t-md">
             <strong>ADMISSION TREND</strong> 
         </div>
@@ -18,34 +19,17 @@
 
 
 
-<div id="header">
-		<h2>Stacking</h2>
-	</div>
-
-	<div id="content">
-
-		<div class="demo-container">
-			<div id="placeholder" class="demo-placeholder"></div>
-		</div>
-
-		<p>With the stack plugin, you can have Flot stack the series. This is useful if you wish to display both a total and the constituents it is made of. The only requirement is that you provide the input sorted on x.</p>
-
-		<p class="stackControls">
-			<button>With stacking</button>
-			<button>Without stacking</button>
-		</p>
-
-		<p class="graphControls">
-			<button>Bars</button>
-			<button>Lines</button>
-			<button>Lines with steps</button>
-		</p>
-
-	</div>
-
-	<div id="footer">
-		Copyright &copy; 2007 - 2014 IOLA and Ole Laursen
-	</div>
+<div class="row">
+    <div class="col-lg-8">
+		<h2>OTP Performance</h2>
+        <div id="content">
+            <div class="flot-chart m-b-xl">
+                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+	
 
 @endsection
 
@@ -169,48 +153,146 @@
 
 
              var data1 = [
-                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,20],[11,10],[12,13],[13,4],[14,7],[15,8],[16,12]
+                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,20],[11,10],[12,13]
             ];
             var data2 = [
-                [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5],[10,4],[11,1],[12,5],[13,2],[14,5],[15,2],[16,0]
+                [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5],[10,4],[11,1],[12,5]
             ];
-            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [
-                        data1,  data2
-                    ],
+            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [ data1, data2],
                     {
                         series: {
                             lines: {
-                                show: false,
-                                fill: true,
+                                show: true,
+                                fill: false,
                                 steps: false
                             },
-                            splines: {
-                                show: true,
-                                tension: 0.4,
-                                lineWidth: 1,
-                                fill: 0.4
-                            },
+                            
                             points: {
                                 radius: 2,
                                 show: true
                             },
-                            shadowSize: 2
+                            shadowSize: 1
+                        },
+                        legend: {
+                            show: true,
+                            labelFormatter: null, // or (fn: string, series object -> string)
+                            labelBoxBorderColor: "#eeeeee",
+                            noColumns: 3,
+                            position: "ne",
+                            margin: [10, 10],
+                            backgroundColor: "#cc0000",
+                            backgroundOpacity: 1,
+                            container: null,
+                            //sorted: null/false, true, "ascending", "descending", "reverse", or a comparator
                         },
                         grid: {
                             hoverable: true,
                             clickable: true,
 
-                            borderWidth: 2,
-                            color: 'transparent'
+                            borderWidth: 0,
+                            color: '#cccccc'
                         },
-                        colors: ["#1ab394", "#1C84C6"],
+                        colors: ["#FF8C00", "#1C84C6"],
                         xaxis:{
+                            show: true
                         },
                         yaxis: {
+                            show:true
                         },
                         tooltip: true
                     }
             );
+            
+            
+            
+            
+            //SECOND STACKED BARS STARTS HERE
+            var data3 = [
+                [gd(2012, 1, 1), 7], [gd(2012, 1, 2), 6], [gd(2012, 1, 3), 4], [gd(2012, 1, 4), 8],
+                [gd(2012, 1, 5), 9], [gd(2012, 1, 6), 7], [gd(2012, 1, 7), 5], [gd(2012, 1, 8), 4],
+                [gd(2012, 1, 9), 7], [gd(2012, 1, 10), 8], [gd(2012, 1, 11), 9], [gd(2012, 1, 12), 6],
+                [gd(2012, 1, 13), 4], [gd(2012, 1, 14), 5], [gd(2012, 1, 15), 11], [gd(2012, 1, 16), 8],
+                [gd(2012, 1, 17), 8], [gd(2012, 1, 18), 11], [gd(2012, 1, 19), 11], [gd(2012, 1, 20), 6],
+                [gd(2012, 1, 21), 6], [gd(2012, 1, 22), 8], [gd(2012, 1, 23), 11], [gd(2012, 1, 24), 13],
+                [gd(2012, 1, 25), 7], [gd(2012, 1, 26), 9], [gd(2012, 1, 27), 9], [gd(2012, 1, 28), 8],
+                [gd(2012, 1, 29), 5], [gd(2012, 1, 30), 8], [gd(2012, 1, 31), 25]
+            ];
+
+            var data = [
+                [gd(2012, 1, 1), 800], [gd(2012, 1, 2), 500], [gd(2012, 1, 3), 600], [gd(2012, 1, 4), 700],
+                [gd(2012, 1, 5), 500], [gd(2012, 1, 6), 456], [gd(2012, 1, 7), 800], [gd(2012, 1, 8), 589],
+                [gd(2012, 1, 9), 467], [gd(2012, 1, 10), 876], [gd(2012, 1, 11), 689], [gd(2012, 1, 12), 700],
+                [gd(2012, 1, 13), 500], [gd(2012, 1, 14), 600], [gd(2012, 1, 15), 700], [gd(2012, 1, 16), 786],
+                [gd(2012, 1, 17), 345], [gd(2012, 1, 18), 888], [gd(2012, 1, 19), 888], [gd(2012, 1, 20), 888],
+                [gd(2012, 1, 21), 987], [gd(2012, 1, 22), 444], [gd(2012, 1, 23), 999], [gd(2012, 1, 24), 567],
+                [gd(2012, 1, 25), 786], [gd(2012, 1, 26), 666], [gd(2012, 1, 27), 888], [gd(2012, 1, 28), 900],
+                [gd(2012, 1, 29), 178], [gd(2012, 1, 30), 555], [gd(2012, 1, 31), 993]
+            ];
+
+
+            var dataset = [
+                {
+                    label: "Cure Rate",
+                    data: data,
+                    color: "#1ab394",
+                    bars: {
+                        show: true,
+                        align: "center",
+                        barWidth: 24 * 60 * 60 * 600,
+                        lineWidth:0
+                    }
+
+                }, 
+            ];
+
+
+            var options = {
+                xaxis: {
+                    mode: "time",
+                    tickSize: [3, "day"],
+                    tickLength: 0,
+                    axisLabel: "Date",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 10,
+                    color: "#d5d5d5"
+                },
+                yaxes: [{
+                    position: "left",
+                    max: 1070,
+                    color: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Arial',
+                    axisLabelPadding: 3
+                }, {
+                    position: "right",
+                    clolor: "#d5d5d5",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: ' Arial',
+                    axisLabelPadding: 67
+                }
+                ],
+                legend: {
+                    noColumns: 1,
+                    labelBoxBorderColor: "#000000",
+                    position: "nw"
+                },
+                grid: {
+                    hoverable: false,
+                    borderWidth: 0
+                }
+            };
+
+            function gd(year, month, day) {
+                return new Date(year, month - 1, day).getTime();
+            }
+
+            var previousPoint = null, previousLabel = null;
+
+            $.plot($("#flot-dashboard-chart"), dataset, options);
 
         });
    
@@ -218,68 +300,7 @@
 
 
     
-    $(function() {
-
-		var d1 = [];
-		for (var i = 0; i <= 10; i += 1) {
-			d1.push([i, parseInt(Math.random() * 30)]);
-		}
-
-		var d2 = [];
-		for (var i = 0; i <= 10; i += 1) {
-			d2.push([i, parseInt(Math.random() * 30)]);
-		}
-
-		var d3 = [];
-		for (var i = 0; i <= 10; i += 1) {
-			d3.push([i, parseInt(Math.random() * 30)]);
-		}
-
-		var stack = 0,
-			bars = true,
-			lines = false,
-			steps = false;
-
-		function plotWithOptions() {
-			$.plot("#placeholder", [ d1, d2, d3 ], {
-				series: {
-					stack: stack,
-					lines: {
-						show: lines,
-						fill: true,
-						steps: steps
-					},
-					bars: {
-						show: bars,
-						barWidth: 0.6
-					}
-				},
-                yaxis: {
-                    autoScale:"exact"
-                }
-			});
-		}
-
-		plotWithOptions();
-
-		$(".stackControls button").click(function (e) {
-			e.preventDefault();
-			stack = $(this).text() == "With stacking" ? true : null;
-			plotWithOptions();
-		});
-
-		$(".graphControls button").click(function (e) {
-			e.preventDefault();
-			bars = $(this).text().indexOf("Bars") != -1;
-			lines = $(this).text().indexOf("Lines") != -1;
-			steps = $(this).text().indexOf("steps") != -1;
-			plotWithOptions();
-		});
-
-		// Add the Flot version string to the footer
-
-		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
-	});
+    
 
 
 </script>
