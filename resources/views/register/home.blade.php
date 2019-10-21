@@ -54,6 +54,11 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                <a href="{{ route('iycf-followup.show', $child->sync_id) }}" class="edit-btn">
+                                                    <button class="btn btn-default btn-circle" type="button">
+                                                        IYCF<i class="fa fa-plus"></i>
+                                                    </button>
+                                                </a>
                                                 @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
                                                     <a href="{{ route('community-followup.show', $child->sync_id) }}">
                                                         <button type="button" class="btn btn-default btn-circle">
@@ -68,6 +73,7 @@
                                                                     class="fa fa-plus"></i></button>
                                                     </a>
                                                 @endif
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

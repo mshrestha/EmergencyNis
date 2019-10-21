@@ -39,6 +39,11 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');
 	Route::resource('user', 'UserController');
+    
+    
+	Route::resource('iycf-followup', 'IycfFollowupController');
+	Route::post('iycf-followup/{iycf}/save', 'IycfFollowupController@save')->name('iycf-followup.save');
+	
 });
 
 

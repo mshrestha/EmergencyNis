@@ -8,8 +8,8 @@
     
 </div>
  <div class="row ">
-    <div class="col-lg-6  border-bottom dashboard-header">
-        <h2>Monthly New Admissions </h2>
+    <div class="col-lg-12  border-bottom dashboard-header">
+        <h2>Welcome to Emergency Nutrition System Dashboard </h2>
         <div class="small pull-left col-md-3 m-l-lg m-t-md">
             <strong>ADMISSION TREND</strong> 
         </div>
@@ -21,10 +21,18 @@
         </div>
     </div>
      <div class="col-lg-6">
-		<h2>OTP Performance</h2>
+		<h2>OTP Admissions</h2>
         <div id="content">
             <div class="flot-chart m-b-xl">
                 <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+            </div>
+        </div>
+    </div>
+     <div class="col-lg-6">
+		<h2>OTP Weight Gain</h2>
+        <div id="content">
+            <div class="flot-chart m-b-xl">
+                <div class="flot-chart-content" id="flot-dashboard1-chart"></div>
             </div>
         </div>
     </div>
@@ -143,64 +151,35 @@
 
     
         $(document).ready(function() {
-            var sparklineCharts = function(){
-                $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
-                    type: 'line',
-                    width: '100%',
-                    height: '50',
-                    lineColor: '#1ab394',
-                    fillColor: "transparent"
-                });
-
-                $("#sparkline2").sparkline([32, 11, 25, 37, 41, 32, 34, 42], {
-                    type: 'line',
-                    width: '100%',
-                    height: '50',
-                    lineColor: '#1ab394',
-                    fillColor: "transparent"
-                });
-
-                $("#sparkline3").sparkline([34, 22, 24, 41, 10, 18, 16,8], {
-                    type: 'line',
-                    width: '100%',
-                    height: '50',
-                    lineColor: '#1C84C6',
-                    fillColor: "transparent"
-                });
-            };
-
-            var sparkResize;
-
-            $(window).resize(function(e) {
-                clearTimeout(sparkResize);
-                sparkResize = setTimeout(sparklineCharts, 500);
-            });
-
-            sparklineCharts();
-
+           
+           
 
 
 
              var data1 = [
-                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11],[10,20],[11,10],[12,13]
+                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11]
             ];
             var data2 = [
-                [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5],[10,4],[11,1],[12,5]
+                [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5]
             ];
             var data3 = [
-                [0,5],[1,7],[2,12],[3,9],[4,16],[5,9],[6,7],[7,10],[8,16],[9,10],[10,9],[11,6],[12,10]
+                [0,5],[1,7],[2,12],[3,9],[4,16],[5,9],[6,7],[7,10],[8,16],[9,10]
             ];
             $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [ data1, data2, data3],
                     {
                         series: {
                             lines: {
                                 show: true,
-                                fill: false,
-                                steps: false
+                                fill: true,
+                                steps: false,
+                                
                             },
-                            
+                            curvedLines: {
+                                active: true,
+                                monotonicFit: true
+                            }, 
                             points: {
-                                radius: 2,
+                                radius: 5,
                                 show: true
                             },
                             shadowSize: false
@@ -226,7 +205,10 @@
                         },
                         colors: ["#a3e1d4", "#9CC3DA", "#dedede"],
                         xaxis:{
-                            show: true
+                            show: true,
+                            ticks: [[1, "Jan"], [2, "Feb"], [3, "Mar"], [4, "Apr"], [5, "May"], [6, "Jun"], [7, "Jul"], [8, "Aug"], [9, "Sep"]],
+                            min: 1,
+                            max: 12
                         },
                         yaxis: {
                             show:true
@@ -235,22 +217,16 @@
                     }
             );
             
-            
-            
-            
             //SECOND STACKED BARS STARTS HERE
-            
-
             var data = [
-                [1, 80], [2, 87], [3, 92], [4, 88],[5, 90], [6, 95], [7, 80]
+                [1, 80], [2, 87], [3, 92], [4, 88],[5, 90]
             ];
             var dataDefaultRate = [
-                [1, 1], [2, 1], [3, 3], [4, 7], [5, 2], [6, 2], [7, 1]
+                [1, 1], [2, 1], [3, 3], [4, 7], [5, 2]
             ];
             var dataDeathRate = [
-                [1, 0], [2, 3], [3, 1], [4, 4], [5, 2], [6, 1], [7, 0]
+                [1, 0], [2, 3], [3, 1], [4, 4], [5, 2]
             ];
-           
 
             var dataset = [
                 {
@@ -264,9 +240,7 @@
                         barWidth: 0.5,
                         lineWidth:0
                     }
-
                 },
-                
                 {
                     label: "Default Rate",
                     data: dataDefaultRate,
@@ -288,9 +262,7 @@
                         barWidth: 0.5,
                         lineWidth:0
                     }
-
                 }
-                
             ];
 
 
@@ -304,7 +276,8 @@
                     axisLabelFontSizePixels: 12,
                     axisLabelFontFamily: 'Helvetica',
                     axisLabelPadding: 100,
-                    color: "#d5d5d5"
+                    color: "#d5d5d5",
+                    ticks: [[1, "OTP 1"], [2, "OTP 2"], [3, "OTP 3"], [4, "OTP 4"], [5, "OTP 5"]]
                 },
                 yaxes: [{
                     position: "left",
@@ -374,6 +347,7 @@
             var previousPoint = null, previousLabel = null;
 
             $.plot($("#flot-dashboard-chart"), dataset, options);
+            $.plot($("#flot-dashboard1-chart"), dataset, options);
             
             var doughnutData = {
                 labels: ["6-23m","24-59m",">59m" ],
