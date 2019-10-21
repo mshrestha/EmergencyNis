@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\FacilitySupervisor;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,6 +56,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         $this->validate($request, [
             'email' => 'email|unique:users'
         ]);
@@ -70,6 +72,23 @@ class UserController extends Controller
             $user->category = $request->category;
             $user->facility_id = $request->facility_id;
             $user->save();
+
+            if ($request->mfacility_id!=null && $request->role=='manager') {
+                foreach ($request['mfacility_id'] as $item) {
+                    $fasup_id[] = $item;
+                }
+                $fid = $fasup_id;
+                $count_fids = count($fid);
+                if (count($fid) != $count_fids) throw new Exception("Bad Request Input Array lengths");
+                for ($i = 0; $i < $count_fids; $i++) {
+                    if (empty($fid[$i])) continue; // skip all the blank ones
+                    $fac_sup = new FacilitySupervisor();
+                    $fac_sup->user_id = $user->id;
+                    $fac_sup->facility_id = $fid[$i];
+                    $fac_sup->save();
+                }
+            }
+
         } catch (Exception $e) {
             $this->_notify_message = "Failed to create user, try again.";
             $this->_notify_type = "dager";    

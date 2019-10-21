@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -31,7 +32,17 @@ class AuthController extends Controller
             ])->withInput($request->all());
 		}
 
+//		dd($request);
+        $user_type=User::where('email',$request->email)->first();
+//        dd($user_type->role);
         $this->_notifyMessage = "Login Successful.";
+        if ($user_type->role=='manager'){
+            return redirect()->intended('/program-manager')->with([
+                'notify_message' => $this->_notifyMessage,
+                'notify_type' => $this->_notifyType
+            ]);
+
+        }
         return redirect()->intended('/')->with([
         	'notify_message' => $this->_notifyMessage,
         	'notify_type' => $this->_notifyType
