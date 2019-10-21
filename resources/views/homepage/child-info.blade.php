@@ -30,12 +30,12 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-8">
+        <canvas id="childWeight" width="300" height="300"></canvas>
 
-<div>
-    <canvas id="childWeight" width="400" height="400"></canvas>
-
+    </div>
 </div>
-
 <div class="client-detail">
     <div class="full-height-scroll">
             <div id="followup-1" class="tab-pane active">
@@ -148,17 +148,19 @@
     var ctx = document.getElementById('childWeight').getContext('2d');
     var jsArrayweight = JSON.parse('<?php echo json_encode($chart_weight); ?>');
     var jsArraydate = JSON.parse('<?php echo json_encode($chart_date); ?>');
+    
+    
     var childWeight = new Chart(ctx, {
         type: 'line',
         data: {
             labels: jsArraydate,
             datasets: [{
-                label: 'Child Weight',
+                label: 'Child Weight Gain',
+                fill: false,
                 data: jsArrayweight,
-                backgroundColor: 'rgba(0, 129, 214, 0.6)',
-                borderColor : 'rgba(200, 129, 214, 0.6)',
-                pointBackgroundColor : 'rgba(20, 12, 21, 0.6)',
-                borderWidth: 1
+                backgroundColor: 'rgb(255, 99, 132)',
+				borderColor: 'rgb(255, 99, 132)',
+                
             }
     ]
         },
@@ -166,23 +168,16 @@
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: false
                     }
                 }],
-//                xAxes: [{
-//                    type: 'time',
-//                    time: {
-//                        parser: 'YYYY-MM-DD',
-//                        displayFormats: {
-//                            'date': 'YYYY-MM',
-//                        }
-//                    },
-//                    ticks: {
-//                        source: 'data'
-//                    }
-//                }]
+
             }
         }
     });
 
+    
+    
+    
+  
 </script>

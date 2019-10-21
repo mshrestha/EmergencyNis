@@ -35,16 +35,16 @@
 <div class="row">
     <div class="col-md-4">
         <div class="statistic-box">
-        <h4>
+        <h2>
             OTP New Admission By Age
-        </h4>
+        </h2>
         <p>
             Admissions for this month by age.
         </p>
             <div class="row text-center">
                 
                 <div class="col-lg-9">
-                    <canvas id="doughnutChart" width="160" height="160" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                    <canvas id="doughnutChart" width="280" height="270" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
                     <h5>Age</h5>
                 </div>
             </div>
@@ -56,15 +56,15 @@
     </div>
     <div class="col-md-4">
         <div class="statistic-box">
-        <h4>
+        <h2>
             OTP New Admission By Gender
-        </h4>
+        </h2>
         <p>
             Admissions for this month by Gender.
         </p>
             <div class="row text-center">
                 <div class="col-lg-9">
-                    <canvas id="doughnutChart2" width="160" height="160" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                    <canvas id="doughnutChart2" width="280" height="270" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
                     <h5>Gender</h5>
                 </div>
             </div>
@@ -76,15 +76,15 @@
     </div>
     <div class="col-md-4">
         <div class="statistic-box">
-        <h4>
+        <h2>
             OTP New Admission By Anthropometry
-        </h4>
+        </h2>
         <p>
             Admissions for this month by Anthropometry.
         </p>
             <div class="row text-center">
                 <div class="col-lg-9">
-                    <canvas id="doughnutChart3" width="160" height="160" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                    <canvas id="doughnutChart3" width="280" height="270" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
                     <h5>Anthropometry</h5>
                 </div>
             </div>
@@ -141,44 +141,7 @@
         sync_children();
     });
 
-    function sync_children() {
-        $.ajax({
-            type: 'get',
-            url: '/sync/children',
-            success: function (res) {
-                // update_progress_bar();
-
-                if(res.has_more == true) {
-                    sync_children();
-                } else {
-                    sync_facility_followup();
-                }
-            }, error: function (err) {
-                // $('.unemploy_sync_count').html('Try again.');
-                $('#btn-sync-now').show();
-            }
-        });
-    }
-
-    function sync_facility_followup() {
-        $.ajax({
-            type: 'get',
-            url: '/sync/facility-followup',
-            success: function (res) {
-                // update_progress_bar();
-
-                if(res.has_more == true) {
-                    sync_facility_followup();
-                } else {
-                    $('#syncing-msg').html('All data synced.');
-                    $('#btn-sync-now').show();
-                }
-            }, error: function (err) {
-                // $('.unemploy_sync_count').html('Try again.');
-                $('#btn-sync-now').show();
-            }
-        });
-    }
+    
         $(document).ready(function() {
             var sparklineCharts = function(){
                 $("#sparkline1").sparkline([34, 43, 43, 35, 44, 32, 44, 52], {
@@ -224,7 +187,10 @@
             var data2 = [
                 [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5],[10,4],[11,1],[12,5]
             ];
-            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [ data1, data2],
+            var data3 = [
+                [0,5],[1,7],[2,12],[3,9],[4,16],[5,9],[6,7],[7,10],[8,16],[9,10],[10,9],[11,6],[12,10]
+            ];
+            $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [ data1, data2, data3],
                     {
                         series: {
                             lines: {
@@ -237,7 +203,7 @@
                                 radius: 2,
                                 show: true
                             },
-                            shadowSize: 1
+                            shadowSize: false
                         },
                         legend: {
                             show: true,
@@ -258,7 +224,7 @@
                             borderWidth: 0,
                             color: '#cccccc'
                         },
-                        colors: ["#FF8C00", "#1C84C6"],
+                        colors: ["#a3e1d4", "#9CC3DA", "#dedede"],
                         xaxis:{
                             show: true
                         },
@@ -419,7 +385,7 @@
 
 
             var doughnutOptions = {
-                responsive: true,
+                responsive: false,
                 legend: {
                     display: true
                 }
