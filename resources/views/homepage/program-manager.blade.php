@@ -1,18 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-
- <div class="row">
+<div class="row">
     <div class="col-lg-8">
-        <h2>Admissions</h2>
+        <h1></h1>
+    </div>
+    
+</div>
+ <div class="row ">
+    <div class="col-lg-6  border-bottom dashboard-header">
+        <h2>Monthly New Admissions </h2>
         <div class="small pull-left col-md-3 m-l-lg m-t-md">
             <strong>ADMISSION TREND</strong> 
         </div>
-        <div class="small pull-right col-md-3 m-t-md text-right">
+        <div class="small pull-right col-md-6 m-t-md text-right">
             <strong>Each line</strong> represents the admission trend for individual OTP.
         </div>
         <div class="flot-chart m-b-xl">
             <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+        </div>
+    </div>
+     <div class="col-lg-6">
+		<h2>OTP Performance</h2>
+        <div id="content">
+            <div class="flot-chart m-b-xl">
+                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -20,12 +33,65 @@
 
 
 <div class="row">
-    <div class="col-lg-8">
-		<h2>OTP Performance</h2>
-        <div id="content">
-            <div class="flot-chart m-b-xl">
-                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+    <div class="col-md-4">
+        <div class="statistic-box">
+        <h4>
+            OTP New Admission By Age
+        </h4>
+        <p>
+            Admissions for this month by age.
+        </p>
+            <div class="row text-center">
+                
+                <div class="col-lg-9">
+                    <canvas id="doughnutChart" width="160" height="160" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                    <h5>Age</h5>
+                </div>
             </div>
+            <div class="m-t">
+                <small>This chart is an accumulation of new addmissions of all the OTPs segregated by Age</small>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="statistic-box">
+        <h4>
+            OTP New Admission By Gender
+        </h4>
+        <p>
+            Admissions for this month by Gender.
+        </p>
+            <div class="row text-center">
+                <div class="col-lg-9">
+                    <canvas id="doughnutChart2" width="160" height="160" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                    <h5>Gender</h5>
+                </div>
+            </div>
+            <div class="m-t">
+                <small>This chart is an accumulation of new addmissions of all the OTPs segregated by Gender</small>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="statistic-box">
+        <h4>
+            OTP New Admission By Anthropometry
+        </h4>
+        <p>
+            Admissions for this month by Anthropometry.
+        </p>
+            <div class="row text-center">
+                <div class="col-lg-9">
+                    <canvas id="doughnutChart3" width="160" height="160" style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                    <h5>Anthropometry</h5>
+                </div>
+            </div>
+            <div class="m-t">
+                <small>This chart is an accumulation of new addmissions of all the OTPs segregated by Anthropometry</small>
+            </div>
+
         </div>
     </div>
 </div>
@@ -207,28 +273,18 @@
             
             
             //SECOND STACKED BARS STARTS HERE
-            var data3 = [
-                [gd(2012, 1, 1), 7], [gd(2012, 1, 2), 6], [gd(2012, 1, 3), 4], [gd(2012, 1, 4), 8],
-                [gd(2012, 1, 5), 9], [gd(2012, 1, 6), 7], [gd(2012, 1, 7), 5], [gd(2012, 1, 8), 4],
-                [gd(2012, 1, 9), 7], [gd(2012, 1, 10), 8], [gd(2012, 1, 11), 9], [gd(2012, 1, 12), 6],
-                [gd(2012, 1, 13), 4], [gd(2012, 1, 14), 5], [gd(2012, 1, 15), 11], [gd(2012, 1, 16), 8],
-                [gd(2012, 1, 17), 8], [gd(2012, 1, 18), 11], [gd(2012, 1, 19), 11], [gd(2012, 1, 20), 6],
-                [gd(2012, 1, 21), 6], [gd(2012, 1, 22), 8], [gd(2012, 1, 23), 11], [gd(2012, 1, 24), 13],
-                [gd(2012, 1, 25), 7], [gd(2012, 1, 26), 9], [gd(2012, 1, 27), 9], [gd(2012, 1, 28), 8],
-                [gd(2012, 1, 29), 5], [gd(2012, 1, 30), 8], [gd(2012, 1, 31), 25]
-            ];
+            
 
             var data = [
-                [gd(2012, 1, 1), 800], [gd(2012, 1, 2), 500], [gd(2012, 1, 3), 600], [gd(2012, 1, 4), 700],
-                [gd(2012, 1, 5), 500], [gd(2012, 1, 6), 456], [gd(2012, 1, 7), 800], [gd(2012, 1, 8), 589],
-                [gd(2012, 1, 9), 467], [gd(2012, 1, 10), 876], [gd(2012, 1, 11), 689], [gd(2012, 1, 12), 700],
-                [gd(2012, 1, 13), 500], [gd(2012, 1, 14), 600], [gd(2012, 1, 15), 700], [gd(2012, 1, 16), 786],
-                [gd(2012, 1, 17), 345], [gd(2012, 1, 18), 888], [gd(2012, 1, 19), 888], [gd(2012, 1, 20), 888],
-                [gd(2012, 1, 21), 987], [gd(2012, 1, 22), 444], [gd(2012, 1, 23), 999], [gd(2012, 1, 24), 567],
-                [gd(2012, 1, 25), 786], [gd(2012, 1, 26), 666], [gd(2012, 1, 27), 888], [gd(2012, 1, 28), 900],
-                [gd(2012, 1, 29), 178], [gd(2012, 1, 30), 555], [gd(2012, 1, 31), 993]
+                [1, 80], [2, 87], [3, 92], [4, 88],[5, 90], [6, 95], [7, 80]
             ];
-
+            var dataDefaultRate = [
+                [1, 1], [2, 1], [3, 3], [4, 7], [5, 2], [6, 2], [7, 1]
+            ];
+            var dataDeathRate = [
+                [1, 0], [2, 3], [3, 1], [4, 4], [5, 2], [6, 1], [7, 0]
+            ];
+           
 
             var dataset = [
                 {
@@ -237,54 +293,113 @@
                     color: "#1ab394",
                     bars: {
                         show: true,
-                        align: "center",
-                        barWidth: 24 * 60 * 60 * 600,
+                        align: "left",
+                        //barWidth: 24 * 60 * 60 * 100,
+                        barWidth: 0.5,
                         lineWidth:0
                     }
 
-                }, 
+                },
+                
+                {
+                    label: "Default Rate",
+                    data: dataDefaultRate,
+                    color: "#cc0000",
+                    bars: {
+                        show: true,
+                        align: "left",
+                        barWidth: 0.5,
+                        lineWidth:0
+                    }
+                },
+                {
+                    label: "Death Rate",
+                    data: dataDeathRate,
+                    color: "#1C84C6",
+                    bars: {
+                        show: true,
+                        align: "left",
+                        barWidth: 0.5,
+                        lineWidth:0
+                    }
+
+                }
+                
             ];
 
 
             var options = {
                 xaxis: {
-                    mode: "time",
-                    tickSize: [3, "day"],
-                    tickLength: 0,
-                    axisLabel: "Date",
+                    mode: null,
+                    //tickSize: [2, "day"],
+                    //tickLength: 0,
+                    axisLabel: "Label",
                     axisLabelUseCanvas: true,
                     axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 10,
+                    axisLabelFontFamily: 'Helvetica',
+                    axisLabelPadding: 100,
                     color: "#d5d5d5"
                 },
                 yaxes: [{
                     position: "left",
-                    max: 1070,
+                    max: 100,
                     color: "#d5d5d5",
                     axisLabelUseCanvas: true,
                     axisLabelFontSizePixels: 12,
                     axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 3
+                    axisLabelPadding: 5
                 }, {
-                    position: "right",
+                    position: "left",
                     clolor: "#d5d5d5",
                     axisLabelUseCanvas: true,
                     axisLabelFontSizePixels: 12,
                     axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 67
-                }
+                    axisLabelPadding: 10
+                },
+                        
                 ],
+                tooltip: true,
                 legend: {
-                    noColumns: 1,
-                    labelBoxBorderColor: "#000000",
+                    noColumns: 5,
+                    labelBoxBorderColor: "transparent",
                     position: "nw"
                 },
                 grid: {
-                    hoverable: false,
+                    hoverable: true,
                     borderWidth: 0
                 }
             };
+            
+            
+            var newData = [
+                { label: "Money Spent", data: [ ["January", 10], ["February", 8], ["March", 4], ["April", 13], ["May", 17], ["June", 9] ] },
+                { label: "Money Earned", data: [ ["January", 20], ["February", 30], ["March", 5], ["April", 6], ["May", 9], ["June", 9] ] }
+            ];
+            
+            var newOptions = {
+                series: {
+                    bars: {
+                        show: true,
+                        barWidth: 0.2,
+                        lineWidth: 0,
+                        order: 1,
+                        fillColor: {
+                            colors: [{
+                                opacity: 1
+                            }, {
+                                opacity: 1
+                            }]
+                        }
+                    }
+                },
+                xaxis: {
+                    mode: "categories"
+                },
+                grid: {
+                    borderWidth: 0
+                },
+                colors: ["#3F48CC", "#ED1C24"]
+            }
 
             function gd(year, month, day) {
                 return new Date(year, month - 1, day).getTime();
@@ -293,13 +408,52 @@
             var previousPoint = null, previousLabel = null;
 
             $.plot($("#flot-dashboard-chart"), dataset, options);
+            
+            var doughnutData = {
+                labels: ["6-23m","24-59m",">59m" ],
+                datasets: [{
+                    data: [77,22,1],
+                    backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
+                }]
+            } ;
+
+
+            var doughnutOptions = {
+                responsive: true,
+                legend: {
+                    display: true
+                }
+            };
+
+
+            var ctx4 = document.getElementById("doughnutChart").getContext("2d");
+            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+
+            var doughnutData = {
+                labels: ["Male","Female","Other" ],
+                datasets: [{
+                    data: [43,57,0],
+                    backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
+                }]
+            } ;
+
+            var ctx4 = document.getElementById("doughnutChart2").getContext("2d");
+            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+            
+            
+            var doughnutData = {
+                labels: ["MUAC","WHZ","Both" ],
+                datasets: [{
+                    data: [5,30,65],
+                    backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
+                }]
+            } ;
+
+            var ctx4 = document.getElementById("doughnutChart3").getContext("2d");
+            new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
         });
    
-
-
-
-    
     
 
 
