@@ -50,6 +50,13 @@
                         <th rowspan="1" colspan="8">Transfer In [C]</th>
                         <th rowspan="2" colspan="3">Total Transfer In [C1+C2+C3+C4]</th>
                         <th rowspan="2" colspan="3">Total Enrollment [D=B+C]</th>
+                        
+                        <!-- Second Set Starts Here -->
+                        <th rowspan="1" colspan="11">Discharge (E)</th>
+                        
+                        <th rowspan="1" colspan="8">Transfer Out [F]</th>
+                        <th rowspan="2" colspan="3">Total Exits [G=E+F]</th>
+                        <th rowspan="2" colspan="3">Total End of the month</th>
                     </tr>
                     <tr>
                         <th colspan="2">MUAC &lt; 11.5cm(B1)</th>
@@ -63,6 +70,22 @@
                         <th colspan="2">Transfer in from TSFP (C2)</th>
                         <th colspan="2">Transfer in from SC (C3)</th>
                         <th colspan="2">Transfer from other OTP (C4)</th>
+                        
+                        <!--Second Set Starts Here -->
+                        
+                        <th colspan="2">Recovered (E1)</th>
+                        <th colspan="2">Death (E2)</th>
+                        <th colspan="2">Defaulter (E3)</th>
+                        <th colspan="2">Non recover (E4)</th>
+                        
+                        <th colspan="3">Total Discharge</th>
+                        
+                        <th colspan="2">Medical Transfer (F1)</th>
+                        <th colspan="2">Transfer to other OTP (F2)</th>
+                        <th colspan="2">Transfer to inpatient (F3)</th>
+                        <th colspan="2">Unknown /Other (F4)</th>
+                        
+                        
                     </tr>
                     <tr>
                         <!-- Total in Care begining of month A -->
@@ -116,6 +139,55 @@
                         <th>M</th>
                         <th>F</th>
                         <th>T</th>
+                        
+                        <!-- Second Set Starts here -->
+                        <!-- B1 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- B2 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- B3 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- B4 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- Total new enrollment -->
+                        <th>M</th>
+                        <th>F</th>
+                        <th>T</th>
+                        
+                        <!-- C1 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- C2 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- C3 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- C4 -->
+                        <th>M</th>
+                        <th>F</th>
+                        
+                        <!-- Total Transfer In -->
+                        <th>M</th>
+                        <th>F</th>
+                        <th>T</th>
+                        
+                        <!-- This is for D Total Enrollment -->
+                        <th>M</th>
+                        <th>F</th>
+                        <th>T</th>
+                        
                     </tr>
                     </thead>
                     <tbody>
@@ -155,6 +227,43 @@
                         <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']}}</td>
                         <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
                         <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
+                        
+                        
+                        <!-- Second Set Starts Here -->
+                        <td>{{$report['recovered_23_male']}}</td>
+                        <td>{{$report['recovered_23_female']}}</td>
+                        <td>{{$report['death_23_male']}}</td>
+                        <td>{{$report['death_23_female']}}</td>
+                        <td>{{$report['defaulted_23_male']}}</td>
+                        <td>{{$report['defaulted_23_female']}}</td>
+                        <td>{{$report['non_responder_23_male']}}</td>
+                        <td>{{$report['non_responder_23_female']}}</td>
+
+                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']}}</td>
+                        <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']}}</td>
+                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']}}</td>
+
+                        <td>{{$report['medical_transfer_23_male']}}</td>
+                        <td>{{$report['medical_transfer_23_female']}}</td>
+                        <td>{{$report['transferout_otp_23_male']}}</td>
+                        <td>{{$report['transferout_otp_23_female']}}</td>
+                        <td>{{$report['transferout_sc_23_male']}}</td>
+                        <td>{{$report['transferout_sc_23_female']}}</td>
+                        <td>{{$report['others_unkown_23_male']}}</td>
+                        <td>{{$report['others_unkown_23_female']}}</td>
+
+                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
+                        $report['medical_transfer_23_male']+$report['transferout_otp_23_male']+$report['transferout_sc_23_male']+$report['others_unkown_23_male']}}</td>
+                        <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
+                        $report['medical_transfer_23_female']+$report['transferout_otp_23_female']+$report['transferout_sc_23_female']+$report['others_unkown_23_female']}}</td>
+                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
+                        $report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
+                        $report['medical_transfer_23_male']+$report['transferout_otp_23_male']+$report['transferout_sc_23_male']+$report['others_unkown_23_male']+
+                        $report['medical_transfer_23_female']+$report['transferout_otp_23_female']+$report['transferout_sc_23_female']+$report['others_unkown_23_female']}}</td>
+
+                        <td>{{$report['endof_month_23_male']}}</td>
+                        <td>{{$report['endof_month_23_female']}}</td>
+                        <td>{{$report['endof_month_23_male']+$report['endof_month_23_female']}}</td>
 
                     </tr>
                     <tr class="gradeX">
@@ -192,6 +301,43 @@
                         <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']}}</td>
                         <td>{{$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
                         <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
+                        
+                        <!-- Second Set starts here -->
+                        <td>{{$report['recovered_24to59_male']}}</td>
+                        <td>{{$report['recovered_24to59_female']}}</td>
+                        <td>{{$report['death_24to59_male']}}</td>
+                        <td>{{$report['death_24to59_female']}}</td>
+                        <td>{{$report['defaulted_24to59_male']}}</td>
+                        <td>{{$report['defaulted_24to59_female']}}</td>
+                        <td>{{$report['non_responder_24to59_male']}}</td>
+                        <td>{{$report['non_responder_24to59_female']}}</td>
+
+                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']}}</td>
+                        <td>{{$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']}}</td>
+                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']}}</td>
+
+                        <td>{{$report['medical_transfer_24to59_male']}}</td>
+                        <td>{{$report['medical_transfer_24to59_female']}}</td>
+                        <td>{{$report['transferout_otp_24to59_male']}}</td>
+                        <td>{{$report['transferout_otp_24to59_female']}}</td>
+                        <td>{{$report['transferout_sc_24to59_male']}}</td>
+                        <td>{{$report['transferout_sc_24to59_female']}}</td>
+                        <td>{{$report['others_unkown_24to59_male']}}</td>
+                        <td>{{$report['others_unkown_24to59_female']}}</td>
+
+                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
+                        $report['medical_transfer_24to59_male']+$report['transferout_otp_24to59_male']+$report['transferout_sc_24to59_male']+$report['others_unkown_24to59_male']}}</td>
+                        <td>{{$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
+                        $report['medical_transfer_24to59_female']+$report['transferout_otp_24to59_female']+$report['transferout_sc_24to59_female']+$report['others_unkown_24to59_female']}}</td>
+                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
+                        $report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
+                        $report['medical_transfer_24to59_male']+$report['transferout_otp_24to59_male']+$report['transferout_sc_24to59_male']+$report['others_unkown_24to59_male']+
+                        $report['medical_transfer_24to59_female']+$report['transferout_otp_24to59_female']+$report['transferout_sc_24to59_female']+$report['others_unkown_24to59_female']}}</td>
+
+                        <td>{{$report['endof_month_24to59_male']}}</td>
+                        <td>{{$report['endof_month_24to59_female']}}</td>
+                        <td>{{$report['endof_month_24to59_male']+$report['endof_month_24to59_female']}}</td>
+                        
 
                     </tr>
                     <tr class="gradeX">
@@ -230,6 +376,43 @@
                         <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
                         <td>{{$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
                         <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+                        
+                        <!-- Second Set Starts Here -->
+                        
+                        <td>{{$report['recovered_60_male']}}</td>
+                        <td>{{$report['recovered_60_female']}}</td>
+                        <td>{{$report['death_60_male']}}</td>
+                        <td>{{$report['death_60_female']}}</td>
+                        <td>{{$report['defaulted_60_male']}}</td>
+                        <td>{{$report['defaulted_60_female']}}</td>
+                        <td>{{$report['non_responder_60_male']}}</td>
+                        <td>{{$report['non_responder_60_female']}}</td>
+
+                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']}}</td>
+                        <td>{{$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
+                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
+
+                        <td>{{$report['medical_transfer_60_male']}}</td>
+                        <td>{{$report['medical_transfer_60_female']}}</td>
+                        <td>{{$report['transferout_otp_60_male']}}</td>
+                        <td>{{$report['transferout_otp_60_female']}}</td>
+                        <td>{{$report['transferout_sc_60_male']}}</td>
+                        <td>{{$report['transferout_sc_60_female']}}</td>
+                        <td>{{$report['others_unkown_60_male']}}</td>
+                        <td>{{$report['others_unkown_60_female']}}</td>
+
+                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
+                        $report['medical_transfer_60_male']+$report['transferout_otp_60_male']+$report['transferout_sc_60_male']+$report['others_unkown_60_male']}}</td>
+                        <td>{{$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
+                        $report['medical_transfer_60_female']+$report['transferout_otp_60_female']+$report['transferout_sc_60_female']+$report['others_unkown_60_female']}}</td>
+                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
+                        $report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
+                        $report['medical_transfer_60_male']+$report['transferout_otp_60_male']+$report['transferout_sc_60_male']+$report['others_unkown_60_male']+
+                        $report['medical_transfer_60_female']+$report['transferout_otp_60_female']+$report['transferout_sc_60_female']+$report['others_unkown_60_female']}}</td>
+
+                        <td>{{$report['endof_month_60_male']}}</td>
+                        <td>{{$report['endof_month_60_female']}}</td>
+                        <td>{{$report['endof_month_60_male']+$report['endof_month_60_female']}}</td>
 
                     </tr>
                     </tbody>
@@ -293,214 +476,8 @@
                         <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
                         $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
                         $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-                    </tr>
-                    </tfoot>
-                    </table>
                         
-                    <!-- Second Table -->
-                        
-                    <table class="table table-striped table-bordered table-hover dataTables-example x-small small" >
-                    <thead>
-                    <tr>
-                        <th rowspan="3">Age Group</th>
-                        
-                        <th rowspan="1" colspan="11">Discharge (E)</th>
-                        
-                        <th rowspan="1" colspan="8">Transfer Out [F]</th>
-                        <th rowspan="2" colspan="3">Total Exits [G=E+F]</th>
-                        <th rowspan="2" colspan="3">Total End of the month</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Recovered (E1)</th>
-                        <th colspan="2">Death (E2)</th>
-                        <th colspan="2">Defaulter (E3)</th>
-                        <th colspan="2">Nonrecover (E4)</th>
-                        
-                        <th colspan="3">Total Discharge</th>
-                        
-                        <th colspan="2">Medical Transfer (F1)</th>
-                        <th colspan="2">Transfer to other OTP (F2)</th>
-                        <th colspan="2">Transfer to inpatient (F3)</th>
-                        <th colspan="2">Unknown/Other (F4)</th>
-                    </tr>
-                    <tr>
-                       
-                        
-                        <!-- B1 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- B2 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- B3 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- B4 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- Total new enrollment -->
-                        <th>M</th>
-                        <th>F</th>
-                        <th>T</th>
-                        
-                        <!-- C1 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- C2 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- C3 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- C4 -->
-                        <th>M</th>
-                        <th>F</th>
-                        
-                        <!-- Total Transfer In -->
-                        <th>M</th>
-                        <th>F</th>
-                        <th>T</th>
-                        
-                        <!-- This is for D Total Enrollment -->
-                        <th>M</th>
-                        <th>F</th>
-                        <th>T</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="gradeX">
-                        <td>6-23 mnths</td>
-
-                        <td>{{$report['recovered_23_male']}}</td>
-                        <td>{{$report['recovered_23_female']}}</td>
-                        <td>{{$report['death_23_male']}}</td>
-                        <td>{{$report['death_23_female']}}</td>
-                        <td>{{$report['defaulted_23_male']}}</td>
-                        <td>{{$report['defaulted_23_female']}}</td>
-                        <td>{{$report['non_responder_23_male']}}</td>
-                        <td>{{$report['non_responder_23_female']}}</td>
-
-                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']}}</td>
-                        <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']}}</td>
-                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']}}</td>
-
-                        <td>{{$report['medical_transfer_23_male']}}</td>
-                        <td>{{$report['medical_transfer_23_female']}}</td>
-                        <td>{{$report['transferout_otp_23_male']}}</td>
-                        <td>{{$report['transferout_otp_23_female']}}</td>
-                        <td>{{$report['transferout_sc_23_male']}}</td>
-                        <td>{{$report['transferout_sc_23_female']}}</td>
-                        <td>{{$report['others_unkown_23_male']}}</td>
-                        <td>{{$report['others_unkown_23_female']}}</td>
-
-                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
-                        $report['medical_transfer_23_male']+$report['transferout_otp_23_male']+$report['transferout_sc_23_male']+$report['others_unkown_23_male']}}</td>
-                        <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['medical_transfer_23_female']+$report['transferout_otp_23_female']+$report['transferout_sc_23_female']+$report['others_unkown_23_female']}}</td>
-                        <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
-                        $report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['medical_transfer_23_male']+$report['transferout_otp_23_male']+$report['transferout_sc_23_male']+$report['others_unkown_23_male']+
-                        $report['medical_transfer_23_female']+$report['transferout_otp_23_female']+$report['transferout_sc_23_female']+$report['others_unkown_23_female']}}</td>
-
-                        <td>{{$report['endof_month_23_male']}}</td>
-                        <td>{{$report['endof_month_23_female']}}</td>
-                        <td>{{$report['endof_month_23_male']+$report['endof_month_23_female']}}</td>
-
-                    </tr>
-                    <tr class="gradeX">
-                        <td>24-59 mnths</td>
-
-
-                        <td>{{$report['recovered_24to59_male']}}</td>
-                        <td>{{$report['recovered_24to59_female']}}</td>
-                        <td>{{$report['death_24to59_male']}}</td>
-                        <td>{{$report['death_24to59_female']}}</td>
-                        <td>{{$report['defaulted_24to59_male']}}</td>
-                        <td>{{$report['defaulted_24to59_female']}}</td>
-                        <td>{{$report['non_responder_24to59_male']}}</td>
-                        <td>{{$report['non_responder_24to59_female']}}</td>
-
-                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']}}</td>
-                        <td>{{$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']}}</td>
-                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']}}</td>
-
-                        <td>{{$report['medical_transfer_24to59_male']}}</td>
-                        <td>{{$report['medical_transfer_24to59_female']}}</td>
-                        <td>{{$report['transferout_otp_24to59_male']}}</td>
-                        <td>{{$report['transferout_otp_24to59_female']}}</td>
-                        <td>{{$report['transferout_sc_24to59_male']}}</td>
-                        <td>{{$report['transferout_sc_24to59_female']}}</td>
-                        <td>{{$report['others_unkown_24to59_male']}}</td>
-                        <td>{{$report['others_unkown_24to59_female']}}</td>
-
-                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
-                        $report['medical_transfer_24to59_male']+$report['transferout_otp_24to59_male']+$report['transferout_sc_24to59_male']+$report['others_unkown_24to59_male']}}</td>
-                        <td>{{$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['medical_transfer_24to59_female']+$report['transferout_otp_24to59_female']+$report['transferout_sc_24to59_female']+$report['others_unkown_24to59_female']}}</td>
-                        <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
-                        $report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['medical_transfer_24to59_male']+$report['transferout_otp_24to59_male']+$report['transferout_sc_24to59_male']+$report['others_unkown_24to59_male']+
-                        $report['medical_transfer_24to59_female']+$report['transferout_otp_24to59_female']+$report['transferout_sc_24to59_female']+$report['others_unkown_24to59_female']}}</td>
-
-                        <td>{{$report['endof_month_24to59_male']}}</td>
-                        <td>{{$report['endof_month_24to59_female']}}</td>
-                        <td>{{$report['endof_month_24to59_male']+$report['endof_month_24to59_female']}}</td>
-
-                    </tr>
-                    <tr class="gradeX">
-                        <td>> 5 yrs</td>
-
-
-
-                        <td>{{$report['recovered_60_male']}}</td>
-                        <td>{{$report['recovered_60_female']}}</td>
-                        <td>{{$report['death_60_male']}}</td>
-                        <td>{{$report['death_60_female']}}</td>
-                        <td>{{$report['defaulted_60_male']}}</td>
-                        <td>{{$report['defaulted_60_female']}}</td>
-                        <td>{{$report['non_responder_60_male']}}</td>
-                        <td>{{$report['non_responder_60_female']}}</td>
-
-                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']}}</td>
-                        <td>{{$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
-                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
-
-                        <td>{{$report['medical_transfer_60_male']}}</td>
-                        <td>{{$report['medical_transfer_60_female']}}</td>
-                        <td>{{$report['transferout_otp_60_male']}}</td>
-                        <td>{{$report['transferout_otp_60_female']}}</td>
-                        <td>{{$report['transferout_sc_60_male']}}</td>
-                        <td>{{$report['transferout_sc_60_female']}}</td>
-                        <td>{{$report['others_unkown_60_male']}}</td>
-                        <td>{{$report['others_unkown_60_female']}}</td>
-
-                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
-                        $report['medical_transfer_60_male']+$report['transferout_otp_60_male']+$report['transferout_sc_60_male']+$report['others_unkown_60_male']}}</td>
-                        <td>{{$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
-                        $report['medical_transfer_60_female']+$report['transferout_otp_60_female']+$report['transferout_sc_60_female']+$report['others_unkown_60_female']}}</td>
-                        <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
-                        $report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
-                        $report['medical_transfer_60_male']+$report['transferout_otp_60_male']+$report['transferout_sc_60_male']+$report['others_unkown_60_male']+
-                        $report['medical_transfer_60_female']+$report['transferout_otp_60_female']+$report['transferout_sc_60_female']+$report['others_unkown_60_female']}}</td>
-
-                        <td>{{$report['endof_month_60_male']}}</td>
-                        <td>{{$report['endof_month_60_female']}}</td>
-                        <td>{{$report['endof_month_60_male']+$report['endof_month_60_female']}}</td>
-
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Total</th>
-
-
+                        <!--Second Set Starts Here -->
                         <td>{{$report['recovered_23_male']+$report['recovered_24to59_male']+$report['recovered_60_male']}}</td>
                         <td>{{$report['recovered_23_female']+$report['recovered_24to59_female']+$report['recovered_60_female']}}</td>
                         <td>{{$report['death_23_male']+$report['death_24to59_male']+$report['death_60_male']}}</td>
@@ -564,13 +541,12 @@
                         <td>{{$report['endof_month_23_male']+$report['endof_month_24to59_male']+$report['endof_month_60_male']+$report['endof_month_23_female']+$report['endof_month_24to59_female']+$report['endof_month_60_female']}}</td>
                     </tr>
                     </tfoot>
-                    </table> 
-                                <div class="full-height-scroll">
-                  
-                                    
-                                </div>
-                            
+                    </table>
                         
+                    <!-- Second Table -->
+                        
+                     
+                        <div class="full-height-scroll"></div>
                     </div>
                 </div>
             </div>
@@ -587,7 +563,7 @@
 <script>
     
     $(document).ready(function() {
-            
+       $("body").toggleClass("mini-navbar");     
     });
     
 </script>
