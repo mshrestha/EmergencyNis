@@ -18,23 +18,20 @@
         </div>
         <div class="flot-chart m-b-xl">
             <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+            
         </div>
+        
     </div>
-     <div class="col-lg-6">
-		<h2>OTP Admissions</h2>
-        <div id="content">
-            <div class="flot-chart m-b-xl">
-                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-            </div>
-        </div>
+</div>
+     
+<div class="row">
+    <div class="col-lg-6">
+        <h2>OTP Admissions</h2>
+        <canvas id="canvas-performance" height="100px"></canvas>
     </div>
-     <div class="col-lg-6">
-		<h2>OTP Weight Gain</h2>
-        <div id="content">
-            <div class="flot-chart m-b-xl">
-                <div class="flot-chart-content" id="flot-dashboard1-chart"></div>
-            </div>
-        </div>
+    <div class="col-lg-6">
+        <h2>OTP Average Weight Gain</h2>
+        <canvas id="canvas-avgweight" height="100px"></canvas>
     </div>
 </div>
 
@@ -102,6 +99,10 @@
 
         </div>
     </div>
+    <div class="col-lg-6">
+        
+    
+    </div>
 </div>
 	
 
@@ -149,30 +150,20 @@
         sync_children();
     });
 
-    
         $(document).ready(function() {
-           
-           
-
-
-
-             var data1 = [
-                [0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11]
-            ];
-            var data2 = [
-                [0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5]
-            ];
-            var data3 = [
-                [0,5],[1,7],[2,12],[3,9],[4,16],[5,9],[6,7],[7,10],[8,16],[9,10]
-            ];
+            
+            //Data and options for OTP Admissions Line Graph
+            var data1 = [[0,4],[1,8],[2,5],[3,10],[4,4],[5,16],[6,5],[7,11],[8,6],[9,11]];
+            var data2 = [[0,0],[1,2],[2,7],[3,4],[4,11],[5,4],[6,2],[7,5],[8,11],[9,5]];
+            var data3 = [[0,5],[1,7],[2,12],[3,9],[4,16],[5,9],[6,7],[7,10],[8,16],[9,10]];
+            
             $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [ data1, data2, data3],
                     {
                         series: {
                             lines: {
                                 show: true,
                                 fill: true,
-                                steps: false,
-                                
+                                steps: false,  
                             },
                             curvedLines: {
                                 active: true,
@@ -194,7 +185,6 @@
                             backgroundColor: "#cc0000",
                             backgroundOpacity: 1,
                             container: null,
-                            //sorted: null/false, true, "ascending", "descending", "reverse", or a comparator
                         },
                         grid: {
                             hoverable: true,
@@ -217,147 +207,14 @@
                     }
             );
             
-            //SECOND STACKED BARS STARTS HERE
-            var data = [
-                [1, 80], [2, 87], [3, 92], [4, 88],[5, 90]
-            ];
-            var dataDefaultRate = [
-                [1, 1], [2, 1], [3, 3], [4, 7], [5, 2]
-            ];
-            var dataDeathRate = [
-                [1, 0], [2, 3], [3, 1], [4, 4], [5, 2]
-            ];
-
-            var dataset = [
-                {
-                    label: "Cure Rate",
-                    data: data,
-                    color: "#1ab394",
-                    bars: {
-                        show: true,
-                        align: "left",
-                        //barWidth: 24 * 60 * 60 * 100,
-                        barWidth: 0.5,
-                        lineWidth:0
-                    }
-                },
-                {
-                    label: "Default Rate",
-                    data: dataDefaultRate,
-                    color: "#cc0000",
-                    bars: {
-                        show: true,
-                        align: "left",
-                        barWidth: 0.5,
-                        lineWidth:0
-                    }
-                },
-                {
-                    label: "Death Rate",
-                    data: dataDeathRate,
-                    color: "#1C84C6",
-                    bars: {
-                        show: true,
-                        align: "left",
-                        barWidth: 0.5,
-                        lineWidth:0
-                    }
-                }
-            ];
-
-
-            var options = {
-                xaxis: {
-                    mode: null,
-                    //tickSize: [2, "day"],
-                    //tickLength: 0,
-                    axisLabel: "Label",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Helvetica',
-                    axisLabelPadding: 100,
-                    color: "#d5d5d5",
-                    ticks: [[1, "OTP 1"], [2, "OTP 2"], [3, "OTP 3"], [4, "OTP 4"], [5, "OTP 5"]]
-                },
-                yaxes: [{
-                    position: "left",
-                    max: 100,
-                    color: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: 'Arial',
-                    axisLabelPadding: 5
-                }, {
-                    position: "left",
-                    clolor: "#d5d5d5",
-                    axisLabelUseCanvas: true,
-                    axisLabelFontSizePixels: 12,
-                    axisLabelFontFamily: ' Arial',
-                    axisLabelPadding: 10
-                },
-                        
-                ],
-                tooltip: true,
-                legend: {
-                    noColumns: 5,
-                    labelBoxBorderColor: "transparent",
-                    position: "nw"
-                },
-                grid: {
-                    hoverable: true,
-                    borderWidth: 0
-                }
-            };
-            
-            
-            var newData = [
-                { label: "Money Spent", data: [ ["January", 10], ["February", 8], ["March", 4], ["April", 13], ["May", 17], ["June", 9] ] },
-                { label: "Money Earned", data: [ ["January", 20], ["February", 30], ["March", 5], ["April", 6], ["May", 9], ["June", 9] ] }
-            ];
-            
-            var newOptions = {
-                series: {
-                    bars: {
-                        show: true,
-                        barWidth: 0.2,
-                        lineWidth: 0,
-                        order: 1,
-                        fillColor: {
-                            colors: [{
-                                opacity: 1
-                            }, {
-                                opacity: 1
-                            }]
-                        }
-                    }
-                },
-                xaxis: {
-                    mode: "categories"
-                },
-                grid: {
-                    borderWidth: 0
-                },
-                colors: ["#3F48CC", "#ED1C24"]
-            }
-
-            function gd(year, month, day) {
-                return new Date(year, month - 1, day).getTime();
-            }
-
-            var previousPoint = null, previousLabel = null;
-
-            $.plot($("#flot-dashboard-chart"), dataset, options);
-            $.plot($("#flot-dashboard1-chart"), dataset, options);
-            
+            //Doughnut charts starts here
             var doughnutData = {
                 labels: ["6-23m","24-59m",">59m" ],
                 datasets: [{
                     data: [77,22,1],
                     backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
                 }]
-            } ;
-
-
+            };
             var doughnutOptions = {
                 responsive: false,
                 legend: {
@@ -392,8 +249,107 @@
             var ctx4 = document.getElementById("doughnutChart3").getContext("2d");
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
-        });
+        
    
+    var data = [90, 87, 88, 90, 92, 89];
+    var dataDefaultRate = [7, 9, 10, 7, 5, 8];
+    var dataDeathRate = [3, 4, 2, 3, 3, 3];
+
+    var barChartData = {
+			labels: ['OTP1', 'OTP2', 'OTP3', 'OTP4', 'OTP5', 'OTP6'],
+			datasets: [{
+				label: 'Death Rate',
+				backgroundColor: 'rgb(255, 99, 132, 0.5)',
+				stack: 'Stack 0',
+				data: dataDeathRate
+			}, {
+				label: 'Default Rate',
+				backgroundColor: 'rgb(54, 162, 235, 0.5)',
+				stack: 'Stack 0',
+				data: dataDefaultRate
+			}, {
+				label: 'Cure Rate',
+				backgroundColor: 'rgb(75, 192, 192, 0.5)',
+				stack: 'Stack 1',
+				data: data
+			}]
+
+		};
+		
+			var ctx5 = document.getElementById('canvas-performance').getContext('2d');
+			
+            new Chart(ctx5, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					title: {
+						display: false,
+						text: 'OTP Performance'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: true,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+			});
+		
+    
+    //Stacked Bar data for OTP Performance
+    var data = [90, 87, 50, 40, 20, 44];
+    var dataDefaultRate = [7, 9];
+    var dataDeathRate = [3, 4];
+
+    var barChartData = {
+			labels: ['OTP1', 'OTP2', 'OTP3', 'OTP4', 'OTP5', 'OTP6'],
+			datasets: [{
+				label: 'Avg Weight Gain',
+				backgroundColor: 'rgb(75, 192, 192, 0.5)',
+				stack: 'Stack 1',
+				data: data
+			}]
+
+		};
+    
+        //Bar Data for Avg Weight Performance
+		
+            
+			var ctx6 = document.getElementById('canvas-avgweight').getContext('2d');
+			
+            new Chart(ctx6, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					title: {
+						display: false,
+						text: 'OTP Performance'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: true,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+			});
+		
+    });
+    
     
 
 
