@@ -64,7 +64,7 @@
                 data-live-search="true" multiple>
             <option value="">Select Facility (Multiple)</option>
             @foreach($facilities as $fac)
-                <option value="{{ $fac->id }}">{{ $fac->facility_id }}</option>
+                <option value="{{ $fac->id }}" {{ (in_array($fac->id, $supervisor_facility)) ? ' selected' : '' }}>{{ $fac->facility_id }}</option>
             @endforeach
         </select>
     </div>
