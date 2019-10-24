@@ -54,13 +54,13 @@ class HomeController extends Controller
 //dashboard chart bar
             $fromDate = \Carbon\Carbon::now()->subDay(30)->toDateString();
             $tillDate = \Carbon\Carbon::now()->subDay()->toDateString();
-            $admission= FacilityFollowup::where('facility_id', Auth::user()->facility_id)
+            $admission = FacilityFollowup::where('facility_id', Auth::user()->facility_id)
                 ->selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
                 ->where('new_admission', 'MUAC')
                 ->orWhere('new_admission', 'WFH Zscore')
                 ->orWhere('new_admission', 'MUAC and WFH Zscore')
                 ->groupBy('dat')
-                ->whereBetween('created_at',[$fromDate, $tillDate] )
+                ->whereBetween('created_at', [$fromDate, $tillDate])
                 ->orderBy('dat', 'ASC')
                 ->pluck('cunt', 'dat')->toArray();
             $chart_bar_count_value = array_values($admission);
@@ -101,13 +101,13 @@ class HomeController extends Controller
 //dashboard chart bar without facility based user
             $fromDate = \Carbon\Carbon::now()->subDay(30)->toDateString();
             $tillDate = \Carbon\Carbon::now()->subDay()->toDateString();
-            $admission= FacilityFollowup::where('facility_id', Auth::user()->facility_id)
+            $admission = FacilityFollowup::where('facility_id', Auth::user()->facility_id)
                 ->selectRaw('DATE(created_at) as dat, COUNT(*) as cunt')
                 ->where('new_admission', 'MUAC')
                 ->orWhere('new_admission', 'WFH Zscore')
                 ->orWhere('new_admission', 'MUAC and WFH Zscore')
                 ->groupBy('dat')
-                ->whereBetween('created_at',[$fromDate, $tillDate] )
+                ->whereBetween('created_at', [$fromDate, $tillDate])
                 ->orderBy('dat', 'ASC')
                 ->pluck('cunt', 'dat')->toArray();
             $chart_bar_count_value = array_values($admission);
@@ -124,7 +124,7 @@ class HomeController extends Controller
         $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
         return view('homepage.home', compact('children', 'facilities', 'dashboard', 'average_rate',
-            'chart_doughnut_value','chart_bar_count_value','chart_bar_date_key', 'children_sync_count', 'facility_followup_sync_count'));
+            'chart_doughnut_value', 'chart_bar_count_value', 'chart_bar_date_key', 'children_sync_count', 'facility_followup_sync_count'));
     }
 
 
@@ -147,9 +147,10 @@ class HomeController extends Controller
 
         return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();
     }
-    
-    public function programManagerDashboard(){
-        
+
+    public function programManagerDashboard()
+    {
+
 //        $facilityFollowup = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->get();
 //        $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
         //$dashboard = '';
@@ -160,19 +161,34 @@ class HomeController extends Controller
             $report_month = date('n') - 1;
             $report_year = date('Y');
         }
-        $facility_supervision = FacilitySupervisor::where('user_id',Auth::user()->id)->pluck('facility_id')->toArray();
+        $facility_supervision = FacilitySupervisor::where('user_id', Auth::user()->id)->pluck('facility_id')->toArray();
 //        dd($facility_supervision);
-        $monthly_dashboard=MonthlyDashboard::select(DB::raw('sum(otp_admit_23m) as otp_admit_23m'),DB::raw('sum(otp_admit_23f) as otp_admit_23f')
-        ,DB::raw('sum(otp_admit_24m) as otp_admit_24m'),DB::raw('sum(otp_admit_24f) as otp_admit_24f')
-            ,DB::raw('sum(otp_admit_60m) as otp_admit_60m'),DB::raw('sum(otp_admit_60f) as otp_admit_60f')
-            ,DB::raw('sum(otp_admit_male) as otp_admit_male'),DB::raw('sum(otp_admit_female) as otp_admit_female'),DB::raw('sum(otp_admit_others) as otp_admit_others')
-            ,DB::raw('sum(otp_admit_muac) as otp_admit_muac'),DB::raw('sum(otp_admit_whz) as otp_admit_whz'),DB::raw('sum(otp_admit_both) as otp_admit_both'))
-            ->where('month',$report_month)->where('year',$report_year)
-            ->whereIn('facility_id',$facility_supervision)
+        $doughnut_chart = DB::table('monthly_dashboards')->select( DB::raw('sum(otp_admit_23m) as otp_admit_23m'), DB::raw('sum(otp_admit_23f) as otp_admit_23f')
+            , DB::raw('sum(otp_admit_24m) as otp_admit_24m'), DB::raw('sum(otp_admit_24f) as otp_admit_24f')
+            , DB::raw('sum(otp_admit_60m) as otp_admit_60m'), DB::raw('sum(otp_admit_60f) as otp_admit_60f')
+            , DB::raw('sum(otp_admit_male) as otp_admit_male'), DB::raw('sum(otp_admit_female) as otp_admit_female'), DB::raw('sum(otp_admit_others) as otp_admit_others')
+            , DB::raw('sum(otp_admit_muac) as otp_admit_muac'), DB::raw('sum(otp_admit_whz) as otp_admit_whz'), DB::raw('sum(otp_admit_both) as otp_admit_both')
+        )
+            ->where('month', $report_month)->where('year', $report_year)
+            ->whereIn('facility_id', $facility_supervision)
             ->get();
-//dd($monthly_dashboard[0]->otp_admit_male);
+        $bar_chart = DB::table('monthly_dashboards')
+            ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
+                        ->select( 'facilities.facility_id','monthly_dashboards.avg_weight_gain',
+                            'monthly_dashboards.cure_rate','monthly_dashboards.death_rate','monthly_dashboards.default_rate','monthly_dashboards.nonrespondent_rate')
+            ->where('month', $report_month)->where('year', $report_year)
+            ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
+                ->get()
+            ->toArray();
+        $bar_chart['facility_id'] = array_column($bar_chart,'facility_id');
+        $bar_chart['avg_weight_gain'] = array_column($bar_chart,'avg_weight_gain');
+        $bar_chart['cure_rate'] = array_column($bar_chart,'cure_rate');
+        $bar_chart['death_rate'] = array_column($bar_chart,'death_rate');
+        $bar_chart['default_rate'] = array_column($bar_chart,'default_rate');
+        $bar_chart['nonrespondent_rate'] = array_column($bar_chart,'nonrespondent_rate');
+//        dd($bar_chart);
 
-        return view('homepage.program-manager', compact('monthly_dashboard'))->render();
+        return view('homepage.program-manager', compact('doughnut_chart','bar_chart'))->render();
     }
 
     public function facilityInfo($facility_id)

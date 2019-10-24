@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df9c621-5e08-4402-bd93-fd0572f0e0a5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/homepage/program-manager.blade.php" afterPath="$PROJECT_DIR$/resources/views/homepage/program-manager.blade.php" />
     </list>
@@ -18,8 +19,8 @@
       <file leaf-file-name="HomeController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="168" column="58" lean-forward="false" selection-start-line="168" selection-start-column="58" selection-end-line="168" selection-end-column="58" />
+            <state relative-caret-position="272">
+              <caret line="187" column="89" lean-forward="true" selection-start-line="187" selection-start-column="89" selection-end-line="187" selection-end-column="89" />
               <folding>
                 <element signature="e#40#67#0#PHP" expanded="true" />
               </folding>
@@ -50,8 +51,8 @@
       <file leaf-file-name="program-manager.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/homepage/program-manager.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="44" column="12" lean-forward="false" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+            <state relative-caret-position="546">
+              <caret line="372" column="0" lean-forward="true" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -60,8 +61,8 @@
       <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="397" column="0" lean-forward="false" selection-start-line="397" selection-start-column="0" selection-end-line="397" selection-end-column="0" />
+            <state relative-caret-position="495">
+              <caret line="447" column="0" lean-forward="false" selection-start-line="438" selection-start-column="0" selection-end-line="447" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,9 +80,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>oedema</find>
-      <find>24to59</find>
-      <find>transferin_tsfp</find>
       <find>sc</find>
       <find>findDataFromFacilityFollowup</find>
       <find>datepicker3</find>
@@ -109,12 +107,11 @@
       <find>default</find>
       <find>children</find>
       <find>city</find>
+      <find>$chart</find>
+      <find>$$doughnut_chart</find>
+      <find>weight_gain</find>
     </findStrings>
     <replaceStrings>
-      <replace>$facility_id</replace>
-      <replace>total_enroll</replace>
-      <replace>$begining_balance_total_enrollment</replace>
-      <replace>begining_balance</replace>
       <replace>date</replace>
       <replace>discharge_exit_recovered</replace>
       <replace>recovered</replace>
@@ -141,6 +138,10 @@
       <replace>nonrespondent</replace>
       <replace>md</replace>
       <replace>fac</replace>
+      <replace>$weight_gain_chart</replace>
+      <replace>$doughnut_chart</replace>
+      <replace>bar_chart</replace>
+      <replace>bar</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -760,15 +761,15 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\rezaul\laragon4\www\emergencynis\public\custom\bootstrap-datepicker" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\homepage" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\public\custom" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\report" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\public\js\plugins" />
-      <recent name="D:\rezaul\laragon4\www\emergencynis\public\js\plugins\chartJs" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\rezaul\laragon4\www\emergencynis\public\custom\bootstrap-datepicker" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -869,18 +870,17 @@
       <workItem from="1570762448011" duration="639000" />
       <workItem from="1570845256564" duration="28675000" />
       <workItem from="1571547227859" duration="64155000" />
-      <workItem from="1571842201062" duration="12646000" />
+      <workItem from="1571842201062" duration="22537000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184732000" />
+    <option name="totallyTimeSpent" value="194623000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12737921" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1251,16 +1251,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="397" column="0" lean-forward="false" selection-start-line="397" selection-start-column="0" selection-end-line="397" selection-end-column="0" />
+        <state relative-caret-position="495">
+          <caret line="447" column="0" lean-forward="false" selection-start-line="438" selection-start-column="0" selection-end-line="447" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="168" column="58" lean-forward="false" selection-start-line="168" selection-start-column="58" selection-end-line="168" selection-end-column="58" />
+        <state relative-caret-position="272">
+          <caret line="187" column="89" lean-forward="true" selection-start-line="187" selection-start-column="89" selection-end-line="187" selection-end-column="89" />
           <folding>
             <element signature="e#40#67#0#PHP" expanded="true" />
           </folding>
@@ -1269,8 +1269,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/homepage/program-manager.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="44" column="12" lean-forward="false" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+        <state relative-caret-position="546">
+          <caret line="372" column="0" lean-forward="true" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
           <folding />
         </state>
       </provider>
