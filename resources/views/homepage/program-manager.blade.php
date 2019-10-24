@@ -208,10 +208,13 @@
             );
             
             //Doughnut charts starts here
+            var child23 = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_23m+$monthly_dashboard[0]->otp_admit_23f); ?>');
+            var child24 = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_24m+$monthly_dashboard[0]->otp_admit_24f); ?>');
+            var child60 = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_60m+$monthly_dashboard[0]->otp_admit_60f); ?>');
             var doughnutData = {
                 labels: ["6-23m","24-59m",">59m" ],
                 datasets: [{
-                    data: [77,22,1],
+                    data: [child23,child24,child60],
                     backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
                 }]
             };
@@ -226,10 +229,13 @@
             var ctx4 = document.getElementById("doughnutChart").getContext("2d");
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
+            var male = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_male); ?>');
+            var female = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_female); ?>');
+            var others = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_others); ?>');
             var doughnutData = {
                 labels: ["Male","Female","Other" ],
                 datasets: [{
-                    data: [43,57,0],
+                    data: [male,female,others],
                     backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
                 }]
             } ;

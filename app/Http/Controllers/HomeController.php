@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\FacilitySupervisor;
+use App\MonthlyDashboard;
 use Auth;
 use App\Models\Child;
 use App\Models\Facility;
@@ -9,6 +11,7 @@ use App\Models\FacilityFollowup;
 use App\Models\CommunityFollowup;
 
 use Illuminate\Http\Request;
+use DB;
 
 class HomeController extends Controller
 {
@@ -147,10 +150,29 @@ class HomeController extends Controller
     
     public function programManagerDashboard(){
         
-        $facilityFollowup = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->get();
-        $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
+//        $facilityFollowup = FacilityFollowup::where('facility_id', Auth::user()->facility_id)->get();
+//        $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
         //$dashboard = '';
-        return view('homepage.program-manager', compact('dashboard'))->render();
+        if (date('n') == 1) {
+            $report_month = 12;
+            $report_year = date('Y') - 1;
+        } else {
+            $report_month = date('n') - 1;
+            $report_year = date('Y');
+        }
+        $facility_supervision = FacilitySupervisor::where('user_id',Auth::user()->id)->pluck('facility_id')->toArray();
+//        dd($facility_supervision);
+        $monthly_dashboard=MonthlyDashboard::select(DB::raw('sum(otp_admit_23m) as otp_admit_23m'),DB::raw('sum(otp_admit_23f) as otp_admit_23f')
+        ,DB::raw('sum(otp_admit_24m) as otp_admit_24m'),DB::raw('sum(otp_admit_24f) as otp_admit_24f')
+            ,DB::raw('sum(otp_admit_60m) as otp_admit_60m'),DB::raw('sum(otp_admit_60f) as otp_admit_60f')
+            ,DB::raw('sum(otp_admit_male) as otp_admit_male'),DB::raw('sum(otp_admit_female) as otp_admit_female'),DB::raw('sum(otp_admit_others) as otp_admit_others')
+            ,DB::raw('sum(otp_admit_muac) as otp_admit_musc'),DB::raw('sum(otp_admit_whz) as otp_admit_whz'),DB::raw('sum(otp_admit_both) as otp_admit_both'))
+            ->where('month',$report_month)->where('year',$report_year)
+            ->whereIn('facility_id',$facility_supervision)
+            ->get();
+//dd($monthly_dashboard[0]->otp_admit_male);
+
+        return view('homepage.program-manager', compact('monthly_dashboard'))->render();
     }
 
     public function facilityInfo($facility_id)
