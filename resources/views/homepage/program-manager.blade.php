@@ -40,9 +40,9 @@
 <div class="row">
     <div class="col-md-4">
         <div class="statistic-box">
-        <h2>
+        <h3>
             OTP New Admission By Age
-        </h2>
+        </h3>
         <p>
             Admissions for this month by age.
         </p>
@@ -61,9 +61,9 @@
     </div>
     <div class="col-md-4">
         <div class="statistic-box">
-        <h2>
+        <h3>
             OTP New Admission By Gender
-        </h2>
+        </h3>
         <p>
             Admissions for this month by Gender.
         </p>
@@ -81,9 +81,9 @@
     </div>
     <div class="col-md-4">
         <div class="statistic-box">
-        <h2>
+        <h3>
             OTP New Admission By Anthropometry
-        </h2>
+        </h3>
         <p>
             Admissions for this month by Anthropometry.
         </p>
@@ -242,12 +242,15 @@
 
             var ctx4 = document.getElementById("doughnutChart2").getContext("2d");
             new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
-            
-            
+
+            var muac = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_muac); ?>');
+            var whz = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_whz); ?>');
+            var both = JSON.parse('<?php echo json_encode($monthly_dashboard[0]->otp_admit_both); ?>');
+
             var doughnutData = {
                 labels: ["MUAC","WHZ","Both" ],
                 datasets: [{
-                    data: [5,30,65],
+                    data: [muac,whz,both],
                     backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
                 }]
             } ;

@@ -166,7 +166,7 @@ class HomeController extends Controller
         ,DB::raw('sum(otp_admit_24m) as otp_admit_24m'),DB::raw('sum(otp_admit_24f) as otp_admit_24f')
             ,DB::raw('sum(otp_admit_60m) as otp_admit_60m'),DB::raw('sum(otp_admit_60f) as otp_admit_60f')
             ,DB::raw('sum(otp_admit_male) as otp_admit_male'),DB::raw('sum(otp_admit_female) as otp_admit_female'),DB::raw('sum(otp_admit_others) as otp_admit_others')
-            ,DB::raw('sum(otp_admit_muac) as otp_admit_musc'),DB::raw('sum(otp_admit_whz) as otp_admit_whz'),DB::raw('sum(otp_admit_both) as otp_admit_both'))
+            ,DB::raw('sum(otp_admit_muac) as otp_admit_muac'),DB::raw('sum(otp_admit_whz) as otp_admit_whz'),DB::raw('sum(otp_admit_both) as otp_admit_both'))
             ->where('month',$report_month)->where('year',$report_year)
             ->whereIn('facility_id',$facility_supervision)
             ->get();
