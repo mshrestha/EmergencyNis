@@ -17,6 +17,7 @@ class CreateMonthlyDashboardsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('month');
             $table->integer('year');
+            $table->string('period');
 //dashboard manager
             $table->bigInteger('facility_id')->unsigned();
             $table->foreign('facility_id')->references('id')->on('facilities')->onDelete('cascade');

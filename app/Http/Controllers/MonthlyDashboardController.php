@@ -24,17 +24,13 @@ class MonthlyDashboardController extends Controller
 
     public function create()
     {
-
         $current_month = date('n');
         $generated_data=\DB::table('monthly_dashboards')
             ->select('year','month')
             ->groupBy('year','month')
-//            ->groupBy(\DB::raw('month') )
             ->orderBy('year','desc')
             ->orderBy('month','desc')
             ->get();
-//        dd($generated_data);
-
 
         return view('monthly_dashboard.create', compact('current_month', 'generated_data'));
 
@@ -65,6 +61,8 @@ class MonthlyDashboardController extends Controller
             $md->facility_id = $facilities[$i]->id;
             $md->month = $request->month;
             $md->year = $request->year;
+            $md->period = date('M', mktime(0, 0, 0, $request->month, 10)).'-'.substr( $request->year, -2);
+            $request->year;
 //            $md->created_by = Auth::user()->id;
             $md->otp_admit_23m = $this->otp_admit_23($facilities[$i]->id, $request->month, $request->year, 'male');
             $md->otp_admit_23f = $this->otp_admit_23($facilities[$i]->id, $request->month, $request->year, 'female');

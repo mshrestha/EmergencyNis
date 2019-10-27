@@ -18,11 +18,23 @@
             </div>
             <div class="flot-chart m-b-xl">
                 <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
-
             </div>
+        </div>
 
+    </div>
+    <div class="row ">
+        <div class="col-lg-12  border-bottom dashboard-header">
+            {{--<div class="flot-chart">--}}
+            <div class="flot-chart-content">
+                <canvas id="childAdmission" class="flot-chart-content"></canvas>
+            </div>
+            {{--</div>--}}
+        </div>
+        <div>
+            <canvas id="chart"></canvas>
         </div>
     </div>
+
 
     <div class="row">
         <div class="col-lg-6">
@@ -156,6 +168,86 @@
     });
 
     $(document).ready(function () {
+
+        var obj = JSON.parse('<?php echo json_encode($line_chart); ?>');
+        var ctx = document.getElementById('childAdmission').getContext('2d');
+
+        function getMissing(a, b) {
+            var missings = [];
+            var matches = false;
+
+            for (var i = 0; i < a.length; i++) {
+                matches = false;
+                for (var e = 0; e < b.length; e++) {
+                    if (a[i] === b[e]) matches = true;
+                }
+                if (!matches) missings.push(a[i]);
+            }
+            return missings;
+        }
+
+            var all_labels = [];
+            var admission = [];
+            var datasets = [];
+            var labels = [];
+            var oos = [];
+            var main_data = {};
+            for (i = 0; i < obj.length; i++) {
+                if (admission.indexOf(obj[i].Facility_name) === -1) {
+                    admission.push(obj[i].Facility_name);
+                }
+            }
+            for (i = 0; i < obj.length; i++) {
+                if (all_labels.indexOf(obj[i].Month) === -1) {
+                    all_labels.push(obj[i].Month);
+                }
+            }
+            admission.forEach(function (admit) {
+                var labels = [];
+                var oos = [];
+                obj.forEach(function (report) {
+                    if (report.Facility_name === admit) {
+                        oos.push(report.TotalAdmission)
+                        labels.push(report.Month);
+                    }
+                });
+                missing = getMissing(all_labels, labels);
+                if (missing) {
+                    missing.forEach(function (missed) {
+                        labels.push(missed);
+                        oos.push(0)
+                    });
+                }
+                data = {label: admit, data: oos}
+                datasets.push(data);
+            });
+            main_data = {labels: all_labels, datasets: datasets}
+//            console.log(main_data);
+            var options = {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: false,
+                            precision: 0
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: 'Admission Trend',
+                    fontStyle: 'bold',
+                    fontColor: 'blue',
+                    position: 'top',
+                    fontSize: 14
+                }
+            };
+
+        myLineChart = new Chart(ctx, {
+            type: 'line',
+                    data: main_data,
+                    options: options
+        });
+
 
         //Data and options for OTP Admissions Line Graph
         var data1 = [[0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11]];
