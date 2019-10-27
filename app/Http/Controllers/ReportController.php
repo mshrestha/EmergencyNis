@@ -30,7 +30,7 @@ class ReportController extends Controller
 
             $facility_id = Auth::user()->facility_id;
             $report = $this->otp_report($facility_id, $report_month, $report_year);
-//            dd($report);
+//            dd($report); 
             return view('report.home', compact('children', 'facility', 'report'));
 
 

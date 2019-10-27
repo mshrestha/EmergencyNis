@@ -48,7 +48,7 @@
                         <th rowspan="1" colspan="11">New Enrollment [B]</th>
                         
                         <th rowspan="1" colspan="8">Transfer In [C]</th>
-                        <th rowspan="2" colspan="3">Total Transfer In [C1+C2+C3+C4]</th>
+                        <th rowspan="2" colspan="3">Total Transfer In [C1 + C2 + C3 + C4]</th>
                         <th rowspan="2" colspan="3">Total Enrollment [D=B+C]</th>
                         
                         <!-- Second Set Starts Here -->
@@ -75,7 +75,7 @@
                         
                         <th colspan="2">Recovered (E1)</th>
                         <th colspan="2">Death (E2)</th>
-                        <th colspan="2">Defaulter (E3)</th>
+                        <th colspan="2">Default (E3)</th>
                         <th colspan="2">Non recover (E4)</th>
                         
                         <th colspan="3">Total Discharge</th>
