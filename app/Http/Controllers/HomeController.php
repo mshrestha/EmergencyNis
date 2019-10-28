@@ -164,20 +164,15 @@ class HomeController extends Controller
             $report_month = date('n') - 1;
             $report_year = date('Y');
         }
-//        dd(date("F",strtotime("-1 Months")));
-
         $months = array();
         for ($i = 1; $i <= 12; $i++) {
             $months[] = date("M-y", strtotime( date( 'Y-m-01' )." -$i months"));
         }
 
         $facility_supervision = FacilitySupervisor::where('user_id', Auth::user()->id)->pluck('facility_id')->toArray();
-//        dd($facility_supervision);
         $line_chart = DB::table('monthly_dashboards')
             ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
-//            ->select( 'facilities.facility_id as facility_name','monthly_dashboards.facility_id','monthly_dashboards.month','monthly_dashboards.year')
             ->select( 'monthly_dashboards.period as Month','monthly_dashboards.total_admit as TotalAdmission','facilities.facility_id as Facility_name')
-//            ->where('month', $report_month)->where('year', $report_year)
             ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
             ->whereIn('monthly_dashboards.period', $months)
 //            ->orderBy('monthly_dashboards.facility_id','desc')

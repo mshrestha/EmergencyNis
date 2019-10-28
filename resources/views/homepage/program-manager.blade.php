@@ -16,25 +16,12 @@
             <div class="small pull-right col-md-6 m-t-md text-right">
                 <strong>Each line</strong> represents the admission trend for individual OTP.
             </div>
-            <div class="flot-chart m-b-xl">
-                <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+            <div class="flot-chart-content" >
+                <canvas id="childAdmission" ></canvas>
             </div>
         </div>
 
     </div>
-    <div class="row ">
-        <div class="col-lg-12  border-bottom dashboard-header">
-            {{--<div class="flot-chart">--}}
-            <div class="flot-chart-content">
-                <canvas id="childAdmission" class="flot-chart-content"></canvas>
-            </div>
-            {{--</div>--}}
-        </div>
-        <div>
-            <canvas id="chart"></canvas>
-        </div>
-    </div>
-
 
     <div class="row">
         <div class="col-lg-6">
@@ -46,8 +33,6 @@
             <canvas id="canvas-avgweight" height="100px"></canvas>
         </div>
     </div>
-
-
 
     <div class="row">
         <div class="col-md-4">
@@ -67,7 +52,7 @@
                     </div>
                 </div>
                 <div class="m-t">
-                    <small>This chart is an accumulation of new addmissions of all the OTPs segregated by Age</small>
+                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Age</small>
                 </div>
 
             </div>
@@ -88,7 +73,7 @@
                     </div>
                 </div>
                 <div class="m-t">
-                    <small>This chart is an accumulation of new addmissions of all the OTPs segregated by Gender</small>
+                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Gender</small>
                 </div>
 
             </div>
@@ -109,7 +94,7 @@
                     </div>
                 </div>
                 <div class="m-t">
-                    <small>This chart is an accumulation of new addmissions of all the OTPs segregated by
+                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by
                         Anthropometry
                     </small>
                 </div>
@@ -168,7 +153,7 @@
     });
 
     $(document).ready(function () {
-
+//Line chart Admission trend start
         var obj = JSON.parse('<?php echo json_encode($line_chart); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
 
@@ -186,125 +171,74 @@
             return missings;
         }
 
-            var all_labels = [];
-            var admission = [];
-            var datasets = [];
+        var all_labels = [];
+        var admission = [];
+        var datasets = [];
+        var labels = [];
+        var oos = [];
+        var main_data = {};
+        for (i = 0; i < obj.length; i++) {
+            if (admission.indexOf(obj[i].Facility_name) === -1) {
+                admission.push(obj[i].Facility_name);
+            }
+        }
+        for (i = 0; i < obj.length; i++) {
+            if (all_labels.indexOf(obj[i].Month) === -1) {
+                all_labels.push(obj[i].Month);
+            }
+        }
+        admission.forEach(function (admit) {
             var labels = [];
             var oos = [];
-            var main_data = {};
-            for (i = 0; i < obj.length; i++) {
-                if (admission.indexOf(obj[i].Facility_name) === -1) {
-                    admission.push(obj[i].Facility_name);
+            obj.forEach(function (report) {
+                if (report.Facility_name === admit) {
+                    oos.push(report.TotalAdmission)
+                    labels.push(report.Month);
                 }
-            }
-            for (i = 0; i < obj.length; i++) {
-                if (all_labels.indexOf(obj[i].Month) === -1) {
-                    all_labels.push(obj[i].Month);
-                }
-            }
-            admission.forEach(function (admit) {
-                var labels = [];
-                var oos = [];
-                obj.forEach(function (report) {
-                    if (report.Facility_name === admit) {
-                        oos.push(report.TotalAdmission)
-                        labels.push(report.Month);
-                    }
-                });
-                missing = getMissing(all_labels, labels);
-                if (missing) {
-                    missing.forEach(function (missed) {
-                        labels.push(missed);
-                        oos.push(0)
-                    });
-                }
-                data = {label: admit, data: oos}
-                datasets.push(data);
             });
-            main_data = {labels: all_labels, datasets: datasets}
+            missing = getMissing(all_labels, labels);
+            if (missing) {
+                missing.forEach(function (missed) {
+                    labels.push(missed);
+                    oos.push(0)
+                });
+            }
+            data = {label: admit, data: oos}
+            datasets.push(data);
+        });
+        main_data = {labels: all_labels, datasets: datasets}
 //            console.log(main_data);
-            var options = {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: false,
-                            precision: 0
-                        }
-                    }]
-                },
-                title: {
-                    display: true,
-                    text: 'Admission Trend',
-                    fontStyle: 'bold',
-                    fontColor: 'blue',
-                    position: 'top',
-                    fontSize: 14
-                }
-            };
+        var options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false,
+                        precision: 0
+                    }
+                }]
+            },
+
+            title: {
+                display: true,
+                text: 'Admission Trend',
+                fontStyle: 'bold',
+                fontColor: 'blue',
+                position: 'top',
+                fontSize: 14
+            }
+        };
 
         myLineChart = new Chart(ctx, {
             type: 'line',
-                    data: main_data,
-                    options: options
+            data: main_data,
+            options: options
         });
+//End of Line chart Admission trend start
 
 
-        //Data and options for OTP Admissions Line Graph
-        var data1 = [[0, 4], [1, 8], [2, 5], [3, 10], [4, 4], [5, 16], [6, 5], [7, 11], [8, 6], [9, 11]];
-        var data2 = [[0, 0], [1, 2], [2, 7], [3, 4], [4, 11], [5, 4], [6, 2], [7, 5], [8, 11], [9, 5]];
-        var data3 = [[0, 5], [1, 7], [2, 12], [3, 9], [4, 16], [5, 9], [6, 7], [7, 10], [8, 16], [9, 10]];
-
-        $("#flot-dashboard5-chart").length && $.plot($("#flot-dashboard5-chart"), [data1, data2, data3],
-            {
-                series: {
-                    lines: {
-                        show: true,
-                        fill: true,
-                        steps: false,
-                    },
-                    curvedLines: {
-                        active: true,
-                        monotonicFit: true
-                    },
-                    points: {
-                        radius: 5,
-                        show: true
-                    },
-                    shadowSize: false
-                },
-                legend: {
-                    show: true,
-                    labelFormatter: null, // or (fn: string, series object -> string)
-                    labelBoxBorderColor: "#eeeeee",
-                    noColumns: 3,
-                    position: "ne",
-                    margin: [10, 10],
-                    backgroundColor: "#cc0000",
-                    backgroundOpacity: 1,
-                    container: null,
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-
-                    borderWidth: 0,
-                    color: '#cccccc'
-                },
-                colors: ["#a3e1d4", "#9CC3DA", "#dedede"],
-                xaxis: {
-                    show: true,
-                    ticks: [[1, "Jan"], [2, "Feb"], [3, "Mar"], [4, "Apr"], [5, "May"], [6, "Jun"], [7, "Jul"], [8, "Aug"], [9, "Sep"]],
-                    min: 1,
-                    max: 12
-                },
-                yaxis: {
-                    show: true
-                },
-                tooltip: true
-            }
-        );
-
-        //Doughnut charts starts here
+//Doughnut charts starts here
         var child23 = JSON.parse('<?php echo json_encode($doughnut_chart[0]->otp_admit_23m + $doughnut_chart[0]->otp_admit_23f); ?>');
         var child24 = JSON.parse('<?php echo json_encode($doughnut_chart[0]->otp_admit_24m + $doughnut_chart[0]->otp_admit_24f); ?>');
         var child60 = JSON.parse('<?php echo json_encode($doughnut_chart[0]->otp_admit_60m + $doughnut_chart[0]->otp_admit_60f); ?>');
