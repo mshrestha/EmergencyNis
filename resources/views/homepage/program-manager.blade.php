@@ -11,7 +11,7 @@
         <div class="col-lg-12  border-bottom dashboard-header">
             <h2>Welcome to Emergency Nutrition System Dashboard </h2>
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
-                <strong>ADMISSION TREND</strong>
+                <strong>ADMISSION TREND </strong> <small> Last 12 months</small>
             </div>
             <div class="small pull-right col-md-6 m-t-md text-right">
                 <strong>Each line</strong> represents the admission trend for individual OTP.
@@ -25,11 +25,11 @@
 
     <div class="row">
         <div class="col-lg-6">
-            <h2>OTP Admissions</h2>
+            <h2>OTP Admissions  <small> {{$month_year}}</small></h2>
             <canvas id="canvas-performance" height="100px"></canvas>
         </div>
         <div class="col-lg-6">
-            <h2>OTP Average Weight Gain</h2>
+            <h2>OTP Average Weight Gain  <small > {{$month_year}}</small></h2>
             <canvas id="canvas-avgweight" height="100px"></canvas>
         </div>
     </div>
@@ -41,7 +41,7 @@
                     OTP New Admission By Age
                 </h3>
                 <p>
-                    Admissions for this month by age.
+                    Admissions for {{$month_year}} by age.
                 </p>
                 <div class="row text-center">
 
@@ -63,7 +63,7 @@
                     OTP New Admission By Gender
                 </h3>
                 <p>
-                    Admissions for this month by Gender.
+                    Admissions for {{$month_year}} by Gender.
                 </p>
                 <div class="row text-center">
                     <div class="col-lg-9">
@@ -84,7 +84,7 @@
                     OTP New Admission By Anthropometry
                 </h3>
                 <p>
-                    Admissions for this month by Anthropometry.
+                    Admissions for {{$month_year}} Anthropometry.
                 </p>
                 <div class="row text-center">
                     <div class="col-lg-9">
@@ -220,14 +220,14 @@
                 }]
             },
 
-            title: {
-                display: true,
-                text: 'Admission Trend',
-                fontStyle: 'bold',
-                fontColor: 'blue',
-                position: 'top',
-                fontSize: 14
-            }
+//            title: {
+//                display: true,
+//                text: 'Admission Trend',
+//                fontStyle: 'bold',
+//                fontColor: 'blue',
+//                position: 'top',
+//                fontSize: 14
+//            }
         };
 
         myLineChart = new Chart(ctx, {

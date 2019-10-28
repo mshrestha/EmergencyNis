@@ -164,6 +164,7 @@ class HomeController extends Controller
             $report_month = date('n') - 1;
             $report_year = date('Y');
         }
+        $month_year= date('F', mktime(0, 0, 0, $report_month, 10)).'-'.$report_year;
         $months = array();
         for ($i = 1; $i <= 12; $i++) {
             $months[] = date("M-y", strtotime( date( 'Y-m-01' )." -$i months"));
@@ -207,7 +208,7 @@ class HomeController extends Controller
         $bar_chart['nonrespondent_rate'] = array_column($bar_chart,'nonrespondent_rate');
 //        dd($bar_chart);
 
-        return view('homepage.program-manager', compact('doughnut_chart','bar_chart','facility_supervision','line_chart'))->render();
+        return view('homepage.program-manager', compact('month_year','doughnut_chart','bar_chart','facility_supervision','line_chart'))->render();
     }
 
     public function facilityInfo($facility_id)
