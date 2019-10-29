@@ -2,14 +2,28 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8">
-            <h1></h1>
+        <div class="col-lg-10">
+            <h1>Welcome to Emergency Nutrition System Dashboard </h1>
         </div>
+            <div class="col-lg-2">
+                <div class = "btn-group" style="position: absolute; right: 10px; top: 10px; ">
+                <button type = "button" class = "btn btn-primary dropdown-toggle" data-toggle = "dropdown">
+                    {{$month_year}}
+                    <span class = "caret"></span>
+                </button>
 
+                <ul class = "dropdown-menu pull-right" role = "menu"  >
+                    @foreach($cache_data as $month_list)
+                    <li><a href = "{{ url('/program-manager_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a></li>
+                        @endforeach
+                    <li><a href = "{{ url('/program-manager')}}">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
     <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
-            <h2>Welcome to Emergency Nutrition System Dashboard </h2>
+            {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong> <small> Last 12 months</small>
             </div>
