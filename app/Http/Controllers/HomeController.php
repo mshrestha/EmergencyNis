@@ -71,7 +71,7 @@ class HomeController extends Controller
             $chart_bar_date_key = array_keys($admission);
 //end dashboard chart bar
         } else {
-            dd('admin');
+//            dd('admin');
             $children = Child::orderBy('created_at', 'desc')->get();
             $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
 //Average weight gain and average length of stay for without facility based user
