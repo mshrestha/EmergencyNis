@@ -184,7 +184,7 @@
                 </div><!-- END OF INNER ROW -->
             </div>
             <div class="col-lg-4">
-                <div class="btn-group pull-right" >
+                <div class="btn-group pull-right" style="padding-bottom: 15px" >
                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         {{$month_year}}
                         <span class="caret"></span>
@@ -192,10 +192,11 @@
                     <ul class="dropdown-menu pull-right" role="menu">
                         @foreach($cache_data as $month_list)
                             <li>
-                                <a href="#">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
+                                <a href="{{ url('/program-user_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
                             </li>
                         @endforeach
-                        <li><a href="#">Dashboard</a></li>
+                            <li class="divider"></li>
+                        <li><a href="#{{ url('/') }}">Dashboard</a></li>
                     </ul>
                 </div>
             {{--</div>--}}
@@ -431,8 +432,8 @@
 <!-- Mapping script ends here -->
 <script>
     var ctx = document.getElementById('childAdmission').getContext('2d');
-    var jsArraycount = JSON.parse('<?php echo json_encode($chart_bar_count_value); ?>');
-    var jsArraydate = JSON.parse('<?php echo json_encode($chart_bar_date_key); ?>');
+    var jsArraycount = JSON.parse('<?php echo json_encode($useradmin_barchart['count']); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($useradmin_barchart['date']); ?>');
     var childAdmission = new Chart(ctx, {
         type: 'bar',
         data: {

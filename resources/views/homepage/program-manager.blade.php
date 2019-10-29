@@ -18,6 +18,7 @@
                             <a href="{{ url('/program-manager_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
                         </li>
                     @endforeach
+                        <li class="divider"></li>
                     <li><a href="{{ url('/program-manager')}}">Dashboard</a></li>
                 </ul>
             </div>

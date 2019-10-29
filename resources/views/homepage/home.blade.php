@@ -420,8 +420,8 @@ new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions}
 <!-- Mapping script ends here -->
 <script>
     var ctx = document.getElementById('childAdmission').getContext('2d');
-    var jsArraycount = JSON.parse('<?php echo json_encode($chart_bar_count_value); ?>');
-    var jsArraydate = JSON.parse('<?php echo json_encode($chart_bar_date_key); ?>');
+    var jsArraycount = JSON.parse('<?php echo json_encode($useradmin_barchart['count']); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($useradmin_barchart['date']); ?>');
     var childAdmission = new Chart(ctx, {
         type: 'bar',
         data: {
