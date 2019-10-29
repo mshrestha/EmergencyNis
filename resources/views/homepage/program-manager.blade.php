@@ -5,18 +5,20 @@
         <div class="col-lg-10">
             <h1>Welcome to Emergency Nutrition System Dashboard </h1>
         </div>
-            <div class="col-lg-2">
-                <div class = "btn-group" style="position: absolute; right: 10px; top: 10px; ">
-                <button type = "button" class = "btn btn-primary dropdown-toggle" data-toggle = "dropdown">
+        <div class="col-lg-2">
+            <div class="btn-group" style="position: absolute; right: 10px; top: 10px; ">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                     {{$month_year}}
-                    <span class = "caret"></span>
+                    <span class="caret"></span>
                 </button>
 
-                <ul class = "dropdown-menu pull-right" role = "menu"  >
+                <ul class="dropdown-menu pull-right" role="menu">
                     @foreach($cache_data as $month_list)
-                    <li><a href = "{{ url('/program-manager_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a></li>
-                        @endforeach
-                    <li><a href = "{{ url('/program-manager')}}">Dashboard</a></li>
+                        <li>
+                            <a href="{{ url('/program-manager_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
+                        </li>
+                    @endforeach
+                    <li><a href="{{ url('/program-manager')}}">Dashboard</a></li>
                 </ul>
             </div>
         </div>
@@ -25,13 +27,14 @@
         <div class="col-lg-12  border-bottom dashboard-header">
             {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
-                <strong>ADMISSION TREND </strong> <small> Last 12 months</small>
+                <strong>ADMISSION TREND </strong>
+                <small> Last 12 months</small>
             </div>
             <div class="small pull-right col-md-6 m-t-md text-right">
                 <strong>Each line</strong> represents the admission trend for individual OTP.
             </div>
-            <div class="flot-chart-content" >
-                <canvas id="childAdmission" ></canvas>
+            <div class="flot-chart-content">
+                <canvas id="childAdmission"></canvas>
             </div>
         </div>
 
@@ -39,11 +42,15 @@
 
     <div class="row">
         <div class="col-lg-6">
-            <h2>OTP Admissions  <small> {{$month_year}}</small></h2>
+            <h2>OTP Admissions
+                <small> {{$month_year}}</small>
+            </h2>
             <canvas id="canvas-performance" height="100px"></canvas>
         </div>
         <div class="col-lg-6">
-            <h2>OTP Average Weight Gain  <small > {{$month_year}}</small></h2>
+            <h2>OTP Average Weight Gain
+                <small> {{$month_year}}</small>
+            </h2>
             <canvas id="canvas-avgweight" height="100px"></canvas>
         </div>
     </div>
