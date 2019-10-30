@@ -288,12 +288,18 @@ class HomeController extends Controller
             ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
             ->get()
             ->toArray();
-        $bar_chart['facility_id'] = array_column($bar_chart, 'facility_id');
+        $facilities = array_column($bar_chart, 'facility_id');
+        $bar_chart['facility_id'] = array();
+        foreach($facilities as $facility){
+            array_push($bar_chart['facility_id'], explode('/', $facility)[1]);    
+        }
+        //$bar_chart['facility_id'] = array_column($bar_chart, 'facility_id');
         $bar_chart['avg_weight_gain'] = array_column($bar_chart, 'avg_weight_gain');
         $bar_chart['cure_rate'] = array_column($bar_chart, 'cure_rate');
         $bar_chart['death_rate'] = array_column($bar_chart, 'death_rate');
         $bar_chart['default_rate'] = array_column($bar_chart, 'default_rate');
         $bar_chart['nonrespondent_rate'] = array_column($bar_chart, 'nonrespondent_rate');
+        
         return $bar_chart;
 
     }

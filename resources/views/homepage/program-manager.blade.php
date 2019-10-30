@@ -201,7 +201,8 @@
         var main_data = {};
         for (i = 0; i < obj.length; i++) {
             if (admission.indexOf(obj[i].Facility_name) === -1) {
-                admission.push(obj[i].Facility_name);
+                console.log(obj[i].Facility_name.split("/")[1]);
+                admission.push(obj[i].Facility_name.split("/")[1]);
             }
         }
         for (i = 0; i < obj.length; i++) {
