@@ -64,11 +64,52 @@ class HomeController extends Controller
             return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
                 'children', 'useradmin_barchart', 'children_sync_count', 'facility_followup_sync_count'));
         } else {
+            $cache_data = DB::table('monthly_dashboards')
+                ->select('year', 'month')
+                ->groupBy('year', 'month')
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'desc')
+                ->get()->toArray();
+            if (empty($cache_data)) {
+                if (date('n') == 1) {
+                    $report_month = 12;
+                    $report_year = date('Y') - 1;
+                } else {
+                    $report_month = date('n') - 1;
+                    $report_year = date('Y');
+                }
+            } else {
+                $report_month = $cache_data[0]->month;
+                $report_year = $cache_data[0]->year;
+            }
 
-            $children = Child::orderBy('created_at', 'desc')->get();
-            $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
+            if ($report_month == 1) {
+                $previous_month = 12;
+                $previous_year = $report_year - 1;
+            } else {
+                $previous_month = $report_month - 1;
+                $previous_year = $report_year;
+            }
+
+            $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
+
+//            $report_month_dashboards = DB::table('monthly_dashboards')
+//                ->select(DB::raw('sum(total_admit) as '), DB::raw('sum(otp_admit_23f) as otp_admit_23f')
+//                , DB::raw('sum(otp_admit_24m) as otp_admit_24m'), DB::raw('sum(otp_admit_24f) as otp_admit_24f')
+//                , DB::raw('sum(otp_admit_60m) as otp_admit_60m'), DB::raw('sum(otp_admit_60f) as otp_admit_60f')
+//                , DB::raw('sum(otp_admit_male) as otp_admit_male'), DB::raw('sum(otp_admit_female) as otp_admit_female'), DB::raw('sum(otp_admit_others) as otp_admit_others')
+//                , DB::raw('sum(otp_admit_muac) as otp_admit_muac'), DB::raw('sum(otp_admit_whz) as otp_admit_whz'), DB::raw('sum(otp_admit_both) as otp_admit_both')
+//            )
+//                ->where('month', $report_month)->where('year', $report_year)
+//                ->whereIn('facility_id', $facility_supervision)
+//                ->get();
+
+            $children = Child::orderBy('created_at', 'desc')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
+            $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
 //Average weight gain and average length of stay for without facility based user
-            $recovered_child = FacilityFollowup::where('discharge_criteria_exit', 'Recovered')->get();
+            $recovered_child = FacilityFollowup::where('discharge_criteria_exit', 'Recovered')
+                ->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)
+                ->get();
             if ($recovered_child->count() == 0) {
                 $average_rate['weight_gain'] = 0;
                 $average_rate['length_of_stay'] = 0;
@@ -78,9 +119,9 @@ class HomeController extends Controller
             }
 //End Average weight gain and average length of stay for without facility based user
 //dashboard chart doughnut without facility based user
-            $muac = FacilityFollowup::where('new_admission', 'MUAC')->get();
-            $zscore = FacilityFollowup::where('new_admission', 'WFH Zscore')->get();
-            $muac_zscore = FacilityFollowup::where('new_admission', 'MUAC and WFH Zscore')->get();
+            $muac = FacilityFollowup::where('new_admission', 'MUAC')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
+            $zscore = FacilityFollowup::where('new_admission', 'WFH Zscore')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
+            $muac_zscore = FacilityFollowup::where('new_admission', 'MUAC and WFH Zscore')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
             if ($muac->count() == 0)
                 $chart_doughnut['muac'] = 0;
             else
@@ -99,7 +140,7 @@ class HomeController extends Controller
             $useradmin_barchart = $this->useradmin_dashboard_barchart();
 //end dashboard chart bar
 
-            $facilities = Facility::orderBy('created_at', 'desc')->get();
+//            $facilities = Facility::orderBy('created_at', 'desc')->get();
             $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
 
             //Sync data count

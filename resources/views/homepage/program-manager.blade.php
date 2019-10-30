@@ -231,6 +231,7 @@
         main_data = {labels: all_labels, datasets: datasets}
 //            console.log(main_data);
         var options = {
+//            bezierCurve : false,
             responsive: true,
             maintainAspectRatio: false,
             scales: {
@@ -241,6 +242,11 @@
                     }
                 }]
             },
+            elements: {
+                line: {
+                    tension: 0
+                }
+            }
 
 //            title: {
 //                display: true,
