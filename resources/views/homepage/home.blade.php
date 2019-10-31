@@ -27,9 +27,9 @@
                             <h5>Admissions</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">{{ $admission_reportmonth }}</h1>
+                            <h1 class="no-margins">{{ $dashboard_data['admission_reportmonth'] }}</h1>
                             {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ number_format($dashboard['cureRate'],2) }}%</h1>
                             {{--<div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ number_format($dashboard['deathRate'],2) }}%</h1>
                             {{--<div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             {{--<h1 class="no-margins">{{ $dashboard['defaultRate'] }}%</h1>--}}
                             <h1 class="no-margins">{{ number_format($dashboard['defaultRate'] , 2)}}%</h1>
                             {{--<div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ number_format($dashboard['nonRespondantRate'],2) }}%</h1>
                             {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -96,9 +96,9 @@
                             <h5>Average Weight Gain</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">{{number_format($average_rate['weight_gain'],2)}} <small>Kgs</small></h1>
+                            <h1 class="no-margins">{{number_format($dashboard_data['weight_gain'],2)}} <small>Kgs</small></h1>
                             {{--<div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -109,9 +109,9 @@
                             <h5>Avg. Length of Stay</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">{{number_format($average_rate['length_of_stay'],2)}}<small> days</small></h1>
+                            <h1 class="no-margins">{{number_format($dashboard_data['length_of_stay'],2)}}<small> days</small></h1>
                             {{--<div class="stat-percent font-bold text-danger">2 days <i class="fa fa-level-down"></i></div>--}}
-                            <small>{{$month_year}}</small>
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                             <canvas id="doughnutChart" width="200" height="150"
                             style="margin: 18px auto 0"></canvas>
                             <div class="m-t">
-                                <small>{{$month_year}} </small>
+                                <small>{{$dashboard_data['month_year']}} </small>
                             </div>
 
 
@@ -157,7 +157,7 @@
                                 <div class="col-lg-3">
                                     <ul class="stat-list">
                                         <li>
-                                            <h2 class="no-margins">{{ $admission_total }}</h2>
+                                            <h2 class="no-margins">{{ $dashboard_data['admission_total'] }}</h2>
                                             <small>Total Admission</small>
                                             {{--<div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
@@ -165,16 +165,16 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <h2 class="no-margins ">{{ $admission_reportmonth }}</h2>
-                                            <small>Enrolled of {{$month_year}}</small>
+                                            <h2 class="no-margins ">{{ $dashboard_data['admission_reportmonth'] }}</h2>
+                                            <small>Enrolled of {{$dashboard_data['month_year']}}</small>
                                             {{--<div class="stat-percent">0% <i class="fa fa-level-down text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
                                                 <div style="width: 100%;" class="progress-bar"></div>
                                             </div>
                                         </li>
                                         <li>
-                                            <h2 class="no-margins ">{{$death_reportmonth}}</h2>
-                                            <small>Deaths this month</small>
+                                            <h2 class="no-margins ">{{$dashboard_data['death_reportmonth']}}</h2>
+                                            <small>Deaths of {{$dashboard_data['month_year']}}</small>
                                             {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
                                                 <div style="width: 100%;" class="progress-bar"></div>
@@ -189,21 +189,21 @@
             </div><!-- END OF INNER ROW -->
         </div>
         <div class="col-lg-4">
-            {{--<div class="btn-group pull-right" style="padding-bottom: 15px" >--}}
-                {{--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">--}}
-                    {{--{{$month_year}}--}}
-                    {{--<span class="caret"></span>--}}
-                {{--</button>--}}
-                {{--<ul class="dropdown-menu pull-right" role="menu">--}}
-                    {{--@foreach($cache_data as $month_list)--}}
-                        {{--<li>--}}
-                            {{--<a href="{{ url('/program-user_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>--}}
-                        {{--</li>--}}
-                    {{--@endforeach--}}
-                    {{--<li class="divider"></li>--}}
-                    {{--<li><a href="#{{ url('/') }}">Dashboard</a></li>--}}
-                {{--</ul>--}}
-            {{--</div>--}}
+            <div class="btn-group pull-right" style="padding-bottom: 15px" >
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    {{$dashboard_data['month_year']}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    @foreach($cache_data as $month_list)
+                        <li>
+                            <a href="{{ url('/admin_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
+                        </li>
+                    @endforeach
+                    <li class="divider"></li>
+                    <li><a href="{{ url('/') }}">Dashboard</a></li>
+                </ul>
+            </div>
 
         @if(!env('LIVE_SERVER'))
             <div class="sync-wrapper">
