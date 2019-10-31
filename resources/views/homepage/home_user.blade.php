@@ -432,8 +432,8 @@
 <!-- Mapping script ends here -->
 <script>
     var ctx = document.getElementById('childAdmission').getContext('2d');
-    var jsArraycount = JSON.parse('<?php echo json_encode($useradmin_barchart['count']); ?>');
-    var jsArraydate = JSON.parse('<?php echo json_encode($useradmin_barchart['date']); ?>');
+    var jsArraycount = JSON.parse('<?php echo json_encode($user_barchart['count']); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($user_barchart['date']); ?>');
     var childAdmission = new Chart(ctx, {
         type: 'bar',
         data: {
