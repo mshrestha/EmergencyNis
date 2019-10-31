@@ -26,6 +26,7 @@ class HomeController extends Controller
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
             if (empty($cache_data)) {
+
                 if (date('n') == 1) {
                     $report_month = 12;
                     $report_year = date('Y') - 1;
@@ -48,8 +49,10 @@ class HomeController extends Controller
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
             $report_month_dashboard = MonthlyDashboard::where('year', $report_year)->where('month', $report_month)
                 ->where('facility_id', Auth::user()->facility_id)->first();
+//            dd($report_month_dashboard);
             $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
                 ->where('facility_id', Auth::user()->facility_id)->first();
+//            dd($previous_month_dashboard);
             $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
             $user_barchart = $this->user_dashboard_barchart();
             //Sync data count
@@ -154,18 +157,80 @@ class HomeController extends Controller
             ->get()->toArray();
         $report_month_dashboard = MonthlyDashboard::where('year', $report_year)->where('month', $report_month)
             ->where('facility_id', Auth::user()->facility_id)->first();
+//        dd($report_month_dashboard);
+        if ($report_month_dashboard==null)
+        {
+//            dd($report_month_dashboard);
+            $report_month_dashboard['otp_admit_23m']=0;
+            $report_month_dashboard['otp_admit_23f']=0;
+            $report_month_dashboard['otp_admit_24m']=0;
+            $report_month_dashboard['otp_admit_24f']=0;
+            $report_month_dashboard['otp_admit_60m']=0;
+            $report_month_dashboard['otp_admit_60f']=0;
+            $report_month_dashboard['otp_admit_male']=0;
+            $report_month_dashboard['otp_admit_female']=0;
+            $report_month_dashboard['otp_admit_others']=0;
+            $report_month_dashboard['otp_admit_muac']=0;
+            $report_month_dashboard['otp_admit_whz']=0;
+            $report_month_dashboard['otp_admit_both']=0;
+            $report_month_dashboard['total_admit']=0;
+            $report_month_dashboard['cure_rate']=0;
+            $report_month_dashboard['death_rate']=0;
+            $report_month_dashboard['default_rate']=0;
+            $report_month_dashboard['nonrespondent_rate']=0;
+            $report_month_dashboard['avg_weight_gain']=0;
+            $report_month_dashboard['avg_length_stay']=0;
+            $report_month_dashboard['otp_mnthend_23m']=0;
+            $report_month_dashboard['otp_mnthend_23f']=0;
+            $report_month_dashboard['otp_mnthend_24m']=0;
+            $report_month_dashboard['otp_mnthend_24f']=0;
+            $report_month_dashboard['otp_mnthend_60m']=0;
+            $report_month_dashboard['otp_mnthend_60f']=0;
+
+        }
         $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
             ->where('facility_id', Auth::user()->facility_id)->first();
+
+        if ($previous_month_dashboard==null)
+        {
+            $previous_month_dashboard['otp_admit_23m']=0;
+            $previous_month_dashboard['otp_admit_23f']=0;
+            $previous_month_dashboard['otp_admit_24m']=0;
+            $previous_month_dashboard['otp_admit_24f']=0;
+            $previous_month_dashboard['otp_admit_60m']=0;
+            $previous_month_dashboard['otp_admit_60f']=0;
+            $previous_month_dashboard['otp_admit_male']=0;
+            $previous_month_dashboard['otp_admit_female']=0;
+            $previous_month_dashboard['otp_admit_others']=0;
+            $previous_month_dashboard['otp_admit_muac']=0;
+            $previous_month_dashboard['otp_admit_whz']=0;
+            $previous_month_dashboard['otp_admit_both']=0;
+            $previous_month_dashboard['total_admit']=0;
+            $previous_month_dashboard['cure_rate']=0;
+            $previous_month_dashboard['death_rate']=0;
+            $previous_month_dashboard['default_rate']=0;
+            $previous_month_dashboard['nonrespondent_rate']=0;
+            $previous_month_dashboard['avg_weight_gain']=0;
+            $previous_month_dashboard['avg_length_stay']=0;
+            $previous_month_dashboard['otp_mnthend_23m']=0;
+            $previous_month_dashboard['otp_mnthend_23f']=0;
+            $previous_month_dashboard['otp_mnthend_24m']=0;
+            $previous_month_dashboard['otp_mnthend_24f']=0;
+            $previous_month_dashboard['otp_mnthend_60m']=0;
+            $previous_month_dashboard['otp_mnthend_60f']=0;
+
+        }
+//        dd($previous_month_dashboard);
         $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
 //dashboard chart bar
-        $useradmin_barchart = $this->useradmin_dashboard_barchart();
+        $user_barchart = $this->user_dashboard_barchart();
 //end dashboard chart bar
         //Sync data count
         $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
         $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
         return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-            'children', 'useradmin_barchart', 'children_sync_count', 'facility_followup_sync_count'));
+            'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count'));
     }
 
     public function programManagerDashboard_ym($year, $month)
@@ -202,7 +267,6 @@ class HomeController extends Controller
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
             ->get()->toArray();
-//        dd($cache_data);
         if (empty($cache_data)) {
             if (date('n') == 1) {
                 $report_month = 12;
@@ -332,6 +396,7 @@ class HomeController extends Controller
             ->orderBy('monthly_dashboards.month', 'desc')
             ->get()
             ->toArray();
+//        dd($line_chart);
         return $line_chart;
     }
 

@@ -9,6 +9,7 @@ use App\MonthlyDashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use DB;
 
 
 class MonthlyDashboardController extends Controller
@@ -76,7 +77,7 @@ class MonthlyDashboardController extends Controller
             $md->otp_admit_muac = $this->otp_admit_anthropometry($facilities[$i]->id, $request->month, $request->year, 'MUAC');
             $md->otp_admit_whz = $this->otp_admit_anthropometry($facilities[$i]->id, $request->month, $request->year, 'WFH Zscore');
             $md->otp_admit_both = $this->otp_admit_anthropometry($facilities[$i]->id, $request->month, $request->year, 'MUAC and WFH Zscore');
-            $md->total_admit = $this->total_registration($facilities[$i]->id, $request->month, $request->year);
+            $md->total_admit = $this->total_admission($facilities[$i]->id, $request->month, $request->year);
             $md->cure_rate = $this->discharge_criteria_rate($facilities[$i]->id, $request->month, $request->year, 'Recovered');
             $md->death_rate = $this->discharge_criteria_rate($facilities[$i]->id, $request->month, $request->year, 'Death');
             $md->default_rate = $this->discharge_criteria_rate($facilities[$i]->id, $request->month, $request->year, 'Defaulted');
@@ -101,16 +102,14 @@ class MonthlyDashboardController extends Controller
 
     private function otp_mnthend_23($facility_id, $month, $year, $sex)
     {
-        $begining_balance_1stday = \DB::table('facility_followups')->MIN('date');
+        $begining_balance_1stday = DB::table('facility_followups')->MIN('date');
         $endof_month_lastday = date('Y-m-d', strtotime($year . '-' . $month . '-' . (cal_days_in_month(CAL_GREGORIAN, $month, $year))));
         $child_23 = Child::where('age', '<=', 23)->where('sex', $sex)->pluck('sync_id')->toArray();
-//dd($child_23);
         $endof_month_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
             ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
             ->where('new_admission', '!=', 'Age 6 to 59m')
             ->where('transfer_in', '!=', 'Transfer in from Medical Center')
             ->pluck('children_id')->toArray();
-//dd($endof_month_total_enrollment);
         $endof_month_total_exit = FacilityFollowup::where('facility_id', $facility_id)
             ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
             ->where('discharge_criteria_exit', '!=', 'Age > 59m')
@@ -173,6 +172,15 @@ class MonthlyDashboardController extends Controller
             ->whereYear('date', '=', $year)
             ->get();
         return count($children);
+    }
+    private function total_admission($facility_id, $month, $year)
+    {
+        $admission_total = DB::table('facility_followups')->where('facility_id', $facility_id)->whereMonth('date', '=', $month)
+            ->whereYear('date', '=', $year)->where('new_admission', '!=', 'Age 6 to 59m')->count();
+        if ($admission_total == 0)
+            return 0;
+        else
+        return $admission_total;
     }
 
     private function average_weight_gain($facility_id, $month, $year)
