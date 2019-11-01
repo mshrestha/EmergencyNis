@@ -27,8 +27,8 @@
                                 <h5>Admissions</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ $report_month_dashboard->total_admit}}</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->total_admit-$previous_month_dashboard->total_admit>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->total_admit-$report_month_dashboard->total_admit)}} <i class="fa fa-level-{{($report_month_dashboard->total_admit-$previous_month_dashboard->total_admit>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ $report_month_dashboard['total_admit']}}</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['total_admit']-$previous_month_dashboard['total_admit']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['total_admit']-$report_month_dashboard['total_admit'])}} <i class="fa fa-level-{{($report_month_dashboard['total_admit']-$previous_month_dashboard['total_admit']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -40,8 +40,8 @@
                                 <h5>Cure Rate</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard->cure_rate,2) }}%</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->cure_rate-$previous_month_dashboard->cure_rate>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->cure_rate-$report_month_dashboard->cure_rate)}}% <i class="fa fa-level-{{($report_month_dashboard->cure_rate-$previous_month_dashboard->cure_rate>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['cure_rate'],2) }}%</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['cure_rate']-$previous_month_dashboard['cure_rate']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['cure_rate']-$report_month_dashboard['cure_rate'])}}% <i class="fa fa-level-{{($report_month_dashboard['cure_rate']-$previous_month_dashboard['cure_rate']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -54,8 +54,8 @@
                                 <h5>Death Rate</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard->death_rate,2) }}%</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->death_rate-$previous_month_dashboard->death_rate>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->death_rate-$report_month_dashboard->death_rate)}}% <i class="fa fa-level-{{($report_month_dashboard->death_rate-$previous_month_dashboard->death_rate>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['death_rate'],2) }}%</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['death_rate']-$previous_month_dashboard['death_rate']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['death_rate']-$report_month_dashboard['death_rate'])}}% <i class="fa fa-level-{{($report_month_dashboard['death_rate']-$previous_month_dashboard['death_rate']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -69,8 +69,8 @@
                                 <h5>Default Rate</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard->default_rate,2) }}%</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->default_rate-$previous_month_dashboard->default_rate>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->default_rate-$report_month_dashboard->default_rate)}}% <i class="fa fa-level-{{($report_month_dashboard->default_rate-$previous_month_dashboard->default_rate>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['default_rate'],2) }}%</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['default_rate']-$previous_month_dashboard['default_rate']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['default_rate']-$report_month_dashboard['default_rate'])}}% <i class="fa fa-level-{{($report_month_dashboard['default_rate']-$previous_month_dashboard['default_rate']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -82,8 +82,8 @@
                                 <h5>Non Respondent Rate</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard->nonrespondent_rate,2) }}%</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->nonrespondent_rate-$previous_month_dashboard->nonrespondent_rate>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->nonrespondent_rate-$report_month_dashboard->nonrespondent_rate)}}% <i class="fa fa-level-{{($report_month_dashboard->nonrespondent_rate-$previous_month_dashboard->nonrespondent_rate>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['nonrespondent_rate'],2) }}%</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['nonrespondent_rate']-$previous_month_dashboard['nonrespondent_rate']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['nonrespondent_rate']-$report_month_dashboard['nonrespondent_rate'])}}% <i class="fa fa-level-{{($report_month_dashboard['nonrespondent_rate']-$previous_month_dashboard['nonrespondent_rate']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -95,8 +95,8 @@
                                 <h5>Average Weight Gain</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard->avg_weight_gain,2) }} Kgs</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->avg_weight_gain-$previous_month_dashboard->avg_weight_gain>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->avg_weight_gain-$report_month_dashboard->avg_weight_gain)}}% <i class="fa fa-level-{{($report_month_dashboard->avg_weight_gain-$previous_month_dashboard->avg_weight_gain>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['avg_weight_gain'],2) }} Kgs</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['avg_weight_gain']-$previous_month_dashboard['avg_weight_gain']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['avg_weight_gain']-$report_month_dashboard['avg_weight_gain'])}}% <i class="fa fa-level-{{($report_month_dashboard['avg_weight_gain']-$previous_month_dashboard['avg_weight_gain']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -108,8 +108,8 @@
                                 <h5>Avg. Length of Stay</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard->avg_length_stay,2) }} Days</h1>
-                                <div class="stat-percent font-bold text-{{($report_month_dashboard->avg_length_stay-$previous_month_dashboard->avg_length_stay>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard->avg_length_stay-$report_month_dashboard->avg_length_stay)}}% <i class="fa fa-level-{{($report_month_dashboard->avg_length_stay-$previous_month_dashboard->avg_length_stay>=0)?'up':'down'}}"></i></div>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['avg_length_stay'],2) }} Days</h1>
+                                <div class="stat-percent font-bold text-{{($report_month_dashboard['avg_length_stay']-$previous_month_dashboard['avg_length_stay']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['avg_length_stay']-$report_month_dashboard['avg_length_stay'])}}% <i class="fa fa-level-{{($report_month_dashboard['avg_length_stay']-$previous_month_dashboard['avg_length_stay']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <h2 class="no-margins ">{{ $report_month_dashboard->total_admit}}</h2>
+                                                <h2 class="no-margins ">{{ $report_month_dashboard['total_admit']}}</h2>
                                                 <small> Enrolled this Month</small>
                                                 {{--<div class="stat-percent"> <i class="fa fa-level-down text-navy"></i></div>--}}
                                                 <div class="progress progress-mini">
@@ -196,7 +196,7 @@
                             </li>
                         @endforeach
                             <li class="divider"></li>
-                        <li><a href="#{{ url('/') }}">Dashboard</a></li>
+                        <li><a href="{{ url('/') }}">Dashboard</a></li>
                     </ul>
                 </div>
             {{--</div>--}}
@@ -402,9 +402,9 @@
 
     }, 1300);
 
-    var muac = JSON.parse('<?php echo json_encode($report_month_dashboard->otp_admit_muac); ?>');
-    var whz = JSON.parse('<?php echo json_encode($report_month_dashboard->otp_admit_whz); ?>');
-    var both = JSON.parse('<?php echo json_encode($report_month_dashboard->otp_admit_both); ?>');
+    var muac = JSON.parse('<?php echo json_encode($report_month_dashboard['otp_admit_muac']); ?>');
+    var whz = JSON.parse('<?php echo json_encode($report_month_dashboard['otp_admit_whz']); ?>');
+    var both = JSON.parse('<?php echo json_encode($report_month_dashboard['otp_admit_both']); ?>');
     //        JSON.parse($chart_doughnut);
     var doughnutData = {
         labels: ["MUAC", "Z-Score", "Both"],
@@ -432,8 +432,8 @@
 <!-- Mapping script ends here -->
 <script>
     var ctx = document.getElementById('childAdmission').getContext('2d');
-    var jsArraycount = JSON.parse('<?php echo json_encode($useradmin_barchart['count']); ?>');
-    var jsArraydate = JSON.parse('<?php echo json_encode($useradmin_barchart['date']); ?>');
+    var jsArraycount = JSON.parse('<?php echo json_encode($user_barchart['count']); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($user_barchart['date']); ?>');
     var childAdmission = new Chart(ctx, {
         type: 'bar',
         data: {

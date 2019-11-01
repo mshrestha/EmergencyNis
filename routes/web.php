@@ -22,6 +22,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/', 'HomeController@index')->name('homepage');
     
     Route::get('/program-manager', 'HomeController@programManagerDashboard')->name('program-manager');
+    Route::get('/admin_ym/{year}/{month}', 'HomeController@adminDashboard_ym')->name('admin_ym');
     Route::get('/program-manager_ym/{year}/{month}', 'HomeController@programManagerDashboard_ym')->name('program-manager_ym');
     Route::get('/program-user_ym/{year}/{month}', 'HomeController@programUserDashboard_ym')->name('program-user_ym');
 
