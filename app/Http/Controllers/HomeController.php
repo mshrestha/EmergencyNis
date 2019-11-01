@@ -60,7 +60,9 @@ class HomeController extends Controller
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-
+            
+            var_dump($report_month_dashboard);
+            exit();
             return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
                 'children', 'useradmin_barchart', 'children_sync_count', 'facility_followup_sync_count'));
         } else {
@@ -101,7 +103,8 @@ class HomeController extends Controller
 
             $facilities = Facility::orderBy('created_at', 'desc')->get();
             $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
-
+            var_dump($dashboard);
+            exit();
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
@@ -160,7 +163,7 @@ class HomeController extends Controller
         //Sync data count
         $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
         $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-
+        //var_dump($facility_followup)
         return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
             'children', 'useradmin_barchart', 'children_sync_count', 'facility_followup_sync_count'));
     }
@@ -353,6 +356,7 @@ class HomeController extends Controller
 
             }
         }
+        
         if ($dashboard['count'] == 0) {
             $rate['cureRate'] = 0;
             $rate['deathRate'] = 0;
