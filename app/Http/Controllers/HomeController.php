@@ -388,7 +388,9 @@ class HomeController extends Controller
 
         $line_chart = DB::table('monthly_dashboards')
             ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
-            ->select('monthly_dashboards.period as Month', 'monthly_dashboards.total_admit as TotalAdmission', 'facilities.facility_id as Facility_name')
+//            ->select('monthly_dashboards.period as Month', 'monthly_dashboards.total_admit as TotalAdmission', 'facilities.facility_id as Facility_name')
+            ->select('monthly_dashboards.period as Month', 'monthly_dashboards.total_admit as TotalAdmission'
+                ,DB::raw('SUBSTRING_INDEX(facilities.facility_id, "/", -1) as Facility_name'))
             ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
             ->whereIn('monthly_dashboards.period', $months)
 //            ->orderBy('monthly_dashboards.facility_id','desc')
@@ -485,9 +487,7 @@ class HomeController extends Controller
             if (isset($child->discharge_criteria_exit)) {
                 $dashboard['count']++;
             }
-
             if ($child->new_admission == '') {
-
             }
         }
         if ($dashboard['count'] == 0) {
@@ -507,10 +507,7 @@ class HomeController extends Controller
 
     public function test()
     {
-
         return view('test');
-
-
     }
 
 
