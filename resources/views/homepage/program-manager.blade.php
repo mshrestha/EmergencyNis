@@ -325,6 +325,7 @@
         var cure_rate = JSON.parse('<?php echo json_encode($bar_chart['cure_rate']); ?>');
         var death_rate = JSON.parse('<?php echo json_encode($bar_chart['death_rate']); ?>');
         var default_rate = JSON.parse('<?php echo json_encode($bar_chart['default_rate']); ?>');
+        var non_respondent_rate = JSON.parse('<?php echo json_encode($bar_chart['nonrespondent_rate']); ?>');
 //        var cure_rate = [90, 87];
 //        var default_rate = [7, 9];
 //        var death_rate = [3, 4];
@@ -336,7 +337,7 @@
                     label: 'Non Respondant Rate',
                     backgroundColor: 'rgb(251, 241, 198, 0.5)',
 //                    stack: 'Stack 1',
-                    data: default_rate
+                    data: non_respondent_rate
                 },
                 {
                     label: 'Death Rate',
