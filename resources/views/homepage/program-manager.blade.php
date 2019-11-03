@@ -42,18 +42,24 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <h2>OTP Performance
                 
-                <small> {{$month_year}}</small>
+                
             </h2>
             <canvas id="canvas-performance" height="100px"></canvas>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <h2>OTP Average Weight Gain
-                <small> {{$month_year}}</small>
+                
             </h2>
             <canvas id="canvas-avgweight" height="100px"></canvas>
+        </div>
+        <div class="col-lg-4">
+            <h2>OTP Average Length of Stay
+                
+            </h2>
+            <canvas id="canvas-avglengthofstay" height="100px"></canvas>
         </div>
     </div>
 
@@ -411,20 +417,31 @@
                     display: false,
                     text: 'OTP Performance'
                 },
-//                tooltips: {
-//                    mode: 'index',
-//                    intersect: false
-//                },
                 responsive: true,
+            }
+        });
+        
+        var avg_length_of_stay = JSON.parse('<?php echo json_encode($bar_chart['avg_length_stay']); ?>');
+        var barChartData2 = {
+            labels: facility_name,
+            datasets: [{
+                label: 'Avg Length of Stay',
+                backgroundColor: 'rgb(75, 192, 192, 0.5)',
+                data: avg_length_of_stay
+            }]
 
-//                scales: {
-//                    xAxes: [{
-//                        stacked: true,
-//                    }],
-//                    yAxes: [{
-//                        stacked: true
-//                    }]
-//                }
+        };
+        //Bar Data for Avg Length of Stay
+        var ctx7 = document.getElementById('canvas-avglengthofstay').getContext('2d');
+        new Chart(ctx7, {
+            type: 'bar',
+            data: barChartData2,
+            options: {
+                title: {
+                    display: false,
+                    text: 'Avg Length of Stay'
+                },
+                responsive: true,
             }
         });
 

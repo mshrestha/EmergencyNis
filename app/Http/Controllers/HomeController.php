@@ -422,7 +422,7 @@ class HomeController extends Controller
         $facility_supervision = FacilitySupervisor::where('user_id', Auth::user()->id)->pluck('facility_id')->toArray();
         $bar_chart = DB::table('monthly_dashboards')
             ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
-            ->select('facilities.facility_id', 'monthly_dashboards.avg_weight_gain',
+            ->select('facilities.facility_id', 'monthly_dashboards.avg_weight_gain', 'avg_length_stay',
                 'monthly_dashboards.cure_rate', 'monthly_dashboards.death_rate', 'monthly_dashboards.default_rate', 'monthly_dashboards.nonrespondent_rate')
             ->where('month', $report_month)->where('year', $report_year)
             ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
@@ -435,6 +435,7 @@ class HomeController extends Controller
         }
         //$bar_chart['facility_id'] = array_column($bar_chart, 'facility_id');
         $bar_chart['avg_weight_gain'] = array_column($bar_chart, 'avg_weight_gain');
+        $bar_chart['avg_length_stay'] = array_column($bar_chart, 'avg_length_stay');
         $bar_chart['cure_rate'] = array_column($bar_chart, 'cure_rate');
         $bar_chart['death_rate'] = array_column($bar_chart, 'death_rate');
         $bar_chart['default_rate'] = array_column($bar_chart, 'default_rate');
