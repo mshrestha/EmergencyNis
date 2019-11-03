@@ -334,7 +334,7 @@
             datasets: [
                 {
                     label: 'Non Respondant Rate',
-                    backgroundColor: 'rgb(75, 192, 192, 0.5)',
+                    backgroundColor: 'rgb(251, 241, 198, 0.5)',
 //                    stack: 'Stack 1',
                     data: default_rate
                 },
