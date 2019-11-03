@@ -333,6 +333,12 @@
             labels: facility_name,
             datasets: [
                 {
+                    label: 'Non Respondant Rate',
+                    backgroundColor: 'rgb(75, 192, 192, 0.5)',
+//                    stack: 'Stack 1',
+                    data: default_rate
+                },
+                {
                     label: 'Death Rate',
                     backgroundColor: 'rgb(255, 99, 132, 0.5)',
 //                    stack: 'Stack 0',
@@ -349,7 +355,9 @@
                     backgroundColor: 'rgb(75, 192, 192, 0.5)',
 //                    stack: 'Stack 1',
                     data: cure_rate
-                }]
+                }
+                
+            ]
         };
 
         var ctx5 = document.getElementById('canvas-performance').getContext('2d');
