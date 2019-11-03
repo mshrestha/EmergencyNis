@@ -1,3 +1,11 @@
+<div class="form-group"><label class="col-sm-3 control-label"></label>
+	<div class="col-sm-9">
+        
+		<input type="radio" name="sex" value="male" {{ (isset($child) && $child->sex == 'male') ? ' checked' : '' }}> Pregnant
+		<input type="radio" name="sex" value="female" {{ (isset($child) && $child->sex == 'female') ? ' checked' : '' }}> Lactating
+		
+	</div>
+</div>
 <div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>
 	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="Registration ID" 
 		value="{{ isset($child) ? $child->mnr_no : '' }}">
@@ -58,14 +66,14 @@
 		value="{{ isset($child) ? $child->age : '' }}" ><span class="small">(Years)</span>
 	</div>
 </div>
+<div class="hr-line-dashed"></div>
 <div class="form-group"><label class="col-sm-3 control-label">Month of Pregnancy or Lactation</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="age" placeholder="Pregnancy or Lactation Month" 
 		value="" >(month)
 	</div>
 </div>
-<div class="form-group"><label class="col-sm-3 control-label">EDD</label>
-	<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age" 
-		value="{{ isset($child) ? $child->age : '' }}" >
+<div class="form-group"><label class="col-sm-3 control-label">Expected Delivery Date</label>
+	<div class="col-sm-9"><input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
 	</div>
 </div>
 
@@ -75,13 +83,7 @@
 </div>
 <div class="hr-line-dashed"></div>
 
-<div class="form-group"><label class="col-sm-3 control-label"></label>
-	<div class="col-sm-9">
-		<input type="radio" name="sex" value="male" {{ (isset($child) && $child->sex == 'male') ? ' checked' : '' }}> Pregnant
-		<input type="radio" name="sex" value="female" {{ (isset($child) && $child->sex == 'female') ? ' checked' : '' }}> Lactating
-		
-	</div>
-</div>
+
 
 
 
