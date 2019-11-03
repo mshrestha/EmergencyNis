@@ -24,7 +24,7 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <span class="label label-info pull-right">Children</span>
-                                <h5>Admissions</h5>
+                                <h5>New Admissions</h5>
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">{{ $report_month_dashboard['total_admit']}}</h1>
@@ -95,7 +95,7 @@
                                 <h5>Average Weight Gain</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{ number_format($report_month_dashboard['avg_weight_gain'],2) }} Kgs</h1>
+                                <h1 class="no-margins">{{ number_format($report_month_dashboard['avg_weight_gain'],2) }} <small>g/kg/day</small></h1>
                                 <div class="stat-percent font-bold text-{{($report_month_dashboard['avg_weight_gain']-$previous_month_dashboard['avg_weight_gain']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['avg_weight_gain']-$report_month_dashboard['avg_weight_gain'])}}% <i class="fa fa-level-{{($report_month_dashboard['avg_weight_gain']-$previous_month_dashboard['avg_weight_gain']>=0)?'up':'down'}}"></i></div>
                                 <small>{{$month_year}}</small>
                             </div>

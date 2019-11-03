@@ -96,7 +96,7 @@
                             <h5>Average Weight Gain</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">{{number_format($dashboard_data['weight_gain'],2)}} <small>Kgs</small></h1>
+                            <h1 class="no-margins">{{number_format($dashboard_data['weight_gain'],2)}} <small>g/Kg/day</small></h1>
                             {{--<div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>--}}
                             <small>{{$dashboard_data['month_year']}}</small>
                         </div>

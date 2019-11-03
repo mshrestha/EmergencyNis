@@ -36,7 +36,9 @@
                                         <th>ID</th>
                                         <th>Child name</th>
 
-                                        <th>Sex</th>
+                                        <th>Mother</th>
+                                        <th>Father</th>
+                                        <th>Block HH-no</th>
                                         <th>Facility</th>
                                         <th>Status</th>
                                         <th>Follow up</th>
@@ -50,7 +52,9 @@
                                                    class="client-link">{{ $child->children_name }}</a></td>
 
 
-                                            <td>{{ $child->sex }}</td>
+                                            <td>{{ $child->mother_caregiver_name }}</td>
+                                            <td>{{ $child->fathers_name }}</td>
+                                            <td>{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
                                             <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
                                             <td>
                                                 @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))

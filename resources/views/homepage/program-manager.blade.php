@@ -237,7 +237,7 @@
             data = {label: admit, data: oos}
             datasets.push(data);
         });
-        main_data = {labels: all_labels, datasets: datasets}
+        main_data = {labels: all_labels, datasets: datasets, backgroundColor: "transparent"}
 //            console.log(main_data);
         var options = {
 //            bezierCurve : false,
