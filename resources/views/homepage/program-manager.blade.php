@@ -43,7 +43,8 @@
 
     <div class="row">
         <div class="col-lg-6">
-            <h2>OTP Admissions
+            <h2>OTP Performance
+                
                 <small> {{$month_year}}</small>
             </h2>
             <canvas id="canvas-performance" height="100px"></canvas>
