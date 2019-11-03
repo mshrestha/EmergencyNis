@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');
 	Route::resource('user', 'UserController');
     
+    Route::resource('pregnant-woman', 'PregnantWomanController');
+    Route::get('/pregnant-woman/followup', 'PregnantWomanController@followup')->name('pregnant-woman.followup');
+    Route::post('pregnant-woman/{woman}/save', 'PregnantWomanController@save')->name('pregnant-woman.save');
     
 	Route::resource('iycf-followup', 'IycfFollowupController');
 	Route::post('iycf-followup/{iycf}/save', 'IycfFollowupController@save')->name('iycf-followup.save');

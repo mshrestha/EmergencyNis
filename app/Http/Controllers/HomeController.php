@@ -59,8 +59,7 @@ class HomeController extends Controller
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             
-            var_dump($report_month_dashboard);
-            exit();
+            
             return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
                 'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count'));
         } else {
@@ -85,8 +84,7 @@ class HomeController extends Controller
 
             $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
             $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
-            var_dump($dashboard);
-            exit();
+            
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();

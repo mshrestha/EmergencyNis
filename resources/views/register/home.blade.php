@@ -5,8 +5,12 @@
     <h2></h2>
 
     <div class="row">
-        <div class="col-sm-8">
-            <div class="ibox">
+        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> Child Register</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">Pregnant Woman Register</a></li>
+                        </ul>
+        <div class="col-sm-8 tab-content">
+            <div class="ibox tab-pane active" id="tab-1">
                 <div class="ibox-title">
                     <h2>Registered Children
                         <a href="{{ route('children.create') }}" class="pull-right">
@@ -77,6 +81,104 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--This is where Pregnant woman register starts -->
+            <div class="ibox tab-pane" id="tab-2">
+                <div class="ibox-title">
+                    <h2>Pregnant And Lactating Women
+                        <a href="{{ route('pregnant-woman.create') }}" class="pull-right">
+                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i>
+                                Register
+                            </button>
+                        </a>
+
+
+                    </h2>
+                    <span class="small">List of Pregnant and Lactating Women</span>
+                </div>
+                <div class="ibox-content">
+                    <div class="clients-list">
+
+
+                        <div class="full-height-scroll">
+
+                            <div class="table-responsive">
+                                <table class="table dataTables table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Woman name</th>
+
+                                        
+                                        <th>Facility</th>
+                                        
+                                        <th>Follow up</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>223</td>
+                                            <td>Shamima Begum</td>
+
+
+                                            <td>ACF TSFP/BSFP</td>
+                                        
+                                            <td><a href="{{ route('pregnant-woman.followup') }}"
+                                                       class="edit-btn">
+                                                        <button class="btn btn-default btn-circle" type="button"><i
+                                                                    class="fa fa-plus"></i></button>
+                                                    </a>
+                                            </td>
+                                    </tr>
+                                        <tr>
+                                            <td>224</td>
+                                            <td>Ashfia Shammim</td>
+
+
+                                            <td>ACF TSFP/BSFP</td>
+                                        
+                                            <td><a href="{{ route('pregnant-woman.followup') }}"
+                                                       class="edit-btn">
+                                                        <button class="btn btn-default btn-circle" type="button"><i
+                                                                    class="fa fa-plus"></i></button>
+                                                    </a>
+                                            </td>
+                                    </tr>
+                                        <tr>
+                                            <td>225</td>
+                                            <td>Ishttiaque Madhumoti</td>
+
+
+                                            <td>ACF TSFP/BSFP</td>
+                                        
+                                            <td><a href="{{ route('pregnant-woman.followup') }}"
+                                                       class="edit-btn">
+                                                        <button class="btn btn-default btn-circle" type="button"><i
+                                                                    class="fa fa-plus"></i></button>
+                                                    </a>
+                                            </td>
+                                    </tr>
+                                        <tr>
+                                            <td>226</td>
+                                            <td>Ferdous Akhter</td>
+
+
+                                            <td>ACF TSFP/BSFP</td>
+                                        
+                                            <td><a href="{{ route('pregnant-woman.followup') }}"
+                                                       class="edit-btn">
+                                                        <button class="btn btn-default btn-circle" type="button"><i
+                                                                    class="fa fa-plus"></i></button>
+                                                    </a>
+                                            </td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -163,7 +265,26 @@
         $('#child-info').html('Loading ...');
         load_child(child);
     });
+    $(document).ready(function () {
+        $(function() {
+    var hash = window.location.hash;
+    url = hash;
+    // do some validation on the hash here
+    switch (hash) {
+       case 'child': 
+                url = 'tab-1';
+                break;
+       case 'pregnant-woman':
+                url = 'tab-2';
+                break;
+       default:
+            url = 'tab-1';
+}
+    
+    hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+});
 
+    });
 
 </script>
 
