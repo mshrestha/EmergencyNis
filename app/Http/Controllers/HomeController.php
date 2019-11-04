@@ -395,8 +395,8 @@ class HomeController extends Controller
             ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
             ->whereIn('monthly_dashboards.period', $months)
 //            ->orderBy('monthly_dashboards.facility_id','desc')
-            ->orderBy('monthly_dashboards.year', 'desc')
-            ->orderBy('monthly_dashboards.month', 'desc')
+            ->orderBy('monthly_dashboards.year', 'asc')
+            ->orderBy('monthly_dashboards.month', 'asc')
             ->get()
             ->toArray();
 //        dd($line_chart);

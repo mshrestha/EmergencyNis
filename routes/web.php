@@ -53,6 +53,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
+    Route::get('importExport', 'OtpImportController@importExport');
+    Route::post('importExcel', 'OtpImportController@importExcel');
+
+
 });
 
 
