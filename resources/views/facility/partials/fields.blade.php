@@ -39,7 +39,8 @@
 		<select name="service_type" class="form-control" required>
 			<option value="OTP" {{ (isset($facility) && $facility->service_type == 'OTP') ? ' selected' : '' }}>OTP</option>
 			<option value="SC" {{ (isset($facility) && $facility->service_type == 'SC') ? ' selected' : '' }}>SC</option>
-			<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'TSFP/BSFP') ? ' selected' : '' }}>TSFP/BSFP</option>
+			<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'BSFP') ? ' selected' : '' }}>BSFP</option>
+            <option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'TSFP') ? ' selected' : '' }}>TSFP</option>
 		</select>
 	</div>
 </div>
