@@ -15,7 +15,7 @@ class OtpImportController extends Controller
     public function importExport()
     {
 
-        return view('otp_import/import_export');
+        return view('import_export/importExport');
     }
 
     public function importExcel(Request $request){
