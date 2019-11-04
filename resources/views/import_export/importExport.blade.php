@@ -37,5 +37,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <div class="table-responsive">
+                <table class="table dataTables table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Month</th>
+                        <th>Status</th>
+                        {{--<td>Action</td>--}}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($generated_data as $data)
+                        <tr>
+                            <td>{{$data->year}}</td>
+                            <td>{{ date('F', mktime(0, 0, 0, $data->month, 10))}}</td>
+                            <td>Imported</td>
+                            {{--<td>Action</td>--}}
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
 @endsection

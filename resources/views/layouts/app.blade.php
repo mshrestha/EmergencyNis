@@ -61,15 +61,15 @@
                         <a href="{{ route('monthly-dashboard.create')}}" style="color: #fff;"><i class="fa fa-home"></i>
                             <span class="nav-label">Generate Cache</span></a>
                     </li>
+                    <li class="{{ request()->segment(1) == 'importExport' ? 'active' : '' }}">
+                        <a href="{{ route('importExport') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import Excel</span></a>
+                    </li>
 
                 @endif
                 <li class="{{ request()->segment(1) == 'reports' ? 'active' : '' }}">
                     <a href="{{ route('reports') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
                                 class="nav-label">Generate Reports</span></a>
-                </li>
-                <li class="{{ request()->segment(1) == 'importExport' ? 'active' : '' }}">
-                    <a href="{{ route('importExport') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                class="nav-label">Import Excel</span></a>
                 </li>
                 <li class="{{ (request()->segment(1) == 'register' || request()->segment(1) ==  'children') ? 'active' : '' }}">
                     <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class OtpImport extends Model
 {
     public $fillable = [
+        'period',
         'year',
         'month',
         'programPartner',

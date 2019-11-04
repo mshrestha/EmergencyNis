@@ -15,8 +15,9 @@ class CreateOtpImportsTable extends Migration
     {
         Schema::create('otp_imports', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('period');
             $table->integer('year')->nullable();
-            $table->string('month')->nullable();
+            $table->integer('month')->nullable();
             $table->string('programPartner')->nullable();
             $table->string('partner')->nullable();
             $table->string('campSattlement')->nullable();
