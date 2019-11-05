@@ -56,12 +56,12 @@ class OtpImportController extends Controller
         }
         if($request->partner==null && $request->program_partner!=null) {
             $line_chart = DB::table('otp_imports')
-                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
                 ->whereIn('period', $months)
                 ->where('programPartner', $request->program_partner)
                 ->groupBy(DB::raw('year'))
                 ->groupBy(DB::raw('month'))
-                ->groupBy(DB::raw('Facility_name'))
+//                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
@@ -107,12 +107,12 @@ class OtpImportController extends Controller
         }
         elseif ($request->program_partner==null && $request->partner!=null) {
             $line_chart = DB::table('otp_imports')
-                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') )
                 ->whereIn('period', $months)
                 ->where('partner', $request->partner)
                 ->groupBy(DB::raw('year'))
                 ->groupBy(DB::raw('month'))
-                ->groupBy(DB::raw('Facility_name'))
+//                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
@@ -157,12 +157,12 @@ class OtpImportController extends Controller
         }
         elseif ($request->program_partner!=null && $request->partner!=null) {
             $line_chart = DB::table('otp_imports')
-                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') )
                 ->whereIn('period', $months)
                 ->where('partner', $request->partner)->where('programPartner', $request->program_partner)
                 ->groupBy(DB::raw('year'))
                 ->groupBy(DB::raw('month'))
-                ->groupBy(DB::raw('Facility_name'))
+//                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
@@ -206,11 +206,11 @@ class OtpImportController extends Controller
         }
         else{
             $line_chart = DB::table('otp_imports')
-                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') )
                 ->whereIn('period', $months)
                 ->groupBy(DB::raw('year'))
                 ->groupBy(DB::raw('month'))
-                ->groupBy(DB::raw('Facility_name'))
+//                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
@@ -306,17 +306,13 @@ class OtpImportController extends Controller
 
     private function open_dashboard_linechart($months)
     {
-//dd($months);
         $line_chart = DB::table('otp_imports')
-//            ->select('period as Month', 'totalNewEnrolment as TotalAdmission' ,'campSattlement as Facility_name')
-            ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
-//            select('period as Month', 'totalNewEnrolment as TotalAdmission' ,DB::raw('CONCAT("otp_imports.partner","otp_imports.campSattlement") as Facility_name'))
+//            ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'),DB::raw('campSattlement as Facility_name') )
+            ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') )
             ->whereIn('period', $months)
-//            ->whereIn('campSattlement', ['9','10','11'])
-//            ->groupBy(DB::raw('period'))
             ->groupBy(DB::raw('year'))
             ->groupBy(DB::raw('month'))
-            ->groupBy(DB::raw('Facility_name'))
+//            ->groupBy(DB::raw('Facility_name'))
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
             ->get()
