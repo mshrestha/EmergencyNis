@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('importExport', 'OtpImportController@importExport')->name('importExport');
     Route::post('importExcel', 'OtpImportController@importExcel');
     Route::get('open_dashboard', 'OtpImportController@open_dashboard')->name('open_dashboard');
+    Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('open_dashboard_ym');
 
 
 });
