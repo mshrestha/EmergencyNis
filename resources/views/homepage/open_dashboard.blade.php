@@ -221,8 +221,8 @@
             }
         }
         for (i = 0; i < obj.length; i++) {
-            if (all_labels.indexOf(obj[i].Month) === -1) {
-                all_labels.push(obj[i].Month);
+            if (all_labels.indexOf(obj[i].MonthYear) === -1) {
+                all_labels.push(obj[i].MonthYear);
             }
         }
         var count = 0;
@@ -235,7 +235,7 @@
             obj.forEach(function (report) {
                 if (report.Facility_name === admit) {
                     oos.push(report.TotalAdmission)
-                    labels.push(report.Month);
+                    labels.push(report.MonthYear);
                 }
             });
             missing = getMissing(all_labels, labels);

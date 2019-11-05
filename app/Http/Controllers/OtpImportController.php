@@ -56,13 +56,17 @@ class OtpImportController extends Controller
         }
         if($request->partner==null && $request->program_partner!=null) {
             $line_chart = DB::table('otp_imports')
-                ->select('period as Month', 'totalNewEnrolment as TotalAdmission', 'campSattlement as Facility_name')
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
                 ->whereIn('period', $months)
                 ->where('programPartner', $request->program_partner)
+                ->groupBy(DB::raw('year'))
+                ->groupBy(DB::raw('month'))
+                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
                 ->toArray();
+
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age','6-23 months')->where('programPartner', $request->program_partner)
                 ->sum('totalNewEnrolment');
@@ -103,13 +107,17 @@ class OtpImportController extends Controller
         }
         elseif ($request->program_partner==null && $request->partner!=null) {
             $line_chart = DB::table('otp_imports')
-                ->select('period as Month', 'totalNewEnrolment as TotalAdmission', 'campSattlement as Facility_name')
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
                 ->whereIn('period', $months)
                 ->where('partner', $request->partner)
+                ->groupBy(DB::raw('year'))
+                ->groupBy(DB::raw('month'))
+                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
                 ->toArray();
+
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age','6-23 months')->where('partner', $request->partner)
                 ->sum('totalNewEnrolment');
@@ -147,14 +155,67 @@ class OtpImportController extends Controller
             $bar_chart['nonrespondent_rate'] = array_column($bar_chart1, 'nonRecoveredRate');
 
         }
-        else{
+        elseif ($request->program_partner!=null && $request->partner!=null) {
             $line_chart = DB::table('otp_imports')
-                ->select('period as Month', 'totalNewEnrolment as TotalAdmission', 'campSattlement as Facility_name')
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
                 ->whereIn('period', $months)
+                ->where('partner', $request->partner)->where('programPartner', $request->program_partner)
+                ->groupBy(DB::raw('year'))
+                ->groupBy(DB::raw('month'))
+                ->groupBy(DB::raw('Facility_name'))
                 ->orderBy('year', 'asc')
                 ->orderBy('month', 'asc')
                 ->get()
                 ->toArray();
+
+            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age','6-23 months')->where('partner', $request->partner)->where('programPartner', $request->program_partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age','24-59 months')->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age','>5 years')->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment_M');
+            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment_F');
+            $doughnut_chart['otp_admit_others'] = 0;
+            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentMuc_M');
+            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentMuc_F');
+            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm+$otp_admit_mucf;
+            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentWfh_M');
+            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentWfh_F');
+            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm+$otp_admit_wfhf;
+            $doughnut_chart['otp_admit_both'] = 0;
+
+            $bar_chart1 = DB::table('otp_imports')
+                ->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)
+                ->select('campSattlement','curedRate', 'deathRate', 'defaultRate', 'nonRecoveredRate')
+                ->get()
+                ->toArray();
+            $bar_chart['facility_id'] = array_column($bar_chart1, 'campSattlement');
+            $bar_chart['cure_rate'] = array_column($bar_chart1, 'curedRate');
+            $bar_chart['death_rate'] = array_column($bar_chart1, 'deathRate');
+            $bar_chart['default_rate'] = array_column($bar_chart1, 'defaultRate');
+            $bar_chart['nonrespondent_rate'] = array_column($bar_chart1, 'nonRecoveredRate');
+
+        }
+        else{
+            $line_chart = DB::table('otp_imports')
+                ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
+                ->whereIn('period', $months)
+                ->groupBy(DB::raw('year'))
+                ->groupBy(DB::raw('month'))
+                ->groupBy(DB::raw('Facility_name'))
+                ->orderBy('year', 'asc')
+                ->orderBy('month', 'asc')
+                ->get()
+                ->toArray();
+
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age','6-23 months')
                 ->sum('totalNewEnrolment');
@@ -193,7 +254,7 @@ class OtpImportController extends Controller
         }
 
 
-        return view('homepage.open_dashboard_ym', compact('program_partners','partners','periods','cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart'));
+        return view('homepage.open_dashboard', compact('program_partners','partners','periods','cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart'));
     }
     public function open_dashboard()
     {
@@ -233,6 +294,7 @@ class OtpImportController extends Controller
         for ($i = 0; $i < 12; $i++) {
             $months[] = date("M-y", strtotime(date('Y-m-01') . " -$i months"));
         }
+//        dd($months);
 //        $facility_supervision = FacilitySupervisor::where('user_id', Auth::user()->id)->pluck('facility_id')->toArray();
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $line_chart = $this->open_dashboard_linechart($months);
@@ -244,12 +306,17 @@ class OtpImportController extends Controller
 
     private function open_dashboard_linechart($months)
     {
-
+//dd($months);
         $line_chart = DB::table('otp_imports')
-            ->select('period as Month', 'totalNewEnrolment as TotalAdmission' ,'campSattlement as Facility_name')
+//            ->select('period as Month', 'totalNewEnrolment as TotalAdmission' ,'campSattlement as Facility_name')
+            ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission') ,DB::raw('campSattlement as Facility_name'))
 //            select('period as Month', 'totalNewEnrolment as TotalAdmission' ,DB::raw('CONCAT("otp_imports.partner","otp_imports.campSattlement") as Facility_name'))
             ->whereIn('period', $months)
 //            ->whereIn('campSattlement', ['9','10','11'])
+//            ->groupBy(DB::raw('period'))
+            ->groupBy(DB::raw('year'))
+            ->groupBy(DB::raw('month'))
+            ->groupBy(DB::raw('Facility_name'))
             ->orderBy('year', 'asc')
             ->orderBy('month', 'asc')
             ->get()
