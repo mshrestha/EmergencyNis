@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <h2>Welcome to Emergency Nutrition System </h2>
         </div>
-        <div class="col-lg-6 ">
+        <div class="col-lg-7 ">
             <form action="{{ route('open_dashboard_ym') }}" class="form-horizontal" method="get">
 
                 <div class="form-group" style="position: absolute; right: 30px; top: 10px; ">
@@ -19,6 +19,12 @@
                             <option value="">Implementing Partner</option>
                             @foreach($partners as $p)
                                 <option value="{{ $p }}">{{ $p }}</option>
+                            @endforeach
+                        </select>
+                        <select name="camp" class="btn btn-info hidden">
+                            <option value="">Camp</option>
+                            @foreach($camps as $c)
+                                <option value="{{ $c }}">{{ $c }}</option>
                             @endforeach
                         </select>
                         <select name="period" required class="btn btn-info">
@@ -276,11 +282,11 @@
 
     });
 
-    var facility_name = JSON.parse('<?php echo json_encode($bar_chart['facility_id']); ?>');
-    var cure_rate = JSON.parse('<?php echo json_encode($bar_chart['cure_rate']); ?>');
-    var death_rate = JSON.parse('<?php echo json_encode($bar_chart['death_rate']); ?>');
-    var default_rate = JSON.parse('<?php echo json_encode($bar_chart['default_rate']); ?>');
-    var non_respondent_rate = JSON.parse('<?php echo json_encode($bar_chart['nonrespondent_rate']); ?>');
+    var facility_name = JSON.parse('<?php echo json_encode($bar_chart['campSattlement']); ?>');
+    var cure_rate = JSON.parse('<?php echo json_encode($bar_chart['curedRate']); ?>');
+    var death_rate = JSON.parse('<?php echo json_encode($bar_chart['deathRate']); ?>');
+    var default_rate = JSON.parse('<?php echo json_encode($bar_chart['defaultRate']); ?>');
+    var non_respondent_rate = JSON.parse('<?php echo json_encode($bar_chart['nonRecoveredRate']); ?>');
     var barChartData = {
         labels: facility_name,
         datasets: [
