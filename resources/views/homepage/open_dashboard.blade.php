@@ -21,7 +21,7 @@
                                 <option value="{{ $p }}">{{ $p }}</option>
                             @endforeach
                         </select>
-                        <select name="camp" class="btn btn-info hidden">
+                        <select name="camp" class="btn btn-info">
                             <option value="">Camp</option>
                             @foreach($camps as $c)
                                 <option value="{{ $c }}">{{ $c }}</option>

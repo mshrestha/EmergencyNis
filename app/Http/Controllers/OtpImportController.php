@@ -63,111 +63,9 @@ class OtpImportController extends Controller
         $programPartner = $request->program_partner;
         $partner = $request->partner;
 
-        if ($request->partner == null && $request->program_partner != null) {
-            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '6-23 months')->where('programPartner', $request->program_partner)
-                ->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '24-59 months')->where('programPartner', $request->program_partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '>5 years')->where('programPartner', $request->program_partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->sum('totalNewEnrolment_M');
-            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->sum('totalNewEnrolment_F');
-            $doughnut_chart['otp_admit_others'] = 0;
-            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->sum('enrolmentMuc_M');
-            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->sum('enrolmentMuc_F');
-            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
-            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->sum('enrolmentWfh_M');
-            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->sum('enrolmentWfh_F');
-            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
-
-
-
-        } elseif ($request->program_partner == null && $request->partner != null) {
-
-            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '6-23 months')->where('partner', $request->partner)
-                ->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '24-59 months')->where('partner', $request->partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '>5 years')->where('partner', $request->partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('partner', $request->partner)->sum('totalNewEnrolment_M');
-            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('partner', $request->partner)->sum('totalNewEnrolment_F');
-            $doughnut_chart['otp_admit_others'] = 0;
-            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('partner', $request->partner)->sum('enrolmentMuc_M');
-            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('partner', $request->partner)->sum('enrolmentMuc_F');
-            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
-            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('partner', $request->partner)->sum('enrolmentWfh_M');
-            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('partner', $request->partner)->sum('enrolmentWfh_F');
-            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
-
-
-        } elseif ($request->program_partner != null && $request->partner != null) {
-
-            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '6-23 months')->where('partner', $request->partner)->where('programPartner', $request->program_partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '24-59 months')->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '>5 years')->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment_M');
-            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('totalNewEnrolment_F');
-            $doughnut_chart['otp_admit_others'] = 0;
-            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentMuc_M');
-            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentMuc_F');
-            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
-            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentWfh_M');
-            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('programPartner', $request->program_partner)->where('partner', $request->partner)->sum('enrolmentWfh_F');
-            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
-
-
-        } else {
-
-            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '6-23 months')->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '24-59 months')->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->where('age', '>5 years')->sum('totalNewEnrolment');
-            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->sum('totalNewEnrolment_M');
-            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
-                ->sum('totalNewEnrolment_F');
-            $doughnut_chart['otp_admit_others'] = 0;
-            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentMuc_M');
-            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentMuc_F');
-            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
-            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_M');
-            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_F');
-            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
-
-
-        }
         $line_chart = $this->open_dashboard_linechart_ym($months, $programPartner, $partner);
         $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner);
+        $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner);
 
         return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart'));
     }
@@ -226,17 +124,11 @@ class OtpImportController extends Controller
     private function open_dashboard_linechart($months)
     {
         $line_chart = DB::table('otp_imports')
-//            ->select(DB::raw('year'),DB::raw('month'),DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'),DB::raw('campSattlement as Facility_name') )
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
             ->whereIn('period', $months)
-            ->groupBy(DB::raw('year'))
-            ->groupBy(DB::raw('month'))
-//            ->groupBy(DB::raw('Facility_name'))
-            ->orderBy('year', 'asc')
-            ->orderBy('month', 'asc')
-            ->get()
-            ->toArray();
-//        dd($line_chart);
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+            ->orderBy('year', 'asc')->orderBy('month', 'asc')
+            ->get()->toArray();
         return $line_chart;
     }
 
@@ -250,26 +142,114 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
-        }
-        elseif ($programPartner == null && $partner != null) {
+        } elseif ($programPartner == null && $partner != null) {
             $line_chart = $line_chart_query->where('partner', $partner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
-        }
-        elseif ($programPartner != null && $partner != null) {
+        } elseif ($programPartner != null && $partner != null) {
             $line_chart = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
-        }
-        else {
+        } else {
             $line_chart = $line_chart_query
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         }
         return $line_chart;
+    }
+
+    private function open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner)
+    {
+        if ($programPartner != null && $partner == null) {
+            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '6-23 months')->where('programPartner', $programPartner)
+                ->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '24-59 months')->where('programPartner', $programPartner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '>5 years')->where('programPartner', $programPartner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('totalNewEnrolment_M');
+            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('totalNewEnrolment_F');
+            $doughnut_chart['otp_admit_others'] = 0;
+            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentMuc_M');
+            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentMuc_F');
+            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
+            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentWfh_M');
+            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentWfh_F');
+            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
+            $doughnut_chart['otp_admit_both'] = 0;
+        } elseif ($programPartner == null && $partner != null) {
+            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '6-23 months')->where('partner', $partner)
+                ->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '24-59 months')->where('partner', $partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '>5 years')->where('partner', $partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('totalNewEnrolment_M');
+            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('totalNewEnrolment_F');
+            $doughnut_chart['otp_admit_others'] = 0;
+            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentMuc_M');
+            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentMuc_F');
+            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
+            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentWfh_M');
+            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentWfh_F');
+            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
+            $doughnut_chart['otp_admit_both'] = 0;
+        } elseif ($programPartner != null && $partner != null) {
+            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '6-23 months')->where('programPartner', $programPartner)->where('partner', $partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '24-59 months')->where('programPartner', $programPartner)->where('partner', $partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('age', '>5 years')->where('programPartner', $programPartner)->where('partner', $partner)->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('totalNewEnrolment_M');
+            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('totalNewEnrolment_F');
+            $doughnut_chart['otp_admit_others'] = 0;
+            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentMuc_M');
+            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentMuc_F');
+            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
+            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentWfh_M');
+            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentWfh_F');
+            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
+            $doughnut_chart['otp_admit_both'] = 0;
+        }else{
+            $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('age', '6-23 months')->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('age', '24-59 months')->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_60'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('age', '>5 years')->sum('totalNewEnrolment');
+            $doughnut_chart['otp_admit_male'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('totalNewEnrolment_M');
+            $doughnut_chart['otp_admit_female'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('totalNewEnrolment_F');
+            $doughnut_chart['otp_admit_others'] = 0;
+            $otp_admit_mucm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentMuc_M');
+            $otp_admit_mucf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentMuc_F');
+            $doughnut_chart['otp_admit_muc'] = $otp_admit_mucm + $otp_admit_mucf;
+            $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_M');
+            $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_F');
+            $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
+            $doughnut_chart['otp_admit_both'] = 0;
+        }
+        return $doughnut_chart;
     }
 
     private function open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner)
