@@ -69,24 +69,17 @@ Route::get('/sync/facility-followup', [
 ]);
 
 Route::get('fix-sync', function() {
-	// $childrens = App\Models\Child::all();
-	// foreach($childrens as $child) {
-	// 	$child->sync_id = '101' . $child->id;
-	// 	$child->save();
-	// }
+	$childrens = App\Models\Child::whereRaw('id = sync_id')->get();
+	foreach($childrens as $child) {
+		$child->sync_id = env('SERVER_CODE') . $child->id;
+		$child->save();
+	}
 
-	// $facility_followups = App\Models\FacilityFollowup::all();
-	// foreach($facility_followups as $facility_followup) {
-	// 	$facility_followup->sync_id = '101'. $facility_followup->id;
-	// 	$facility_followup->save();
-	// }
-
-	// $facility_followups = App\Models\FacilityFollowup::all();
-	// foreach($facility_followups as $facility_followup) {
-	// 	if(!$facility_followup->nutritionstatus) {
-	// 		$facility_followup->nutritionstatus = 'SAM';
-	// 		$facility_followup->save();
-	// 	}
-	// }
-	// dd('done');
+	$facility_followups = App\Models\FacilityFollowup::whereRaw('id = sync_id')->get();
+	foreach($facility_followups as $facility_followup) {
+		$facility_followup->sync_id = env('SERVER_CODE'). $facility_followup->id;
+		$facility_followup->save();
+	}
+	
+	dd('done');
 });
