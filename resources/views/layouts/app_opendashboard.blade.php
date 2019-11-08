@@ -39,7 +39,7 @@
                 @if (Auth::check())
                     <li>
                         @if(Auth::user()->role=='manager' )
-                            <a href="{{ route('/program-manager') }}" style="color: #fff;" data-toggle="tooltip"
+                            <a href="{{ route('program-manager') }}" style="color: #fff;" data-toggle="tooltip"
                                title="Dashboard"
                                class="btn btn-success"><i class="fa fa-home"></i><span class="nav-label">Dashboard</span></a>
                         @else

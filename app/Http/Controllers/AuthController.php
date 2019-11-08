@@ -45,7 +45,7 @@ class AuthController extends Controller
             ]);
 
         } else {
-            return redirect()->intended('/')->with([
+            return redirect()->intended('/homepage')->with([
                 'notify_message' => $this->_notifyMessage,
                 'notify_type' => $this->_notifyType
             ]);
@@ -62,7 +62,8 @@ class AuthController extends Controller
             $this->_notifyType = "danger";
         }
 
-        return redirect()->route('auth.login');
+//        return redirect()->route('auth.login');
+        return redirect()->route('open_dashboard');
 
     }
 }

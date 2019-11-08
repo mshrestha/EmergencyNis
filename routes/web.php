@@ -16,12 +16,12 @@ Route::get('/login', 'AuthController@getLogin')->name('auth.login');
 Route::post('/login', 'AuthController@postLogin')->name('auth.login');
 Route::get('/logout', 'AuthController@getLogout')->name('auth.logout');
 Route::get('/view', 'ViewController@index')->name('facility-home');
-Route::get('open_dashboard', 'OtpImportController@open_dashboard')->name('open_dashboard');
+Route::get('/', 'OtpImportController@open_dashboard')->name('open_dashboard');
 Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('open_dashboard_ym');
 
 Route::group(['middleware' => ['auth']], function() {
 	Route::get('/test', 'HomeController@test')->name('test');
-	Route::get('/', 'HomeController@index')->name('homepage');
+	Route::get('/homepage', 'HomeController@index')->name('homepage');
     
     Route::get('/program-manager', 'HomeController@programManagerDashboard')->name('program-manager');
     Route::get('/admin_ym/{year}/{month}', 'HomeController@adminDashboard_ym')->name('admin_ym');
