@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SyncDataClientController extends Controller
 {
-	// private $sync_url = 'http://localhost:9000';
+	// private $sync_url = 'http://localhost:8001';
 	private $sync_url = 'http://ens.kazi270.com';
 
     public function syncChildrenClient() {

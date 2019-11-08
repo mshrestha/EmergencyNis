@@ -69,17 +69,54 @@ Route::get('/sync/facility-followup', [
 ]);
 
 Route::get('fix-sync', function() {
-	$childrens = App\Models\Child::whereRaw('id = sync_id')->get();
-	foreach($childrens as $child) {
-		$child->sync_id = env('SERVER_CODE') . $child->id;
-		$child->save();
-	}
+	\DB::beginTransaction();
+	DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+	try {
+		// For old data
+		$childrens = App\Models\Child::whereRaw('id = sync_id')
+			->where('sync_status', 'synced')
+			->where('id', '<=', '2691')->get();
+		foreach($childrens as $child) {
+			$child->sync_id = '101' . $child->id;
+			$child->save();
+		}
 
-	$facility_followups = App\Models\FacilityFollowup::whereRaw('id = sync_id')->get();
-	foreach($facility_followups as $facility_followup) {
-		$facility_followup->sync_id = env('SERVER_CODE'). $facility_followup->id;
-		$facility_followup->save();
+		$facility_followups = App\Models\FacilityFollowup::whereRaw('id = sync_id')
+			->where('sync_status', 'synced')
+			->where('id', '<=', '5960')->get();
+		foreach($facility_followups as $facility_followup) {
+			$child_append = ($facility_followup->children_id < 2691) ? '101' : env('SERVER_CODE');
+
+			$facility_followup->sync_id = '101'. $facility_followup->id;
+			$facility_followup->children_id = $child_append. $facility_followup->children_id;
+			$facility_followup->save();
+		}
+
+		//For new data
+		$childrens = App\Models\Child::whereRaw('id = sync_id')
+			->where('sync_status', '!=', 'synced')
+			->where('id', '>', '2691')->get();
+		foreach($childrens as $child) {
+			$child->sync_id = env('SERVER_CODE') . $child->id;
+			$child->save();
+		}
+		$facility_followups = App\Models\FacilityFollowup::whereRaw('id = sync_id')
+			->where('sync_status', '!=', 'synced')
+			->where('id', '>', '5960')->get();
+
+		foreach($facility_followups as $facility_followup) {
+			$child_append = ($facility_followup->children_id < 2691) ? '101': env('SERVER_CODE'); 
+
+			$facility_followup->sync_id = env('SERVER_CODE'). $facility_followup->id;
+			$facility_followup->children_id = $child_append. $facility_followup->children_id;
+			$facility_followup->save();
+		}
+
+		\DB::commit();
+	} catch (Exception $e) {
+		\DB::rollback();
 	}
+	\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 	
 	dd('done');
 });
