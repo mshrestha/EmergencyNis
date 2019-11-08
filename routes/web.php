@@ -70,7 +70,7 @@ Route::get('/sync/facility-followup', [
 
 Route::get('fix-sync', function() {
 	\DB::beginTransaction();
-	DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+	\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 	try {
 		// For old data
 		$childrens = App\Models\Child::whereRaw('id = sync_id')
