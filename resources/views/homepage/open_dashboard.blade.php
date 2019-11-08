@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app_opendashboard')
 
 @section('content')
     <div class="row">
@@ -37,6 +37,7 @@
                 </div>
             </form>
         </div>
+        {{--<div class="col-lg-12">Dashboard of {{$month_year}}</div>--}}
     </div>
     <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
@@ -334,6 +335,7 @@
 //                    intersect: true
 //                },
             responsive: true,
+            maintainAspectRatio: false,
 //                scales: {
 //                    xAxes: [{
 //                        stacked: true,

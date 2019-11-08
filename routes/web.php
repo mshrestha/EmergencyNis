@@ -16,6 +16,8 @@ Route::get('/login', 'AuthController@getLogin')->name('auth.login');
 Route::post('/login', 'AuthController@postLogin')->name('auth.login');
 Route::get('/logout', 'AuthController@getLogout')->name('auth.logout');
 Route::get('/view', 'ViewController@index')->name('facility-home');
+Route::get('open_dashboard', 'OtpImportController@open_dashboard')->name('open_dashboard');
+Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('open_dashboard_ym');
 
 Route::group(['middleware' => ['auth']], function() {
 	Route::get('/test', 'HomeController@test')->name('test');
@@ -55,8 +57,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('importExport', 'OtpImportController@importExport')->name('importExport');
     Route::post('importExcel', 'OtpImportController@importExcel');
-    Route::get('open_dashboard', 'OtpImportController@open_dashboard')->name('open_dashboard');
-    Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('open_dashboard_ym');
+//    Route::get('open_dashboard', 'OtpImportController@open_dashboard')->name('open_dashboard');
+//    Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('open_dashboard_ym');
 
 
 });
