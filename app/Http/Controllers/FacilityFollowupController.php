@@ -132,7 +132,18 @@ class FacilityFollowupController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            FacilityFollowup::destroy($id);
+            $this->_notify_message = 'Deleted Followup.';
+        } catch (Exception $e) {
+            $this->_notify_message = 'Failed to delete Followup, Try again.';
+            $this->_notify_type = 'danger';
+        }
+
+        return redirect()->route('register')->with([
+            'notify_message' => $this->_notify_message,
+            'notify_type' => $this->_notify_type
+        ]);
     }
       /**
      * Remove the specified resource from storage.

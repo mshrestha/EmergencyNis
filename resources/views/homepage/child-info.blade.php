@@ -118,6 +118,13 @@
                                 <span class="pull-right">
                                     <a href="{{ route('facility-followup.edit', $followup['sync_id']) }}">Edit</a>
                                 </span>
+                                
+                                <form action="{{ route('facility-followup.destroy', $followup['sync_id']) }}" method="post" class="delete-form">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
+                                </form>
                             </div>
                             @else
                             <div class="vertical-timeline-content">
