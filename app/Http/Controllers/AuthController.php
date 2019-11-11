@@ -63,7 +63,10 @@ class AuthController extends Controller
         }
 
 //        return redirect()->route('auth.login');
-        return redirect()->route('open_dashboard');
+        return redirect()->route('open_dashboard')->with([
+                'notify_message' => $this->_notifyMessage,
+                'notify_type' => $this->_notifyType
+            ]);
 
     }
 }
