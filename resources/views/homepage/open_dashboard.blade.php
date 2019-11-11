@@ -2,53 +2,60 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-5">
-            <h2>Welcome to Emergency Nutrition System </h2>
+        <div class="col-lg-12 center">
+            <h1>Welcome to Emergency Nutrition System </h1>
         </div>
-        <div class="col-lg-7 ">
+        
+        <div class="col-lg-12 border-bottom">
             <form action="{{ route('open_dashboard_ym') }}" class="form-horizontal" method="get">
 
-                <div class="form-group" style="position: absolute; right: 30px; top: 10px; ">
-                        <select name="program_partner" class="btn btn-info">
+                <div class="form-group" >
+                        <select name="program_partner" class="btn btn">
                             <option value="">Program Partner</option>
                             @foreach($program_partners as $pp)
                                 <option value="{{ $pp }}">{{ $pp }}</option>
                             @endforeach
                         </select>
-                        <select name="partner" class="btn btn-info">
+                        <select name="partner" class="btn btn">
                             <option value="">Implementing Partner</option>
                             @foreach($partners as $p)
                                 <option value="{{ $p }}">{{ $p }}</option>
                             @endforeach
                         </select>
-                        <select name="camp" class="btn btn-info">
+                        <select name="camp" class="btn btn">
                             <option value="">Camp</option>
                             @foreach($camps as $c)
                                 <option value="{{ $c }}">{{ $c }}</option>
                             @endforeach
                         </select>
-                        <select name="period" required class="btn btn-info">
+                        <select name="period" required class="btn ">
                             {{--<option value="">Period</option>--}}
                             @foreach($periods as $month_list)
                                 <option value="{{ $month_list }}">{{ $month_list }}</option>
                             @endforeach
                         </select>
-                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>Search</button>
+                    <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
                 </div>
             </form>
         </div>
-        {{--<div class="col-lg-12">Dashboard of {{$month_year}}</div>--}}
+        <div class="pull-right">
+            @if (Auth::check())
+              <a href="/logout"><i class="fa fa-sign-out"></i> Log out</a>
+            @else
+              <a href="/login"><i class="fa fa-sign-in"></i> Log in</a>
+            @endif
+            
+        </div>
+        
     </div>
     <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
             {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
-                <small> Last 12 months</small>
+                
             </div>
-            <div class="small pull-right col-md-6 m-t-md text-right">
-                <strong>Each line</strong> represents the admission trend for individual OTP.
-            </div>
+            
             <div class="flot-chart-content">
                 <canvas id="childAdmission"></canvas>
             </div>
@@ -212,7 +219,11 @@
                 datasets: [{
                     label: 'Total Admission',
                     data: data,
-                    backgroundColor: 'rgba(0, 119, 204, 0.3)'
+                    backgroundColor: window.chartColors.red,
+										borderColor: window.chartColors.red,
+										borderDash: [5, 5],
+										borderWidth:2,
+										fill: false
                 }]
             },
             options: {
@@ -293,7 +304,7 @@
         datasets: [
             {
                 label: 'Non Respondant Rate',
-                backgroundColor: 'rgb(251, 241, 198, 0.5)',
+                backgroundColor: 'rgb(232, 179, 35, 0.5)',
 //                    stack: 'Stack 1',
 
                 data: non_respondent_rate,

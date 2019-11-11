@@ -56,7 +56,7 @@ class AuthController extends Controller
     {
         try {
             Auth::logout();
-            $this->_notifyMessage = "Logged Out";
+            $this->_notifyMessage = "You have successfully logged Out";
         } catch (Exception $e) {
             $this->_notifyMessage = "Logout Failed. Please Try Again.";
             $this->_notifyType = "danger";

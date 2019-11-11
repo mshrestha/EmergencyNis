@@ -24,28 +24,43 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet'/>
     @stack('styles')
 </head>
-<body class="pace-done">
-<div id="wrapper">
-    
+<body class="gray-bg">
+     
 
+            
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
 
-    <div id="page-wrapper" class="gray-bg">
-
-    @include('layouts.partials.alert')
-
-    @yield('content')
-    <!---- CONTENT GOES HERE -->
-        <div class="footer">
-            <div class="pull-right">
-                Version 1.0
+            <div class="col-md-12">
+                @include('layouts.partials.alert')
+                
+                @yield('content')
             </div>
-            <div>
-                <strong>Copyright</strong> UNICEF Bangladesh &copy; {{ date('Y') }}
+            
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="footer">
+                <div class="pull-right">
+                    Version 1.0
+                </div>
+                <div>
+                    <strong>Copyright</strong> UNICEF Bangladesh &copy; {{ date('Y') }}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
+
+           
+    
+    
+    
+    
+    
+                <!---- CONTENT GOES HERE -->
+                    
+           
 
 <!-- Mainly scripts -->
 <script src="{{ asset('js/jquery-3.1.1.min.js')}}"></script>
