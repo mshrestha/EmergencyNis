@@ -414,7 +414,7 @@ class OtpImportController extends Controller
         foreach ($bar_chart2 as $bc) {
             for ($i = 0; $i < count($bar_chart2); $i++) ;
             $campSattlement[] = $bc->campSattlement;
-            $curedRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->recoveredM + $bc->recoveredF) / $bc->totalDischarged)*100;
+            $curedRate[] = ($bc->totalDischarged == 0) ? 0 : ((($bc->recoveredM + $bc->recoveredF) / $bc->totalDischarged)*100);
             $deathRate[] = ($bc->medicalTrnsferM == 0) ? 0 : $bc->totalDeath / $bc->medicalTrnsferM;
             $defaultRate[] = ($bc->medicalTrnsferF == 0) ? 0 : (($bc->defaultM + $bc->defaultF) / $bc->medicalTrnsferF);
             $nonRecoveredRate[] = ($bc->unknownM == 0) ? 0 : (($bc->nonRecoveredM + $bc->nonRecoveredF) / $bc->unknownM);
