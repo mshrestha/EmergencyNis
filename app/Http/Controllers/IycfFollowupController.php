@@ -63,18 +63,17 @@ class IycfFollowupController extends Controller
     public function save($id, Request $request) {
         try {
             $data = $request->all();
-            $data['referal_slip_no'] = time(). rand(1000,9999);
-            
-            //Create sync id
-            //$latest_followup = FacilityFollowup::orderBy('id', 'desc')->first();
-            //$app_id = $latest_followup ? $latest_followup->id + 1 : 1;
-            //$data['sync_id'] = env('SERVER_CODE') . $app_id;
-            //$data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
-            //$facility_followup = FacilityFollowup::create($data);
+            //Create sync id
+            $latest_followup = IycfFollowup::orderBy('id', 'desc')->first();
+            $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
+            $data['sync_id'] = env('SERVER_CODE') . $app_id;
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
+
+            $iycf_followup = IycfFollowup::create($data);
         } catch (Exception $e) {
-            //$this->_notify_message = "Failed to save followup, Try again";
-            //$this->_notify_type = "danger";
+            $this->_notify_message = "Failed to save followup, Try again";
+            $this->_notify_type = "danger";
         }
 
         return redirect()->route('register')->with([
@@ -91,12 +90,11 @@ class IycfFollowupController extends Controller
      */
     public function edit($id)
     {
-        $facility_followup = FacilityFollowup::findOrFail($id);
-        $children = Child::findOrFail($facility_followup->children_id);
-        
-        $facilities = Facility::where('id', $facility_followup->facility_id)->get();
+        $iycf_followup = IycfFollowup::findOrFail($id);
+        $children = Child::findOrFail($iycf_followup->children_id);
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
 
-        return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities'));
+        return view('iycf_followup.edit', compact('iycf_followup', 'children', 'facilities'));
     }
 
     /**
@@ -112,7 +110,7 @@ class IycfFollowupController extends Controller
             $data = $request->all();
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
 
-            FacilityFollowup::findOrFail($id)->update($data);
+            IycfFollowup::findOrFail($id)->update($data);
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save followup, Try again";
             $this->_notify_type = "danger";

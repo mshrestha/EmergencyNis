@@ -98,7 +98,7 @@
                             <div class="vertical-timeline-icon gray-bg">
                                 <i class="fa fa-briefcase"></i>
                             </div>
-                            @if(isset($followup['facility']['facility_id']))
+                            @if(array_key_exists('nutritionstatus', $followup))
                             <div class="vertical-timeline-content">
                                 <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span><br />
                                 <p>Visited {{ $followup['facility']['facility_id'] }}</p>
@@ -126,12 +126,20 @@
                                     <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
                                 </form>
                             </div>
-                            @else
+                            @elseif(array_key_exists('deworming', $followup))
                             <div class="vertical-timeline-content">
                                 <p>Visited facility for Followup</p>
                                 <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span>
                                 <span class="pull-right">
                                 <a href="{{ route('community-followup.edit', $followup['id']) }}">Edit</a>
+                                </span>
+                            </div>
+                            @elseif(array_key_exists('psycho_social_support', $followup))
+                            <div class="vertical-timeline-content">
+                                <p>Visited  IYCF Followup</p>
+                                <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span>
+                                <span class="pull-right">
+                                <a href="{{ route('iycf-followup.edit', $followup['sync_id']) }}">Edit</a>
                                 </span>
                             </div>
                             @endif

@@ -4,7 +4,7 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-8">
-                <form action="{{ route('iycf-followup.save', $children->id) }}" method="post" id="followupform">
+                <form action="{{ route('iycf-followup.save', $children->sync_id) }}" method="post" id="followupform">
                     @csrf
                     @method('POST')
                     @include('iycf_followup.partials.fields')
@@ -39,7 +39,7 @@
                 $('#followupform').submit();
             }
         });
-        load_child({{$children->id}})
+        load_child({{$children->sync_id}})
     })
 
     var abase_url = '{{url('/')}}';

@@ -9,6 +9,7 @@ use App\Models\Child;
 use App\Models\Facility;
 use App\Models\FacilityFollowup;
 use App\Models\CommunityFollowup;
+use App\Models\IycfFollowup;
 
 use Illuminate\Http\Request;
 use DB;
@@ -103,8 +104,14 @@ class HomeController extends Controller
         $community_followups = CommunityFollowup::where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
         $facility_followups = FacilityFollowup::with('facility')->where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
 
-        $followups = array_merge($community_followups, $facility_followups);
-        // dd($followups);
+        $followups_facility = array_merge($community_followups, $facility_followups);
+        usort($followups_facility, function ($a, $b) {
+            return $a['date'] <=> $b['date'];
+        });
+
+        $iycf_followups = IycfFollowup::where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
+        
+        $followups = array_merge($followups_facility, $iycf_followups);
         usort($followups, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
