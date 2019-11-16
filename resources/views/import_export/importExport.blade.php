@@ -1,13 +1,8 @@
 @extends('layouts.app')
 @push('styles')
-<style>
-    .table-condensed {
-        font-size: 10px;
-    }
-</style>
+<link href="{{ asset('css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
 @endpush
 @section('content')
-
     <div class="row">
         <div class="col-lg-6">
             <div class="ibox ">
@@ -38,29 +33,63 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="table-responsive">
-                <table class="table dataTables table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>Year</th>
-                        <th>Month</th>
-                        <th>Status</th>
-                        {{--<td>Action</td>--}}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($generated_data as $data)
-                        <tr>
-                            <td>{{$data->year}}</td>
-                            <td>{{ date('F', mktime(0, 0, 0, $data->month, 10))}}</td>
-                            <td>Imported</td>
-                            {{--<td>Action</td>--}}
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+            <div class="ibox-content">
+                <div class="clients-list">
+                    <div class="full-height-scroll">
+                        <div class="table-responsive">
+                            <table class="table dataTables table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Year</th>
+                                    <th>Month</th>
+                                    <th>camp count</th>
+                                    <th>Status</th>
+                                    {{--<td>Action</td>--}}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($generated_data as $data)
+                                    <tr>
+                                        <td>{{$data->year}}</td>
+                                        <td>{{ date('F', mktime(0, 0, 0, $data->month, 10))}}</td>
+                                        <td>{{$data->camp_count}}</td>
+                                        <td>Imported</td>
+                                        {{--<td>Action</td>--}}
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
 @endsection
+@push('scripts')
+<script src="{{ asset('js/plugins/dataTables/datatables.min.js')}}"></script>
+<script>
+    $('.dataTables').DataTable({
+        pageLength: 12,
+        responsive: true,
+        dom: '<"html5buttons"B>lTfgitp',
+        buttons: [
+//            {extend: 'copy'},
+//            {extend: 'csv'},
+//            {extend: 'excel', title: 'RegisteredChildren'},
+//            {extend: 'pdf', title: 'RegisteredChildren'},
+            {
+                extend: 'print',
+                customize: function (win) {
+                    $(win.document.body).addClass('white-bg');
+                    $(win.document.body).css('font-size', '10px');
+                    $(win.document.body).find('table')
+                        .addClass('compact')
+                        .css('font-size', 'inherit');
+                }
+            }
+        ]
+    });
+
+</script>
+@endpush

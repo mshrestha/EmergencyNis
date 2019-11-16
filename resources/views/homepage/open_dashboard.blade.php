@@ -294,7 +294,7 @@
 
     });
 
-    var facility_name = JSON.parse('<?php echo json_encode($bar_chart['campSattlement']); ?>');
+    var facility_name = JSON.parse('<?php echo json_encode($bar_chart['campSettlement']); ?>');
     var cure_rate = JSON.parse('<?php echo json_encode($bar_chart['curedRate']); ?>');
     var death_rate = JSON.parse('<?php echo json_encode($bar_chart['deathRate']); ?>');
     var default_rate = JSON.parse('<?php echo json_encode($bar_chart['defaultRate']); ?>');
