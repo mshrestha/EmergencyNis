@@ -65,8 +65,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2>OTP Performance
-            </h2>
+            <h2>OTP Performance<small> for {{$month_year}}</small>  </h2>
             <canvas id="canvas-performance" height="100px"></canvas>
         </div>
         {{--<div class="col-lg-4">--}}
@@ -84,14 +83,15 @@
     </div>
 
     <div class="row">
+        <h2>OTP New Admission<small> for {{$month_year}}</small>  </h2>
         <div class="col-md-4">
             <div class="statistic-box">
                 <h3>
-                    OTP New Admission By Age
+                     By Age
                 </h3>
-                <p>
-                    Admissions for {{$month_year}} by age.
-                </p>
+                {{--<p>--}}
+                    {{--for {{$month_year}} by age.--}}
+                {{--</p>--}}
                 <div class="row text-center">
 
                     <div class="col-lg-9">
@@ -109,11 +109,11 @@
         <div class="col-md-4">
             <div class="statistic-box">
                 <h3>
-                    OTP New Admission By Gender
+                    By Gender
                 </h3>
-                <p>
-                    Admissions for {{$month_year}} by Gender.
-                </p>
+                {{--<p>--}}
+                    {{--for {{$month_year}} by Gender.--}}
+                {{--</p>--}}
                 <div class="row text-center">
                     <div class="col-lg-9">
                         <canvas id="doughnutChart2" width="280" height="270"
@@ -131,11 +131,11 @@
         <div class="col-md-4">
             <div class="statistic-box">
                 <h3>
-                    OTP New Admission By Anthropometry
+                    By Anthropometry
                 </h3>
-                <p>
-                    Admissions for {{$month_year}} Anthropometry.
-                </p>
+                {{--<p>--}}
+                    {{--for {{$month_year}} Anthropometry.--}}
+                {{--</p>--}}
                 <div class="row text-center">
                     <div class="col-lg-9">
                         <canvas id="doughnutChart3" width="280" height="270"
@@ -217,7 +217,7 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Total Admission',
+                    label: 'OTP',
                     data: data,
                     backgroundColor: window.chartColors.red,
 										borderColor: window.chartColors.red,
@@ -269,7 +269,7 @@
             labels: ["Male", "Female", "Other"],
             datasets: [{
                 data: [male, female, others],
-                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
+                backgroundColor: ["#ffc0cb", "#0000b3", "#b30000"]
             }]
         };
 
