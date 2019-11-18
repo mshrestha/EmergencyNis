@@ -256,7 +256,7 @@
             labels: ["Male", "Female", "Other"],
             datasets: [{
                 data: [male, female, others],
-                backgroundColor: ["#ffc0cb", "#0000b3", "#b30000"]
+                backgroundColor: ["#0000b3", "#ffc0cb", "#b30000"]
             }]
         };
 

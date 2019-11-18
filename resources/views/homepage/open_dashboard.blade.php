@@ -40,9 +40,9 @@
         </div>
         <div class="pull-right">
             @if (Auth::check())
-              <a href="/logout"><i class="fa fa-sign-out"></i> Log out</a>
+              <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
             @else
-              <a href="/login"><i class="fa fa-sign-in"></i> Log in</a>
+              <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
             @endif
             
         </div>
@@ -269,7 +269,7 @@
             labels: ["Male", "Female", "Other"],
             datasets: [{
                 data: [male, female, others],
-                backgroundColor: ["#ffc0cb", "#0000b3", "#b30000"]
+                backgroundColor: ["#0000b3", "#ffc0cb", "#b30000"]
             }]
         };
 
