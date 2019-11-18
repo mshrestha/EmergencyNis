@@ -42,7 +42,7 @@
                 </div>
             </form>
             <div class="ibox">
-
+                {{--<table id="example" class="display" style="width:100%">--}}
                 <div class="ibox-content">
                     <div class="text-center">
                         <img src="img/logo-1.gif" class="pull-left" height="70px"/>
@@ -79,7 +79,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <table class="table table-striped table-bordered table-hover dataTables-example x-small small">
+                        <table id="otp_data" class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             <thead>
                             <tr>
                                 <th rowspan="3">Age Group</th>
@@ -581,11 +581,8 @@
                             </tr>
                             </tfoot>
                         </table>
-
                         <!-- Second Table -->
-
-
-                        <div class="full-height-scroll"></div>
+                        {{--<div class="full-height-scroll"></div>--}}
                     </div>
                 </div>
             </div>
@@ -594,7 +591,21 @@
 @endsection
 
 @push('scripts')
-
+<script>
+    $(document).ready(function() {
+        $('#otp_data').DataTable( {
+            "paging":   false,
+            "searching":   false,
+            "info":   false,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgtip',
+            buttons: [
+                {extend: 'excel', title: 'otp_report'},
+                {extend: 'pdf', title: 'otp_report'},
+            ]
+        } );
+    } );
+</script>
 
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 
