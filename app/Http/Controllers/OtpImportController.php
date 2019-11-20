@@ -12,7 +12,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class OtpImportController extends Controller
 {
-    public function importExport()
+    public function importExportOtp()
     {
         $generated_data = DB::table('otp_imports')
             ->select('year', 'month', DB::raw('count(campSettlement) as camp_count'))
@@ -22,10 +22,10 @@ class OtpImportController extends Controller
             ->get();
 //        dd($generated_data);
 
-        return view('import_export/importExport', compact('generated_data'));
+        return view('import_export/importExportOtp', compact('generated_data'));
     }
 
-    public function importExcel(Request $request)
+    public function importOtp(Request $request)
     {
 //        dd($request);
         $path1 = $request->file('import_file')->store('temp');
@@ -33,7 +33,7 @@ class OtpImportController extends Controller
 //        Excel::import(new OtpexcelImport(),request()->file('file'));
 //        config(['excel.import.startRow' => 2]);
         Excel::import(new OtpexcelImport(), $path);
-        return redirect('importExport');
+        return redirect('importExportOtp');
     }
 
     public function open_dashboard_ym(Request $request)
