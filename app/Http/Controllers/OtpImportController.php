@@ -40,15 +40,19 @@ class OtpImportController extends Controller
     {
 //        dd($request);
         $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
-        $program_partners = DB::table('otp_imports')
-            ->groupBy('programPartner')
-            ->pluck('programPartner')->toArray();
-        $partners = DB::table('otp_imports')
-            ->groupBy('partner')
-            ->pluck('partner')->toArray();
-        $camps = DB::table('otp_imports')
-            ->groupBy('campSettlement')
-            ->pluck('campSettlement')->toArray();
+        $program_partners = ['ACF','IAID','MULTI','PAPIL','UNHCR','UNICEF','WFP'];
+//            DB::table('otp_imports')
+//            ->groupBy('programPartner')
+//            ->pluck('programPartner')->toArray();
+        $partners = ['ACF','BRAC','CWW','SARPV','SCI','SHED','TDH','WC','WFP','WVI'];
+//            DB::table('otp_imports')
+//            ->groupBy('partner')
+//            ->pluck('partner')->toArray();
+        $camps = ['3','4','5','6','7','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27',
+            '1E','1W','20EX','2E','2W','4EX','8E','8W','KRC','KTP','KTP RC','NRC'];
+//            DB::table('otp_imports')
+//            ->groupBy('campSettlement')
+//            ->pluck('campSettlement')->toArray();
         $periods = DB::table('otp_imports')
             ->groupBy('period')
             ->orderBy('year', 'desc')
@@ -74,15 +78,19 @@ class OtpImportController extends Controller
 
     public function open_dashboard()
     {
-        $program_partners = DB::table('otp_imports')
-            ->groupBy('programPartner')
-            ->pluck('programPartner')->toArray();
-        $partners = DB::table('otp_imports')
-            ->groupBy('partner')
-            ->pluck('partner')->toArray();
-        $camps = DB::table('otp_imports')
-            ->groupBy('campSettlement')
-            ->pluck('campSettlement')->toArray();
+        $program_partners = ['ACF','IAID','MULTI','PAPIL','UNHCR','UNICEF','WFP'];
+//            DB::table('otp_imports')
+//            ->groupBy('programPartner')
+//            ->pluck('programPartner')->toArray();
+        $partners = ['ACF','BRAC','CWW','SARPV','SCI','SHED','TDH','WC','WFP','WVI'];
+//            DB::table('otp_imports')
+//            ->groupBy('partner')
+//            ->pluck('partner')->toArray();
+        $camps = ['3','4','5','6','7','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27',
+            '1E','1W','20EX','2E','2W','4EX','8E','8W','KRC','KTP','KTP RC','NRC'];
+//            DB::table('otp_imports')
+//            ->groupBy('campSettlement')
+//            ->pluck('campSettlement')->toArray();
         $periods = DB::table('otp_imports')
             ->groupBy('period')
             ->orderBy('year', 'desc')
@@ -122,12 +130,19 @@ class OtpImportController extends Controller
 
     private function open_dashboard_linechart($months)
     {
-        $line_chart = DB::table('otp_imports')
+        $line_chart['otp'] = DB::table('otp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
             ->whereIn('period', $months)
             ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
             ->orderBy('year', 'asc')->orderBy('month', 'asc')
             ->get()->toArray();
+        $line_chart['bsfp'] = DB::table('bsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newEnrolmentTotal) as TotalAdmission'))
+            ->whereIn('period', $months)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+            ->orderBy('year', 'asc')->orderBy('month', 'asc')
+            ->get()->toArray();
+//        dd($line_chart);
         return $line_chart;
     }
 
@@ -136,47 +151,83 @@ class OtpImportController extends Controller
         $line_chart_query = DB::table('otp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
             ->whereIn('period', $months);
+        $line_chart_query_bsfp = DB::table('bsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newEnrolmentTotal) as TotalAdmission'))
+            ->whereIn('period', $months);
         if ($programPartner != null && $partner == null && $camp == null) {
-            $line_chart = $line_chart_query->where('programPartner', $programPartner)
+            $line_chart['otp'] = $line_chart_query->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } elseif ($programPartner == null && $partner != null && $camp == null) {
-            $line_chart = $line_chart_query->where('partner', $partner)
+            $line_chart['otp'] = $line_chart_query->where('partner', $partner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } elseif ($programPartner != null && $partner != null && $camp == null) {
-            $line_chart = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)
+            $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } elseif ($programPartner != null && $partner != null && $camp != null) {
-            $line_chart = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
+            $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } elseif ($programPartner != null && $partner == null && $camp != null) {
-            $line_chart = $line_chart_query->where('programPartner', $programPartner)->where('campSettlement', $camp)
+            $line_chart['otp'] = $line_chart_query->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } elseif ($programPartner == null && $partner != null && $camp != null) {
-            $line_chart = $line_chart_query->where('partner', $partner)->where('campSettlement', $camp)
+            $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } elseif ($programPartner == null && $partner == null && $camp != null) {
-            $line_chart = $line_chart_query->where('campSettlement', $camp)
+            $line_chart['otp'] = $line_chart_query->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         } else {
-            $line_chart = $line_chart_query
+            $line_chart['otp'] = $line_chart_query
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->get()->toArray();
+            $line_chart['bsfp'] = $line_chart_query_bsfp
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')
                 ->get()->toArray();
         }
+//        dd($line_chart);
         return $line_chart;
     }
 

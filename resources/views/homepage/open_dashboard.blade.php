@@ -204,12 +204,25 @@
 
     $(document).ready(function () {
 //Line chart Admission trend start
-        var obj = JSON.parse('<?php echo json_encode($line_chart); ?>');
+        var obj = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
+        var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
-        var labels = obj.map(function(e) {
-            return e.MonthYear;
-        });
+
+        if (obj.length==0) {
+            var labels = obj_bsfp.map(function (e) {
+                return e.MonthYear;
+            });
+        }else {
+            var labels = obj.map(function (e) {
+                return e.MonthYear;
+            });
+        }
+        console.log(obj.length);
+
         var data = obj.map(function(e) {
+            return e.TotalAdmission;
+        });
+        var data_bsfp = obj_bsfp.map(function(e) {
             return e.TotalAdmission;
         });
         var myChart = new Chart(ctx, {
@@ -220,7 +233,15 @@
                     label: 'OTP',
                     data: data,
                     backgroundColor: window.chartColors.red,
-										borderColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    fill: false
+                },
+                    {label: 'BSFP',
+                    data: data_bsfp,
+                    backgroundColor: window.chartColors.blue,
+										borderColor: window.chartColors.blue,
 										borderDash: [5, 5],
 										borderWidth:2,
 										fill: false
