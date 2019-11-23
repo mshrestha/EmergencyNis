@@ -217,7 +217,7 @@
                 return e.MonthYear;
             });
         }
-        console.log(obj.length);
+//        console.log(obj.length);
 
         var data = obj.map(function(e) {
             return e.TotalAdmission;

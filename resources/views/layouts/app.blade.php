@@ -69,6 +69,10 @@
                         <a href="{{ route('importExportBsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
                                     class="nav-label">Import BSFP</span></a>
                     </li>
+                    <li class="{{ request()->segment(1) == 'importExportTsfp' ? 'active' : '' }}">
+                        <a href="{{ route('importExportTsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import TSFP</span></a>
+                    </li>
 
 
                 @endif

@@ -59,6 +59,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importOtp', 'OtpImportController@importOtp');
     Route::get('importExportBsfp', 'BsfpImportController@importExportBsfp')->name('importExportBsfp');
     Route::post('importBsfp', 'BsfpImportController@importBsfp');
+    Route::get('importExportTsfp', 'TsfpImportController@importExportTsfp')->name('importExportTsfp');
+    Route::post('importTsfp', 'TsfpImportController@importTsfp');
 
 
 });
