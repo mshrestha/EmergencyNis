@@ -34,7 +34,7 @@
     </div>
     <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
-            {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
+            
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
                 <small> Last 12 months</small>
@@ -314,9 +314,9 @@
         var female = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_female']); ?>');
         var others = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_others']); ?>');
         var doughnutData = {
-            labels: ["Male", "Female", "Other"],
+            labels: ["Male", "Female"],
             datasets: [{
-                data: [male, female, others],
+                data: [male, female],
                 backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
             }]
         };

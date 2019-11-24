@@ -253,10 +253,10 @@
         var female = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_female']); ?>');
         var others = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_others']); ?>');
         var doughnutData = {
-            labels: ["Male", "Female", "Other"],
+            labels: ["Male", "Female"],
             datasets: [{
-                data: [male, female, others],
-                backgroundColor: ["#ffc0cb", "#0000b3", "#b30000"]
+                data: [male, female],
+                backgroundColor: ["#a3e1d4", "#dedede"]
             }]
         };
 
