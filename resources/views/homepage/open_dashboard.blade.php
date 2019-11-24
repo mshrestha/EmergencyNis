@@ -304,6 +304,7 @@
         var doughnutData = {
             labels: ["Male", "Female"],
             datasets: [{
+
                 data: [male, female],
                 backgroundColor: ["#9CC3DA", "#a3e1d4"]
 
