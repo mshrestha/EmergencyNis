@@ -214,28 +214,13 @@
         var obj_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
 
-                console.log(months);
-                console.log(obj_bsfp);
-//            var labels = months.map(function (e) {
-//                return e.month;
-//            });
-//        var data = obj.map(function (e) {
-//            return e.TotalAdmission;
-//        });
-//        var data_bsfp = obj_bsfp.map(function (e) {
-//            return e.TotalAdmission;
-//        });
-//        var data_tsfp = obj_tsfp.map(function (e) {
-//            return e.TotalAdmission;
-//        });
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-//                labels: months.reverse(),
-                labels: months,
+                labels: months.reverse(),
                 datasets: [{
                     label: 'OTP',
-                    data: obj_otp,
+                    data: obj_otp.reverse(),
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
                     borderDash: [5, 5],
@@ -244,7 +229,7 @@
                 },
                     {
                         label: 'BSFP',
-                        data: obj_bsfp,
+                        data: obj_bsfp.reverse(),
                         backgroundColor: window.chartColors.blue,
                         borderColor: window.chartColors.blue,
                         borderDash: [5, 5],
@@ -253,7 +238,7 @@
                     },
                     {
                         label: 'TSFP',
-                        data: obj_tsfp,
+                        data: obj_tsfp.reverse(),
                         backgroundColor: window.chartColors.orange,
                         borderColor: window.chartColors.orange,
                         borderDash: [5, 5],
