@@ -61,10 +61,19 @@
                         <a href="{{ route('monthly-dashboard.create')}}" style="color: #fff;"><i class="fa fa-home"></i>
                             <span class="nav-label">Generate Cache</span></a>
                     </li>
-                    <li class="{{ request()->segment(1) == 'importExport' ? 'active' : '' }}">
-                        <a href="{{ route('importExport') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                    class="nav-label">Import Excel</span></a>
+                    <li class="{{ request()->segment(1) == 'importExportOtp' ? 'active' : '' }}">
+                        <a href="{{ route('importExportOtp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import OTP</span></a>
                     </li>
+                    <li class="{{ request()->segment(1) == 'importExportBsfp' ? 'active' : '' }}">
+                        <a href="{{ route('importExportBsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import BSFP</span></a>
+                    </li>
+                    <li class="{{ request()->segment(1) == 'importExportTsfp' ? 'active' : '' }}">
+                        <a href="{{ route('importExportTsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import TSFP</span></a>
+                    </li>
+
 
                 @endif
                 <li class="{{ request()->segment(1) == 'reports' ? 'active' : '' }}">

@@ -55,10 +55,12 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
-    Route::get('importExport', 'OtpImportController@importExport')->name('importExport');
-    Route::post('importExcel', 'OtpImportController@importExcel');
-//    Route::get('open_dashboard', 'OtpImportController@open_dashboard')->name('open_dashboard');
-//    Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('open_dashboard_ym');
+    Route::get('importExportOtp', 'OtpImportController@importExportOtp')->name('importExportOtp');
+    Route::post('importOtp', 'OtpImportController@importOtp');
+    Route::get('importExportBsfp', 'BsfpImportController@importExportBsfp')->name('importExportBsfp');
+    Route::post('importBsfp', 'BsfpImportController@importBsfp');
+    Route::get('importExportTsfp', 'TsfpImportController@importExportTsfp')->name('importExportTsfp');
+    Route::post('importTsfp', 'TsfpImportController@importTsfp');
 
 
 });

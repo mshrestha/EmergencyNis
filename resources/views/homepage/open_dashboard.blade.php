@@ -5,57 +5,57 @@
         <div class="col-lg-12 center">
             <h1>Welcome to Emergency Nutrition System </h1>
         </div>
-        
+
         <div class="col-lg-12 border-bottom">
             <form action="{{ route('open_dashboard_ym') }}" class="form-horizontal" method="get">
 
-                <div class="form-group" >
-                        <select name="program_partner" class="btn btn">
-                            <option value="">Program Partner</option>
-                            @foreach($program_partners as $pp)
-                                <option value="{{ $pp }}">{{ $pp }}</option>
-                            @endforeach
-                        </select>
-                        <select name="partner" class="btn btn">
-                            <option value="">Implementing Partner</option>
-                            @foreach($partners as $p)
-                                <option value="{{ $p }}">{{ $p }}</option>
-                            @endforeach
-                        </select>
-                        <select name="camp" class="btn btn">
-                            <option value="">Camp</option>
-                            @foreach($camps as $c)
-                                <option value="{{ $c }}">{{ $c }}</option>
-                            @endforeach
-                        </select>
-                        <select name="period" required class="btn ">
-                            {{--<option value="">Period</option>--}}
-                            @foreach($periods as $month_list)
-                                <option value="{{ $month_list }}">{{ $month_list }}</option>
-                            @endforeach
-                        </select>
+                <div class="form-group">
+                    <select name="program_partner" class="btn btn">
+                        <option value="">Program Partner</option>
+                        @foreach($program_partners as $pp)
+                            <option value="{{ $pp }}">{{ $pp }}</option>
+                        @endforeach
+                    </select>
+                    <select name="partner" class="btn btn">
+                        <option value="">Implementing Partner</option>
+                        @foreach($partners as $p)
+                            <option value="{{ $p }}">{{ $p }}</option>
+                        @endforeach
+                    </select>
+                    <select name="camp" class="btn btn">
+                        <option value="">Camp</option>
+                        @foreach($camps as $c)
+                            <option value="{{ $c }}">{{ $c }}</option>
+                        @endforeach
+                    </select>
+                    <select name="period" required class="btn ">
+                        {{--<option value="">Period</option>--}}
+                        @foreach($months as $month_list)
+                            <option value="{{ $month_list }}">{{ $month_list }}</option>
+                        @endforeach
+                    </select>
                     <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
                 </div>
             </form>
         </div>
         <div class="pull-right">
             @if (Auth::check())
-              <a href="/logout"><i class="fa fa-sign-out"></i> Log out</a>
+                <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
             @else
-              <a href="/login"><i class="fa fa-sign-in"></i> Log in</a>
+                <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
             @endif
-            
+
         </div>
-        
+
     </div>
     <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
             {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
-                
+
             </div>
-            
+
             <div class="flot-chart-content">
                 <canvas id="childAdmission"></canvas>
             </div>
@@ -65,7 +65,9 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h2>OTP Performance<small> for {{$month_year}}</small>  </h2>
+            <h2>OTP Performance
+                <small> for {{$month_year}}</small>
+            </h2>
             <canvas id="canvas-performance" height="100px"></canvas>
         </div>
         {{--<div class="col-lg-4">--}}
@@ -83,14 +85,16 @@
     </div>
 
     <div class="row">
-        <h2>OTP New Admission<small> for {{$month_year}}</small>  </h2>
+        <h2>OTP New Admission
+            <small> for {{$month_year}}</small>
+        </h2>
         <div class="col-md-4">
             <div class="statistic-box">
                 <h3>
-                     By Age
+                    By Age
                 </h3>
                 {{--<p>--}}
-                    {{--for {{$month_year}} by age.--}}
+                {{--for {{$month_year}} by age.--}}
                 {{--</p>--}}
                 <div class="row text-center">
 
@@ -112,7 +116,7 @@
                     By Gender
                 </h3>
                 {{--<p>--}}
-                    {{--for {{$month_year}} by Gender.--}}
+                {{--for {{$month_year}} by Gender.--}}
                 {{--</p>--}}
                 <div class="row text-center">
                     <div class="col-lg-9">
@@ -134,7 +138,7 @@
                     By Anthropometry
                 </h3>
                 {{--<p>--}}
-                    {{--for {{$month_year}} Anthropometry.--}}
+                {{--for {{$month_year}} Anthropometry.--}}
                 {{--</p>--}}
                 <div class="row text-center">
                     <div class="col-lg-9">
@@ -204,27 +208,59 @@
 
     $(document).ready(function () {
 //Line chart Admission trend start
-        var obj = JSON.parse('<?php echo json_encode($line_chart); ?>');
+        var months = JSON.parse('<?php echo json_encode($months); ?>');
+        var obj_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
+        var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
+        var obj_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
-        var labels = obj.map(function(e) {
-            return e.MonthYear;
-        });
-        var data = obj.map(function(e) {
-            return e.TotalAdmission;
-        });
+
+                console.log(months);
+                console.log(obj_bsfp);
+//            var labels = months.map(function (e) {
+//                return e.month;
+//            });
+//        var data = obj.map(function (e) {
+//            return e.TotalAdmission;
+//        });
+//        var data_bsfp = obj_bsfp.map(function (e) {
+//            return e.TotalAdmission;
+//        });
+//        var data_tsfp = obj_tsfp.map(function (e) {
+//            return e.TotalAdmission;
+//        });
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels,
+//                labels: months.reverse(),
+                labels: months,
                 datasets: [{
                     label: 'OTP',
-                    data: data,
+                    data: obj_otp,
                     backgroundColor: window.chartColors.red,
-										borderColor: window.chartColors.red,
-										borderDash: [5, 5],
-										borderWidth:2,
-										fill: false
-                }]
+                    borderColor: window.chartColors.red,
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    fill: false
+                },
+                    {
+                        label: 'BSFP',
+                        data: obj_bsfp,
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'TSFP',
+                        data: obj_tsfp,
+                        backgroundColor: window.chartColors.orange,
+                        borderColor: window.chartColors.orange,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -270,6 +306,7 @@
             datasets: [{
                 data: [male, female],
                 backgroundColor: ["#9CC3DA", "#a3e1d4"]
+
             }]
         };
 
@@ -371,7 +408,6 @@
         purple: 'rgb(153, 102, 255, 0.7)',
         grey: 'rgb(201, 203, 207, 0.7)'
     };
-
 
 
 </script>

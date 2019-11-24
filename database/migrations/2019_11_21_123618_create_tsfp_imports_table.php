@@ -1,0 +1,163 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateTsfpImportsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tsfp_imports', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('period');
+            $table->integer('year');
+            $table->integer('month');
+            $table->string('programPartner')->nullable();
+            $table->string('partner')->nullable();
+            $table->string('campSettlement')->nullable();
+            $table->string('siteName')->nullable();
+            $table->string('campId')->nullable();
+
+            $table->integer('beginningMonthTotal')->nullable()->default(0);
+            $table->integer('beginningMonth23M')->nullable()->default(0);
+            $table->integer('beginningMonth23F')->nullable()->default(0);
+            $table->integer('beginningMonth59M')->nullable()->default(0);
+            $table->integer('beginningMonth59F')->nullable()->default(0);
+            $table->integer('newEnrolmentMuacTotal')->nullable()->default(0);
+            $table->integer('newEnrolmentMuac23M')->nullable()->default(0);
+            $table->integer('newEnrolmentMuac23F')->nullable()->default(0);
+            $table->integer('newEnrolmentMuac59M')->nullable()->default(0);
+            $table->integer('newEnrolmentMuac59F')->nullable()->default(0);
+            $table->integer('newEnrolmentWfhTotal')->nullable()->default(0);
+            $table->integer('newEnrolmentWfh23M')->nullable()->default(0);
+            $table->integer('newEnrolmentWfh23F')->nullable()->default(0);
+            $table->integer('newEnrolmentWfh59M')->nullable()->default(0);
+            $table->integer('newEnrolmentWfh59F')->nullable()->default(0);
+            $table->integer('readmissionAfterDefaultTotal')->nullable()->default(0);
+            $table->integer('readmissionAfterDefault23M')->nullable()->default(0);
+            $table->integer('readmissionAfterDefault23F')->nullable()->default(0);
+            $table->integer('readmissionAfterDefault59M')->nullable()->default(0);
+            $table->integer('readmissionAfterDefault59F')->nullable()->default(0);
+            $table->integer('readmissionAfterRecoveryTotal')->nullable()->default(0);
+            $table->integer('readmissionAfterRecovery23M')->nullable()->default(0);
+            $table->integer('readmissionAfterRecovery23F')->nullable()->default(0);
+            $table->integer('readmissionAfterRecovery59M')->nullable()->default(0);
+            $table->integer('readmissionAfterRecovery59F')->nullable()->default(0);
+            $table->integer('transferInFromTsfpTotal')->nullable()->default(0);
+            $table->integer('transferInFromTsfp23M')->nullable()->default(0);
+            $table->integer('transferInFromTsfp23F')->nullable()->default(0);
+            $table->integer('transferInFromTsfp59M')->nullable()->default(0);
+            $table->integer('transferInFromTsfp59F')->nullable()->default(0);
+            $table->integer('returnFromSamTotal')->nullable()->default(0);
+            $table->integer('returnFromSam23M')->nullable()->default(0);
+            $table->integer('returnFromSam23F')->nullable()->default(0);
+            $table->integer('returnFromSam59M')->nullable()->default(0);
+            $table->integer('returnFromSam59F')->nullable()->default(0);
+            $table->integer('admissionTotal')->nullable()->default(0);
+            $table->integer('admission23M')->nullable()->default(0);
+            $table->integer('admission23F')->nullable()->default(0);
+            $table->integer('admission59M')->nullable()->default(0);
+            $table->integer('admission59F')->nullable()->default(0);
+            $table->integer('dischargeCuredToBsfpTotal')->nullable()->default(0);
+            $table->integer('dischargeCuredToBsfp23M')->nullable()->default(0);
+            $table->integer('dischargeCuredToBsfp23F')->nullable()->default(0);
+            $table->integer('dischargeCuredToBsfp59M')->nullable()->default(0);
+            $table->integer('dischargeCuredToBsfp59F')->nullable()->default(0);
+            $table->integer('defaultTotal')->nullable()->default(0);
+            $table->integer('default23M')->nullable()->default(0);
+            $table->integer('default23F')->nullable()->default(0);
+            $table->integer('default59M')->nullable()->default(0);
+            $table->integer('default59F')->nullable()->default(0);
+            $table->integer('deathTotal')->nullable()->default(0);
+            $table->integer('death23M')->nullable()->default(0);
+            $table->integer('death23F')->nullable()->default(0);
+            $table->integer('death59M')->nullable()->default(0);
+            $table->integer('death59F')->nullable()->default(0);
+            $table->integer('nonResponseTotal')->nullable()->default(0);
+            $table->integer('nonResponse23M')->nullable()->default(0);
+            $table->integer('nonResponse23F')->nullable()->default(0);
+            $table->integer('nonResponse59M')->nullable()->default(0);
+            $table->integer('nonResponse59F')->nullable()->default(0);
+            $table->integer('transferToSamTreatmentTotal')->nullable()->default(0);
+            $table->integer('transferToSamTreatment23M')->nullable()->default(0);
+            $table->integer('transferToSamTreatment23F')->nullable()->default(0);
+            $table->integer('transferToSamTreatment59M')->nullable()->default(0);
+            $table->integer('transferToSamTreatment59F')->nullable()->default(0);
+            $table->integer('transferOutToTsfpTotal')->nullable()->default(0);
+            $table->integer('transferOutToTsfp23M')->nullable()->default(0);
+            $table->integer('transferOutToTsfp23F')->nullable()->default(0);
+            $table->integer('transferOutToTsfp59M')->nullable()->default(0);
+            $table->integer('transferOutToTsfp59F')->nullable()->default(0);
+            $table->integer('othersTotal')->nullable()->default(0);
+            $table->integer('others23M')->nullable()->default(0);
+            $table->integer('others23F')->nullable()->default(0);
+            $table->integer('others59M')->nullable()->default(0);
+            $table->integer('others59F')->nullable()->default(0);
+            $table->integer('exitTotal')->nullable()->default(0);
+            $table->integer('exit23M')->nullable()->default(0);
+            $table->integer('exit23F')->nullable()->default(0);
+            $table->integer('exit59M')->nullable()->default(0);
+            $table->integer('exit59F')->nullable()->default(0);
+            $table->integer('endOfMonthTotal')->nullable()->default(0);
+            $table->integer('endOfMonth23M')->nullable()->default(0);
+            $table->integer('endOfMonth23F')->nullable()->default(0);
+            $table->integer('endOfMonth59M')->nullable()->default(0);
+            $table->integer('endOfMonth59F')->nullable()->default(0);
+            $table->integer('reachedTotal')->nullable()->default(0);
+            $table->integer('reached23M')->nullable()->default(0);
+            $table->integer('reached23F')->nullable()->default(0);
+            $table->integer('reached59M')->nullable()->default(0);
+            $table->integer('reached59F')->nullable()->default(0);
+            $table->decimal('curedRate',5,2)->nullable()->default(0);
+            $table->decimal('deathRate',5,2)->nullable()->default(0);
+            $table->decimal('defaultRate',5,2)->nullable()->default(0);
+            $table->decimal('nonResponderRate',5,2)->nullable()->default(0);
+            $table->decimal('averageGainOfWeight',5,2,5,2)->nullable()->default(0);
+            $table->decimal('averageLengthOfStay',5,2)->nullable()->default(0);
+            $table->integer('atTheBeginningOfTheMonthPlw')->nullable()->default(0);
+            $table->integer('newAdmissionPlw')->nullable()->default(0);
+            $table->integer('readmissionAfterBeingdefault')->nullable()->default(0);
+            $table->integer('referFromBsfpPlw')->nullable()->default(0);
+            $table->integer('transferInFromOtherTsfpPlw')->nullable()->default(0);
+            $table->integer('otherVulnerableGroups')->nullable()->default(0);
+            $table->integer('totalAdmissionPlw')->nullable()->default(0);
+            $table->integer('dischargeCuredPlwToBsfp')->nullable()->default(0);
+            $table->integer('dischargePlw')->nullable()->default(0);
+            $table->integer('transferOutToOtherTsfpPlw')->nullable()->default(0);
+            $table->integer('defaulterPlw')->nullable()->default(0);
+            $table->integer('deathPlw')->nullable()->default(0);
+            $table->integer('unexpectedDiscontinuationOfPregnancy')->nullable()->default(0);
+            $table->integer('otherPlw')->nullable()->default(0);
+            $table->integer('totalExistPlw')->nullable()->default(0);
+            $table->integer('totalBeneficiaryAtTheEndPlw')->nullable()->default(0);
+            $table->decimal('wsbDistributedPlw',5,2)->nullable()->default(0);
+            $table->decimal('vegetableOilDistributedPlw',5,2)->nullable()->default(0);
+            $table->decimal('otherPleaseSpecifyPlw',5,2)->nullable()->default(0);
+            $table->integer('tsfpChildNewAdmissionM')->nullable()->default(0);
+            $table->integer('tsfpChildNewAdmissionF')->nullable()->default(0);
+            $table->integer('tsfpChildNewAdmission23M')->nullable()->default(0);
+            $table->integer('tsfpChildNewAdmission23F')->nullable()->default(0);
+            $table->integer('tsfpChildNewAdmission59M')->nullable()->default(0);
+            $table->integer('tsfpChildNewAdmission59F')->nullable()->default(0);
+            $table->integer('newAdmission')->nullable()->default(0);
+            $table->integer('newAdmissionTotal')->nullable()->default(0);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tsfp_imports');
+    }
+}

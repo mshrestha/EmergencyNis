@@ -7,7 +7,7 @@
         <div class="col-lg-6">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>File Import</h5>
+                    <h5>File Import TSFP</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form style="margin-top: 15px;padding: 10px;" action="{{ URL::to('importExcel') }}"
+                    <form style="margin-top: 15px;padding: 10px;" action="{{ URL::to('importTsfp') }}"
                           class="form-horizontal" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <input class="col-md-5" type="file" name="import_file"
