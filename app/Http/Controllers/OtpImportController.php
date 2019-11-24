@@ -39,27 +39,30 @@ class OtpImportController extends Controller
     public function open_dashboard_ym(Request $request)
     {
 //        dd($request);
-        $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
-        $program_partners = ['ACF','IAID','MULTI','PAPIL','UNHCR','UNICEF','WFP'];
+//        $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
+        $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
 //            DB::table('otp_imports')
 //            ->groupBy('programPartner')
 //            ->pluck('programPartner')->toArray();
-        $partners = ['ACF','BRAC','CWW','SARPV','SCI','SHED','TDH','WC','WFP','WVI'];
+        $partners = ['ACF', 'BRAC', 'CWW', 'SARPV', 'SCI', 'SHED', 'TDH', 'WC', 'WFP', 'WVI'];
 //            DB::table('otp_imports')
 //            ->groupBy('partner')
 //            ->pluck('partner')->toArray();
-        $camps = ['3','4','5','6','7','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27',
-            '1E','1W','20EX','2E','2W','4EX','8E','8W','KRC','KTP','KTP RC','NRC'];
+        $camps = ['3', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27',
+            '1E', '1W', '20EX', '2E', '2W', '4EX', '8E', '8W', 'KRC', 'KTP', 'KTP RC', 'NRC'];
 //            DB::table('otp_imports')
 //            ->groupBy('campSettlement')
 //            ->pluck('campSettlement')->toArray();
-        $periods = DB::table('otp_imports')
-            ->groupBy('period')
-            ->orderBy('year', 'desc')
-            ->orderBy('month', 'desc')
-            ->pluck('period')->toArray();
-        $report_month = $db_month_year->month;
-        $report_year = $db_month_year->year;
+//        $periods = DB::table('otp_imports')
+//            ->groupBy('period')
+//            ->orderBy('year', 'desc')
+//            ->orderBy('month', 'desc')
+//            ->pluck('period')->toArray();
+//dd($request->period);
+        $pieces = explode("-", $request->period);
+
+        $report_month = date('m', strtotime($pieces[0]));
+        $report_year = '20' . $pieces[1];
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $months = array();
         for ($i = 0; $i < 12; $i++) {
@@ -70,62 +73,70 @@ class OtpImportController extends Controller
         $camp = $request->camp;
 
         $line_chart = $this->open_dashboard_linechart_ym($months, $programPartner, $partner, $camp);
+//        dd($line_chart);
         $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
 
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months'));
     }
 
     public function open_dashboard()
     {
-        $program_partners = ['ACF','IAID','MULTI','PAPIL','UNHCR','UNICEF','WFP'];
+        $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
 //            DB::table('otp_imports')
 //            ->groupBy('programPartner')
 //            ->pluck('programPartner')->toArray();
-        $partners = ['ACF','BRAC','CWW','SARPV','SCI','SHED','TDH','WC','WFP','WVI'];
+        $partners = ['ACF', 'BRAC', 'CWW', 'SARPV', 'SCI', 'SHED', 'TDH', 'WC', 'WFP', 'WVI'];
 //            DB::table('otp_imports')
 //            ->groupBy('partner')
 //            ->pluck('partner')->toArray();
-        $camps = ['3','4','5','6','7','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27',
-            '1E','1W','20EX','2E','2W','4EX','8E','8W','KRC','KTP','KTP RC','NRC'];
+        $camps = ['3', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27',
+            '1E', '1W', '20EX', '2E', '2W', '4EX', '8E', '8W', 'KRC', 'KTP', 'KTP RC', 'NRC'];
 //            DB::table('otp_imports')
 //            ->groupBy('campSettlement')
 //            ->pluck('campSettlement')->toArray();
-        $periods = DB::table('otp_imports')
-            ->groupBy('period')
-            ->orderBy('year', 'desc')
-            ->orderBy('month', 'desc')
-            ->pluck('period')->toArray();
-//        dd($partner);
-        $cache_data = DB::table('otp_imports')
-            ->select('year', 'month')
-            ->groupBy('year', 'month')
-            ->orderBy('year', 'desc')
-            ->orderBy('month', 'desc')
-            ->get()->toArray();
+//        $periods = DB::table('otp_imports')
+//            ->groupBy('period')
+//            ->orderBy('year', 'desc')
+//            ->orderBy('month', 'desc')
+//            ->pluck('period')->toArray();
+//        $cache_data = DB::table('otp_imports')
+//            ->select('year', 'month')
+//            ->groupBy('year', 'month')
+//            ->orderBy('year', 'desc')
+//            ->orderBy('month', 'desc')
+//            ->get()->toArray();
 //        dd($cache_data);
-        if (empty($cache_data)) {
-            if (date('n') == 1) {
-                $report_month = 12;
-                $report_year = date('Y') - 1;
-            } else {
-                $report_month = date('n') - 1;
-                $report_year = date('Y');
-            }
+//        if (empty($cache_data)) {
+        if (date('n') == 1) {
+            $report_month = 12;
+            $report_year = date('Y') - 1;
         } else {
-            $report_month = $cache_data[0]->month;
-            $report_year = $cache_data[0]->year;
+            $report_month = date('n') - 1;
+            $report_year = date('Y');
         }
-
+//        } else {
+//            $report_month = $cache_data[0]->month;
+//            $report_year = $cache_data[0]->year;
+//        }
+//
+//        $months = array();
+//        for ($i = 0; $i < 12; $i++) {
+//            $months[] = date("M-y", strtotime(date('Y-m-01') . " -$i months"));
+//        }
+//        $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
+//        $report_month = $db_month_year->month;
+//        $report_year = $db_month_year->year;
         $months = array();
         for ($i = 0; $i < 12; $i++) {
-            $months[] = date("M-y", strtotime(date('Y-m-01') . " -$i months"));
+            $months[] = date("M-y", strtotime(date($report_year . '-' . $report_month . '-01') . " -$i months"));
         }
+
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $line_chart = $this->open_dashboard_linechart($months);
         $doughnut_chart = $this->open_dashboard_doughnutchart($report_year, $report_month);
         $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months'));
     }
 
     private function open_dashboard_linechart($months)
@@ -134,101 +145,252 @@ class OtpImportController extends Controller
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
             ->whereIn('period', $months)
             ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-            ->orderBy('year', 'asc')->orderBy('month', 'asc')
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
             ->get()->toArray();
         $line_chart['bsfp'] = DB::table('bsfp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newEnrolmentTotal) as TotalAdmission'))
             ->whereIn('period', $months)
             ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-            ->orderBy('year', 'asc')->orderBy('month', 'asc')
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
             ->get()->toArray();
-//        dd($line_chart);
-        return $line_chart;
+        $line_chart['tsfp'] = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newAdmissionTotal) as TotalAdmission'))
+            ->whereIn('period', $months)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
+            ->get()->toArray();
+//        dd($months);
+//        dd($line_chart['bsfp']);
+        $otp_period = [];
+        $otp_admission = [];
+        $lc['otp'] = [];
+        for ($i = 0; $i < count($months); $i++) {
+            foreach ($line_chart['otp'] as $otp) {
+                $otp_period[] = $otp->MonthYear;
+                $otp_admission[] = $otp->TotalAdmission;
+            }
+            if (in_array($months[$i], $otp_period)){
+                $ii=array_search($months[$i], $otp_period);
+                $lc['otp'][] = $otp_admission[$ii];
+
+            }
+            else
+                $lc['otp'][] = 0;
+        }
+        $bsfp_period = [];
+        $bsfp_admission = [];
+        $lc['bsfp'] = [];
+//        0 => "Oct-19" 1 => "Sep-19" 2 => "Aug-19" 3 => "Jul-19" 4 => "Jun-19" 5 => "May-19" 6 => "Apr-19" 7 => "Mar-19" 8 => "Feb-19"
+//        9 => "Jan-19" 10 => "Dec-18" 11 => "Nov-18"
+
+//        0+"MonthYear": "Sep-19" +"TotalAdmission": "10541"
+//    1   +"MonthYear": "Aug-19"  +"TotalAdmission": "8554"
+//    2   +"MonthYear": "Jul-19"  +"TotalAdmission": "13620"
+//    3   +"MonthYear": "Jun-19"  +"TotalAdmission": "5195"
+//    4     +"MonthYear": "May-19"  +"TotalAdmission": "3111"
+//    5     +"MonthYear": "Apr-19"  +"TotalAdmission": "4299"
+//    6     +"MonthYear": "Mar-19"  +"TotalAdmission": "2997"
+//    7     +"MonthYear": "Feb-19"  +"TotalAdmission": "3598"
+//    8     +"MonthYear": "Jan-19"  +"TotalAdmission": "6482"
+
+        for ($j = 0; $j < count($months); $j++) {
+            foreach ($line_chart['bsfp'] as $bsfp) {
+                $bsfp_period[] = $bsfp->MonthYear;
+                $bsfp_admission[] = $bsfp->TotalAdmission;
+            }
+            if (in_array($months[$j], $bsfp_period)) {
+                $jj=array_search($months[$j], $bsfp_period);
+                $lc['bsfp'][] = $bsfp_admission[$jj];
+            } else
+                $lc['bsfp'][] = 0;
+        }
+        $tsfp_period = [];
+        $tsfp_admission = [];
+        $lc['tsfp'] = [];
+        for ($k = 0; $k < count($months); $k++) {
+            foreach ($line_chart['tsfp'] as $tsfp) {
+                $tsfp_period[] = $tsfp->MonthYear;
+                $tsfp_admission[] = $tsfp->TotalAdmission;
+            }
+            if (in_array($months[$k], $tsfp_period)) {
+                $kk = array_search($months[$k], $tsfp_period);
+                $lc['tsfp'][] = $tsfp_admission[$kk];
+            }
+            else
+                $lc['tsfp'][] = 0;
+        }
+//        dd($lc);
+        return $lc;
     }
 
     private function open_dashboard_linechart_ym($months, $programPartner, $partner, $camp)
     {
+
+//        dd($months);
         $line_chart_query = DB::table('otp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
             ->whereIn('period', $months);
         $line_chart_query_bsfp = DB::table('bsfp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newEnrolmentTotal) as TotalAdmission'))
             ->whereIn('period', $months);
+        $line_chart_query_tsfp = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newAdmissionTotal) as TotalAdmission'))
+            ->whereIn('period', $months);
         if ($programPartner != null && $partner == null && $camp == null) {
             $line_chart['otp'] = $line_chart_query->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } elseif ($programPartner == null && $partner != null && $camp == null) {
             $line_chart['otp'] = $line_chart_query->where('partner', $partner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('partner', $partner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } elseif ($programPartner != null && $partner != null && $camp == null) {
             $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('partner', $partner)->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } elseif ($programPartner != null && $partner != null && $camp != null) {
             $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } elseif ($programPartner != null && $partner == null && $camp != null) {
             $line_chart['otp'] = $line_chart_query->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } elseif ($programPartner == null && $partner != null && $camp != null) {
             $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('partner', $partner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('partner', $partner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } elseif ($programPartner == null && $partner == null && $camp != null) {
             $line_chart['otp'] = $line_chart_query->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         } else {
             $line_chart['otp'] = $line_chart_query
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['bsfp'] = $line_chart_query_bsfp
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
-                ->orderBy('year', 'asc')->orderBy('month', 'asc')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp'] = $line_chart_query_tsfp
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
         }
-//        dd($line_chart);
-        return $line_chart;
+//dd($months);
+//dd($line_chart['bsfp']);
+        $otp_period = [];
+        $otp_admission = [];
+        $lc['otp'] = [];
+        for ($i = 0; $i < count($months); $i++) {
+            foreach ($line_chart['otp'] as $otp) {
+                $otp_period[] = $otp->MonthYear;
+                $otp_admission[] = $otp->TotalAdmission;
+            }
+            if (in_array($months[$i], $otp_period)) {
+                $ii = array_search($months[$i], $otp_period);
+                $lc['otp'][] = $otp_admission[$ii];
+            }
+            else
+                $lc['otp'][] = 0;
+        }
+        $bsfp_period = [];
+        $bsfp_admission = [];
+        $lc['bsfp'] = [];
+        for ($j = 0; $j < count($months); $j++) {
+            foreach ($line_chart['bsfp'] as $bsfp) {
+                $bsfp_period[] = $bsfp->MonthYear;
+                $bsfp_admission[] = $bsfp->TotalAdmission;
+            }
+            if (in_array($months[$j], $bsfp_period)) {
+                $jj = array_search($months[$j], $bsfp_period);
+                $lc['bsfp'][] = $bsfp_admission[$jj];
+            }
+            else
+                $lc['bsfp'][] = 0;
+//            dd($lc['bsfp']);
+        }
+        $tsfp_period = [];
+        $tsfp_admission = [];
+        $lc['tsfp'] = [];
+        for ($k = 0; $k < count($months); $k++) {
+            foreach ($line_chart['tsfp'] as $tsfp) {
+                $tsfp_period[] = $tsfp->MonthYear;
+                $tsfp_admission[] = $tsfp->TotalAdmission;
+            }
+            if (in_array($months[$k], $tsfp_period)) {
+                $kk = array_search($months[$k], $tsfp_period);
+                $lc['tsfp'][] = $tsfp_admission[$kk];
+            }
+            else
+                $lc['tsfp'][] = 0;
+        }
+//        dd($lc);
+        return $lc;
     }
 
     private function open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp)

@@ -15,7 +15,7 @@ class TsfpexcelImport implements ToModel,WithStartRow
     */
     public function startRow(): int
     {
-        return 4;
+        return 2;
     }
     public function model(array $row)
     {
