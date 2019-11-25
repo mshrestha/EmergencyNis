@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df9c621-5e08-4402-bd93-fd0572f0e0a5" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/homepage/home_user.blade.php" afterPath="$PROJECT_DIR$/resources/views/homepage/home_user.blade.php" />
@@ -19,46 +20,58 @@
       <file leaf-file-name="HomeController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="320" column="29" lean-forward="true" selection-start-line="320" selection-start-column="29" selection-end-line="320" selection-end-column="29" />
+            <state relative-caret-position="17">
+              <caret line="155" column="35" lean-forward="true" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
               <folding>
-                <element signature="e#4415#5548#0#PHP" expanded="false" />
-                <element signature="e#5554#6804#0#PHP" expanded="false" />
-                <element signature="e#11763#12985#0#PHP" expanded="false" />
-                <element signature="e#12991#14500#0#PHP" expanded="false" />
-                <element signature="e#15424#17281#0#PHP" expanded="false" />
-                <element signature="e#17287#18324#0#PHP" expanded="false" />
-                <element signature="e#18330#19143#0#PHP" expanded="false" />
-                <element signature="e#19149#20159#0#PHP" expanded="false" />
-                <element signature="e#20165#21184#0#PHP" expanded="false" />
-                <element signature="e#21190#22856#0#PHP" expanded="false" />
-                <element signature="e#22862#23154#0#PHP" expanded="false" />
-                <element signature="e#23160#23483#0#PHP" expanded="false" />
-                <element signature="e#23489#23813#0#PHP" expanded="false" />
-                <element signature="e#23819#25271#0#PHP" expanded="false" />
+                <element signature="e#4437#5570#0#PHP" expanded="false" />
+                <element signature="e#5576#6839#0#PHP" expanded="false" />
+                <element signature="e#12082#13304#0#PHP" expanded="false" />
+                <element signature="e#13310#14819#0#PHP" expanded="false" />
+                <element signature="e#14825#15737#0#PHP" expanded="false" />
+                <element signature="e#15743#17600#0#PHP" expanded="false" />
+                <element signature="e#17606#19644#0#PHP" expanded="false" />
+                <element signature="e#19650#20687#0#PHP" expanded="false" />
+                <element signature="e#20693#21494#0#PHP" expanded="false" />
+                <element signature="e#21500#22510#0#PHP" expanded="false" />
+                <element signature="e#22516#23535#0#PHP" expanded="false" />
+                <element signature="e#23541#25207#0#PHP" expanded="false" />
+                <element signature="e#25213#25505#0#PHP" expanded="false" />
+                <element signature="e#25511#25834#0#PHP" expanded="false" />
+                <element signature="e#25840#26164#0#PHP" expanded="false" />
+                <element signature="e#26170#27622#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OtpImportController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
+      <file leaf-file-name="home_user_ym.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="398" column="73" lean-forward="false" selection-start-line="398" selection-start-column="72" selection-end-line="398" selection-end-column="73" />
-              <folding>
-                <element signature="e#39166#43719#0#PHP" expanded="false" />
-              </folding>
+            <state relative-caret-position="210">
+              <caret line="29" column="105" lean-forward="false" selection-start-line="29" selection-start-column="105" selection-end-line="29" selection-end-column="105" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home_user.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MonthlyDashboardController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MonthlyDashboardController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="708">
+              <caret line="152" column="21" lean-forward="true" selection-start-line="152" selection-start-column="21" selection-end-line="152" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home_user.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="168" column="49" lean-forward="true" selection-start-line="168" selection-start-column="49" selection-end-line="168" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="246">
+              <caret line="26" column="42" lean-forward="false" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+              <folding>
+                <element signature="e#10198#12919#0#HTML" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,7 +98,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pace</find>
       <find>pace-done</find>
       <find>nav</find>
       <find>followup</find>
@@ -115,6 +127,7 @@
       <find>array_push</find>
       <find>asc</find>
       <find>monthly-dashboard</find>
+      <find>$month_year</find>
     </findStrings>
     <replaceStrings>
       <replace>avg_length_stay</replace>
@@ -155,7 +168,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/facility_followup/create.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/ChildrenController.php" />
         <option value="$PROJECT_DIR$/resources/views/register/home.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/RegisterController.php" />
@@ -204,8 +216,9 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
         <option value="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
         <option value="$PROJECT_DIR$/.env" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/resources/views/homepage/home_user.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
+        <option value="$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php" />
       </list>
     </option>
   </component>
@@ -776,15 +789,15 @@
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\rezaul\laragon4\www\emergencynis\public\custom\bootstrap-datepicker" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\homepage" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\import_export" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\report" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\public\css" />
       <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\layouts" />
-      <recent name="D:\rezaul\laragon4\www\emergencynis\resources\views\homepage" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\rezaul\laragon4\www\emergencynis\public\custom\bootstrap-datepicker" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -899,12 +912,12 @@
       <workItem from="1574223827059" duration="17545000" />
       <workItem from="1574339689695" duration="2600000" />
       <workItem from="1574481898471" duration="41643000" />
-      <workItem from="1574650367846" duration="5375000" />
+      <workItem from="1574650367846" duration="9990000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="462720000" />
+    <option name="totallyTimeSpent" value="467335000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -943,13 +956,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="55" column="48" lean-forward="true" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard_camp.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4420">
@@ -1100,13 +1106,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="634">
-          <caret line="409" column="0" lean-forward="false" selection-start-line="408" selection-start-column="0" selection-end-line="409" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2019_11_03_100558_create_otp_imports_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="98">
@@ -1253,14 +1252,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MonthlyDashboardController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="152" column="21" lean-forward="true" selection-start-line="152" selection-start-column="21" selection-end-line="152" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.env">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1279,33 +1270,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="320" column="29" lean-forward="true" selection-start-line="320" selection-start-column="29" selection-end-line="320" selection-end-column="29" />
-          <folding>
-            <element signature="e#4415#5548#0#PHP" expanded="false" />
-            <element signature="e#5554#6804#0#PHP" expanded="false" />
-            <element signature="e#11763#12985#0#PHP" expanded="false" />
-            <element signature="e#12991#14500#0#PHP" expanded="false" />
-            <element signature="e#15424#17281#0#PHP" expanded="false" />
-            <element signature="e#17287#18324#0#PHP" expanded="false" />
-            <element signature="e#18330#19143#0#PHP" expanded="false" />
-            <element signature="e#19149#20159#0#PHP" expanded="false" />
-            <element signature="e#20165#21184#0#PHP" expanded="false" />
-            <element signature="e#21190#22856#0#PHP" expanded="false" />
-            <element signature="e#22862#23154#0#PHP" expanded="false" />
-            <element signature="e#23160#23483#0#PHP" expanded="false" />
-            <element signature="e#23489#23813#0#PHP" expanded="false" />
-            <element signature="e#23819#25271#0#PHP" expanded="false" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MonthlyDashboardController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="708">
+          <caret line="152" column="21" lean-forward="true" selection-start-line="152" selection-start-column="21" selection-end-line="152" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="168" column="49" lean-forward="true" selection-start-line="168" selection-start-column="49" selection-end-line="168" selection-end-column="49" />
+        <state relative-caret-position="246">
+          <caret line="26" column="42" lean-forward="false" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+          <folding>
+            <element signature="e#10198#12919#0#HTML" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="155" column="35" lean-forward="true" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
+          <folding>
+            <element signature="e#4437#5570#0#PHP" expanded="false" />
+            <element signature="e#5576#6839#0#PHP" expanded="false" />
+            <element signature="e#12082#13304#0#PHP" expanded="false" />
+            <element signature="e#13310#14819#0#PHP" expanded="false" />
+            <element signature="e#14825#15737#0#PHP" expanded="false" />
+            <element signature="e#15743#17600#0#PHP" expanded="false" />
+            <element signature="e#17606#19644#0#PHP" expanded="false" />
+            <element signature="e#19650#20687#0#PHP" expanded="false" />
+            <element signature="e#20693#21494#0#PHP" expanded="false" />
+            <element signature="e#21500#22510#0#PHP" expanded="false" />
+            <element signature="e#22516#23535#0#PHP" expanded="false" />
+            <element signature="e#23541#25207#0#PHP" expanded="false" />
+            <element signature="e#25213#25505#0#PHP" expanded="false" />
+            <element signature="e#25511#25834#0#PHP" expanded="false" />
+            <element signature="e#25840#26164#0#PHP" expanded="false" />
+            <element signature="e#26170#27622#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="29" column="105" lean-forward="false" selection-start-line="29" selection-start-column="105" selection-end-line="29" selection-end-column="105" />
           <folding />
         </state>
       </provider>

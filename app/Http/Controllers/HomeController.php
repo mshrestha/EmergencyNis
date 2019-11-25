@@ -46,23 +46,22 @@ class HomeController extends Controller
                 $previous_month = $report_month - 1;
                 $previous_year = $report_year;
             }
-
+            $user_facility_id=Auth::user()->facility_id;
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
-            $report_month_dashboard = MonthlyDashboard::where('year', $report_year)->where('month', $report_month)
-                ->where('facility_id', Auth::user()->facility_id)->first();
-//            dd($report_month_dashboard);
-            $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
-                ->where('facility_id', Auth::user()->facility_id)->first();
-//            dd($previous_month_dashboard);
+            $report_month_dashboard = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->first();
+            $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
+//            dd($total_admission);
             $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
             $user_barchart = $this->user_dashboard_barchart($report_month);
+//            $dashboard_data = $this->user_dashboard_data($report_year, $report_month, $user_facility_id);
+//            dd($dashboard_data);
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             
             
             return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count'));
+                'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count','total_admission'));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -81,7 +80,7 @@ class HomeController extends Controller
 
             $dashboard_data = $this->admin_dashboard_data($report_year, $report_month);
             $chart_doughnut_value = $this->admin_dashboard_doughnutchart($report_year, $report_month);
-            $admin_barchart = $this->admin_dashboard_barchart();
+            $admin_barchart = $this->admin_dashboard_barchart($report_month);
 
             $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
             $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
@@ -132,7 +131,7 @@ class HomeController extends Controller
             ->get()->toArray();
         $dashboard_data = $this->admin_dashboard_data($report_year, $report_month);
         $chart_doughnut_value = $this->admin_dashboard_doughnutchart($report_year, $report_month);
-        $admin_barchart = $this->admin_dashboard_barchart();
+        $admin_barchart = $this->admin_dashboard_barchart($report_month);
 
         $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
         $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
@@ -147,6 +146,7 @@ class HomeController extends Controller
 
     public function programUserDashboard_ym($year, $month)
     {
+        $user_facility_id=Auth::user()->facility_id;
         $report_month = $month;
         $report_year = $year;
         if ($report_month == 1) {
@@ -228,17 +228,21 @@ class HomeController extends Controller
             $previous_month_dashboard['otp_mnthend_60f']=0;
 
         }
-//        dd($previous_month_dashboard);
+        $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
         $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
 //dashboard chart bar
         $user_barchart = $this->user_dashboard_barchart($report_month);
 //end dashboard chart bar
+//        $dashboard_data = $this->user_dashboard_data($report_year, $report_month, $user_facility_id);
+//        dd($dashboard_data);
+
         //Sync data count
         $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
         $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
         //var_dump($facility_followup)
-        return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-            'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count'));
+
+        return view('homepage.home_user_ym', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
+            'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count','total_admission'));
     }
 
     public function programManagerDashboard_ym($year, $month)
@@ -353,6 +357,36 @@ class HomeController extends Controller
         return $dashboard_data;
     }
 
+    private function user_dashboard_data($report_year, $report_month,$user_facility_id)
+    {
+        $dashboard_data['month_year'] = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
+        $admission_total = DB::table('facility_followups')->where('facility_id', $user_facility_id)->where('new_admission', '!=', 'Age 6 to 59m')->count();
+        if ($admission_total == 0)
+            $dashboard_data['admission_total'] = 0;
+        else
+            $dashboard_data['admission_total'] = $admission_total;
+        $admission_reportmonth = DB::table('facility_followups')->where('facility_id', $user_facility_id)->whereYear('date', $report_year)->whereMonth('date', $report_month)
+            ->where('new_admission', '!=', 'Age 6 to 59m')->count();
+        if ($admission_reportmonth == 0)
+            $dashboard_data['admission_reportmonth'] = 0;
+        else
+            $dashboard_data['admission_reportmonth'] = $admission_reportmonth;
+        $death_reportmonth = FacilityFollowup::where('facility_id', $user_facility_id)->where('discharge_criteria_exit', 'Death')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->count();
+        if ($death_reportmonth == 0)
+            $dashboard_data['death_reportmonth'] = 0;
+        else
+            $dashboard_data['death_reportmonth'] = $death_reportmonth;
+        $recovered_child = FacilityFollowup::where('facility_id', $user_facility_id)->where('discharge_criteria_exit', 'Recovered')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->get();
+        if ($recovered_child->count() == 0) {
+            $dashboard_data['weight_gain'] = 0;
+            $dashboard_data['length_of_stay'] = 0;
+        } else {
+            $dashboard_data['weight_gain'] = $recovered_child->sum('gain_of_weight') / $recovered_child->count();
+            $dashboard_data['length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
+        }
+        return $dashboard_data;
+    }
+
     private function admin_dashboard_doughnutchart($report_year, $report_month)
     {
         $muac = FacilityFollowup::where('new_admission', 'MUAC')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->count();
@@ -374,11 +408,11 @@ class HomeController extends Controller
         return array_values($chart_doughnut);
     }
 
-    private function admin_dashboard_barchart()
+    private function admin_dashboard_barchart($report_month)
     {
         $admission = DB::table('facility_followups')->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
             ->groupBy('dat')
-            ->whereDate('date', '>', \Carbon\Carbon::now()->subDays(30))
+            ->whereMonth('date', $report_month)
             ->where('new_admission', '!=', 'Age 6 to 59m')
 //            ->where('new_admission', 'MUAC')
 //            ->orwhere('new_admission', 'WFH Zscore')
