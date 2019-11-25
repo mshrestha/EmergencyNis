@@ -72,7 +72,7 @@ class FacilityFollowupController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $facility_followup = FacilityFollowup::create($data);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = "Failed to save followup, Try again";
             $this->_notify_type = "danger";
         }
@@ -113,7 +113,7 @@ class FacilityFollowupController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
 
             FacilityFollowup::findOrFail($id)->update($data);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = "Failed to save followup, Try again";
             $this->_notify_type = "danger";
         }
@@ -122,6 +122,7 @@ class FacilityFollowupController extends Controller
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
+
     }
 
     /**
@@ -135,7 +136,7 @@ class FacilityFollowupController extends Controller
         try {
             FacilityFollowup::destroy($id);
             $this->_notify_message = 'Deleted Followup.';
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to delete Followup, Try again.';
             $this->_notify_type = 'danger';
         }

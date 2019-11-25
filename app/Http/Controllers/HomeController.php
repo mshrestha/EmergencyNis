@@ -46,7 +46,6 @@ class HomeController extends Controller
                 $previous_month = $report_month - 1;
                 $previous_year = $report_year;
             }
-            $user_facility_id=Auth::user()->facility_id;
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
             $report_month_dashboard = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->first();
             $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
