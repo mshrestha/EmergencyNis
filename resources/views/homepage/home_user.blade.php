@@ -131,7 +131,7 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>ADMISSIONS (Last 30 days)</h5>
+                                <h5>ADMISSIONS <small>{{$month_year}}</small></h5>
                                 {{--<div class="pull-right">--}}
                                 {{--<div class="btn-group">--}}
                                 {{--<button type="button" class="btn btn-xs btn-white active">Today</button>--}}
@@ -167,7 +167,7 @@
                                                     <div style="width: 100%;" class="progress-bar"></div>
                                                 </div>
                                             </li>
-                                            <li>
+                                            <li class="hidden">
                                                 <h2 class="no-margins ">-</h2>
                                                 <small>Deaths this month</small>
                                                 {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}

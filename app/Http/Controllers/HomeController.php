@@ -55,7 +55,7 @@ class HomeController extends Controller
                 ->where('facility_id', Auth::user()->facility_id)->first();
 //            dd($previous_month_dashboard);
             $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
-            $user_barchart = $this->user_dashboard_barchart();
+            $user_barchart = $this->user_dashboard_barchart($report_month);
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
@@ -231,7 +231,7 @@ class HomeController extends Controller
 //        dd($previous_month_dashboard);
         $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
 //dashboard chart bar
-        $user_barchart = $this->user_dashboard_barchart();
+        $user_barchart = $this->user_dashboard_barchart($report_month);
 //end dashboard chart bar
         //Sync data count
         $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
@@ -301,13 +301,14 @@ class HomeController extends Controller
         return view('homepage.program-manager', compact('cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart'));
     }
 
-    private function user_dashboard_barchart()
+    private function user_dashboard_barchart($report_month)
     {
         //dashboard chart bar
         $admission = FacilityFollowup::where('facility_id', Auth::user()->facility_id)
             ->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
             ->groupBy('dat')
-            ->whereDate('date', '>', \Carbon\Carbon::now()->subDays(30))
+//            ->whereDate('date', '>', \Carbon\Carbon::now()->subDays(30))
+            ->whereMonth('date', $report_month)
             ->where('new_admission', '!=', 'Age 6 to 59m')
 //            ->where('new_admission', 'MUAC')
 //            ->orWhere('new_admission', 'WFH Zscore')
@@ -317,6 +318,7 @@ class HomeController extends Controller
         $user_barchart['count'] = array_values($admission);
         $user_barchart['date'] = array_keys($admission);
 
+//        dd($user_barchart);
         return $user_barchart;
 //end dashboard chart bar
     }
