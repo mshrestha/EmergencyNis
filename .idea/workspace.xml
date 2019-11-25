@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df9c621-5e08-4402-bd93-fd0572f0e0a5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/homepage/home_ym.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/homepage/home_user.blade.php" afterPath="$PROJECT_DIR$/resources/views/homepage/home_user.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/homepage/home.blade.php" afterPath="$PROJECT_DIR$/resources/views/homepage/home.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,38 +17,45 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="HomeController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="HomeController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="155" column="35" lean-forward="true" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
+            <state relative-caret-position="102">
+              <caret line="79" column="73" lean-forward="false" selection-start-line="79" selection-start-column="73" selection-end-line="79" selection-end-column="73" />
               <folding>
-                <element signature="e#4437#5570#0#PHP" expanded="false" />
-                <element signature="e#5576#6839#0#PHP" expanded="false" />
-                <element signature="e#12082#13304#0#PHP" expanded="false" />
-                <element signature="e#13310#14819#0#PHP" expanded="false" />
-                <element signature="e#14825#15737#0#PHP" expanded="false" />
-                <element signature="e#15743#17600#0#PHP" expanded="false" />
-                <element signature="e#17606#19644#0#PHP" expanded="false" />
-                <element signature="e#19650#20687#0#PHP" expanded="false" />
-                <element signature="e#20693#21494#0#PHP" expanded="false" />
-                <element signature="e#21500#22510#0#PHP" expanded="false" />
-                <element signature="e#22516#23535#0#PHP" expanded="false" />
-                <element signature="e#23541#25207#0#PHP" expanded="false" />
-                <element signature="e#25213#25505#0#PHP" expanded="false" />
-                <element signature="e#25511#25834#0#PHP" expanded="false" />
-                <element signature="e#25840#26164#0#PHP" expanded="false" />
-                <element signature="e#26170#27622#0#PHP" expanded="false" />
+                <element signature="e#4189#5322#0#PHP" expanded="false" />
+                <element signature="e#6603#11646#0#PHP" expanded="false" />
+                <element signature="e#11652#12874#0#PHP" expanded="false" />
+                <element signature="e#12880#14389#0#PHP" expanded="false" />
+                <element signature="e#14395#15307#0#PHP" expanded="false" />
+                <element signature="e#15313#17170#0#PHP" expanded="false" />
+                <element signature="e#19014#19815#0#PHP" expanded="false" />
+                <element signature="e#19821#20831#0#PHP" expanded="false" />
+                <element signature="e#20837#21856#0#PHP" expanded="false" />
+                <element signature="e#21862#23528#0#PHP" expanded="false" />
+                <element signature="e#23534#23826#0#PHP" expanded="false" />
+                <element signature="e#23832#24155#0#PHP" expanded="false" />
+                <element signature="e#24161#24485#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home_user_ym.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php">
+      <file leaf-file-name="home_ym.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_ym.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="29" column="105" lean-forward="false" selection-start-line="29" selection-start-column="105" selection-end-line="29" selection-end-column="105" />
+            <state relative-caret-position="280">
+              <caret line="29" column="145" lean-forward="false" selection-start-line="29" selection-start-column="145" selection-end-line="29" selection-end-column="145" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="193" column="32" lean-forward="false" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -60,18 +67,6 @@
             <state relative-caret-position="708">
               <caret line="152" column="21" lean-forward="true" selection-start-line="152" selection-start-column="21" selection-end-line="152" selection-end-column="21" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home_user.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="26" column="42" lean-forward="false" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
-              <folding>
-                <element signature="e#10198#12919#0#HTML" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -168,7 +163,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ChildrenController.php" />
         <option value="$PROJECT_DIR$/resources/views/register/home.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/RegisterController.php" />
         <option value="$PROJECT_DIR$/resources/views/homepage/child-info.blade.php" />
@@ -184,7 +178,6 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/UserController.php" />
         <option value="$PROJECT_DIR$/resources/views/user/edit.blade.php" />
         <option value="$PROJECT_DIR$/database/migrations/2019_10_22_023850_create_monthly_dashboards_table.php" />
-        <option value="$PROJECT_DIR$/resources/views/homepage/home.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/MonthlyDashboardController.php" />
         <option value="$PROJECT_DIR$/resources/views/homepage/program-manager.blade.php" />
         <option value="$PROJECT_DIR$/config/database.php" />
@@ -217,8 +210,10 @@
         <option value="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/resources/views/homepage/home_user.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
         <option value="$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/homepage/home.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/homepage/home_ym.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
       </list>
     </option>
   </component>
@@ -912,12 +907,12 @@
       <workItem from="1574223827059" duration="17545000" />
       <workItem from="1574339689695" duration="2600000" />
       <workItem from="1574481898471" duration="41643000" />
-      <workItem from="1574650367846" duration="9990000" />
+      <workItem from="1574650367846" duration="11967000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="467335000" />
+    <option name="totallyTimeSpent" value="469312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -956,13 +951,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard_camp.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4420">
-          <caret line="260" column="0" lean-forward="false" selection-start-line="258" selection-start-column="0" selection-end-line="260" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Exceptions/Handler.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-372">
@@ -1270,14 +1258,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="152" column="0" lean-forward="true" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MonthlyDashboardController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="708">
@@ -1296,36 +1276,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="155" column="35" lean-forward="true" selection-start-line="155" selection-start-column="35" selection-end-line="155" selection-end-column="35" />
-          <folding>
-            <element signature="e#4437#5570#0#PHP" expanded="false" />
-            <element signature="e#5576#6839#0#PHP" expanded="false" />
-            <element signature="e#12082#13304#0#PHP" expanded="false" />
-            <element signature="e#13310#14819#0#PHP" expanded="false" />
-            <element signature="e#14825#15737#0#PHP" expanded="false" />
-            <element signature="e#15743#17600#0#PHP" expanded="false" />
-            <element signature="e#17606#19644#0#PHP" expanded="false" />
-            <element signature="e#19650#20687#0#PHP" expanded="false" />
-            <element signature="e#20693#21494#0#PHP" expanded="false" />
-            <element signature="e#21500#22510#0#PHP" expanded="false" />
-            <element signature="e#22516#23535#0#PHP" expanded="false" />
-            <element signature="e#23541#25207#0#PHP" expanded="false" />
-            <element signature="e#25213#25505#0#PHP" expanded="false" />
-            <element signature="e#25511#25834#0#PHP" expanded="false" />
-            <element signature="e#25840#26164#0#PHP" expanded="false" />
-            <element signature="e#26170#27622#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_user_ym.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="29" column="105" lean-forward="false" selection-start-line="29" selection-start-column="105" selection-end-line="29" selection-end-column="105" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/homepage/home.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="193" column="32" lean-forward="false" selection-start-line="193" selection-start-column="32" selection-end-line="193" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/homepage/home_ym.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="29" column="145" lean-forward="false" selection-start-line="29" selection-start-column="145" selection-end-line="29" selection-end-column="145" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="79" column="73" lean-forward="false" selection-start-line="79" selection-start-column="73" selection-end-line="79" selection-end-column="73" />
+          <folding>
+            <element signature="e#4189#5322#0#PHP" expanded="false" />
+            <element signature="e#6603#11646#0#PHP" expanded="false" />
+            <element signature="e#11652#12874#0#PHP" expanded="false" />
+            <element signature="e#12880#14389#0#PHP" expanded="false" />
+            <element signature="e#14395#15307#0#PHP" expanded="false" />
+            <element signature="e#15313#17170#0#PHP" expanded="false" />
+            <element signature="e#19014#19815#0#PHP" expanded="false" />
+            <element signature="e#19821#20831#0#PHP" expanded="false" />
+            <element signature="e#20837#21856#0#PHP" expanded="false" />
+            <element signature="e#21862#23528#0#PHP" expanded="false" />
+            <element signature="e#23534#23826#0#PHP" expanded="false" />
+            <element signature="e#23832#24155#0#PHP" expanded="false" />
+            <element signature="e#24161#24485#0#PHP" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
