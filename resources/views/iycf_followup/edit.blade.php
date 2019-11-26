@@ -4,11 +4,10 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-8">
-                <form action="{{ route('facility-followup.save', $children->id) }}" method="post" id="followupform">
+                <form action="{{ route('iycf-followup.update', $iycf_followup->sync_id) }}" method="post" id="followupform">
                     @csrf
-                    @method('POST')
-                    @include('facility_followup.partials.fields')
-
+                    @method('PATCH')
+                    @include('iycf_followup.partials.fields')
                 </form>
             </div> <!-- col -->
             <div class="col-lg-4">
@@ -52,8 +51,6 @@
             }
         });
     }
-
-
 </script>
 
 @endpush

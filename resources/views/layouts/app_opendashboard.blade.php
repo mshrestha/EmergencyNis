@@ -24,61 +24,42 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet'/>
     @stack('styles')
 </head>
-<body class="pace-done">
-<div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar">
-            <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="logo-element">
-                        <a href="{{ route('open_dashboard') }}" style="color: #fff;">
-                            ENS
-                        </a>
-                    </div>
-                </li>
-                @if (Auth::check())
-                    <li>
-                        @if(Auth::user()->role=='manager' )
-                            <a href="{{ route('program-manager') }}" style="color: #fff;" data-toggle="tooltip"
-                               title="Dashboard"
-                               class="btn btn-success"><i class="fa fa-home"></i><span class="nav-label">Dashboard</span></a>
-                        @else
-                            <a href="{{ route('homepage') }}" style="color: #fff;" data-toggle="tooltip"
-                               title="Dashboard"
-                               class="btn btn-success"><i class="fa fa-home"></i><span class="nav-label">Dashboard</span></a>
-                        @endif
-                    </li>
-                        @else
-                     <li>
-                         <a href="{{ route('auth.login') }}" style="color: #fff;" data-toggle="tooltip"
-                               title="Log-In"
-                               class="btn btn-danger">
-                                <i class="fa fa-sign-in"></i><span
-                                        class="nav-label">Log In</span>
-                            </a>
-                    </li>
-                @endif
-            </ul>
-        </div>
-    </nav>
+<body class="gray-bg">
 
 
-    <div id="page-wrapper" class="gray-bg">
 
-    @include('layouts.partials.alert')
+    <div class="openDashboard animated fadeInDown">
+        <div class="row">
 
-    @yield('content')
-    <!---- CONTENT GOES HERE -->
-        <div class="footer">
-            <div class="pull-right">
-                Version 1.0
+            <div class="col-md-12">
+                @include('layouts.partials.alert')
+
+                @yield('content')
             </div>
-            <div>
-                <strong>Copyright</strong> UNICEF Bangladesh &copy; {{ date('Y') }}
+
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="footer">
+                <div class="pull-right">
+                    Version 1.0
+                </div>
+                <div>
+                    <strong>Copyright</strong> UNICEF Bangladesh &copy; {{ date('Y') }}
+                </div>
             </div>
         </div>
     </div>
-</div>
+
+
+
+
+
+
+
+
+                <!---- CONTENT GOES HERE -->
+
 
 
 <!-- Mainly scripts -->
@@ -112,6 +93,7 @@
     $(document).ready(function () {
         $("body").toggleClass("mini-navbar");
     });
+
 
 </script>
 

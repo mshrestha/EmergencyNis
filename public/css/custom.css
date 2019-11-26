@@ -76,3 +76,13 @@ div#vertical-timeline {
 .table-marginless {
     margin-bottom:0px;
 }
+canvas#childAdmission {
+    height: 100% !important;
+}
+.ens-register-tabs {
+    border: none;
+}
+
+.btn-registered {
+    font-size: 9px;
+}

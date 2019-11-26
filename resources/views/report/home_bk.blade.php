@@ -79,8 +79,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <table id="otp_data"
-                               class="table table-striped table-bordered table-hover dataTables-example x-small small">
+                        <table id="otp_data" class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             <thead>
                             <tr>
                                 <th rowspan="3">Age Group</th>
@@ -593,19 +592,19 @@
 
 @push('scripts')
 <script>
-    $(document).ready(function () {
-        $('#otp_data').DataTable({
-            "paging": false,
-            "searching": false,
-            "info": false,
+    $(document).ready(function() {
+        $('#otp_data').DataTable( {
+            "paging":   false,
+            "searching":   false,
+            "info":   false,
             responsive: true,
             dom: '<"html5buttons"B>lTfgtip',
             buttons: [
                 {extend: 'excel', title: 'otp_report'},
                 {extend: 'pdf', title: 'otp_report'},
             ]
-        });
-    });
+        } );
+    } );
 </script>
 
 <script src="js/plugins/dataTables/datatables.min.js"></script>

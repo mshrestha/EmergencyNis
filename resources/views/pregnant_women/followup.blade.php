@@ -3,27 +3,16 @@
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-lg-8">
-                <form action="{{ route('facility-followup.save', $children->id) }}" method="post" id="followupform">
+            <div class="col-lg-12">
+                <form action="{{ route('pregnant-women-followup.store') }}" method="post" id="followupform">
                     @csrf
                     @method('POST')
-                    @include('facility_followup.partials.fields')
-
+                    @include('pregnant_women.partials.followup')
+                    
+                    <button class="btn btn-primary" type="submit">Add</button>
                 </form>
             </div> <!-- col -->
-            <div class="col-lg-4">
-                <div class="ibox ">
-                    <div class="ibox-content">
-                        <div class="tab-content">
-                            <div id="contact-1" class="tab-pane active">
-                                <div id="child-info">
-                                    Loading ...
-                                </div>
-                            </div> <!-- tab-pane -->
-                        </div> <!-- tab-content -->
-                    </div> <!-- ibox-content -->
-                </div> <!-- ibox -->
-            </div> <!-- col -->
+            
         </div> <!-- row -->
     </div> <!-- wrapper -->
 @endsection
@@ -39,7 +28,7 @@
                 $('#followupform').submit();
             }
         });
-        load_child({{$children->sync_id}})
+        load_child()
     })
 
     var abase_url = '{{url('/')}}';

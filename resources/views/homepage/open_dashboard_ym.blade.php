@@ -191,104 +191,56 @@
 
     $(document).ready(function () {
 //Line chart Admission trend start
-        var obj = JSON.parse('<?php echo json_encode($line_chart); ?>');
+        var obj = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
+        var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
-
-        function getMissing(a, b) {
-            var missings = [];
-            var matches = false;
-
-            for (var i = 0; i < a.length; i++) {
-                matches = false;
-                for (var e = 0; e < b.length; e++) {
-                    if (a[i] === b[e]) matches = true;
-                }
-                if (!matches) missings.push(a[i]);
-            }
-            return missings;
-        }
-
-        var all_labels = [];
-        var admission = [];
-        var datasets = [];
-        var labels = [];
-        var oos = [];
-        var main_data = {};
-        for (i = 0; i < obj.length; i++) {
-            if (admission.indexOf(obj[i].Facility_name) === -1) {
-
-//                admission.push(obj[i].Facility_name.split("/")[1]);
-                admission.push(obj[i].Facility_name);
-            }
-        }
-        for (i = 0; i < obj.length; i++) {
-            if (all_labels.indexOf(obj[i].Month) === -1) {
-                all_labels.push(obj[i].Month);
-            }
-        }
-        var count = 0;
-
-        var chartColor = [window.chartColors.red, window.chartColors.blue, window.chartColors.green, window.chartColors.yellow, window.chartColors.orange, window.chartColors.purple, window.chartColors.grey]
-        admission.forEach(function (admit) {
-
-            var labels = [];
-            var oos = [];
-            obj.forEach(function (report) {
-                if (report.Facility_name === admit) {
-                    oos.push(report.TotalAdmission)
-                    labels.push(report.Month);
-                }
-            });
-            missing = getMissing(all_labels, labels);
-            if (missing) {
-                missing.forEach(function (missed) {
-                    labels.push(missed);
-                    oos.push(0)
-                });
-            }
-            data = {
-                label: admit, data: oos, fill: false, backgroundColor: chartColor[count % 7],
-                borderColor: chartColor[count % 7], borderDash: [5, 5], borderWidth: 2
-            }
-            datasets.push(data);
-            count++;
+        var labels = obj.map(function(e) {
+            return e.MonthYear;
         });
-        main_data = {labels: all_labels, datasets: datasets, backgroundColor: "transparent"}
-//            console.log(main_data);
-        var options = {
-//            bezierCurve : false,
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false,
-                        precision: 0
-                    }
+//        console.log("test");
+
+        var data = obj.map(function(e) {
+            return e.TotalAdmission;
+        });
+        var data_bsfp = obj_bsfp.map(function(e) {
+            return e.TotalAdmission;
+        });
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'OTP',
+                    data: data,
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    borderDash: [5, 5],
+                    borderWidth:2,
+                    fill: false
+                },{
+                    label: 'BSFP',
+                    data: data_bsfp,
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    borderDash: [5, 5],
+                    borderWidth:2,
+                    fill: false
                 }]
             },
-            elements: {
-                line: {
-                    tension: 0
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
                 }
             }
-
-//            title: {
-//                display: true,
-//                text: 'Admission Trend',
-//                fontStyle: 'bold',
-//                fontColor: 'blue',
-//                position: 'top',
-//                fontSize: 14
-//            }
-        };
-
-        myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: main_data,
-            options: options
         });
 //End of Line chart Admission trend start
+
         //Doughnut charts starts here
         var child23 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_23']); ?>');
         var child24 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_24']); ?>');
@@ -315,10 +267,11 @@
         var female = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_female']); ?>');
         var others = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_others']); ?>');
         var doughnutData = {
-            labels: ["Male", "Female", "Other"],
+            labels: ["Male", "Female"],
             datasets: [{
-                data: [male, female, others],
-                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
+                data: [male, female],
+                backgroundColor: ["#a3e1d4", "#dedede"]
+
             }]
         };
 

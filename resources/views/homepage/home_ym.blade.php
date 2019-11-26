@@ -24,12 +24,12 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <span class="label label-info pull-right">Children</span>
-                            <h5>Total Admissions</h5>
+                            <h5>Admissions</h5>
                         </div>
                         <div class="ibox-content">
-                            <h1 class="no-margins">{{ $dashboard_data['admission_total'] }}</h1>
+                            <h1 class="no-margins">{{ $dashboard_data['admission_reportmonth'] }} <small>({{$dashboard_data['admission_total']}})</small></h1>
                             {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
-{{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ number_format($dashboard['cureRate'],2) }}%</h1>
                             {{--<div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>--}}
-{{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ number_format($dashboard['deathRate'],2) }}%</h1>
                             {{--<div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>--}}
-{{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             {{--<h1 class="no-margins">{{ $dashboard['defaultRate'] }}%</h1>--}}
                             <h1 class="no-margins">{{ number_format($dashboard['defaultRate'] , 2)}}%</h1>
                             {{--<div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>--}}
-{{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ number_format($dashboard['nonRespondantRate'],2) }}%</h1>
                             {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
-{{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{number_format($dashboard_data['weight_gain'],2)}} <small>g/Kg/day</small></h1>
                             {{--<div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>--}}
-                            {{--<small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                         <div class="ibox-content">
                             <h1 class="no-margins">{{number_format($dashboard_data['length_of_stay'],2)}}<small> days</small></h1>
                             {{--<div class="stat-percent font-bold text-danger">2 days <i class="fa fa-level-down"></i></div>--}}
-                            {{--<small>{{$dashboard_data['month_year']}}</small>--}}
+                            <small>{{$dashboard_data['month_year']}}</small>
                         </div>
                     </div>
                 </div>
@@ -126,14 +126,14 @@
                             <canvas id="doughnutChart" width="200" height="150"
                             style="margin: 18px auto 0"></canvas>
                             <div class="m-t">
-                                {{--<small>{{$dashboard_data['month_year']}} </small>--}}
+                                <small>{{$dashboard_data['month_year']}} </small>
                             </div>
 
 
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12 hidden">
+                <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>ADMISSIONS (Last 30 days)</h5>
@@ -191,7 +191,7 @@
         <div class="col-lg-4">
             <div class="btn-group pull-right" style="padding-bottom: 15px" >
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    Select Month
+                    {{$dashboard_data['month_year']}}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu">

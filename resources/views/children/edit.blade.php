@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('children.update', $child->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('children.update', $child->sync_id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
 						@method('PATCH')
 						@include('children.partials.fields')
