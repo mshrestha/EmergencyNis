@@ -53,11 +53,11 @@ class OtpImportController extends Controller
 //            DB::table('otp_imports')
 //            ->groupBy('campSettlement')
 //            ->pluck('campSettlement')->toArray();
-//        $periods = DB::table('otp_imports')
-//            ->groupBy('period')
-//            ->orderBy('year', 'desc')
-//            ->orderBy('month', 'desc')
-//            ->pluck('period')->toArray();
+        $periods = DB::table('otp_imports')
+            ->groupBy('period')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->pluck('period')->toArray();
 //dd($request->period);
         $pieces = explode("-", $request->period);
 
@@ -95,18 +95,18 @@ class OtpImportController extends Controller
 //            DB::table('otp_imports')
 //            ->groupBy('campSettlement')
 //            ->pluck('campSettlement')->toArray();
-//        $periods = DB::table('otp_imports')
-//            ->groupBy('period')
-//            ->orderBy('year', 'desc')
-//            ->orderBy('month', 'desc')
-//            ->pluck('period')->toArray();
+        $periods = DB::table('otp_imports')
+            ->groupBy('period')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->pluck('period')->toArray();
 //        $cache_data = DB::table('otp_imports')
 //            ->select('year', 'month')
 //            ->groupBy('year', 'month')
 //            ->orderBy('year', 'desc')
 //            ->orderBy('month', 'desc')
 //            ->get()->toArray();
-//        dd($cache_data);
+//        dd($periods);
 //        if (empty($cache_data)) {
         if (date('n') == 1) {
             $report_month = 12;

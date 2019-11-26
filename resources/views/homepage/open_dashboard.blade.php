@@ -30,7 +30,7 @@
                     </select>
                     <select name="period" required class="btn ">
                         {{--<option value="">Period</option>--}}
-                        @foreach($months as $month_list)
+                        @foreach($periods as $month_list)
                             <option value="{{ $month_list }}">{{ $month_list }}</option>
                         @endforeach
                     </select>

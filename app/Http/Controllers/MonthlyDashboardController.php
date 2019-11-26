@@ -217,6 +217,7 @@ class MonthlyDashboardController extends Controller
             ->whereMonth('date', '=', $month)
             ->whereYear('date', '=', $year)
             ->get();
+//        dd($facilityFollowup);
         $dashboard_cureRate = 0;
         $dashboard_count = 0;
         foreach ($facilityFollowup as $child) {
@@ -232,7 +233,9 @@ class MonthlyDashboardController extends Controller
         } else {
             $rate_cureRate = $dashboard_cureRate / $dashboard_count * 100;
         }
+//        dd($rate_cureRate);
         return $rate_cureRate;
+
     }
 
     private function otp_admit_23($facility_id, $month, $year, $sex)
