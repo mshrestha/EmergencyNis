@@ -51,6 +51,10 @@ class ChildrenController extends Controller
     public function store(Request $request)
     {
         try {
+            if(!env('SERVER_CODE')) {
+                dd('No server code found.');
+            }
+
             $data = $request->all();
             $image = $this->uploadImage($request);
             $image ? $data['picture'] = $image : false ;

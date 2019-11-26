@@ -86,3 +86,11 @@ canvas#childAdmission {
 .btn-registered {
     font-size: 9px;
 }
+
+.data-sync-count p {
+    margin-bottom: 2px;
+}
+.data-sync-count {
+    display: block;
+    margin-bottom: 15px;
+}

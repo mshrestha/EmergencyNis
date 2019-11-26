@@ -54,6 +54,10 @@ class PregnantWomenController extends Controller
 
     public function store(Request $request) {
         try {
+            if(!env('SERVER_CODE')) {
+                dd('No server code found.');
+            }
+            
             $data = $request->all();
             $data['facility_id'] = Auth::user()->facility_id;
 
