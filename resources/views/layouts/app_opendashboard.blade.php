@@ -25,18 +25,18 @@
     @stack('styles')
 </head>
 <body class="gray-bg">
-     
 
-            
-    <div class="loginColumns animated fadeInDown">
+
+
+    <div class="openDashboard animated fadeInDown">
         <div class="row">
 
             <div class="col-md-12">
                 @include('layouts.partials.alert')
-                
+
                 @yield('content')
             </div>
-            
+
         </div>
         <hr/>
         <div class="row">
@@ -52,15 +52,15 @@
     </div>
 
 
-           
-    
-    
-    
-    
-    
+
+
+
+
+
+
                 <!---- CONTENT GOES HERE -->
-                    
-           
+
+
 
 <!-- Mainly scripts -->
 <script src="{{ asset('js/jquery-3.1.1.min.js')}}"></script>
@@ -94,7 +94,7 @@
         $("body").toggleClass("mini-navbar");
     });
 
-    
+
 </script>
 
 @stack('scripts')
