@@ -18,3 +18,18 @@ Route::post('/sync/save-facility-followup', [
 	'uses' => 'SyncDataServerController@syncFacilityFollowupServer',
 	'as' => 'sync.facility-followup.server'
 ]);
+
+Route::post('/sync/save-iycf-followup', [
+	'uses' => 'SyncDataServerController@syncIycfFollowupServer',
+	'as' => 'sync.iycf-followup.server'
+]);
+
+Route::post('/sync/save-pregnant-women', [
+	'uses' => 'SyncDataServerController@syncPregnantWomenServer',
+	'as' => 'sync.pregnant-women.server'
+]);
+
+Route::post('/sync/save-pregnant-women-followup', [
+	'uses' => 'SyncDataServerController@syncPregnantWomenFollowupServer',
+	'as' => 'sync.pregnant-women-followup.server'
+]);
