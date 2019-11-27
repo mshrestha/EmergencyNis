@@ -4,11 +4,12 @@
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-12">
-                <form action="" method="post" id="followupform">
+                <form action="{{ route('pregnant-women-followup.update', $pregnant_followup->sync_id) }}" method="post" id="followupform">
                     @csrf
-                    @method('POST')
-                    @include('pregnant_woman.partials.followup')
+                    @method('PATCH')
+                    @include('pregnant_women.partials.followup')
 
+                    <button class="btn btn-primary" type="submit">Update</button>
                 </form>
             </div> <!-- col -->
             
@@ -27,21 +28,6 @@
                 $('#followupform').submit();
             }
         });
-        load_child()
     })
-
-    var abase_url = '{{url('/')}}';
-    function load_child(child) {
-        $.ajax({
-            url: abase_url + '/child-info/' + child,
-            type: 'get',
-            success: function (res) {
-                $('#child-info').html(res);
-            }
-        });
-    }
-
-
 </script>
-
 @endpush

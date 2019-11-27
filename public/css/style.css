@@ -3706,6 +3706,10 @@ ol.unstyled {
   border-top: 1px solid #e7eaec;
   margin-left: 220px;
 }
+
+
+
+
 body.mini-navbar .footer.fixed,
 body.body-small.mini-navbar .footer.fixed {
   margin: 0 0 0 70px;
@@ -4701,6 +4705,11 @@ body.mini-navbar.fixed-sidebar .logo-element {
 }
 .loginColumns {
   max-width: 800px;
+  margin: 0 auto;
+  padding: 100px 20px 20px 20px;
+}
+.openDashboard {
+  max-width: 1200px;
   margin: 0 auto;
   padding: 100px 20px 20px 20px;
 }

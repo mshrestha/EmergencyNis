@@ -39,7 +39,7 @@
                 $('#followupform').submit();
             }
         });
-        load_child({{$children->id}})
+        load_child({{$children->sync_id}})
     })
 
     var abase_url = '{{url('/')}}';

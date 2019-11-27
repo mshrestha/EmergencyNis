@@ -218,7 +218,11 @@
                 all_labels.push(obj[i].Month);
             }
         }
+        var count = 0;
+        
+        var chartColor = [window.chartColors.red, window.chartColors.blue, window.chartColors.green, window.chartColors.yellow, window.chartColors.orange, window.chartColors.purple, window.chartColors.grey]
         admission.forEach(function (admit) {
+            
             var labels = [];
             var oos = [];
             obj.forEach(function (report) {
@@ -234,8 +238,10 @@
                     oos.push(0)
                 });
             }
-            data = {label: admit, data: oos}
+            data = {label: admit, data: oos, fill:false, backgroundColor: chartColor[count % 7],
+				borderColor: chartColor[count % 7],borderDash: [5, 5], borderWidth:2}
             datasets.push(data);
+            count++;
         });
         main_data = {labels: all_labels, datasets: datasets, backgroundColor: "transparent"}
 //            console.log(main_data);
@@ -343,7 +349,9 @@
                     label: 'Non Respondant Rate',
                     backgroundColor: 'rgb(251, 241, 198, 0.5)',
 //                    stack: 'Stack 1',
-                    data: non_respondent_rate
+                    
+                    data: non_respondent_rate,
+                    
                 },
                 {
                     label: 'Death Rate',
@@ -446,7 +454,15 @@
         });
 
     });
-
+window.chartColors = {
+	red: 'rgb(255, 99, 132, 0.7)',
+	orange: 'rgb(255, 159, 64, 0.7)',
+	yellow: 'rgb(255, 205, 86, 0.7)',
+	green: 'rgb(75, 192, 192, 0.7)',
+	blue: 'rgb(54, 162, 235, 0.7)',
+	purple: 'rgb(153, 102, 255, 0.7)',
+	grey: 'rgb(201, 203, 207, 0.7)'
+};
 
 </script>
 <!-- Mapping script ends here -->

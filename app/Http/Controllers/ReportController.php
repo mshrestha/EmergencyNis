@@ -29,9 +29,14 @@ class ReportController extends Controller
             }
 
             $facility_id = Auth::user()->facility_id;
+
             $report = $this->otp_report($facility_id, $report_month, $report_year);
-//            dd($report); 
-            return view('report.home', compact('children', 'facility', 'report'));
+//            dd($facility_id);
+            $facilities = Facility::all();
+            $current_month = $report_month;
+            $current_year = $report_year;
+
+            return view('report.home', compact('children', 'facility', 'report','facilities','current_month','current_year','facility_id'));
 
 
         } else {
@@ -54,8 +59,12 @@ class ReportController extends Controller
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $request->facility_id;
         $report = $this->otp_report($facility_id, $report_month, $report_year);
+        $facilities = Facility::all();
+        $current_month = $report_month;
+        $current_year = $report_year;
+
 //            dd($report);
-        return view('report.home', compact('children', 'facility', 'report'));
+        return view('report.home', compact('children', 'facility', 'report','facilities','facility_id','current_year','current_month'));
 
     }
 

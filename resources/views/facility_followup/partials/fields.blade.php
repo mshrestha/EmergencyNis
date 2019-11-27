@@ -437,7 +437,7 @@
 								<option value="Death" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Death') ? ' selected' : '' }}>Death</option>
 								<option value="Defaulted" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Defaulted') ? ' selected' : '' }}>Defaulted</option>
 								<option value="Non responder" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Non responder') ? ' selected' : '' }}>Non responder </option>
-                                <option value="Medical Transfer" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Medical Transfer') ? ' selected' : '' }}>Medical Transfer </option>
+{{--                                <option value="Medical Transfer" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Medical Transfer') ? ' selected' : '' }}>Medical Transfer </option>--}}
 							</select>
 						</div>
 						<div class="form-group">

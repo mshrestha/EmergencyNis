@@ -4,59 +4,71 @@ namespace App\Http\Controllers;
 
 use App\Models\Child;
 use App\Models\FacilityFollowup;
+use App\Models\IycfFollowup;
+use App\Models\PregnantWomen;
 
 use Illuminate\Http\Request;
 
 class SyncDataClientController extends Controller
 {
-	// private $sync_url = 'http://localhost:8001';
+	// private $sync_url = 'http://localhost:8000';
 	private $sync_url = 'http://ens.kazi270.com';
 
-    public function syncChildrenClient() {
-    	$total_children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
-		$children_sync = Child::whereIn('sync_status', ['created', 'updated'])->limit(10)->get()->toArray();
-		$has_more = ($total_children_sync_count > count($children_sync)) ? true : false;
-		$sync_left = $total_children_sync_count - count($children_sync);
+	public function syncChildrenClient() {
+		return $this->sendDataToServer('App\Models\Child', '/api/sync/save-children');
+	}
 
+	public function syncFacilityFollowupClient() {
+		return $this->sendDataToServer('App\Models\FacilityFollowup', '/api/sync/save-facility-followup');
+	}
+
+	public function syncIycfFollowupClient() {
+		return $this->sendDataToServer('App\Models\IycfFollowup', '/api/sync/save-iycf-followup');
+	}
+
+	public function syncPregnantWomenClient() {
+		return $this->sendDataToServer('App\Models\PregnantWomen', '/api/sync/save-pregnant-women');
+	}
+
+	public function syncPregnantWomenFollowupClient() {
+		return $this->sendDataToServer('App\Models\PregnantWomenFollowup', '/api/sync/save-pregnant-women-followup');
+	}
+
+
+
+
+
+
+
+
+
+
+
+    public function sendDataToServer($model, $api_url) {
+    	$total_data_sync_count = $model::whereIn('sync_status', ['created', 'updated'])->count();
+		$sync_data = $model::whereIn('sync_status', ['created', 'updated'])->limit(10)->get()->toArray();
+		$has_more = ($total_data_sync_count > count($sync_data)) ? true : false;
+		$sync_left = $total_data_sync_count - count($sync_data);
+
+		//post data
 		$post = [
-			'total_children_sync_count' => $total_children_sync_count,
-			'children_sync' => serialize($children_sync),
+			'total_data_sync_count' => $total_data_sync_count,
+			'sync_data' => serialize($sync_data),
 			'has_more' => $has_more
 		];
 
-		$synced_children_ids = $this->curlInit($post, $this->sync_url.'/api/sync/save-children');
+		//Send to server
+		$synced_ids = $this->curlInit($post, $this->sync_url. $api_url);
 
-		if(is_array($synced_children_ids)) {
-			foreach($synced_children_ids as $synced_children_id) {
-				$children = Child::where('sync_id', $synced_children_id)->first();
-				$children->update(['sync_status' => 'synced']);
+		//Change sync status
+		if(is_array($synced_ids)) {	
+			foreach($synced_ids as $synced_id) {
+				$update_status = $model::where('sync_id', $synced_id)->first();
+				$update_status->update(['sync_status' => 'synced']);
 			}
 		}
 
-		return response()->json(['has_more' => $has_more, 'sync_left' => $sync_left]);
-    }
-
-    public function syncFacilityFollowupClient() {
-    	$total_facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-		$facility_followup_sync = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->limit(10)->get()->toArray();
-		$has_more = ($total_facility_followup_sync_count > count($facility_followup_sync)) ? true : false;
-		$sync_left = $total_facility_followup_sync_count - count($facility_followup_sync);
-
-		$post = [
-			'total_facility_followup_sync_count' => $total_facility_followup_sync_count,
-			'facility_followup_sync' => serialize($facility_followup_sync),
-			'has_more' => $has_more
-		];
-
-		$synced_facility_followup_ids = $this->curlInit($post, $this->sync_url.'/api/sync/save-facility-followup');
-		if(is_array($synced_facility_followup_ids)) {	
-			foreach($synced_facility_followup_ids as $synced_facility_followup_id) {
-				$facility_followup = FacilityFollowup::where('sync_id', $synced_facility_followup_id)->first();
-				$facility_followup->update(['sync_status' => 'synced']);
-			}
-		}
-
-		return response()->json(['has_more' => $has_more, 'sync_left' => $sync_left]);
+		return ['has_more' => $has_more, 'sync_left' => $sync_left];
     }
 
     public function curlInit($post, $url) {
