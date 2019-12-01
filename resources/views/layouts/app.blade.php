@@ -73,6 +73,10 @@
                         <a href="{{ route('importExportTsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
                                     class="nav-label">Import TSFP</span></a>
                     </li>
+                    <li class="{{ request()->segment(1) == 'importExportSc' ? 'active' : '' }}">
+                        <a href="{{ route('importExportSc') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import SC</span></a>
+                    </li>
 
 
                 @endif
