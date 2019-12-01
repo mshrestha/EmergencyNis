@@ -83,18 +83,9 @@ class OtpImportController extends Controller
     public function open_dashboard()
     {
         $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
-//            DB::table('otp_imports')
-//            ->groupBy('programPartner')
-//            ->pluck('programPartner')->toArray();
         $partners = ['ACF', 'BRAC', 'CWW', 'SARPV', 'SCI', 'SHED', 'TDH', 'WC', 'WFP', 'WVI'];
-//            DB::table('otp_imports')
-//            ->groupBy('partner')
-//            ->pluck('partner')->toArray();
         $camps = ['3', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27',
             '1E', '1W', '20EX', '2E', '2W', '4EX', '8E', '8W', 'KRC', 'KTP', 'KTP RC', 'NRC'];
-//            DB::table('otp_imports')
-//            ->groupBy('campSettlement')
-//            ->pluck('campSettlement')->toArray();
         $periods = DB::table('otp_imports')
             ->groupBy('period')
             ->orderBy('year', 'desc')
@@ -159,8 +150,14 @@ class OtpImportController extends Controller
             ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
             ->orderBy('year', 'desc')->orderBy('month', 'desc')
             ->get()->toArray();
+        $line_chart['sc'] = DB::table('sc_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewAdmission) as TotalAdmission'))
+            ->whereIn('period', $months)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
+            ->get()->toArray();
 //        dd($months);
-//        dd($line_chart['bsfp']);
+//        dd($line_chart['sc']);
         $otp_period = [];
         $otp_admission = [];
         $lc['otp'] = [];
@@ -180,18 +177,6 @@ class OtpImportController extends Controller
         $bsfp_period = [];
         $bsfp_admission = [];
         $lc['bsfp'] = [];
-//        0 => "Oct-19" 1 => "Sep-19" 2 => "Aug-19" 3 => "Jul-19" 4 => "Jun-19" 5 => "May-19" 6 => "Apr-19" 7 => "Mar-19" 8 => "Feb-19"
-//        9 => "Jan-19" 10 => "Dec-18" 11 => "Nov-18"
-
-//        0+"MonthYear": "Sep-19" +"TotalAdmission": "10541"
-//    1   +"MonthYear": "Aug-19"  +"TotalAdmission": "8554"
-//    2   +"MonthYear": "Jul-19"  +"TotalAdmission": "13620"
-//    3   +"MonthYear": "Jun-19"  +"TotalAdmission": "5195"
-//    4     +"MonthYear": "May-19"  +"TotalAdmission": "3111"
-//    5     +"MonthYear": "Apr-19"  +"TotalAdmission": "4299"
-//    6     +"MonthYear": "Mar-19"  +"TotalAdmission": "2997"
-//    7     +"MonthYear": "Feb-19"  +"TotalAdmission": "3598"
-//    8     +"MonthYear": "Jan-19"  +"TotalAdmission": "6482"
 
         for ($j = 0; $j < count($months); $j++) {
             foreach ($line_chart['bsfp'] as $bsfp) {
@@ -219,7 +204,21 @@ class OtpImportController extends Controller
             else
                 $lc['tsfp'][] = 0;
         }
-//        dd($lc);
+        $sc_period = [];
+        $sc_admission = [];
+        $lc['sc'] = [];
+        for ($l = 0; $l < count($months); $l++) {
+            foreach ($line_chart['sc'] as $sc) {
+                $sc_period[] = $sc->MonthYear;
+                $sc_admission[] = $sc->TotalAdmission;
+            }
+            if (in_array($months[$l], $sc_period)) {
+                $ll = array_search($months[$l], $sc_period);
+                $lc['sc'][] = $sc_admission[$ll];
+            }
+            else
+                $lc['sc'][] = 0;
+        }
         return $lc;
     }
 
@@ -236,6 +235,9 @@ class OtpImportController extends Controller
         $line_chart_query_tsfp = DB::table('tsfp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newAdmissionTotal) as TotalAdmission'))
             ->whereIn('period', $months);
+        $line_chart_query_sc = DB::table('sc_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewAdmission) as TotalAdmission'))
+            ->whereIn('period', $months);
         if ($programPartner != null && $partner == null && $camp == null) {
             $line_chart['otp'] = $line_chart_query->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
@@ -246,6 +248,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -262,6 +268,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
         } elseif ($programPartner != null && $partner != null && $camp == null) {
             $line_chart['otp'] = $line_chart_query->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
@@ -272,6 +282,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp->where('partner', $partner)->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -288,6 +302,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
         } elseif ($programPartner != null && $partner == null && $camp != null) {
             $line_chart['otp'] = $line_chart_query->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
@@ -298,6 +316,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -314,6 +336,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
         } elseif ($programPartner == null && $partner == null && $camp != null) {
             $line_chart['otp'] = $line_chart_query->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
@@ -327,6 +353,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
         } else {
             $line_chart['otp'] = $line_chart_query
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
@@ -337,6 +367,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['sc'] = $line_chart_query_sc
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -388,6 +422,21 @@ class OtpImportController extends Controller
             }
             else
                 $lc['tsfp'][] = 0;
+        }
+        $sc_period = [];
+        $sc_admission = [];
+        $lc['sc'] = [];
+        for ($l = 0; $l < count($months); $l++) {
+            foreach ($line_chart['sc'] as $sc) {
+                $sc_period[] = $sc->MonthYear;
+                $sc_admission[] = $sc->TotalAdmission;
+            }
+            if (in_array($months[$l], $sc_period)) {
+                $ll = array_search($months[$l], $sc_period);
+                $lc['sc'][] = $sc_admission[$ll];
+            }
+            else
+                $lc['sc'][] = 0;
         }
 //        dd($lc);
         return $lc;
