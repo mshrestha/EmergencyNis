@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('importExportSc', 'ScImportController@importExportSc')->name('importExportSc');
     Route::post('importSc', 'ScImportController@importSc');
 
+    Route::resource('supply', 'SupplyController');
 
 });
 
