@@ -38,7 +38,9 @@
 							</span>
                         <a href="{{ route('homepage') }}">
 								<span class="clear" style="color: #ffffff;">
-									<span class="text-xs block">{{ Auth::user()->name }}</span> 
+                  <span class="text-xs block">{{ Auth::user()->name }}</span> 
+									<span class="text-xs block"><strong>{{ Auth::user()->facility->facility_id }}</strong></span>
+
 								</span>
                         </a>
                     </div>
