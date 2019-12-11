@@ -75,6 +75,10 @@
                         <a href="{{ route('importExportTsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
                                     class="nav-label">Import TSFP</span></a>
                     </li>
+                    <li class="{{ request()->segment(1) == 'importExportSc' ? 'active' : '' }}">
+                        <a href="{{ route('importExportSc') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
+                                    class="nav-label">Import SC</span></a>
+                    </li>
 
 
                 @endif
@@ -85,6 +89,10 @@
                 <li class="{{ (request()->segment(1) == 'register' || request()->segment(1) ==  'children') ? 'active' : '' }}">
                     <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span
                                 class="nav-label">Register</span></a>
+                </li>
+                <li class="{{ request()->segment(1) == 'supply' ? 'active' : '' }}">
+                    <a href="{{ route('supply.index') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span
+                                class="nav-label">Supply</span></a>
                 </li>
             </ul>
 

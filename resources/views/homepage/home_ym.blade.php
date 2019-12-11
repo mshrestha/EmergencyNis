@@ -196,30 +196,16 @@
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu">
                     @foreach($cache_data as $month_list)
-                        <li>
-                            <a href="{{ url('/admin_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
-                        </li>
+                    <li>
+                        <a href="{{ url('/admin_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
+                    </li>
                     @endforeach
                     <li class="divider"></li>
                     <li><a href="{{ url('/homepage') }}">Dashboard</a></li>
                 </ul>
             </div>
 
-        @if(!env('LIVE_SERVER'))
-            <div class="sync-wrapper">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Sync to live server</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <p>Children data sync : {{ $children_sync_count }}</p>
-                        <p>Facility Followup data sync : {{ $facility_followup_sync_count }}</p>
-                        <button class="btn btn-primary" id="btn-sync-now">Sync</button>
-                        <div id="syncing-msg" style="display: none;">Syncing ... </div>
-                    </div>
-                </div>
-            </div>
-            @endif
+            @include('homepage.partials.sync')
 
             <div id="map" style="width:100%; height:750px;"></div>
         </div>
@@ -263,55 +249,6 @@
 <script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
 
 <script>
-    $('#btn-sync-now').on('click', function() {
-        $(this).hide();
-        $('#syncing-msg').html('Syncing ...');
-        $('#syncing-msg').show();
-
-        sync_children();
-    });
-
-    function sync_children() {
-        $.ajax({
-            type: 'get',
-            url: '/sync/children',
-            success: function (res) {
-                // update_progress_bar();
-
-                if(res.has_more == true) {
-                    sync_children();
-                } else {
-                    sync_facility_followup();
-                }
-            }, error: function (err) {
-                // $('.unemploy_sync_count').html('Try again.');
-                $('#btn-sync-now').show();
-            }
-        });
-    }
-
-    function sync_facility_followup() {
-        $.ajax({
-            type: 'get',
-            url: '/sync/facility-followup',
-            success: function (res) {
-                // update_progress_bar();
-
-                if(res.has_more == true) {
-                    sync_facility_followup();
-                } else {
-                    $('#syncing-msg').html('All data synced.');
-                    $('#btn-sync-now').show();
-                }
-            }, error: function (err) {
-                // $('.unemploy_sync_count').html('Try again.');
-                $('#btn-sync-now').show();
-            }
-        });
-    }
-</script>
-
-<script>
     $(document).ready(function () {
 
         $('.dataTables').DataTable({
@@ -343,43 +280,43 @@
 
 
 
-function load_child(child) {
-    $.ajax({
-        url: '/child-info/' + child,
-        type: 'get',
-        success: function (res) {
-            $('#child-info').html(res);
-        }
+    function load_child(child) {
+        $.ajax({
+            url: '/child-info/' + child,
+            type: 'get',
+            success: function (res) {
+                $('#child-info').html(res);
+            }
+        });
+    }
+
+    $('.children-client').on('click', function () {
+        var child = $(this).data('child-id');
+        $('#child-info').html('Loading ...');
+
+        load_child(child);
     });
-}
 
-$('.children-client').on('click', function () {
-    var child = $(this).data('child-id');
-    $('#child-info').html('Loading ...');
+    function load_facility(facility) {
+        $.ajax({
+            url: '/facility-info/' + facility,
+            type: 'get',
+            success: function (res) {
+                $('#child-info').html(res);
+            }
+        })
+    }
 
-    load_child(child);
-});
+    $('.facility-client').on('click', function () {
+        var facility = $(this).data('facility-id');
 
-function load_facility(facility) {
-    $.ajax({
-        url: '/facility-info/' + facility,
-        type: 'get',
-        success: function (res) {
-            $('#child-info').html(res);
-        }
-    })
-}
-
-$('.facility-client').on('click', function () {
-    var facility = $(this).data('facility-id');
-
-    $('#child-info').html('Loading ...');
-    load_facility(facility);
-});
-{{--</script>--}}
+        $('#child-info').html('Loading ...');
+        load_facility(facility);
+    });
+    {{--</script>--}}
 
 
-<!-- Mapping Script starts here -->
+    <!-- Mapping Script starts here -->
     //<script>
     mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
     var map = new mapboxgl.Map({

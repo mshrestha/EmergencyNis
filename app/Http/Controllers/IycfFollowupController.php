@@ -62,6 +62,10 @@ class IycfFollowupController extends Controller
 
     public function save($id, Request $request) {
         try {
+            if(!env('SERVER_CODE')) {
+                dd('No server code found.');
+            }
+            
             $data = $request->all();
 
             //Create sync id

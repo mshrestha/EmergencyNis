@@ -61,7 +61,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importBsfp', 'BsfpImportController@importBsfp');
     Route::get('importExportTsfp', 'TsfpImportController@importExportTsfp')->name('importExportTsfp');
     Route::post('importTsfp', 'TsfpImportController@importTsfp');
+    Route::get('importExportSc', 'ScImportController@importExportSc')->name('importExportSc');
+    Route::post('importSc', 'ScImportController@importSc');
 
+    Route::resource('supply', 'SupplyController');
 
 });
 
@@ -78,25 +81,54 @@ Route::get('/sync/facility-followup', [
 	'as' => 'sync.facility-followup.client'
 ]);
 
+Route::get('/sync/iycf-followup', [
+	'uses' => 'SyncDataClientController@syncIycfFollowupClient',
+	'as' => 'sync.iycf-followup.client'
+]);
+
+Route::get('/sync/pregnant-women', [
+	'uses' => 'SyncDataClientController@syncPregnantWomenClient',
+	'as' => 'sync.pregnant-women.client'
+]);
+
+Route::get('/sync/pregnant-women-followup', [
+	'uses' => 'SyncDataClientController@syncPregnantWomenFollowupClient',
+	'as' => 'sync.pregnant-women-followup.client'
+]);
+
+
+
+
 Route::get('fix-sync', function() {
-	// $childrens = App\Models\Child::all();
+	// $childrens = App\Models\Child::orderBy('id', 'desc')->limit(50)->get();
 	// foreach($childrens as $child) {
-	// 	$child->sync_id = '101' . $child->id;
+	// 	$child->sync_status = 'updated';
 	// 	$child->save();
 	// }
 
-	// $facility_followups = App\Models\FacilityFollowup::all();
+	// $facility_followups = App\Models\FacilityFollowup::orderBy('id', 'desc')->limit(50)->get();
 	// foreach($facility_followups as $facility_followup) {
-	// 	$facility_followup->sync_id = '101'. $facility_followup->id;
+	// 	$facility_followup->sync_status = 'updated';
 	// 	$facility_followup->save();
 	// }
 
-	// $facility_followups = App\Models\FacilityFollowup::all();
-	// foreach($facility_followups as $facility_followup) {
-	// 	if(!$facility_followup->nutritionstatus) {
-	// 		$facility_followup->nutritionstatus = 'SAM';
-	// 		$facility_followup->save();
-	// 	}
+	// $iycf_followups = App\Models\IycfFollowup::orderBy('id', 'desc')->limit(50)->get();
+	// foreach($iycf_followups as $iycf_followup) {
+	// 	$iycf_followup->sync_status = 'updated';
+	// 	$iycf_followup->save();
 	// }
-	// dd('done');
+
+	// $pregnant_womens = App\Models\PregnantWomen::orderBy('id', 'desc')->limit(50)->get();
+	// foreach($pregnant_womens as $pregnant_women) {
+	// 	$pregnant_women->sync_status = 'updated';
+	// 	$pregnant_women->save();
+	// }
+
+	// $pregnant_women_followups = App\Models\PregnantWomenFollowup::orderBy('id', 'desc')->limit(50)->get();
+	// foreach($pregnant_women_followups as $pregnant_women_followup) {
+	// 	$pregnant_women_followup->sync_status = 'updated';
+	// 	$pregnant_women_followup->save();
+	// }
+
+	dd('done');
 });

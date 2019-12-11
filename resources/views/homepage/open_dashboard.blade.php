@@ -30,7 +30,7 @@
                     </select>
                     <select name="period" required class="btn ">
                         {{--<option value="">Period</option>--}}
-                        @foreach($months as $month_list)
+                        @foreach($periods as $month_list)
                             <option value="{{ $month_list }}">{{ $month_list }}</option>
                         @endforeach
                     </select>
@@ -212,6 +212,7 @@
         var obj_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
         var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
         var obj_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
+        var obj_sc = JSON.parse('<?php echo json_encode($line_chart['sc']); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
 
         var myChart = new Chart(ctx, {
@@ -225,7 +226,8 @@
                     borderColor: window.chartColors.red,
                     borderDash: [5, 5],
                     borderWidth: 2,
-                    fill: false
+                    fill: false,
+//                    lineTension: 0
                 },
                     {
                         label: 'BSFP',
@@ -244,12 +246,22 @@
                         borderDash: [5, 5],
                         borderWidth: 2,
                         fill: false
+                    },
+                    {
+                        label: 'SC',
+                        data: obj_sc.reverse(),
+                        backgroundColor: window.chartColors.purple,
+                        borderColor: window.chartColors.purple,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+//                bezierCurve : false,
                 scales: {
                     yAxes: [{
                         ticks: {
