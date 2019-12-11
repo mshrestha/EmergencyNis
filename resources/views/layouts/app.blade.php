@@ -92,10 +92,12 @@
                     <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span
                                 class="nav-label">Register</span></a>
                 </li>
+                @if(Auth::user()->role == 'user')
                 <li class="{{ request()->segment(1) == 'supply' ? 'active' : '' }}">
                     <a href="{{ route('supply.index') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span
                                 class="nav-label">Supply</span></a>
                 </li>
+                    @endif
             </ul>
 
         </div>
