@@ -38,7 +38,23 @@ class OtpImportController extends Controller
 
     public function open_dashboard_ym(Request $request)
     {
-//        dd($request);
+        if (Input::get('program_partner') != null)
+            $program_partner = Input::get('program_partner');
+        else $program_partner = '';
+        if (Input::get('partner') != null)
+            $partner = Input::get('partner');
+        else $partner = '';
+        if (Input::get('camp')!=null)
+        $camp = Input::get('camp');
+        else $camp='';
+        if (Input::get('period')!=null)
+        $period = Input::get('period');
+        else $period = '';
+        $filter_message = "Result for " . (($program_partner != null) ? 'Program Partner is ' . $program_partner : '')
+            . (($partner != null) ? ' Partner is ' . $partner : '')
+            . (($camp != null) ? ' Camp is ' . $camp : '')
+            . (($period != null) ? ' Period is ' . $period : '');
+//        dd($filter_message);
 //        $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
         $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
 //            DB::table('otp_imports')
@@ -77,11 +93,12 @@ class OtpImportController extends Controller
         $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
 
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months','filter_message'));
     }
 
     public function open_dashboard()
     {
+        $filter_message='';
         $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
         $partners = ['ACF', 'BRAC', 'CWW', 'SARPV', 'SCI', 'SHED', 'TDH', 'WC', 'WFP', 'WVI'];
         $camps = ['3', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27',
@@ -127,7 +144,7 @@ class OtpImportController extends Controller
         $line_chart = $this->open_dashboard_linechart($months);
         $doughnut_chart = $this->open_dashboard_doughnutchart($report_year, $report_month);
         $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months','filter_message'));
     }
 
     private function open_dashboard_linechart($months)
@@ -166,12 +183,11 @@ class OtpImportController extends Controller
                 $otp_period[] = $otp->MonthYear;
                 $otp_admission[] = $otp->TotalAdmission;
             }
-            if (in_array($months[$i], $otp_period)){
-                $ii=array_search($months[$i], $otp_period);
+            if (in_array($months[$i], $otp_period)) {
+                $ii = array_search($months[$i], $otp_period);
                 $lc['otp'][] = $otp_admission[$ii];
 
-            }
-            else
+            } else
                 $lc['otp'][] = 0;
         }
         $bsfp_period = [];
@@ -184,7 +200,7 @@ class OtpImportController extends Controller
                 $bsfp_admission[] = $bsfp->TotalAdmission;
             }
             if (in_array($months[$j], $bsfp_period)) {
-                $jj=array_search($months[$j], $bsfp_period);
+                $jj = array_search($months[$j], $bsfp_period);
                 $lc['bsfp'][] = $bsfp_admission[$jj];
             } else
                 $lc['bsfp'][] = 0;
@@ -200,8 +216,7 @@ class OtpImportController extends Controller
             if (in_array($months[$k], $tsfp_period)) {
                 $kk = array_search($months[$k], $tsfp_period);
                 $lc['tsfp'][] = $tsfp_admission[$kk];
-            }
-            else
+            } else
                 $lc['tsfp'][] = 0;
         }
         $sc_period = [];
@@ -215,8 +230,7 @@ class OtpImportController extends Controller
             if (in_array($months[$l], $sc_period)) {
                 $ll = array_search($months[$l], $sc_period);
                 $lc['sc'][] = $sc_admission[$ll];
-            }
-            else
+            } else
                 $lc['sc'][] = 0;
         }
         return $lc;
@@ -388,8 +402,7 @@ class OtpImportController extends Controller
             if (in_array($months[$i], $otp_period)) {
                 $ii = array_search($months[$i], $otp_period);
                 $lc['otp'][] = $otp_admission[$ii];
-            }
-            else
+            } else
                 $lc['otp'][] = 0;
         }
         $bsfp_period = [];
@@ -403,8 +416,7 @@ class OtpImportController extends Controller
             if (in_array($months[$j], $bsfp_period)) {
                 $jj = array_search($months[$j], $bsfp_period);
                 $lc['bsfp'][] = $bsfp_admission[$jj];
-            }
-            else
+            } else
                 $lc['bsfp'][] = 0;
 //            dd($lc['bsfp']);
         }
@@ -419,8 +431,7 @@ class OtpImportController extends Controller
             if (in_array($months[$k], $tsfp_period)) {
                 $kk = array_search($months[$k], $tsfp_period);
                 $lc['tsfp'][] = $tsfp_admission[$kk];
-            }
-            else
+            } else
                 $lc['tsfp'][] = 0;
         }
         $sc_period = [];
@@ -434,8 +445,7 @@ class OtpImportController extends Controller
             if (in_array($months[$l], $sc_period)) {
                 $ll = array_search($months[$l], $sc_period);
                 $lc['sc'][] = $sc_admission[$ll];
-            }
-            else
+            } else
                 $lc['sc'][] = 0;
         }
 //        dd($lc);
@@ -679,7 +689,7 @@ class OtpImportController extends Controller
             $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDefault / $bc->totalDischarged) * 100);
             $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalNonRecovered / $bc->totalDischarged) * 100);
         }
-        array_multisort($curedRate,$campSettlement,$deathRate,$defaultRate,$nonRecoveredRate);
+        array_multisort($curedRate, $campSettlement, $deathRate, $defaultRate, $nonRecoveredRate);
         $bar_chart['campSettlement'] = $campSettlement;
         $bar_chart['curedRate'] = $curedRate;
         $bar_chart['deathRate'] = $deathRate;

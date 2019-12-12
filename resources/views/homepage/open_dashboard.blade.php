@@ -48,6 +48,7 @@
             </div>
 
         </div>
+        <h5>{{$filter_message}}</h5>
         <div class="pull-right">
             @if (Auth::check())
                 <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
