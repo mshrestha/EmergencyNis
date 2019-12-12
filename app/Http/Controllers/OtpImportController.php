@@ -676,11 +676,17 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
                 ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
         }
+//        dd(count($bar_chart2));
         $campSettlement = [];
         $curedRate = [];
         $deathRate = [];
         $defaultRate = [];
         $nonRecoveredRate = [];
+        $total_cured =0;
+        $total_discharged =0;
+        $total_death =0;
+        $total_default =0;
+        $total_nonRecovered =0;
         foreach ($bar_chart2 as $bc) {
             for ($i = 0; $i < count($bar_chart2); $i++) ;
             $campSettlement[] = $bc->campSettlement;
@@ -688,13 +694,23 @@ class OtpImportController extends Controller
             $deathRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDeath / $bc->totalDischarged) * 100);
             $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDefault / $bc->totalDischarged) * 100);
             $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalNonRecovered / $bc->totalDischarged) * 100);
+            $total_cured+=$bc->totalCured;
+            $total_discharged+=$bc->totalDischarged;
+            $total_death+=$bc->totalDeath;
+            $total_default+=$bc->totalDefault;
+            $total_nonRecovered+=$bc->totalNonRecovered;
         }
+//        dd($total_cured);
         array_multisort($curedRate, $campSettlement, $deathRate, $defaultRate, $nonRecoveredRate);
         $bar_chart['campSettlement'] = $campSettlement;
         $bar_chart['curedRate'] = $curedRate;
         $bar_chart['deathRate'] = $deathRate;
         $bar_chart['defaultRate'] = $defaultRate;
         $bar_chart['nonRecoveredRate'] = $nonRecoveredRate;
+        $bar_chart['cumulative_curedRate'] =($total_discharged==0)?0 : ($total_cured/$total_discharged)*100;
+        $bar_chart['cumulative_deathRate'] = ($total_discharged==0)?0 : ($total_death/$total_discharged)*100;
+        $bar_chart['cumulative_defaultRate'] = ($total_discharged==0)?0 : ($total_default/$total_discharged)*100;
+        $bar_chart['cumulative_nonRecoveredRate'] = ($total_discharged==0)?0 : ($total_nonRecovered/$total_discharged)*100;
         return $bar_chart;
     }
 
@@ -742,6 +758,11 @@ class OtpImportController extends Controller
         $deathRate = [];
         $defaultRate = [];
         $nonRecoveredRate = [];
+        $total_cured =0;
+        $total_discharged =0;
+        $total_death =0;
+        $total_default =0;
+        $total_nonRecovered =0;
         foreach ($bar_chart2 as $bc) {
             for ($i = 0; $i < count($bar_chart2); $i++) ;
             $campSettlement[] = $bc->campSettlement;
@@ -749,12 +770,22 @@ class OtpImportController extends Controller
             $deathRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDeath / $bc->totalDischarged) * 100);
             $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDefault / $bc->totalDischarged) * 100);
             $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalNonRecovered / $bc->totalDischarged) * 100);
+            $total_cured+=$bc->totalCured;
+            $total_discharged+=$bc->totalDischarged;
+            $total_death+=$bc->totalDeath;
+            $total_default+=$bc->totalDefault;
+            $total_nonRecovered+=$bc->totalNonRecovered;
+
         }
         $bar_chart['campSettlement'] = $campSettlement;
         $bar_chart['curedRate'] = $curedRate;
         $bar_chart['deathRate'] = $deathRate;
         $bar_chart['defaultRate'] = $defaultRate;
         $bar_chart['nonRecoveredRate'] = $nonRecoveredRate;
+        $bar_chart['cumulative_curedRate'] =($total_discharged==0)?0 : ($total_cured/$total_discharged)*100;
+        $bar_chart['cumulative_deathRate'] = ($total_discharged==0)?0 : ($total_death/$total_discharged)*100;
+        $bar_chart['cumulative_defaultRate'] = ($total_discharged==0)?0 : ($total_default/$total_discharged)*100;
+        $bar_chart['cumulative_nonRecoveredRate'] = ($total_discharged==0)?0 : ($total_nonRecovered/$total_discharged)*100;
         return $bar_chart;
 
     }

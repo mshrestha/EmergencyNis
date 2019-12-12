@@ -71,31 +71,51 @@
                 <canvas id="childAdmission"></canvas>
             </div>
         </div>
-
     </div>
 
-    <div class="row">
-        <div class="col-lg-12">
+    <div class="row border-bottom">
+        <div class="col-lg-10">
             <h2>OTP Performance
                 <small> for {{$month_year}}</small>
             </h2>
             <canvas id="canvas-performance" height="100px"></canvas>
         </div>
-        {{--<div class="col-lg-4">--}}
-        {{--<h2>OTP Average Weight Gain--}}
-
-        {{--</h2>--}}
-        {{--<canvas id="canvas-avgweight" height="100px"></canvas>--}}
-        {{--</div>--}}
-        {{--<div class="col-lg-4">--}}
-        {{--<h2>OTP Average Length of Stay--}}
-
-        {{--</h2>--}}
-        {{--<canvas id="canvas-avglengthofstay" height="100px"></canvas>--}}
-        {{--</div>--}}
+        <div class="col-lg-2">
+            <h4>Cumulative Rate</h4>
+            <ul class="stat-list">
+                <li>
+                    <small>Non Respondant Rate</small>
+                    <div class="stat-percent" id="cumulative_nonRecoveredRate"> </div>
+                    <div class="progress progress-mini">
+                        <div id="cumulative_nonRecoveredRate_bar" class="progress-bar"></div>
+                    </div>
+                </li>
+                <li>
+                    <small> Death rate</small>
+                    <div class="stat-percent" id="cumulative_deathRate"> </div>
+                    <div class="progress progress-mini">
+                        <div id="cumulative_deathRate_bar" class="progress-bar"></div>
+                    </div>
+                </li>
+                <li class="">
+                    <small>Default Rate</small>
+                    <div class="stat-percent" id="cumulative_defaultRate"> </div>
+                    <div class="progress progress-mini">
+                        <div id="cumulative_defaultRate_bar" class="progress-bar"></div>
+                    </div>
+                </li>
+                <li class="">
+                    <small>Cure Rate</small>
+                    <div class="stat-percent" id="cumulative_curedRate"> </div>
+                    <div class="progress progress-mini">
+                        <div id="cumulative_curedRate_bar"  class="progress-bar"></div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <div class="row">
+    <div class="row border-bottom">
         <h2>OTP New Admission
             <small> for {{$month_year}}</small>
         </h2>
@@ -345,6 +365,20 @@
     var death_rate = JSON.parse('<?php echo json_encode($bar_chart['deathRate']); ?>');
     var default_rate = JSON.parse('<?php echo json_encode($bar_chart['defaultRate']); ?>');
     var non_respondent_rate = JSON.parse('<?php echo json_encode($bar_chart['nonRecoveredRate']); ?>');
+
+    var cumulative_curedRate = JSON.parse('<?php echo json_encode($bar_chart['cumulative_curedRate']); ?>');
+    var cumulative_deathRate = JSON.parse('<?php echo json_encode($bar_chart['cumulative_deathRate']); ?>');
+    var cumulative_defaultRate = JSON.parse('<?php echo json_encode($bar_chart['cumulative_defaultRate']); ?>');
+    var cumulative_nonRecoveredRate = JSON.parse('<?php echo json_encode($bar_chart['cumulative_nonRecoveredRate']); ?>');
+
+    document.getElementById('cumulative_curedRate').innerHTML = cumulative_curedRate.toFixed(2)+'%';
+    document.getElementById('cumulative_curedRate_bar').style.width = cumulative_curedRate.toFixed(2)+'%';
+    document.getElementById('cumulative_deathRate').innerHTML = cumulative_deathRate.toFixed(2)+'%';
+    document.getElementById('cumulative_deathRate_bar').style.width = cumulative_deathRate.toFixed(2)+'%';
+    document.getElementById('cumulative_defaultRate').innerHTML = cumulative_defaultRate.toFixed(2)+'%';
+    document.getElementById('cumulative_defaultRate_bar').style.width = cumulative_defaultRate.toFixed(2)+'%';
+    document.getElementById('cumulative_nonRecoveredRate').innerHTML = cumulative_nonRecoveredRate.toFixed(2)+'%';
+    document.getElementById('cumulative_nonRecoveredRate_bar').style.width = cumulative_nonRecoveredRate.toFixed(2)+'%';
     var barChartData = {
         labels: facility_name,
         datasets: [
