@@ -679,6 +679,7 @@ class OtpImportController extends Controller
             $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDefault / $bc->totalDischarged) * 100);
             $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalNonRecovered / $bc->totalDischarged) * 100);
         }
+        array_multisort($curedRate,$campSettlement,$deathRate,$defaultRate,$nonRecoveredRate);
         $bar_chart['campSettlement'] = $campSettlement;
         $bar_chart['curedRate'] = $curedRate;
         $bar_chart['deathRate'] = $deathRate;
