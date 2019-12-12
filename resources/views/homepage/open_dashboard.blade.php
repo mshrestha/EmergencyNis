@@ -2,41 +2,51 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 center">
-            <h1>Welcome to Emergency Nutrition System </h1>
-        </div>
-
         <div class="col-lg-12 border-bottom">
-            <form action="{{ route('open_dashboard_ym') }}" class="form-horizontal" method="get">
-
-                <div class="form-group">
-                    <select name="program_partner" class="btn btn">
-                        <option value="">Program Partner</option>
-                        @foreach($program_partners as $pp)
-                            <option value="{{ $pp }}">{{ $pp }}</option>
-                        @endforeach
-                    </select>
-                    <select name="partner" class="btn btn">
-                        <option value="">Implementing Partner</option>
-                        @foreach($partners as $p)
-                            <option value="{{ $p }}">{{ $p }}</option>
-                        @endforeach
-                    </select>
-                    <select name="camp" class="btn btn">
-                        <option value="">Camp</option>
-                        @foreach($camps as $c)
-                            <option value="{{ $c }}">{{ $c }}</option>
-                        @endforeach
-                    </select>
-                    <select name="period" required class="btn ">
-                        {{--<option value="">Period</option>--}}
-                        @foreach($periods as $month_list)
-                            <option value="{{ $month_list }}">{{ $month_list }}</option>
-                        @endforeach
-                    </select>
-                    <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
+            <div class="col-lg-9 ">
+                <div class="col-lg-12 center">
+                    <h1>Welcome to Emergency Nutrition System </h1>
                 </div>
-            </form>
+                <div class="col-lg-12">
+                    <form action="{{ route('open_dashboard_ym') }}" class="form-horizontal" method="get">
+
+                        <div class="form-group">
+                            <select name="program_partner" class="btn btn">
+                                <option value="">Program Partner</option>
+                                @foreach($program_partners as $pp)
+                                    <option value="{{ $pp }}">{{ $pp }}</option>
+                                @endforeach
+                            </select>
+                            <select name="partner" class="btn btn">
+                                <option value="">Implementing Partner</option>
+                                @foreach($partners as $p)
+                                    <option value="{{ $p }}">{{ $p }}</option>
+                                @endforeach
+                            </select>
+                            <select name="camp" class="btn btn">
+                                <option value="">Camp</option>
+                                @foreach($camps as $c)
+                                    <option value="{{ $c }}">{{ $c }}</option>
+                                @endforeach
+                            </select>
+                            <select name="period" required class="btn ">
+                                {{--<option value="">Period</option>--}}
+                                @foreach($periods as $month_list)
+                                    <option value="{{ $month_list }}">{{ $month_list }}</option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-3 ">
+                <div class=" pull-right">
+                    <img src="./img/logo-nutrition.png" width="200px"/>
+                </div>
+            </div>
+
         </div>
         <div class="pull-right">
             @if (Auth::check())
@@ -44,8 +54,8 @@
             @else
                 <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
             @endif
-
         </div>
+
 
     </div>
     <div class="row ">
