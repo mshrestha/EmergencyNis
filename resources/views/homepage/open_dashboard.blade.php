@@ -350,7 +350,7 @@
         datasets: [
             {
                 label: 'Non Respondant Rate',
-                backgroundColor: 'rgb(232, 179, 35, 0.5)',
+                backgroundColor: 'rgb(0, 48, 143, 0.9)',
 //                    stack: 'Stack 1',
 
                 data: non_respondent_rate,
@@ -358,19 +358,19 @@
             },
             {
                 label: 'Death Rate',
-                backgroundColor: 'rgb(255, 99, 132, 0.5)',
+                backgroundColor: 'rgb(255, 0, 0, 0.9)',
 //                    stack: 'Stack 0',
                 data: death_rate
             },
             {
                 label: 'Default Rate',
-                backgroundColor: 'rgb(54, 162, 235, 0.5)',
+                backgroundColor: 'rgb(233, 214, 107, 0.9)',
 //                    stack: 'Stack 0',
                 data: default_rate
             },
             {
                 label: 'Cure Rate',
-                backgroundColor: 'rgb(75, 192, 192, 0.5)',
+                backgroundColor: 'rgb(0, 106, 78, 0.9)',
 //                    stack: 'Stack 1',
                 data: cure_rate
             }
