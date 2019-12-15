@@ -48,13 +48,14 @@
             </div>
 
         </div>
-        <h5>{{$filter_message}}</h5>
+        <div class="row">{{$filter_message}}
         <div class="pull-right">
             @if (Auth::check())
                 <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
             @else
                 <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
             @endif
+        </div>
         </div>
 
 
@@ -243,6 +244,7 @@
         var obj_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
         var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
         var obj_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
+        var obj_tsfp_plw = JSON.parse('<?php echo json_encode($line_chart['tsfp_plw']); ?>');
         var obj_sc = JSON.parse('<?php echo json_encode($line_chart['sc']); ?>');
         var ctx = document.getElementById('childAdmission').getContext('2d');
 
@@ -270,10 +272,19 @@
                         fill: false
                     },
                     {
-                        label: 'TSFP',
+                        label: 'TSFP-Child',
                         data: obj_tsfp.reverse(),
                         backgroundColor: window.chartColors.orange,
                         borderColor: window.chartColors.orange,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'TSFP-PLW',
+                        data: obj_tsfp_plw.reverse(),
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
                         borderDash: [5, 5],
                         borderWidth: 2,
                         fill: false

@@ -167,6 +167,12 @@ class OtpImportController extends Controller
             ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
             ->orderBy('year', 'desc')->orderBy('month', 'desc')
             ->get()->toArray();
+        $line_chart['tsfp_plw'] = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newAdmissionPlw) as TotalAdmission'))
+            ->whereIn('period', $months)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
+            ->get()->toArray();
         $line_chart['sc'] = DB::table('sc_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewAdmission) as TotalAdmission'))
             ->whereIn('period', $months)
@@ -219,6 +225,20 @@ class OtpImportController extends Controller
             } else
                 $lc['tsfp'][] = 0;
         }
+        $tsfp_plw_period = [];
+        $tsfp_plw_admission = [];
+        $lc['tsfp_plw'] = [];
+        for ($m = 0; $m < count($months); $m++) {
+            foreach ($line_chart['tsfp_plw'] as $tsfp_plw) {
+                $tsfp_plw_period[] = $tsfp_plw->MonthYear;
+                $tsfp_plw_admission[] = $tsfp_plw->TotalAdmission;
+            }
+            if (in_array($months[$m], $tsfp_plw_period)) {
+                $mm = array_search($months[$m], $tsfp_plw_period);
+                $lc['tsfp_plw'][] = $tsfp_plw_admission[$mm];
+            } else
+                $lc['tsfp_plw'][] = 0;
+        }
         $sc_period = [];
         $sc_admission = [];
         $lc['sc'] = [];
@@ -249,6 +269,9 @@ class OtpImportController extends Controller
         $line_chart_query_tsfp = DB::table('tsfp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newAdmissionTotal) as TotalAdmission'))
             ->whereIn('period', $months);
+        $line_chart_query_tsfp_plw = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(newAdmissionPlw) as TotalAdmission'))
+            ->whereIn('period', $months);
         $line_chart_query_sc = DB::table('sc_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewAdmission) as TotalAdmission'))
             ->whereIn('period', $months);
@@ -262,6 +285,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -282,6 +309,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('partner', $partner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
             $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
@@ -296,6 +327,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp->where('partner', $partner)->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('partner', $partner)->where('programPartner', $programPartner)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -316,6 +351,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
             $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
@@ -330,6 +369,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('programPartner', $programPartner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -350,6 +393,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('partner', $partner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
             $line_chart['sc'] = $line_chart_query_sc->where('partner', $partner)->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
@@ -367,6 +414,10 @@ class OtpImportController extends Controller
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
             $line_chart['sc'] = $line_chart_query_sc->where('campSettlement', $camp)
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
@@ -381,6 +432,10 @@ class OtpImportController extends Controller
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
             $line_chart['tsfp'] = $line_chart_query_tsfp
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')
+                ->get()->toArray();
+            $line_chart['tsfp_plw'] = $line_chart_query_tsfp_plw
                 ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')
                 ->get()->toArray();
@@ -433,6 +488,20 @@ class OtpImportController extends Controller
                 $lc['tsfp'][] = $tsfp_admission[$kk];
             } else
                 $lc['tsfp'][] = 0;
+        }
+        $tsfp_plw_period = [];
+        $tsfp_plw_admission = [];
+        $lc['tsfp_plw'] = [];
+        for ($m = 0; $m < count($months); $m++) {
+            foreach ($line_chart['tsfp_plw'] as $tsfp_plw) {
+                $tsfp_plw_period[] = $tsfp_plw->MonthYear;
+                $tsfp_plw_admission[] = $tsfp_plw->TotalAdmission;
+            }
+            if (in_array($months[$m], $tsfp_plw_period)) {
+                $mm = array_search($months[$m], $tsfp_plw_period);
+                $lc['tsfp_plw'][] = $tsfp_plw_admission[$mm];
+            } else
+                $lc['tsfp_plw'][] = 0;
         }
         $sc_period = [];
         $sc_admission = [];
