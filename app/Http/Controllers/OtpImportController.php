@@ -109,14 +109,15 @@ class OtpImportController extends Controller
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
             ->pluck('period')->toArray();
-//        $cache_data = DB::table('otp_imports')
-//            ->select('year', 'month')
-//            ->groupBy('year', 'month')
-//            ->orderBy('year', 'desc')
-//            ->orderBy('month', 'desc')
-//            ->get()->toArray();
 //        dd($periods);
-//        if (empty($cache_data)) {
+
+        $cache_data = DB::table('otp_imports')
+            ->select('year', 'month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
+        if (empty($cache_data)) {
         if (date('n') == 1) {
             $report_month = 12;
             $report_year = date('Y') - 1;
@@ -124,10 +125,10 @@ class OtpImportController extends Controller
             $report_month = date('n') - 1;
             $report_year = date('Y');
         }
-//        } else {
-//            $report_month = $cache_data[0]->month;
-//            $report_year = $cache_data[0]->year;
-//        }
+        } else {
+            $report_month = $cache_data[0]->month;
+            $report_year = $cache_data[0]->year;
+        }
 //
 //        $months = array();
 //        for ($i = 0; $i < 12; $i++) {
