@@ -643,7 +643,7 @@
     document.getElementById('tsfpcumulative_nonRecoveredRate').innerHTML = tsfpcumulative_nonRecoveredRate.toFixed(2)+'%';
     document.getElementById('tsfpcumulative_nonRecoveredRate_bar').style.width = tsfpcumulative_nonRecoveredRate.toFixed(2)+'%';
     var tsfpbarChartData = {
-        labels: facility_name,
+        labels: tsfpfacility_name,
         datasets: [
             {
                 label: 'Non Respondant Rate',
