@@ -91,9 +91,10 @@ class OtpImportController extends Controller
         $line_chart = $this->open_dashboard_linechart_ym($months, $programPartner, $partner, $camp);
 //        dd($line_chart);
         $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner, $camp);
+        $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
 
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months','filter_message'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
     }
 
     public function open_dashboard()
@@ -144,7 +145,8 @@ class OtpImportController extends Controller
         $line_chart = $this->open_dashboard_linechart($months);
         $doughnut_chart = $this->open_dashboard_doughnutchart($report_year, $report_month);
         $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart', 'line_chart', 'months','filter_message'));
+        $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp($report_year, $report_month);
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
     }
 
     private function open_dashboard_linechart($months)
@@ -846,6 +848,7 @@ class OtpImportController extends Controller
             $total_nonRecovered+=$bc->totalNonRecovered;
 
         }
+        array_multisort($curedRate, $campSettlement, $deathRate, $defaultRate, $nonRecoveredRate);
         $bar_chart['campSettlement'] = $campSettlement;
         $bar_chart['curedRate'] = $curedRate;
         $bar_chart['deathRate'] = $deathRate;
@@ -858,4 +861,126 @@ class OtpImportController extends Controller
         return $bar_chart;
 
     }
+    private function open_dashboard_barchart_tsfp($report_year, $report_month)
+    {
+        $bar_chart2 = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period'), DB::raw('campSettlement'),
+                DB::raw('sum(dischargeCuredToBsfpTotal) as totalCured'),DB::raw('sum(defaultTotal) as totalDefault'),
+                DB::raw('sum(deathTotal) as totalDeath'),DB::raw('sum(nonResponseTotal) as totalNonRecovered'))
+            ->where('month', $report_month)->where('year', $report_year)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+            ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        $campSettlement = [];
+        $curedRate = [];
+        $deathRate = [];
+        $defaultRate = [];
+        $nonRecoveredRate = [];
+        $total_cured =0;
+        $total_death =0;
+        $total_default =0;
+        $total_nonRecovered =0;
+        foreach ($bar_chart2 as $bc) {
+            for ($i = 0; $i < count($bar_chart2); $i++) ;
+            $campSettlement[] = $bc->campSettlement;
+            $curedRate[] = ($bc->totalCured == 0) ? 0 : ($bc->totalCured / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $deathRate[] = ($bc->totalDeath == 0) ? 0 : ($bc->totalDeath / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $defaultRate[] = ($bc->totalDefault == 0) ? 0 : ($bc->totalDefault / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $nonRecoveredRate[] = ($bc->totalNonRecovered == 0) ? 0 : ($bc->totalNonRecovered / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $total_cured+=$bc->totalCured;
+            $total_death+=$bc->totalDeath;
+            $total_default+=$bc->totalDefault;
+            $total_nonRecovered+=$bc->totalNonRecovered;
+        }
+//        dd($total_nonRecovered);
+        array_multisort($curedRate, $campSettlement, $deathRate, $defaultRate, $nonRecoveredRate);
+        $bar_chart_tsfp['campSettlement'] = $campSettlement;
+        $bar_chart_tsfp['curedRate'] = $curedRate;
+        $bar_chart_tsfp['deathRate'] = $deathRate;
+        $bar_chart_tsfp['defaultRate'] = $defaultRate;
+        $bar_chart_tsfp['nonRecoveredRate'] = $nonRecoveredRate;
+        $bar_chart_tsfp['cumulative_curedRate'] =($total_cured==0)?0 : ($total_cured/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        $bar_chart_tsfp['cumulative_deathRate'] = ($total_death==0)?0 : ($total_death/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        $bar_chart_tsfp['cumulative_defaultRate'] = ($total_default==0)?0 : ($total_default/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        $bar_chart_tsfp['cumulative_nonRecoveredRate'] = ($total_nonRecovered==0)?0 : ($total_nonRecovered/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        return $bar_chart_tsfp;
+
+    }
+
+    private function open_dashboard_barchart_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp)
+    {
+        $bar_chart_query = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period'), DB::raw('campSettlement'),
+                DB::raw('sum(dischargeCuredToBsfpTotal) as totalCured'),DB::raw('sum(defaultTotal) as totalDefault'),
+                DB::raw('sum(deathTotal) as totalDeath'),DB::raw('sum(nonResponseTotal) as totalNonRecovered'))
+            ->where('month', $report_month)->where('year', $report_year);
+        if ($programPartner != null && $partner == null && $camp == null) {
+            $bar_chart2 = $bar_chart_query->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } elseif ($programPartner == null && $partner != null && $camp == null) {
+            $bar_chart2 = $bar_chart_query->where('partner', $partner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } elseif ($programPartner != null && $partner != null && $camp == null) {
+            $bar_chart2 = $bar_chart_query->where('partner', $partner)->where('programPartner', $programPartner)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } elseif ($programPartner != null && $partner != null && $camp != null) {
+            $bar_chart2 = $bar_chart_query->where('partner', $partner)->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } elseif ($programPartner != null && $partner == null && $camp != null) {
+            $bar_chart2 = $bar_chart_query->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } elseif ($programPartner == null && $partner != null && $camp != null) {
+            $bar_chart2 = $bar_chart_query->where('partner', $partner)->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } elseif ($programPartner == null && $partner == null && $camp != null) {
+            $bar_chart2 = $bar_chart_query->where('campSettlement', $camp)
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        } else {
+            $bar_chart2 = $bar_chart_query
+                ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+                ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        }
+//        dd(count($bar_chart2));
+        $campSettlement = [];
+        $curedRate = [];
+        $deathRate = [];
+        $defaultRate = [];
+        $nonRecoveredRate = [];
+        $total_cured =0;
+//        $total_discharged =0;
+        $total_death =0;
+        $total_default =0;
+        $total_nonRecovered =0;
+        foreach ($bar_chart2 as $bc) {
+            for ($i = 0; $i < count($bar_chart2); $i++) ;
+            $campSettlement[] = $bc->campSettlement;
+            $curedRate[] = ($bc->totalCured == 0) ? 0 : ($bc->totalCured / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $deathRate[] = ($bc->totalDeath == 0) ? 0 : ($bc->totalDeath / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $defaultRate[] = ($bc->totalDefault == 0) ? 0 : ($bc->totalDefault / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $nonRecoveredRate[] = ($bc->totalNonRecovered == 0) ? 0 : ($bc->totalNonRecovered / ($bc->totalCured+$bc->totalDefault+$bc->totalDeath+$bc->totalNonRecovered))*100;
+            $total_cured+=$bc->totalCured;
+            $total_death+=$bc->totalDeath;
+            $total_default+=$bc->totalDefault;
+            $total_nonRecovered+=$bc->totalNonRecovered;
+        }
+//        dd($total_nonRecovered);
+        array_multisort($curedRate, $campSettlement, $deathRate, $defaultRate, $nonRecoveredRate);
+        $bar_chart_tsfp['campSettlement'] = $campSettlement;
+        $bar_chart_tsfp['curedRate'] = $curedRate;
+        $bar_chart_tsfp['deathRate'] = $deathRate;
+        $bar_chart_tsfp['defaultRate'] = $defaultRate;
+        $bar_chart_tsfp['nonRecoveredRate'] = $nonRecoveredRate;
+        $bar_chart_tsfp['cumulative_curedRate'] =($total_cured==0)?0 : ($total_cured/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        $bar_chart_tsfp['cumulative_deathRate'] = ($total_death==0)?0 : ($total_death/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        $bar_chart_tsfp['cumulative_defaultRate'] = ($total_default==0)?0 : ($total_default/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        $bar_chart_tsfp['cumulative_nonRecoveredRate'] = ($total_nonRecovered==0)?0 : ($total_nonRecovered/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
+        return $bar_chart_tsfp;
+    }
+
 }

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df9c621-5e08-4402-bd93-fd0572f0e0a5" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" afterPath="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,27 +15,28 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="open_dashboard.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="open_dashboard.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="529">
-              <caret line="421" column="0" lean-forward="false" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
+            <state relative-caret-position="546">
+              <caret line="712" column="6" lean-forward="true" selection-start-line="712" selection-start-column="6" selection-end-line="712" selection-end-column="6" />
               <folding>
-                <element signature="e#3607#3614#0#HTML" expanded="true" />
+                <element signature="e#3696#3703#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OtpImportController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="OtpImportController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="251" column="29" lean-forward="true" selection-start-line="251" selection-start-column="29" selection-end-line="251" selection-end-column="29" />
+            <state relative-caret-position="376">
+              <caret line="148" column="180" lean-forward="false" selection-start-line="148" selection-start-column="180" selection-end-line="148" selection-end-column="180" />
               <folding>
-                <element signature="e#4276#6716#0#PHP" expanded="false" />
-                <element signature="e#27654#46848#0#PHP" expanded="false" />
-                <element signature="e#52413#54365#0#PHP" expanded="false" />
+                <element signature="e#6977#11857#0#PHP" expanded="false" />
+                <element signature="e#11863#27903#0#PHP" expanded="false" />
+                <element signature="e#27909#47103#0#PHP" expanded="false" />
+                <element signature="e#52668#54620#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -181,8 +183,8 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app_opendashboard.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
         <option value="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
       </list>
     </option>
   </component>
@@ -629,7 +631,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../dealpos" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
   </component>
   <component name="RecentsManager">
@@ -768,12 +770,12 @@
       <workItem from="1576055951712" duration="16846000" />
       <workItem from="1576207966326" duration="23000" />
       <workItem from="1576383283783" duration="598000" />
-      <workItem from="1576384664362" duration="6798000" />
+      <workItem from="1576384664362" duration="14165000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="532943000" />
+    <option name="totallyTimeSpent" value="540310000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -1150,18 +1152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="251" column="29" lean-forward="true" selection-start-line="251" selection-start-column="29" selection-end-line="251" selection-end-column="29" />
-          <folding>
-            <element signature="e#4276#6716#0#PHP" expanded="false" />
-            <element signature="e#27654#46848#0#PHP" expanded="false" />
-            <element signature="e#52413#54365#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/layouts/app_opendashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -1172,10 +1162,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="421" column="0" lean-forward="false" selection-start-line="421" selection-start-column="0" selection-end-line="421" selection-end-column="0" />
+        <state relative-caret-position="546">
+          <caret line="712" column="6" lean-forward="true" selection-start-line="712" selection-start-column="6" selection-end-line="712" selection-end-column="6" />
           <folding>
-            <element signature="e#3607#3614#0#HTML" expanded="true" />
+            <element signature="e#3696#3703#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="148" column="180" lean-forward="false" selection-start-line="148" selection-start-column="180" selection-end-line="148" selection-end-column="180" />
+          <folding>
+            <element signature="e#6977#11857#0#PHP" expanded="false" />
+            <element signature="e#11863#27903#0#PHP" expanded="false" />
+            <element signature="e#27909#47103#0#PHP" expanded="false" />
+            <element signature="e#52668#54620#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
