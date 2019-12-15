@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df9c621-5e08-4402-bd93-fd0572f0e0a5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" afterPath="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,23 +14,23 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="open_dashboard.blade.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="open_dashboard.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="817">
-              <caret line="645" column="15" lean-forward="true" selection-start-line="645" selection-start-column="15" selection-end-line="645" selection-end-column="15" />
+            <state relative-caret-position="223">
+              <caret line="114" column="69" lean-forward="false" selection-start-line="114" selection-start-column="69" selection-end-line="114" selection-end-column="69" />
               <folding>
-                <element signature="e#3696#3703#0#HTML" expanded="true" />
+                <element signature="e#3895#3902#0#HTML" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OtpImportController.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OtpImportController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+            <state relative-caret-position="425">
+              <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
               <folding>
                 <element signature="e#6956#11836#0#PHP" expanded="false" />
                 <element signature="e#11842#27882#0#PHP" expanded="false" />
@@ -39,6 +39,16 @@
                 <element signature="e#52647#54599#0#PHP" expanded="false" />
                 <element signature="e#54605#57363#0#PHP" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ui_tabs_accordions_navs.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../Template/metronic_v4.7.1/theme/admin_1/ui_tabs_accordions_navs.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="1812" column="46" lean-forward="false" selection-start-line="1762" selection-start-column="36" selection-end-line="1812" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,7 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Unkown</find>
       <find>Request</find>
       <find>transferOtherOtp_M</find>
       <find>medicalTransfer_M</find>
@@ -95,6 +104,7 @@
       <find>);</find>
       <find>)-&gt;default(0</find>
       <find>$$</find>
+      <find>DEFAULT TABS</find>
     </findStrings>
     <replaceStrings>
       <replace>avg_length_stay</replace>
@@ -184,8 +194,8 @@
         <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/layouts/app_opendashboard.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
+        <option value="$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php" />
       </list>
     </option>
   </component>
@@ -771,12 +781,12 @@
       <workItem from="1576055951712" duration="16846000" />
       <workItem from="1576207966326" duration="23000" />
       <workItem from="1576383283783" duration="598000" />
-      <workItem from="1576384664362" duration="15599000" />
+      <workItem from="1576384664362" duration="18432000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="541744000" />
+    <option name="totallyTimeSpent" value="544577000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -815,7 +825,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard_ym.blade.php" />
     <entry file="file://$PROJECT_DIR$/app/BsfpImport.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -1161,20 +1170,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="817">
-          <caret line="645" column="15" lean-forward="true" selection-start-line="645" selection-start-column="15" selection-end-line="645" selection-end-column="15" />
-          <folding>
-            <element signature="e#3696#3703#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="112" column="0" lean-forward="true" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+        <state relative-caret-position="425">
+          <caret line="126" column="0" lean-forward="false" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
           <folding>
             <element signature="e#6956#11836#0#PHP" expanded="false" />
             <element signature="e#11842#27882#0#PHP" expanded="false" />
@@ -1182,6 +1181,24 @@
             <element signature="e#47088#52641#0#PHP" expanded="false" />
             <element signature="e#52647#54599#0#PHP" expanded="false" />
             <element signature="e#54605#57363#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../Template/metronic_v4.7.1/theme/admin_1/ui_tabs_accordions_navs.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="1812" column="46" lean-forward="false" selection-start-line="1762" selection-start-column="36" selection-end-line="1812" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/homepage/open_dashboard.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="114" column="69" lean-forward="false" selection-start-line="114" selection-start-column="69" selection-end-line="114" selection-end-column="69" />
+          <folding>
+            <element signature="e#3895#3902#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
