@@ -1,5 +1,12 @@
 @extends('layouts.app_opendashboard')
-
+@push('styles')
+<style>
+    .modal {
+        border: 1px solid black;
+        background-color: white;
+    }
+</style>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-lg-12 border-bottom">
@@ -65,13 +72,24 @@
             {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
-
             </div>
+            <button id = 'btn' class= 'button pull-right'>
+                Maximize <i class="fa fa-window-maximize" aria-hidden="true"></i>
+            </button>
+
 
             <div class="flot-chart-content">
                 <canvas id="childAdmission"></canvas>
             </div>
         </div>
+
+        <div id = "myModal" class="modal">
+            <div class="modalContent">
+                <span class = "close"> &times; </span>
+                <canvas id="childAdmissionModal"></canvas>
+            </div>
+        </div>
+        </body>
     </div>
 
     <div class="row border-bottom">
@@ -313,6 +331,117 @@
                 }
             }
         });
+        var ctx_modal = document.getElementById('childAdmissionModal').getContext('2d');
+        var myChartModal = new Chart(ctx_modal, {
+            type: 'line',
+            data: {
+                labels: months.reverse(),
+                datasets: [{
+                    label: 'OTP',
+                    data: obj_otp.reverse(),
+                    backgroundColor: window.chartColors.red,
+                    borderColor: window.chartColors.red,
+                    borderDash: [5, 5],
+                    borderWidth: 2,
+                    fill: false,
+                    lineTension: 0
+                },
+                    {
+                        label: 'BSFP',
+                        data: obj_bsfp.reverse(),
+                        backgroundColor: window.chartColors.blue,
+                        borderColor: window.chartColors.blue,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        lineTension: 0
+                    },
+                    {
+                        label: 'TSFP-Child',
+                        data: obj_tsfp.reverse(),
+                        backgroundColor: window.chartColors.orange,
+                        borderColor: window.chartColors.orange,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        lineTension: 0
+                    },
+                    {
+                        label: 'TSFP-PLW',
+                        data: obj_tsfp_plw.reverse(),
+                        backgroundColor: window.chartColors.green,
+                        borderColor: window.chartColors.green,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        lineTension: 0
+                    },
+                    {
+                        label: 'SC',
+                        data: obj_sc.reverse(),
+                        backgroundColor: window.chartColors.purple,
+                        borderColor: window.chartColors.purple,
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false,
+                        lineTension: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                bezierCurve : false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+//                animation: {
+//                    duration: 1,
+//                    onComplete: function() {
+//                        var chartInstance = this.chart,
+//                            ctx = chartInstance.ctx;
+//
+//                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
+//                        ctx.textAlign = 'center';
+//                        ctx.textBaseline = 'bottom';
+//
+//                        this.data.datasets.forEach(function(dataset, i) {
+//                            var meta = chartInstance.controller.getDatasetMeta(i);
+//                            meta.data.forEach(function(line, index) {
+//                                if (dataset.data[index] > 0) {
+//                                    var data = dataset.data[index];
+//                                    ctx.fillText(data, line._model.x, line._model.y);
+//                                }
+//                            });
+//                        });
+//                    }
+//                }
+            }
+        });
+
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("btn");
+        var span = document.getElementsByClassName("close")[0];
+
+        btn.onclick = function () {
+            modal.style.display = 'block';
+            renderChart();
+        }
+
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
 
 //End of Line chart Admission trend start
         //Doughnut charts starts here
