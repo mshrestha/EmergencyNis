@@ -30,7 +30,7 @@
 
     <div class="openDashboard animated fadeInDown">
         <div class="row">
-
+            {{--<img src="./img/logo-nutrition.png" width="200px" />--}}
             <div class="col-md-12">
                 @include('layouts.partials.alert')
 

@@ -61,7 +61,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importBsfp', 'BsfpImportController@importBsfp');
     Route::get('importExportTsfp', 'TsfpImportController@importExportTsfp')->name('importExportTsfp');
     Route::post('importTsfp', 'TsfpImportController@importTsfp');
+    Route::get('importExportSc', 'ScImportController@importExportSc')->name('importExportSc');
+    Route::post('importSc', 'ScImportController@importSc');
 
+    Route::resource('supply', 'SupplyController');
 
 });
 
