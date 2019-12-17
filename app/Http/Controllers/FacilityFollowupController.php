@@ -56,8 +56,12 @@ class FacilityFollowupController extends Controller
     {
         $children = Child::findOrFail($id);
         $facilities = Facility::orderBy('created_at', 'desc')->get();
+        $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
+        $chart_date = array_column($facility_followups, 'date');
+        $chart_weight = array_column($facility_followups, 'weight');
+//dd($chart_date);
 
-        return view('facility_followup.create', compact('facilities', 'children'));
+        return view('facility_followup.create', compact('facilities', 'children','chart_date','chart_weight'));
     }
 
     public function save($id, Request $request) {

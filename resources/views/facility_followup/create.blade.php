@@ -31,6 +31,8 @@
 @push('scripts')
 
 <script src="{{ asset('js/plugins/steps/jquery.steps.min.js')}}"></script>
+<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -52,6 +54,39 @@
             }
         });
     }
+    </script>
+
+<script>
+    var ctx = document.getElementById('childWeight').getContext('2d');
+    var jsArrayweight = JSON.parse('<?php echo json_encode($chart_weight); ?>');
+    var jsArraydate = JSON.parse('<?php echo json_encode($chart_date); ?>');
+
+    var childWeight = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: jsArraydate,
+            datasets: [{
+                label: 'Child Weight Gain',
+                fill: false,
+                data: jsArrayweight,
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+
+            }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }],
+
+            }
+        }
+    });
+
 
 
 </script>
