@@ -326,8 +326,15 @@ class HomeController extends Controller
 //            ->orWhere('new_admission', 'MUAC and WFH Zscore')
         ->orderBy('dat', 'ASC')
         ->pluck('cunt', 'dat')->toArray();
+//        $user_barchart['count'] = array_values($admission);
+//        $user_barchart['date'] = array_keys($admission);
+        $all_date = array_keys($admission);
+        foreach ($all_date as $dt) {
+            $date = DateTime::createFromFormat("Y-m-d", $dt);
+            $only_day[] = $date->format("d");
+        }
         $user_barchart['count'] = array_values($admission);
-        $user_barchart['date'] = array_keys($admission);
+        $user_barchart['date'] = $only_day;
 
 //        dd($user_barchart);
         return $user_barchart;

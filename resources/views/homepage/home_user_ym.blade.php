@@ -153,7 +153,7 @@
                                     <ul class="stat-list">
                                         <li>
                                             <h2 class="no-margins">{{ $total_admission }}</h2>
-                                            <small>Total admissions</small>
+                                            <small>Total admissions till now</small>
                                             {{--<div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
                                                 <div style="width: 100%;" class="progress-bar"></div>
@@ -161,7 +161,7 @@
                                         </li>
                                         <li>
                                             <h2 class="no-margins ">{{ $report_month_dashboard['total_admit']}}</h2>
-                                            <small> Enrolled this Month</small>
+                                            <small> Enrolled only {{$month_year}}</small>
                                             {{--<div class="stat-percent"> <i class="fa fa-level-down text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
                                                 <div style="width: 100%;" class="progress-bar"></div>
