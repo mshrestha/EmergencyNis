@@ -202,7 +202,7 @@
 
             @include('homepage.partials.sync')
 
-            <div id="map" style="width:100%; height:750px;"></div>
+            {{--<div id="map" style="width:100%; height:750px;"></div>--}}
         </div>
     </div><!-- End of First Row -->
 
@@ -307,18 +307,18 @@
 
 <!-- Mapping Script starts here -->
 <script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/kazistudios/cjl5hbcc36in92sp9uzflvcsf',
-        zoom: 10,
-        center: [92.146278, 21.226305]
-    });
-    var nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'bottom-left');
-
-    map.on('load', function () {
-    });
+//    mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
+//    var map = new mapboxgl.Map({
+//        container: 'map',
+//        style: 'mapbox://styles/kazistudios/cjl5hbcc36in92sp9uzflvcsf',
+//        zoom: 10,
+//        center: [92.146278, 21.226305]
+//    });
+//    var nav = new mapboxgl.NavigationControl();
+//    map.addControl(nav, 'bottom-left');
+//
+//    map.on('load', function () {
+//    });
 
     setTimeout(function () {
         toastr.options = {
