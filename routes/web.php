@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/program-manager_ym/{year}/{month}', 'HomeController@programManagerDashboard_ym')->name('program-manager_ym');
     Route::get('/program-user_ym/{year}/{month}', 'HomeController@programUserDashboard_ym')->name('program-user_ym');
 
+	Route::get('/wfh_calculation', 'HomeController@wfhCalculation')->name('wfh_calculation');
 	Route::get('/child-info/{child}', 'HomeController@childInfo')->name('child-info');
 	Route::get('/facility-info/{facility}', 'HomeController@facilityInfo')->name('facility-info');
 	Route::get('/child-search', 'HomeController@childSearch')->name('child-search');

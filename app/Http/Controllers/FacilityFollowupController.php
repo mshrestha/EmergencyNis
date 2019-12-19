@@ -60,8 +60,10 @@ class FacilityFollowupController extends Controller
         $chart_date = array_column($facility_followups, 'date');
         $chart_weight = array_column($facility_followups, 'weight');
 //dd($chart_date);
+        $child_sex=$children->sex;
 
-        return view('facility_followup.create', compact('facilities', 'children','chart_date','chart_weight'));
+
+        return view('facility_followup.create', compact('facilities', 'children','chart_date','chart_weight','child_sex'));
     }
 
     public function save($id, Request $request) {

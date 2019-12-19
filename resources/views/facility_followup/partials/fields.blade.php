@@ -56,24 +56,27 @@
                             </div>
                         </div>
 						<div class="form-group row">
-                            <div class="col-md-3">
+							<div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
                                 <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
                             </div>
-                            <div class="col-md-3">
-                                <label for="">Weight (kg)</label>
-                                <input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.01">
-						    </div>
-                            <div class="col-md-3">
-                                <label for="">Height (cm)</label>
-                                <input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.01">
-                            </div>
+							<div class="col-md-3">
+								<label for="">Weight (kg)</label>
+								<input type="number" name="weight" class="form-control child_weight" placeholder="Weight (kg)" id="child_weight"
+									   value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.1">
+							</div>
+							<div class="col-md-3">
+								<label for="">Height (cm)</label>
+								<input type="number" name="height" class="form-control child_height" placeholder="Height (cm)" id="child_height"
+									   value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.1">
+							</div>
 						</div>
 						<div class="form-group row">
-                            <div class="col-md-5">
-                                <label for="">WFH Z Score (SD)</label>
-                                <input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
-                            </div>
+							<div class="col-md-5">
+								<label for="">WFH Z Score (SD)</label>
+								<input type="text" name="wfh_z_score" class="form-control " placeholder="WFH Z Score" id="zscore"
+									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
+							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
                                 <select name="oedema" class="form-control">
@@ -500,7 +503,9 @@
 				</div>
 			</div>
 		</div><!-- End of Second Row -->
+
 	</div>
 
 	
 </div>
+
