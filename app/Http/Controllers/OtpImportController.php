@@ -983,5 +983,11 @@ class OtpImportController extends Controller
         $bar_chart_tsfp['cumulative_nonRecoveredRate'] = ($total_nonRecovered==0)?0 : ($total_nonRecovered/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
         return $bar_chart_tsfp;
     }
+    public function otp_info($report_year, $report_month){
+                    $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
+return $bar_chart;
+
+}
+
 
 }
