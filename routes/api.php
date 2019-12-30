@@ -33,7 +33,7 @@ Route::post('/sync/save-pregnant-women-followup', [
 	'uses' => 'SyncDataServerController@syncPregnantWomenFollowupServer',
 	'as' => 'sync.pregnant-women-followup.server'
 ]);
-Route::get('/otp_info/{report_year}/{report_month}', [
-	'uses' => 'OtpImportController@otp_info',
-	'as' => 'otp_info'
+Route::get('otpApi/{report_year}/{report_month}', [
+	'uses' => 'ApiController@otpApi',
+	'as' => 'otpApi'
 ]);
