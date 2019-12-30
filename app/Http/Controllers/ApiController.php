@@ -326,4 +326,157 @@ class ApiController extends Controller
         return $tsfpapi;
     }
 
+    public function bsfpApi($report_year, $report_month)
+    {
+        $bsfp_info = DB::table('bsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period'), DB::raw('campSettlement'),
+                DB::raw('sum(beginningMonthTotal) as beginningMonthTotal'),
+                DB::raw('sum(newEnrolmentTotal) as newEnrolmentTotal'),
+                DB::raw('sum(readmissionAfterDefaultTotal) as readmissionAfterDefaultTotal'),
+                DB::raw('sum(transferInFromOtherBsfpTotal) as transferInFromOtherBsfpTotal'),
+                DB::raw('sum(returnFromMamTreatmentTotal) as returnFromMamTreatmentTotal'),
+                DB::raw('sum(totalAdmission) as totalAdmission'),
+                DB::raw('sum(discharge59Total) as discharge59Total'),
+                DB::raw('sum(defaulterTotal) as defaulterTotal'),
+                DB::raw('sum(deathTotal) as deathTotal'),
+                DB::raw('sum(totalTransferOut) as totalTransferOut'),
+                DB::raw('sum(transferToSamTotal) as transferToSamTotal'),
+                DB::raw('sum(transferToMamTotal) as transferToMamTotal'),
+                DB::raw('sum(othersTotal) as othersTotal'),
+                DB::raw('sum(totalExits) as totalExits'),
+                DB::raw('sum(atTheEndTotal) as atTheEndTotal'),
+                DB::raw('sum(reachedTotal) as reachedTotal'),
+                DB::raw('sum(growthMonitoredTotal) as growthMonitoredTotal'),
+                DB::raw('sum(mamTotal) as mamTotal'),
+                DB::raw('sum(samTotal) as samTotal'),
+                DB::raw('sum(atTheBeginningOfTheMonthPlw) as atTheBeginningOfTheMonthPlw'),
+                DB::raw('sum(newAdmissionPlw) as newAdmissionPlw'),
+                DB::raw('sum(readmissionAfterDefault) as readmissionAfterDefault'),
+                DB::raw('sum(transferInFromOtherBsfpPlw) as transferInFromOtherBsfpPlw'),
+                DB::raw('sum(totalAdmissionPlw) as totalAdmissionPlw'),
+                DB::raw('sum(dischargePlw) as dischargePlw'),
+                DB::raw('sum(transferToOtherTsfpPlw) as transferToOtherTsfpPlw'),
+                DB::raw('sum(transferOutOtherBsfpPlw) as transferOutOtherBsfpPlw'),
+                DB::raw('sum(defaulterPlw) as defaulterPlw'),
+                DB::raw('sum(deathPlw) as deathPlw'),
+                DB::raw('sum(totalExistPlw) as totalExistPlw'),
+                DB::raw('sum(totalBeneficiaryAtTheEndPLW) as totalBeneficiaryAtTheEndPLW'),
+                DB::raw('sum(reachedBeneficiariesBsfp) as reachedBeneficiariesBsfp')
+            )
+            ->where('month', $report_month)->where('year', $report_year)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+            ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+
+        $campSettlement = [];
+        $beginningMonthTotal = [];
+        $newEnrolmentTotal = [];
+        $readmissionAfterDefaultTotal = [];
+        $transferInFromOtherBsfpTotal = [];
+        $returnFromMamTreatmentTotal = [];
+        $totalAdmission = [];
+        $discharge59Total = [];
+        $defaulterTotal = [];
+        $deathTotal = [];
+        $totalTransferOut = [];
+        $transferToSamTotal = [];
+        $transferToMamTotal = [];
+        $othersTotal = [];
+        $totalExits = [];
+        $atTheEndTotal = [];
+        $reachedTotal = [];
+        $growthMonitoredTotal = [];
+        $mamTotal = [];
+        $samTotal = [];
+
+        $atTheBeginningOfTheMonthPlw = [];
+        $newAdmissionPlw = [];
+        $readmissionAfterDefault = [];
+        $transferInFromOtherBsfpPlw = [];
+        $referFromTsfp = [];
+        $totalAdmissionPlw = [];
+        $dischargePlw = [];
+        $transferToOtherTsfpPlw = [];
+        $transferOutOtherBsfpPlw = [];
+        $defaulterPlw = [];
+        $deathPlw = [];
+        $otherPlw = [];
+        $totalExistPlw = [];
+        $totalBeneficiaryAtTheEndPLW = [];
+        $reachedBeneficiariesBsfp = [];
+
+        foreach ($bsfp_info as $bsfp) {
+            for ($i = 0; $i < count($bsfp_info); $i++) ;
+            $campSettlement[] = $bsfp->campSettlement;
+            $beginningMonthTotal[] = $bsfp->beginningMonthTotal;
+            $newEnrolmentTotal[] = $bsfp->newEnrolmentTotal;
+            $readmissionAfterDefaultTotal[] = $bsfp->readmissionAfterDefaultTotal;
+            $transferInFromOtherBsfpTotal[] = $bsfp->transferInFromOtherBsfpTotal;
+            $returnFromMamTreatmentTotal[] = $bsfp->returnFromMamTreatmentTotal;
+            $totalAdmission[] = $bsfp->totalAdmission;
+            $discharge59Total[] = $bsfp->discharge59Total;
+            $defaulterTotal[] = $bsfp->defaulterTotal;
+            $deathTotal[] = $bsfp->deathTotal;
+            $totalTransferOut[] = $bsfp->totalTransferOut;
+            $transferToSamTotal[] = $bsfp->transferToSamTotal;
+            $transferToMamTotal[] = $bsfp->transferToMamTotal;
+            $othersTotal[] = $bsfp->othersTotal;
+            $totalExits[] = $bsfp->totalExits;
+            $atTheEndTotal[] = $bsfp->atTheEndTotal;
+            $reachedTotal[] = $bsfp->reachedTotal;
+            $growthMonitoredTotal[] = $bsfp->growthMonitoredTotal;
+            $mamTotal[] = $bsfp->mamTotal;
+            $samTotal[] = $bsfp->samTotal;
+            $atTheBeginningOfTheMonthPlw[] = $bsfp->atTheBeginningOfTheMonthPlw;
+            $newAdmissionPlw[] = $bsfp->newAdmissionPlw;
+            $readmissionAfterDefault[] = $bsfp->readmissionAfterDefault;
+            $transferInFromOtherBsfpPlw[] = $bsfp->transferInFromOtherBsfpPlw;
+            $totalAdmissionPlw[] = $bsfp->totalAdmissionPlw;
+            $dischargePlw[] = $bsfp->dischargePlw;
+            $transferToOtherTsfpPlw[] = $bsfp->transferToOtherTsfpPlw;
+            $transferOutOtherBsfpPlw[] = $bsfp->transferOutOtherBsfpPlw;
+            $defaulterPlw[] = $bsfp->defaulterPlw;
+            $deathPlw[] = $bsfp->deathPlw;
+            $totalExistPlw[] = $bsfp->totalExistPlw;
+            $totalBeneficiaryAtTheEndPLW[] = $bsfp->totalBeneficiaryAtTheEndPLW;
+            $reachedBeneficiariesBsfp[] = $bsfp->reachedBeneficiariesBsfp;
+        }
+        $bsfpapi['campSettlement'] = $campSettlement;
+        $bsfpapi['beginningMonthTotal'] = $beginningMonthTotal;
+        $bsfpapi['newEnrolmentTotal'] = $newEnrolmentTotal;
+        $bsfpapi['readmissionAfterDefaultTotal'] = $readmissionAfterDefaultTotal;
+        $bsfpapi['transferInFromOtherBsfpTotal'] = $transferInFromOtherBsfpTotal;
+        $bsfpapi['returnFromMamTreatmentTotal'] = $returnFromMamTreatmentTotal;
+        $bsfpapi['totalAdmission'] = $totalAdmission;
+        $bsfpapi['discharge59Total'] = $discharge59Total;
+        $bsfpapi['defaulterTotal'] = $defaulterTotal;
+        $bsfpapi['deathTotal'] = $deathTotal;
+        $bsfpapi['totalTransferOut'] = $totalTransferOut;
+        $bsfpapi['transferToSamTotal'] = $transferToSamTotal;
+        $bsfpapi['transferToMamTotal'] = $transferToMamTotal;
+        $bsfpapi['othersTotal'] = $othersTotal;
+        $bsfpapi['totalExits'] = $totalExits;
+        $bsfpapi['atTheEndTotal'] = $atTheEndTotal;
+        $bsfpapi['reachedTotal'] = $reachedTotal;
+        $bsfpapi['growthMonitoredTotal'] = $growthMonitoredTotal;
+        $bsfpapi['mamTotal'] = $mamTotal;
+        $bsfpapi['samTotal'] = $samTotal;
+        $bsfpapi['atTheBeginningOfTheMonthPlw'] = $atTheBeginningOfTheMonthPlw;
+        $bsfpapi['newAdmissionPlw'] = $newAdmissionPlw;
+        $bsfpapi['readmissionAfterDefault'] = $readmissionAfterDefault;
+        $bsfpapi['transferInFromOtherBsfpPlw'] = $transferInFromOtherBsfpPlw;
+        $bsfpapi['totalAdmissionPlw'] = $totalAdmissionPlw;
+        $bsfpapi['dischargePlw'] = $dischargePlw;
+        $bsfpapi['transferToOtherTsfpPlw'] = $transferToOtherTsfpPlw;
+        $bsfpapi['transferOutOtherBsfpPlw'] = $transferOutOtherBsfpPlw;
+        $bsfpapi['defaulterPlw'] = $defaulterPlw;
+        $bsfpapi['deathPlw'] = $deathPlw;
+        $bsfpapi['totalExistPlw'] = $totalExistPlw;
+        $bsfpapi['totalBeneficiaryAtTheEndPLW'] = $totalBeneficiaryAtTheEndPLW;
+        $bsfpapi['reachedBeneficiariesBsfp'] = $reachedBeneficiariesBsfp;
+
+
+        return $bsfpapi;
+    }
+
+
 }
