@@ -33,7 +33,16 @@ Route::post('/sync/save-pregnant-women-followup', [
 	'uses' => 'SyncDataServerController@syncPregnantWomenFollowupServer',
 	'as' => 'sync.pregnant-women-followup.server'
 ]);
+//API for mobile Application
 Route::get('otpApi/{report_year}/{report_month}', [
 	'uses' => 'ApiController@otpApi',
 	'as' => 'otpApi'
+]);
+Route::get('tsfpApi/{report_year}/{report_month}', [
+	'uses' => 'ApiController@tsfpApi',
+	'as' => 'tsfpApi'
+]);
+Route::get('bsfpApi/{report_year}/{report_month}', [
+	'uses' => 'ApiController@bsfpApi',
+	'as' => 'bsfpApi'
 ]);

@@ -7,24 +7,25 @@ use DB;
 
 class ApiController extends Controller
 {
-    public function otpApi($report_year, $report_month){
+    public function otpApi($report_year, $report_month)
+    {
 //        dd($report_year);
         $otp_info = DB::table('otp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period'), DB::raw('campSettlement'),
-                DB::raw('sum(beginningMonth_M) as beginningMonth_M'), DB::raw('sum(beginningMonth_F) as beginningMonth_F'),DB::raw('sum(beginningMonthTotal) as beginningMonthTotal'),
-                DB::raw('sum(totalNewEnrolment_M) as totalNewEnrolment_M'), DB::raw('sum(totalNewEnrolment_F) as totalNewEnrolment_F'),DB::raw('sum(totalNewEnrolment) as totalNewEnrolment'),
-                DB::raw('sum(totalEnrolment_M) as totalEnrolment_M'), DB::raw('sum(totalEnrolment_F) as totalEnrolment_F'),DB::raw('sum(totalEnrolment) as totalEnrolment'),
+                DB::raw('sum(beginningMonth_M) as beginningMonth_M'), DB::raw('sum(beginningMonth_F) as beginningMonth_F'), DB::raw('sum(beginningMonthTotal) as beginningMonthTotal'),
+                DB::raw('sum(totalNewEnrolment_M) as totalNewEnrolment_M'), DB::raw('sum(totalNewEnrolment_F) as totalNewEnrolment_F'), DB::raw('sum(totalNewEnrolment) as totalNewEnrolment'),
+                DB::raw('sum(totalEnrolment_M) as totalEnrolment_M'), DB::raw('sum(totalEnrolment_F) as totalEnrolment_F'), DB::raw('sum(totalEnrolment) as totalEnrolment'),
                 DB::raw('sum(totalTransferFromOther) as totalTransferFromOther'), DB::raw('sum(totalDischarged) as totalDischarged'),
-                DB::raw('sum(totalCured) as totalCured'),DB::raw('sum(totalDefault) as totalDefault'), DB::raw('sum(totalDeath) as totalDeath'),
+                DB::raw('sum(totalCured) as totalCured'), DB::raw('sum(totalDefault) as totalDefault'), DB::raw('sum(totalDeath) as totalDeath'),
                 DB::raw('sum(totalNonRecovered) as totalNonRecovered'),
-                DB::raw('sum(transferSc_M) as transferSc_M'),DB::raw('sum(transferSc_F) as transferSc_F'),
-                DB::raw('sum(enrolmentMuc_M) as enrolmentMuc_M'),DB::raw('sum(enrolmentMuc_F) as enrolmentMuc_F'),
-                DB::raw('sum(enrolmentWfh_M) as enrolmentWfh_M'),DB::raw('sum(enrolmentWfh_F) as enrolmentWfh_F'),
-                DB::raw('sum(enrolmentBoth_M) as enrolmentBoth_M'),DB::raw('sum(enrolmentBoth_F) as enrolmentBoth_F'),
-                DB::raw('sum(enrolmentEdema_M) as enrolmentEdema_M'),DB::raw('sum(enrolmentEdema_F) as enrolmentEdema_F'),
-                DB::raw('sum(enrolmentRelapse_M) as enrolmentRelapse_M'),DB::raw('sum(enrolmentRelapse_F) as enrolmentRelapse_F'),
-                DB::raw('sum(totalEndOfMonth_M) as totalEndOfMonth_M'),DB::raw('sum(totalEndOfMonth_F) as totalEndOfMonth_F'),
-                DB::raw('sum(alos) as alos'),DB::raw('sum(awg) as awg')
+                DB::raw('sum(transferSc_M) as transferSc_M'), DB::raw('sum(transferSc_F) as transferSc_F'),
+                DB::raw('sum(enrolmentMuc_M) as enrolmentMuc_M'), DB::raw('sum(enrolmentMuc_F) as enrolmentMuc_F'),
+                DB::raw('sum(enrolmentWfh_M) as enrolmentWfh_M'), DB::raw('sum(enrolmentWfh_F) as enrolmentWfh_F'),
+                DB::raw('sum(enrolmentBoth_M) as enrolmentBoth_M'), DB::raw('sum(enrolmentBoth_F) as enrolmentBoth_F'),
+                DB::raw('sum(enrolmentEdema_M) as enrolmentEdema_M'), DB::raw('sum(enrolmentEdema_F) as enrolmentEdema_F'),
+                DB::raw('sum(enrolmentRelapse_M) as enrolmentRelapse_M'), DB::raw('sum(enrolmentRelapse_F) as enrolmentRelapse_F'),
+                DB::raw('sum(totalEndOfMonth_M) as totalEndOfMonth_M'), DB::raw('sum(totalEndOfMonth_F) as totalEndOfMonth_F'),
+                DB::raw('sum(alos) as alos'), DB::raw('sum(awg) as awg')
             )
             ->where('month', $report_month)->where('year', $report_year)
             ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
@@ -63,8 +64,8 @@ class ApiController extends Controller
         $enrolmentRelapse_F = [];
         $totalEndOfMonth_M = [];
         $totalEndOfMonth_F = [];
-        $alos= [];
-        $awg= [];
+        $alos = [];
+        $awg = [];
         foreach ($otp_info as $bc) {
             for ($i = 0; $i < count($otp_info); $i++) ;
             $campSettlement[] = $bc->campSettlement;
@@ -141,6 +142,188 @@ class ApiController extends Controller
         $otpapi['awg'] = $awg;
 
         return $otpapi;
+    }
+
+    public function tsfpApi($report_year, $report_month)
+    {
+        $tsfp_info = DB::table('tsfp_imports')
+            ->select(DB::raw('year'), DB::raw('month'), DB::raw('period'), DB::raw('campSettlement'),
+                DB::raw('sum(beginningMonthTotal) as beginningMonthTotal'),
+                DB::raw('sum(newEnrolmentMuacTotal) as newEnrolmentMuacTotal'),
+                DB::raw('sum(newEnrolmentWfhTotal) as newEnrolmentWfhTotal'),
+                DB::raw('sum(readmissionAfterDefaultTotal) as readmissionAfterDefaultTotal'),
+                DB::raw('sum(readmissionAfterRecoveryTotal) as readmissionAfterRecoveryTotal'),
+                DB::raw('sum(transferInFromTsfpTotal) as transferInFromTsfpTotal'),
+                DB::raw('sum(returnFromSamTotal) as returnFromSamTotal'),
+                DB::raw('sum(admissionTotal) as admissionTotal'),
+
+                DB::raw('sum(dischargeCuredToBsfpTotal) as totalCured'),
+                DB::raw('sum(defaultTotal) as totalDefault'),
+                DB::raw('sum(deathTotal) as totalDeath'),
+                DB::raw('sum(nonResponseTotal) as totalNonRecovered'),
+
+//                DB::raw('sum(dischargeCuredToBsfpTotal) as dischargeCuredToBsfpTotal'),
+//                DB::raw('sum(defaultTotal) as defaultTotal'),
+//                DB::raw('sum(deathTotal) as deathTotal'),
+//                DB::raw('sum(nonResponseTotal) as nonResponseTotal'),
+                DB::raw('sum(transferToSamTreatmentTotal) as transferToSamTreatmentTotal'),
+                DB::raw('sum(transferOutToTsfpTotal) as transferOutToTsfpTotal'),
+                DB::raw('sum(othersTotal) as othersTotal'),
+                DB::raw('sum(exitTotal) as exitTotal'),
+                DB::raw('sum(endOfMonthTotal) as endOfMonthTotal'),
+                DB::raw('sum(reachedTotal) as reachedTotal'),
+                DB::raw('sum(tsfpChildNewAdmissionM) as tsfpChildNewAdmissionM'),
+                DB::raw('sum(tsfpChildNewAdmissionF) as tsfpChildNewAdmissionF'),
+                DB::raw('sum(newAdmissionTotal) as newAdmissionTotal'),
+                DB::raw('sum(newAdmissionTotal) as newAdmissionTotal'),
+
+                DB::raw('sum(atTheBeginningOfTheMonthPlw) as atTheBeginningOfTheMonthPlw'),
+                DB::raw('sum(newAdmissionPlw) as newAdmissionPlw'),
+                DB::raw('sum(readmissionAfterBeingdefault) as readmissionAfterBeingdefault'),
+                DB::raw('sum(referFromBsfpPlw) as referFromBsfpPlw'),
+                DB::raw('sum(transferInFromOtherTsfpPlw) as transferInFromOtherTsfpPlw'),
+                DB::raw('sum(totalAdmissionPlw) as totalAdmissionPlw'),
+                DB::raw('sum(dischargeCuredPlwToBsfp) as dischargeCuredPlwToBsfp'),
+                DB::raw('sum(dischargePlw) as dischargePlw'),
+                DB::raw('sum(transferOutToOtherTsfpPlw) as transferOutToOtherTsfpPlw'),
+                DB::raw('sum(defaulterPlw) as defaulterPlw'),
+                DB::raw('sum(deathPlw) as deathPlw'),
+                DB::raw('sum(otherPlw) as otherPlw'),
+                DB::raw('sum(totalExistPlw) as totalExistPlw'),
+                DB::raw('sum(totalBeneficiaryAtTheEndPlw) as totalBeneficiaryAtTheEndPlw')
+            )
+            ->where('month', $report_month)->where('year', $report_year)
+            ->groupBy(DB::raw('year'))->groupBy(DB::raw('month'))->groupBy(DB::raw('campSettlement'))
+            ->orderBy('year', 'asc')->orderBy('month', 'asc')->get()->toArray();
+        $campSettlement = [];
+        $curedRate = [];
+        $deathRate = [];
+        $defaultRate = [];
+        $nonRecoveredRate = [];
+        $beginningMonthTotal = [];
+        $newEnrolmentMuacTotal = [];
+        $newEnrolmentWfhTotal = [];
+        $readmissionAfterRecoveryTotal = [];
+        $transferInFromTsfpTotal = [];
+        $returnFromSamTotal = [];
+        $admissionTotal = [];
+        $dischargeCuredToBsfpTotal = [];
+        $defaultTotal = [];
+        $deathTotal = [];
+        $nonResponseTotal = [];
+        $transferToSamTreatmentTotal = [];
+        $transferOutToTsfpTotal = [];
+        $othersTotal = [];
+        $exitTotal = [];
+        $endOfMonthTotal = [];
+        $reachedTotal = [];
+        $tsfpChildNewAdmissionM = [];
+        $tsfpChildNewAdmissionF = [];
+        $newAdmissionTotal = [];
+
+        $atTheBeginningOfTheMonthPlw = [];
+        $newAdmissionPlw = [];
+        $readmissionAfterBeingdefault = [];
+        $referFromBsfpPlw = [];
+        $transferInFromOtherTsfpPlw = [];
+        $totalAdmissionPlw = [];
+        $dischargeCuredPlwToBsfp = [];
+        $dischargePlw = [];
+        $transferOutToOtherTsfpPlw = [];
+        $defaulterPlw = [];
+        $deathPlw = [];
+        $otherPlw = [];
+        $totalExistPlw = [];
+        $totalBeneficiaryAtTheEndPlw = [];
+
+        foreach ($tsfp_info as $tsfp) {
+            for ($i = 0; $i < count($tsfp_info); $i++) ;
+            $campSettlement[] = $tsfp->campSettlement;
+            $curedRate[] = ($tsfp->totalCured == 0) ? 0 : ($tsfp->totalCured / ($tsfp->totalCured + $tsfp->totalDefault + $tsfp->totalDeath + $tsfp->totalNonRecovered)) * 100;
+            $deathRate[] = ($tsfp->totalDeath == 0) ? 0 : ($tsfp->totalDeath / ($tsfp->totalCured + $tsfp->totalDefault + $tsfp->totalDeath + $tsfp->totalNonRecovered)) * 100;
+            $defaultRate[] = ($tsfp->totalDefault == 0) ? 0 : ($tsfp->totalDefault / ($tsfp->totalCured + $tsfp->totalDefault + $tsfp->totalDeath + $tsfp->totalNonRecovered)) * 100;
+            $nonRecoveredRate[] = ($tsfp->totalNonRecovered == 0) ? 0 : ($tsfp->totalNonRecovered / ($tsfp->totalCured + $tsfp->totalDefault + $tsfp->totalDeath + $tsfp->totalNonRecovered)) * 100;
+
+            $beginningMonthTotal[] = $tsfp->beginningMonthTotal;
+            $newEnrolmentMuacTotal[] = $tsfp->newEnrolmentMuacTotal;
+            $newEnrolmentWfhTotal[] = $tsfp->newEnrolmentWfhTotal;
+            $readmissionAfterRecoveryTotal[] = $tsfp->readmissionAfterRecoveryTotal;
+            $transferInFromTsfpTotal[] = $tsfp->transferInFromTsfpTotal;
+            $returnFromSamTotal[] = $tsfp->returnFromSamTotal;
+            $admissionTotal[] = $tsfp->admissionTotal;
+            $dischargeCuredToBsfpTotal[] = $tsfp->totalCured;
+            $defaultTotal[] = $tsfp->totalDefault;
+            $deathTotal[] = $tsfp->totalDeath;
+            $nonResponseTotal[] = $tsfp->totalNonRecovered;
+            $transferToSamTreatmentTotal[] = $tsfp->transferToSamTreatmentTotal;
+            $transferOutToTsfpTotal[] = $tsfp->transferOutToTsfpTotal;
+            $othersTotal[] = $tsfp->othersTotal;
+            $exitTotal[] = $tsfp->exitTotal;
+            $endOfMonthTotal[] = $tsfp->endOfMonthTotal;
+            $reachedTotal[] = $tsfp->reachedTotal;
+            $tsfpChildNewAdmissionM[] = $tsfp->tsfpChildNewAdmissionM;
+            $tsfpChildNewAdmissionF[] = $tsfp->tsfpChildNewAdmissionF;
+            $newAdmissionTotal[] = $tsfp->newAdmissionTotal;
+
+            $atTheBeginningOfTheMonthPlw[] = $tsfp->atTheBeginningOfTheMonthPlw;
+            $newAdmissionPlw[] = $tsfp->newAdmissionPlw;
+            $readmissionAfterBeingdefault[] = $tsfp->readmissionAfterBeingdefault;
+            $referFromBsfpPlw[] = $tsfp->referFromBsfpPlw;
+            $transferInFromOtherTsfpPlw[] = $tsfp->transferInFromOtherTsfpPlw;
+            $totalAdmissionPlw[] = $tsfp->totalAdmissionPlw;
+            $dischargeCuredPlwToBsfp[] = $tsfp->dischargeCuredPlwToBsfp;
+            $dischargePlw[] = $tsfp->dischargePlw;
+            $transferOutToOtherTsfpPlw[] = $tsfp->transferOutToOtherTsfpPlw;
+            $defaulterPlw[] = $tsfp->defaulterPlw;
+            $deathPlw[] = $tsfp->deathPlw;
+            $otherPlw[] = $tsfp->otherPlw;
+            $totalExistPlw[] = $tsfp->totalExistPlw;
+            $totalBeneficiaryAtTheEndPlw [] = $tsfp->totalBeneficiaryAtTheEndPlw;
+        }
+//        $tsfpapi['awg'] = $awg;
+        $tsfpapi['campSettlement'] = $campSettlement;
+        $tsfpapi['curedRate'] = $curedRate;
+        $tsfpapi['deathRate'] = $deathRate;
+        $tsfpapi['defaultRate'] = $defaultRate;
+        $tsfpapi['nonRecoveredRate'] = $nonRecoveredRate;
+        $tsfpapi['beginningMonthTotal'] = $beginningMonthTotal;
+        $tsfpapi['newEnrolmentMuacTotal'] = $newEnrolmentMuacTotal;
+        $tsfpapi['newEnrolmentWfhTotal'] = $newEnrolmentWfhTotal;
+        $tsfpapi['readmissionAfterRecoveryTotal'] = $readmissionAfterRecoveryTotal;
+        $tsfpapi['transferInFromTsfpTotal'] = $transferInFromTsfpTotal;
+        $tsfpapi['returnFromSamTotal'] = $returnFromSamTotal;
+        $tsfpapi['admissionTotal'] = $admissionTotal;
+        $tsfpapi['dischargeCuredToBsfpTotal'] = $dischargeCuredToBsfpTotal;
+        $tsfpapi['defaultTotal'] = $defaultTotal;
+        $tsfpapi['deathTotal'] = $deathTotal;
+        $tsfpapi['nonResponseTotal'] = $nonResponseTotal;
+        $tsfpapi['transferToSamTreatmentTotal'] = $transferToSamTreatmentTotal;
+        $tsfpapi['transferOutToTsfpTotal'] = $transferOutToTsfpTotal;
+        $tsfpapi['othersTotal'] = $othersTotal;
+        $tsfpapi['exitTotal'] = $exitTotal;
+        $tsfpapi['endOfMonthTotal'] = $endOfMonthTotal;
+        $tsfpapi['reachedTotal'] = $reachedTotal;
+        $tsfpapi['tsfpChildNewAdmissionM'] = $tsfpChildNewAdmissionM;
+        $tsfpapi['tsfpChildNewAdmissionF'] = $tsfpChildNewAdmissionF;
+        $tsfpapi['newAdmissionTotal'] = $newAdmissionTotal;
+
+        $tsfpapi['atTheBeginningOfTheMonthPlw'] = $atTheBeginningOfTheMonthPlw;
+        $tsfpapi['newAdmissionPlw'] = $newAdmissionPlw;
+        $tsfpapi['readmissionAfterBeingdefault'] = $readmissionAfterBeingdefault;
+        $tsfpapi['referFromBsfpPlw'] = $referFromBsfpPlw;
+        $tsfpapi['transferInFromOtherTsfpPlw'] = $transferInFromOtherTsfpPlw;
+        $tsfpapi['totalAdmissionPlw'] = $totalAdmissionPlw;
+        $tsfpapi['dischargeCuredPlwToBsfp'] = $dischargeCuredPlwToBsfp;
+        $tsfpapi['dischargePlw'] = $dischargePlw;
+        $tsfpapi['transferOutToOtherTsfpPlw'] = $transferOutToOtherTsfpPlw;
+        $tsfpapi['defaulterPlw'] = $defaulterPlw;
+        $tsfpapi['deathPlw'] = $deathPlw;
+        $tsfpapi['otherPlw'] = $otherPlw;
+        $tsfpapi['totalExistPlw'] = $totalExistPlw;
+        $tsfpapi['totalBeneficiaryAtTheEndPlw'] = $totalBeneficiaryAtTheEndPlw;
+
+
+        return $tsfpapi;
     }
 
 }

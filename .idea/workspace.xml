@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df9c621-5e08-4402-bd93-fd0572f0e0a5" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApiController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/api.php" afterPath="$PROJECT_DIR$/routes/api.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +18,8 @@
       <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/api.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="35" column="12" lean-forward="true" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="18" />
+            <state relative-caret-position="512">
+              <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -29,8 +28,8 @@
       <file leaf-file-name="OtpImportController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4430">
-              <caret line="986" column="0" lean-forward="false" selection-start-line="986" selection-start-column="0" selection-end-line="986" selection-end-column="0" />
+            <state relative-caret-position="170">
+              <caret line="869" column="110" lean-forward="true" selection-start-line="868" selection-start-column="16" selection-end-line="869" selection-end-column="110" />
               <folding>
                 <element signature="e#40#71#0#PHP" expanded="true" />
                 <element signature="e#1123#4416#0#PHP" expanded="false" />
@@ -38,7 +37,6 @@
                 <element signature="e#27888#47082#0#PHP" expanded="false" />
                 <element signature="e#47088#52641#0#PHP" expanded="false" />
                 <element signature="e#52647#54599#0#PHP" expanded="false" />
-                <element signature="e#57368#60435#0#PHP" expanded="false" />
                 <element signature="e#60441#66308#0#PHP" expanded="false" />
               </folding>
             </state>
@@ -48,8 +46,8 @@
       <file leaf-file-name="ApiController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ApiController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+            <state relative-caret-position="357">
+              <caret line="256" column="58" lean-forward="false" selection-start-line="256" selection-start-column="58" selection-end-line="256" selection-end-column="58" />
               <folding>
                 <element signature="e#40#68#0#PHP" expanded="true" />
               </folding>
@@ -69,8 +67,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>$line_chart</find>
-      <find>console</find>
       <find>)-&gt;nullable()-&gt;default(0);</find>
       <find>,</find>
       <find>otp</find>
@@ -99,11 +95,10 @@
       <find>New</find>
       <find>totalCured</find>
       <find>Muc</find>
+      <find>;</find>
+      <find>[]</find>
     </findStrings>
     <replaceStrings>
-      <replace>']=0;</replace>
-      <replace>['death_rate']</replace>
-      <replace>['default_rate']</replace>
       <replace>['nonrespondent_rate']</replace>
       <replace>['avg_weight_gain']</replace>
       <replace>report</replace>
@@ -127,10 +122,13 @@
       <replace>=&gt; $row[],</replace>
       <replace>desc</replace>
       <replace>,</replace>
-      <replace>$</replace>
       <replace>elseif</replace>
       <replace>totalDefault</replace>
       <replace>Wfh</replace>
+      <replace>= [];</replace>
+      <replace>= $tsfp-&gt;</replace>
+      <replace>$tsfp</replace>
+      <replace>$</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -559,12 +557,12 @@
       <workItem from="1577248418314" duration="742000" />
       <workItem from="1577272538915" duration="3388000" />
       <workItem from="1577447568691" duration="8829000" />
-      <workItem from="1577697218472" duration="6344000" />
+      <workItem from="1577697218472" duration="10623000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="592892000" />
+    <option name="totallyTimeSpent" value="597171000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -943,10 +941,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="512">
+          <caret line="46" column="21" lean-forward="true" selection-start-line="46" selection-start-column="21" selection-end-line="46" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OtpImportController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4430">
-          <caret line="986" column="0" lean-forward="false" selection-start-line="986" selection-start-column="0" selection-end-line="986" selection-end-column="0" />
+        <state relative-caret-position="170">
+          <caret line="869" column="110" lean-forward="true" selection-start-line="868" selection-start-column="16" selection-end-line="869" selection-end-column="110" />
           <folding>
             <element signature="e#40#71#0#PHP" expanded="true" />
             <element signature="e#1123#4416#0#PHP" expanded="false" />
@@ -954,24 +960,15 @@
             <element signature="e#27888#47082#0#PHP" expanded="false" />
             <element signature="e#47088#52641#0#PHP" expanded="false" />
             <element signature="e#52647#54599#0#PHP" expanded="false" />
-            <element signature="e#57368#60435#0#PHP" expanded="false" />
             <element signature="e#60441#66308#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/api.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="35" column="12" lean-forward="true" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ApiController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="56" lean-forward="true" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
+        <state relative-caret-position="357">
+          <caret line="256" column="58" lean-forward="false" selection-start-line="256" selection-start-column="58" selection-end-line="256" selection-end-column="58" />
           <folding>
             <element signature="e#40#68#0#PHP" expanded="true" />
           </folding>
