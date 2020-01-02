@@ -68,8 +68,14 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('supply', 'SupplyController');
 });
 
-Route::get('/sync/get-live-data', 'SyncDataClientController@getLiveData');
-Route::get('/sync/post-live-data', 'SyncDataClientController@postLiveData');
+Route::get('/sync/get-live-data', [
+	'uses' => 'SyncDataClientController@getLiveData',
+	'as' => 'sync.get-live-data'
+]);
+Route::get('/sync/retrieve-live-data', [
+	'uses' => 'SyncDataClientController@retrieveLiveData',
+	'as' => 'sync.retrieve-live-data'
+]);
 
 
 // SYNC ------------------------------------------------------------

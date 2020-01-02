@@ -1,9 +1,10 @@
 @if(!env('LIVE_SERVER') && env('SERVER_CODE'))
+<a class="btn btn-danger" href="{{ route('sync.get-live-data') }}">Get live server data to smserver</a>
 <div class="sync-wrapper">
 	<div class="ibox float-e-margins">
 		<div class="ibox-title">
 			<h5>Sync to live server</h5>
-            <h5 class="pull-right">(ServerCode {{ env('SERVER_CODE') }})</h5>
+            <h5 class="pull-right"> (Code {{ env('SERVER_CODE') }})</h5>
 		</div>
 		<div class="ibox-content">
 			<div class="progress">

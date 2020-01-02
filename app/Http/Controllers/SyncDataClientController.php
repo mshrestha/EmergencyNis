@@ -46,8 +46,8 @@ class SyncDataClientController extends Controller
 
 
 
-    public function sendDataToServer($model, $api_url) {
-    	$total_data_sync_count = $model::whereIn('sync_status', ['created', 'updated'])->count();
+	public function sendDataToServer($model, $api_url) {
+		$total_data_sync_count = $model::whereIn('sync_status', ['created', 'updated'])->count();
 		$sync_data = $model::whereIn('sync_status', ['created', 'updated'])->limit(10)->get()->toArray();
 		$has_more = ($total_data_sync_count > count($sync_data)) ? true : false;
 		$sync_left = $total_data_sync_count - count($sync_data);
@@ -71,9 +71,9 @@ class SyncDataClientController extends Controller
 		}
 
 		return ['has_more' => $has_more, 'sync_left' => $sync_left];
-    }
+	}
 
-    public function curlInit($post, $url) {
+	public function curlInit($post, $url) {
 		//This needs to be the full path to the file you want to send.
 		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -91,29 +91,35 @@ class SyncDataClientController extends Controller
 
 
 	public function getLiveData() {
-		return view('sync.get-live-data');
+		if(!env('LIVE_SERVER')) {
+			return view('sync.get-live-data');
+		}
 	}
 
-	public function postLiveData() {
-		try {
-			$this->sync_url = 'http://localhost:8000';
-			$url = $this->sync_url . '/api/sync/generate/mysqldump'; 
-			$source_url = file_get_contents($url);
-			$file_path = public_path('uploads/mysqlbackup/ens.sql');
-			$save_to_local = copy($source_url, $file_path);
+	public function retrieveLiveData() {
+		if(!env('LIVE_SERVER')) {
+			try {
+				// $this->sync_url = 'http://localhost:8000';
+				$url = $this->sync_url . '/api/sync/generate/mysqldump'; 
+				$source_url = file_get_contents($url);
+				$file_path = public_path('uploads/mysqlbackup/ens.sql');
+				$save_to_local = copy($source_url, $file_path);
 
-			if($save_to_local) {
+				if($save_to_local) {
 				//Drop all tables
-				$this->drop_tables();
+					$this->drop_tables();
 
 				//Import new database
-				$db_database = env('DB_DATABASE');
-				$db_username = env('DB_USERNAME');
-				$db_password = env('DB_PASSWORD');
-				exec("mysql -u {$db_username} -p{$db_password} {$db_database} < {$file_path}");
+					$db_database = env('DB_DATABASE');
+					$db_username = env('DB_USERNAME');
+					$db_password = env('DB_PASSWORD');
+					exec("mysql -u {$db_username} -p{$db_password} {$db_database} < {$file_path}");
+				}
+			} catch (Exception $e) {
+
 			}
-		} catch (Exception $e) {
-			
+
+			return 'Synced live database';
 		}
 	}
 
