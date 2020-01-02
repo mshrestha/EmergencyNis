@@ -66,9 +66,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importSc', 'ScImportController@importSc');
 
     Route::resource('supply', 'SupplyController');
-
 });
 
+Route::get('/sync/get-live-data', 'SyncDataClientController@getLiveData');
+Route::get('/sync/post-live-data', 'SyncDataClientController@postLiveData');
 
 
 // SYNC ------------------------------------------------------------

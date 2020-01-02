@@ -7,6 +7,8 @@ use App\Models\FacilityFollowup;
 use App\Models\IycfFollowup;
 use App\Models\PregnantWomen;
 
+use DB;
+use Schema;
 use Illuminate\Http\Request;
 
 class SyncDataClientController extends Controller
@@ -85,5 +87,46 @@ class SyncDataClientController extends Controller
 
 		$response = json_decode($response);
 		return $response;
+	}
+
+	public function getLiveData() {
+		return view('sync.get-live-data');
+	}
+
+	public function postLiveData() {
+		try {
+			$this->sync_url = 'http://localhost:8000';
+			$url = $this->sync_url . '/api/sync/generate/mysqldump'; 
+			$source_url = file_get_contents($url);
+			$file_path = public_path('uploads/mysqlbackup/ens.sql');
+			$save_to_local = copy($source_url, $file_path);
+
+			if($save_to_local) {
+				//Drop all tables
+				$this->drop_tables();
+
+				//Import new database
+				$db_database = env('DB_DATABASE');
+				$db_username = env('DB_USERNAME');
+				$db_password = env('DB_PASSWORD');
+				exec("mysql -u {$db_username} -p{$db_password} {$db_database} < {$file_path}");
+			}
+		} catch (Exception $e) {
+			
+		}
+	}
+
+	public function drop_tables() {
+		$tables = DB::select('SHOW TABLES');
+		try {
+			DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+			foreach($tables as $table){
+				$db_name = 'Tables_in_'. env('DB_DATABASE');
+				Schema::drop($table->$db_name);
+			}
+			DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+		} catch (Exception $e) {
+			DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+		}
 	}
 }
