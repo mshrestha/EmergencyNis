@@ -86,4 +86,22 @@ class SyncDataClientController extends Controller
 		$response = json_decode($response);
 		return $response;
 	}
+
+
+	public function getLiveData() {
+		return view('sync.get-live-data');
+	}
+
+	public function postLiveData() {
+		try {
+			$this->sync_url = 'http://localhost:8000';
+			$url = $this->sync_url . '/api/sync/generate/mysqldump'; 
+			$response = file_get_contents($url);
+			file_get_contents(filename)
+			
+			dd($response);
+		} catch (Exception $e) {
+			
+		}
+	}
 }
