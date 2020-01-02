@@ -49,4 +49,22 @@ class SyncDataServerController extends Controller
 
 		return $synced_ids;
 	}
+
+
+	public function generateMysqldump() {
+		try {
+			$db_database = env('DB_DATABASE');
+			$db_username = env('DB_USERNAME');
+			$db_password = env('DB_PASSWORD');
+
+			$file = 'uploads/mysqldump/ens_dump_'.time().'.sql';
+			$file_path = public_path($file);
+
+			exec("mysqldump -u {$db_username} -p{$db_password} {$db_database} > {$file_path}");
+		} catch (Exception $e) {
+			
+		}
+
+		return asset($file);
+	}
 }

@@ -89,6 +89,7 @@ class SyncDataClientController extends Controller
 		return $response;
 	}
 
+
 	public function getLiveData() {
 		return view('sync.get-live-data');
 	}

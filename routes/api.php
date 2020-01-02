@@ -33,6 +33,12 @@ Route::post('/sync/save-pregnant-women-followup', [
 	'uses' => 'SyncDataServerController@syncPregnantWomenFollowupServer',
 	'as' => 'sync.pregnant-women-followup.server'
 ]);
+
+Route::get('/sync/generate/mysqldump', [
+	'uses' => 'SyncDataServerController@generateMysqldump',
+	'as' => 'sync.generate.mysqldump'
+]);
+
 //API for mobile Application
 Route::get('otpApi/{report_year}/{report_month}', [
 	'uses' => 'ApiController@otpApi',
