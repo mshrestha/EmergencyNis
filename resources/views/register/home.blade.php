@@ -1,31 +1,32 @@
 @extends('layouts.app')
 @section('content')
-<div class="row" style="margin-top: 20px;">
-    <div class="col-md-12">
-        <ul class="nav nav-tabs ens-register-tabs">
-            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> Child Register</a></li>
-            <li class=""><a href="{{ route('pregnant-women.index') }}">Pregnant Woman Register</a></li>
-        </ul>
-        <div class="row">
-            <div class="col-sm-8 tab-content">
-                <div class="ibox tab-pane active" id="tab-1">
-                    <div class="ibox-title">
-                        <h2>
-                            Registered Children
-                            <a href="{{ route('children.create') }}" class="pull-right">
-                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i>
-                                    Add Child
-                                </button>
-                            </a>
-                        </h2>
-                        <span class="small">All child needs to be registered in order to use this system.</span>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="clients-list">
-                            <div class="full-height-scroll">
-                                <div class="table-responsive">
-                                    <table class="table dataTables table-striped table-bordered table-hover">
-                                        <thead>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs ens-register-tabs">
+                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> Child Register</a></li>
+                <li class=""><a href="{{ route('pregnant-women.index') }}">Pregnant Woman Register</a></li>
+            </ul>
+            <div class="row">
+                <div class="col-sm-8 tab-content">
+                    <div class="ibox tab-pane active" id="tab-1">
+                        <div class="ibox-title">
+                            <h2>
+                                Registered Children
+                                <a href="{{ route('children.create') }}" class="pull-right">
+                                    <button type="button" class="btn btn-primary btn-sm btn-block"><i
+                                                class="fa fa-plus"></i>
+                                        Add Child
+                                    </button>
+                                </a>
+                            </h2>
+                            <span class="small">All child needs to be registered in order to use this system.</span>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="clients-list">
+                                <div class="full-height-scroll">
+                                    <div class="table-responsive">
+                                        <table class="table dataTables table-striped table-bordered table-hover">
+                                            <thead>
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Child name</th>
@@ -36,73 +37,90 @@
                                                 <th>Status</th>
                                                 <th>Follow up</th>
                                             </tr>
-                                        </thead>
-                                        <tbody>
+                                            </thead>
+                                            <tbody>
                                             @foreach($children as $child)
-                                            <tr class="children-client" data-child-id="{{ $child->sync_id }}">
-                                                <td>{{ $child->mnr_no }}</td>
-                                                <td><a href="#child-{{ $child->sync_id }}"
-                                                 class="client-link">{{ $child->children_name }}</a></td>
-                                                 <td>{{ $child->mother_caregiver_name }}</td>
-                                                 <td>{{ $child->fathers_name }}</td>
-                                                 <td>{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
-                                                 <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
-                                                 <td>
-                                                    @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
-                                                    <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <a href="{{ route('iycf-followup.show', $child->sync_id) }}" class="edit-btn" title="IYCF Followup">
-                                                        <button class="btn btn-default btn-circle btn-registered" type="button">
-                                                            IYCF
-                                                        </button>
-                                                    </a>
-                                                    @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
-                                                    <a href="{{ route('community-followup.show', $child->sync_id) }}" title="Community followup">
-                                                        <button type="button" class="btn btn-default btn-circle btn-registered">
-                                                            <i class="fa fa-child"></i>
-                                                        </button>
-                                                    </a>
-                                                    @endif
-                                                    @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
-                                                    <a href="{{ route('facility-followup.show', $child->sync_id) }}"
-                                                     class="edit-btn" title="Facility Followup">
-                                                     <button class="btn btn-default btn-circle btn-registered" type="button"><i
-                                                        class="fa fa-plus"></i></button>
-                                                    </a>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                                <tr class="children-client" data-child-id="{{ $child->sync_id }}">
+                                                    <td>{{ $child->mnr_no }}</td>
+                                                    <td><a href="#child-{{ $child->sync_id }}"
+                                                           class="client-link">{{ $child->children_name }}</a></td>
+                                                    <td>{{ $child->mother_caregiver_name }}</td>
+                                                    <td>{{ $child->fathers_name }}</td>
+                                                    <td>{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
+                                                    <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
+                                                    <td>
+                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
+                                                            <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
+                                                        @endif
+                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']))
+                                                            <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'Defaulter':'' }}</small>
+                                                            @else
+                                                                <small class="label label-warning">Missing Date</small>
+                                                        @endif
+                                                        @if ($child->facility_followup->count()>=2)
+                                                                <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
+                                                            {{--{{$child->facility_followup->count()}}--}}
+                                                        @endif
+                                                        {{--                                                    <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'' }}</small>--}}
 
+
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('iycf-followup.show', $child->sync_id) }}"
+                                                           class="edit-btn" title="IYCF Followup">
+                                                            <button class="btn btn-default btn-circle btn-registered"
+                                                                    type="button">
+                                                                IYCF
+                                                            </button>
+                                                        </a>
+                                                        @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
+                                                            <a href="{{ route('community-followup.show', $child->sync_id) }}"
+                                                               title="Community followup">
+                                                                <button type="button"
+                                                                        class="btn btn-default btn-circle btn-registered">
+                                                                    <i class="fa fa-child"></i>
+                                                                </button>
+                                                            </a>
+                                                        @endif
+                                                        @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
+                                                            <a href="{{ route('facility-followup.show', $child->sync_id) }}"
+                                                               class="edit-btn" title="Facility Followup">
+                                                                <button class="btn btn-default btn-circle btn-registered"
+                                                                        type="button"><i
+                                                                            class="fa fa-plus"></i></button>
+                                                            </a>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
+                    <!--This is where Pregnant woman register starts -->
+                    <div class="ibox tab-pane" id="tab-2"></div>
                 </div>
-                <!--This is where Pregnant woman register starts -->
-                <div class="ibox tab-pane" id="tab-2"></div>
-            </div>
-            <div class="col-sm-4">
-                <div class="ibox ">
-                    <div class="ibox-content">
-                        <div class="tab-content">
-                            <div id="contact-1" class="tab-pane active">
-                                <div id="child-info">
+                <div class="col-sm-4">
+                    <div class="ibox ">
+                        <div class="ibox-content">
+                            <div class="tab-content">
+                                <div id="contact-1" class="tab-pane active">
+                                    <div id="child-info">
 
-                                </div>
-                            </div> <!-- tab-pane -->
-                        </div> <!-- tab-content -->
-                    </div> <!-- ibox-content -->
-                </div> <!-- ibox -->
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div> <!-- col -->
+                                    </div>
+                                </div> <!-- tab-pane -->
+                            </div> <!-- tab-content -->
+                        </div> <!-- ibox-content -->
+                    </div> <!-- ibox -->
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div> <!-- col -->
+            </div>
         </div>
-    </div>
-</div> <!-- row -->
+    </div> <!-- row -->
 @endsection
 
 
@@ -123,20 +141,20 @@
             responsive: true,
             dom: '<"html5buttons"B>lTfgtip',
             buttons: [
-            {extend: 'copy'},
-            {extend: 'csv'},
-            {extend: 'excel', title: 'RegisteredChildren'},
-            {extend: 'pdf', title: 'RegisteredChildren'},
-            {
-                extend: 'print',
-                customize: function (win) {
-                    $(win.document.body).addClass('white-bg');
-                    $(win.document.body).css('font-size', '10px');
-                    $(win.document.body).find('table')
-                    .addClass('compact')
-                    .css('font-size', 'inherit');
+                {extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'RegisteredChildren'},
+                {extend: 'pdf', title: 'RegisteredChildren'},
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
                 }
-            }
             ]
         });
     });
@@ -163,7 +181,7 @@
     //     $(function() {
     //         var hash = window.location.hash;
     //         url = hash; // do some validation on the hash here
-            
+
     //         switch (hash) {
     //             case 'child': 
     //             url = 'tab-1';

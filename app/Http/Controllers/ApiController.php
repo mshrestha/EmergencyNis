@@ -141,7 +141,11 @@ class ApiController extends Controller
         $otpapi['alos'] = $alos;
         $otpapi['awg'] = $awg;
 
-        return $otpapi;
+//        return $otpapi;
+        return response($otpapi, 200)
+            ->header('Content-type', 'Application/json')
+//            ->header('X-Header-Two', 'Header Value2')
+            ;
     }
 
     public function tsfpApi($report_year, $report_month)
