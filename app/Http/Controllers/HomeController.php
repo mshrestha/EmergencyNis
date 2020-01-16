@@ -120,7 +120,11 @@ class HomeController extends Controller
             return $a['date'] <=> $b['date'];
         });
 
-        $chart_date = array_column($facility_followups, 'date');
+        $chart_full_date = array_column($facility_followups, 'date');
+        foreach ($chart_full_date as $dt) {
+            $date = DateTime::createFromFormat("Y-m-d", $dt);
+            $chart_date[] = $date->format("d/m");
+        }
         $chart_weight = array_column($facility_followups, 'weight');
 
         return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();
