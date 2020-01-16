@@ -139,41 +139,41 @@ class HomeController extends Controller
             $wfh = DB::table('wfh_boys_2_5_zscores')->where('Height', $request->childHeight)->first();
 
         if ($input_weight == $wfh->SD3n)
-            $result = '=-SD3';
+            $result = '= - 3SD';
         elseif ($input_weight < $wfh->SD3n)
-            $result = '<-SD3';
+            $result = '< - 3SD';
         else
             if ($input_weight == $wfh->SD2n)
-                $result = '=-SD2';
+                $result = '= - 2SD';
             elseif ($input_weight < $wfh->SD2n)
-                $result = '<-SD2';
+                $result = '< - 2SD';
             else
                 if ($input_weight == $wfh->SD1n)
-                    $result = '=-SD1';
+                    $result = '= - 1SD';
                 elseif ($input_weight < $wfh->SD1n)
-                    $result = '<-SD1';
+                    $result = '< - 1SD';
                 else
                     if ($input_weight == $wfh->SD0)
-                        $result = '=SD0';
+                        $result = '= 0SD';
                     elseif ($input_weight < $wfh->SD0)
-                        $result = '<SD0';
+                        $result = '< 0SD';
                     else
                         if ($input_weight == $wfh->SD1)
-                            $result = '=SD1';
+                            $result = '= 1SD';
                         elseif ($input_weight < $wfh->SD1)
-                            $result = '<SD1';
+                            $result = '< 1SD';
                         else
                             if ($input_weight == $wfh->SD2)
-                                $result = '=SD2';
+                                $result = '= 2SD';
                             elseif ($input_weight < $wfh->SD2)
-                                $result = '<SD2';
+                                $result = '< 2SD';
                             else
                                 if ($input_weight == $wfh->SD3)
-                                    $result = '=SD3';
+                                    $result = '= 3SD';
                                 elseif ($input_weight < $wfh->SD3)
-                                    $result = '<SD3';
+                                    $result = '< 3SD';
                                 else
-                                    $result = '>SD3';
+                                    $result = '> 3SD';
         return response()->json(['zscore' => $result]);
     }
 

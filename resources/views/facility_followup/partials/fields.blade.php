@@ -68,7 +68,7 @@
 							<div class="col-md-3">
 								<label for="">Height (cm)</label>
 								<input type="number" name="height" class="form-control child_height" placeholder="Height (cm)" id="child_height"
-									   value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.1">
+									   value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.5">
 							</div>
 						</div>
 						<div class="form-group row">
