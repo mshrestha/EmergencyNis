@@ -128,59 +128,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12 hidden">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>ADMISSIONS </h5>
-                            {{--<div class="pull-right">--}}
-                                {{--<div class="btn-group">--}}
-                                    {{--<button type="button" class="btn btn-xs btn-white active">Today</button>--}}
-                                    {{--<button type="button" class="btn btn-xs btn-white">Monthly</button>--}}
-                                    {{--<button type="button" class="btn btn-xs btn-white">Annual</button>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        </div>
-                        <div class="ibox-content ">
-                            <div class="row">
-                                <div class="col-lg-9">
-                                    <div class="flot-chart">
-                                        {{--<div class="flot-chart-content" >--}}
-                                            <canvas id="childAdmission" class="flot-chart-content"></canvas>
-                                        {{--</div>--}}
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <ul class="stat-list">
-                                        <li>
-                                            <h2 class="no-margins">{{ count($children) }}</h2>
-                                            <small>Total admissions</small>
-                                            {{--<div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>--}}
-                                            <div class="progress progress-mini">
-                                                <div style="width: 100%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <h2 class="no-margins ">{{ $report_month_dashboard['total_admit']}}</h2>
-                                            <small> Enrolled this Month</small>
-                                            {{--<div class="stat-percent"> <i class="fa fa-level-down text-navy"></i></div>--}}
-                                            <div class="progress progress-mini">
-                                                <div style="width: 100%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        <li class="hidden">
-                                            <h2 class="no-margins ">-</h2>
-                                            <small>Deaths this month</small>
-                                            {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
-                                            <div class="progress progress-mini">
-                                                <div style="width: 100%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div><!-- END OF INNER ROW -->
         </div>
         <div class="col-lg-4">
@@ -358,33 +305,4 @@
 </script>
 <!-- Mapping script ends here -->
 
-<script>
-    var ctx = document.getElementById('childAdmission').getContext('2d');
-    var jsArraycount = JSON.parse('<?php echo json_encode($user_barchart['count']); ?>');
-    var jsArraydate = JSON.parse('<?php echo json_encode($user_barchart['date']); ?>');
-    var childAdmission = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: jsArraydate,
-            datasets: [{
-                label: 'Admission',
-                data: jsArraycount,
-                backgroundColor: 'rgba(0, 128, 0, 0.6)',
-                borderColor: 'rgba(200, 129, 214, 0.6)',
-                pointBackgroundColor: 'rgba(20, 12, 21, 0.6)',
-                borderWidth: 1
-            }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-            }
-        }
-    });
-</script>
 @endpush
