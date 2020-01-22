@@ -378,6 +378,7 @@ class HomeController extends Controller
 //        $user_barchart['count'] = array_values($admission);
 //        $user_barchart['date'] = array_keys($admission);
         $all_date = array_keys($admission);
+        $only_day=[];
         foreach ($all_date as $dt) {
             $date = DateTime::createFromFormat("Y-m-d", $dt);
             $only_day[] = $date->format("d");
