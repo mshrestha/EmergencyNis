@@ -24,7 +24,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <span class="label label-info pull-right">Children</span>
-                            <h5>New Admissions</h5>
+                            <h5>Admissions</h5>
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ $report_month_dashboard['total_admit']}} <small> ({{ $total_admission }})</small></h1>
