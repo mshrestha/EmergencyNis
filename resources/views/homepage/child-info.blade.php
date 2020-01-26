@@ -9,8 +9,10 @@
     <div class="col-lg-8">
         <strong>{{ $child->children_name }}</strong>
         <p>
-            {{ $child->mnr_no}}<br />
+            ID: {{ $child->sync_id}}<br />
+            MNR: {{ $child->mnr_no}}<br />
             {{ $child->age }} months old<br />
+            {{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }}<br/>
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
 
         </p>

@@ -29,6 +29,7 @@
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>MNR</th>
                                                 <th>Child name</th>
                                                 <th>Mother</th>
                                                 <th>Father</th>
@@ -41,6 +42,7 @@
                                             <tbody>
                                             @foreach($children as $child)
                                                 <tr class="children-client" data-child-id="{{ $child->sync_id }}">
+                                                    <td>{{ $child->sync_id }}</td>
                                                     <td>{{ $child->mnr_no }}</td>
                                                     <td><a href="#child-{{ $child->sync_id }}"
                                                            class="client-link">{{ $child->children_name }}</a></td>
