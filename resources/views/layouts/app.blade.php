@@ -11,8 +11,7 @@
     <link href="{{ asset('css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/animate.css')}}" rel="stylesheet">
     <link href="{{ asset('css/plugins/switchery/switchery.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/plugins/datapicker/datepicker3.css')}}" rel="stylesheet">
-    <link href="{{ asset('custom/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.css') }}" rel="stylesheet"/>
 
     <link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.css')}}" rel="stylesheet">
     <link href="{{ asset('css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css')}}" rel="stylesheet">
@@ -20,6 +19,7 @@
 
     <link href="{{ asset('css/style.css')}}" rel="stylesheet">
     <link href="{{ asset('css/custom.css')}}" rel="stylesheet">
+
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet'/>
     @stack('styles')
@@ -146,11 +146,13 @@
 <script src="{{ asset('js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
 <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ asset('custom/bootstrap_datetime_picker/moment.min.js') }}"></script>
+<script src="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.js') }}"></script>
+
 
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/inspinia.js')}}"></script>
 <script src="{{ asset('js/plugins/pace/pace.min.js')}}"></script>
-<script src="{{ asset('custom/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
 
 
 <!-- Toastr -->

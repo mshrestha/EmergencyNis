@@ -50,9 +50,13 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/pregnant-women/{women}/info', 'PregnantWomenController@info')->name('pregnant-women.info');
     Route::resource('pregnant-women', 'PregnantWomenController');
     Route::resource('pregnant-women-followup', 'PregnantWomenFollowupController');
-    
+
+
 	Route::resource('iycf-followup', 'IycfFollowupController');
 	Route::post('iycf-followup/{iycf}/save', 'IycfFollowupController@save')->name('iycf-followup.save');
+
+    Route::get('iycf_session_home', 'IycfgroupSessionController@iycf_session_home')->name('iycf_session_home');
+    Route::resource('iycfGroupSession', 'IycfgroupSessionController');
 
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
@@ -66,6 +70,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importSc', 'ScImportController@importSc');
 
     Route::resource('supply', 'SupplyController');
+
+
 });
 
 Route::get('/sync/get-live-data', [
