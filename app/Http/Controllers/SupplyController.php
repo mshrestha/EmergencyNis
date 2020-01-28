@@ -13,95 +13,51 @@ class SupplyController extends Controller
     private $_notify_type = 'success';
 
 
-    public function index(){
-        $supplies=Supply::where('facilityId',Auth::user()->facility->facility_id)->orderBy('year', 'desc')
-            ->orderBy('month', 'desc')->get();
-//        dd($supplies);
-        $current_month = date('n');
+    public function index()
+    {
+        $supplies = Supply::where('facilityId', Auth::user()->facility->facility_id)->orderBy('supply_date', 'desc')
+            ->get();
 
-        return view('supply/index', compact('supplies','current_month'));
+        return view('supply/index', compact('supplies'));
 
     }
-    public function create(Request $request){
+
+    public function create()
+    {
+        return view('supply/create');
+
+    }
+
+    public function store(Request $request)
+    {
 //        dd($request);
-        if ($request->month == 1) {
-            $previous_month = 12;
-            $previous_year = $request->year - 1;
-        } else {
-            $previous_month = $request->month - 1;
-            $previous_year = $request->year;
-        }
-
-        $previousMonthSupplies=Supply::where('facilityId',Auth::user()->facility->facility_id)->where('year',$previous_year)
-            ->where('month',$previous_month)->orderBy('year', 'desc')->orderBy('month', 'desc')->get();
-        $month_year = date('F', mktime(0, 0, 0, $previous_month, 10)) . '-' . $previous_year;
-//dd($previousMonthSupplies);
-        return view('supply/create', compact('request','previousMonthSupplies','month_year'));
-
-    }
-    public function store(Request  $request){
+        $facility = Facility::where('id', Auth::user()->facility_id)->first();
         $this->validate($request, [
-            'supply.*' => 'required',
-            'remainingFromLastMonth.*' => 'required',
-            'received.*' => 'required',
-            'consumed.*' => 'required',
-            'damaged.*' => 'required',
-            'balance.*' => 'required',
+            'supply_date' => 'required',
+            'expire_date' => 'required',
+            'supply_item' => 'required',
+            'supply_type' => 'required',
+            'quantity' => 'required',
+            'unit' => 'required',
         ]);
 
-        $facility = Facility::where('id',Auth::user()->facility_id)->first();
-//        dd($facility->program_partner);
+        $supply = new Supply();
 
-        foreach ($request['supply'] as $sid) {
-            $syid[] = $sid;
-        }
-        foreach ($request['remainingFromLastMonth'] as $rflm) {
-            $rflmid[] = $rflm;
-        }
-        foreach ($request['received'] as $rid) {
-            $rdid[] = $rid;
-        }
-        foreach ($request['consumed'] as $cid) {
-            $cdid[] = $cid;
-        }
-        foreach ($request['damaged'] as $did) {
-            $ddid[] = $did;
-        }
-        foreach ($request['balance'] as $bid) {
-            $beid[] = $bid;
-        }
-        $sy = $syid;
-        $rh = $rflmid;
-        $rd = $rdid;
-        $cd = $cdid;
-        $dd = $ddid;
-        $be = $beid;
+        $supply->programPartner = (Auth::user()->facility_id) ? $facility->program_partner : '';
+        $supply->partner = (Auth::user()->facility_id) ? $facility->partner : '';
+        $supply->campSettlement = (Auth::user()->facility_id) ? $facility->camp->name : '';
+        $supply->facilityId = (Auth::user()->facility_id) ? $facility->facility_id : '';
 
-        $count_sy = count($sy);
-        if (count($rh) != $count_sy) throw new Exception("Bad Request Input Array lengths");
-        for ($i = 0; $i < $count_sy; $i++) {
-            if (empty($sy[$i])) continue; // skip all the blank ones
+        $supply->supply_date= date('Y-m-d', strtotime($request->supply_date));
+        $supply->expire_date= date('Y-m-d', strtotime($request->expire_date));
+        $supply->supply_item = $request->supply_item;
+        $supply->supply_type = $request->supply_type;
+        $supply->location = $request->location;
+        $supply->quantity = $request->quantity;
+        $supply->unit = $request->unit;
+        $supply->remarks= $request->remarks;
+        $supply->save();
 
-
-            $supply = new Supply();
-            $supply->period = date('M', mktime(0, 0, 0, $request->month, 10)).'-'.substr( $request->year, -2);
-            $supply->year = $request->year;
-            $supply->month = $request->month;
-            $supply->programPartner = $facility->program_partner;
-            $supply->partner = $facility->partner;
-            $supply->campSettlement = $facility->camp->name;
-            $supply->facilityId = $facility->facility_id;
-            $supply->reportMode = 1;
-
-            $supply->supply = $sy[$i];
-            $supply->remainingFromLastMonth = $rh[$i];
-            $supply->received = $rd[$i];
-            $supply->consumed = $cd[$i];
-            $supply->damaged = $dd[$i];
-            $supply->balance = $be[$i];
-            $supply->save();
-
-    }
         return redirect('supply')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type

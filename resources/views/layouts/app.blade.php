@@ -26,15 +26,7 @@
 </head>
 <body class="pace-done top-navigation">
 <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar">
-            <ul class="nav metismenu" id="side-menu">
-
-
-            </ul>
-
-        </div>
-    </nav>
+    
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
