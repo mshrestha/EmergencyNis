@@ -58,7 +58,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('iycf-followup/{iycf}/save', 'IycfFollowupController@save')->name('iycf-followup.save');
 
     Route::get('iycf_session_home', 'IycfgroupSessionController@iycf_session_home')->name('iycf_session_home');
-    Route::resource('iycfGroupSession', 'IycfgroupSessionController');
+    Route::resource('iycfGroupSession', 'IycfGroupSessionController');
 
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
