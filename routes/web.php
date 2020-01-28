@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth']], function() {
     
     Route::get('register', 'RegisterController@index')->name('register');
     Route::get('otp_report_admin', 'ReportController@otp_report_admin')->name('otp_report_admin');
+    Route::get('bsfp_report_admin', 'ReportController@bsfp_report_admin')->name('bsfp_report_admin');
+    Route::get('bsfp_report', 'ReportController@bsfp_report')->name('bsfp_report');
     Route::get('reports', 'ReportController@index')->name('reports');
 
 	Route::resource('children', 'ChildrenController');
