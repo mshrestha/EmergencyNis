@@ -22,7 +22,7 @@ Route::get('open_dashboard_ym', 'OtpImportController@open_dashboard_ym')->name('
 Route::group(['middleware' => ['auth']], function() {
 	Route::get('/test', 'HomeController@test')->name('test');
 	Route::get('/homepage', 'HomeController@index')->name('homepage');
-    
+
     Route::get('/program-manager', 'HomeController@programManagerDashboard')->name('program-manager');
     Route::get('/admin_ym/{year}/{month}', 'HomeController@adminDashboard_ym')->name('admin_ym');
     Route::get('/program-manager_ym/{year}/{month}', 'HomeController@programManagerDashboard_ym')->name('program-manager_ym');
@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/facility-info/{facility}', 'HomeController@facilityInfo')->name('facility-info');
 	Route::get('/child-search', 'HomeController@childSearch')->name('child-search');
 	Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
-    
+
     Route::get('register', 'RegisterController@index')->name('register');
     Route::get('otp_report_admin', 'ReportController@otp_report_admin')->name('otp_report_admin');
     Route::get('reports', 'ReportController@index')->name('reports');
@@ -41,14 +41,14 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('children', 'ChildrenController');
 	Route::resource('community-followup', 'CommunityFollowupController');
 	Route::post('community-followup/{child}/save', 'CommunityFollowupController@save')->name('community-followup.save');
-    
+
 	Route::resource('facility', 'FacilityController');
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');
 	Route::resource('user', 'UserController');
-    
+
     Route::get('/pregnant-women/{women}/info', 'PregnantWomenController@info')->name('pregnant-women.info');
-    Route::resource('pregnant-women', 'PregnantWomenController');
+    Route::resource('/pregnant-women', 'PregnantWomenController');
     Route::resource('pregnant-women-followup', 'PregnantWomenFollowupController');
 
 
@@ -70,6 +70,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importSc', 'ScImportController@importSc');
 
     Route::resource('supply', 'SupplyController');
+		Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+
 
 
 });

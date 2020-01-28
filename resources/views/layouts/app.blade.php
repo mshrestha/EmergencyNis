@@ -24,80 +24,13 @@
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet'/>
     @stack('styles')
 </head>
-<body class="pace-done">
+<body class="pace-done top-navigation">
 <div id="wrapper">
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar">
             <ul class="nav metismenu" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-							<span>
-                                <a href="{{ route((Auth::user()->role == 'manager')?'program-manager':'homepage') }}">
-									<img alt="image" src="{{ asset('img/logo-nutrition.png')}}" width="160">
-								</a>
-							</span>
-                        <a href="{{ route('homepage') }}">
-								<span class="clear" style="color: #ffffff;">
-                  <span class="text-xs block">{{ Auth::user()->name }}</span>
-                                    @if((Auth::user()->role == 'user'))
-									<span class="text-xs block"><strong>{{ Auth::user()->facility->facility_id }}</strong></span>
-                                        @endif
-
-								</span>
-                        </a>
-                    </div>
-                    <div class="logo-element">
-                        <a href="{{ route((Auth::user()->role == 'manager')?'program-manager':'homepage') }}" style="color: #fff;">
-                            ENS
-                        </a>
-                    </div>
-                </li>
-                @if(Auth::user()->role == 'admin')
-                    <li class="{{ request()->segment(1) == 'user' ? 'active' : '' }}">
-                        <a href="{{ route('user.index') }}" style="color: #fff;"><i class="fa fa-users"></i> <span
-                                    class="nav-label">Manage Users</span></a>
-                    </li>
-                    <li class="{{ request()->segment(1) == 'facility' ? 'active' : '' }}">
-                        <a href="{{ route('facility.index') }}" style="color: #fff;"><i class="fa fa-home"></i> <span
-                                    class="nav-label">Manage Facilities</span></a>
-                    </li>
-                    <li class="{{ request()->segment(1) == 'monthly-dashboard' ? 'active' : '' }}">
-                        <a href="{{ route('monthly-dashboard.create')}}" style="color: #fff;"><i class="fa fa-home"></i>
-                            <span class="nav-label">Generate Cache</span></a>
-                    </li>
-                    <li class="{{ request()->segment(1) == 'importExportOtp' ? 'active' : '' }}">
-                        <a href="{{ route('importExportOtp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                    class="nav-label">Import OTP</span></a>
-                    </li>
-                    <li class="{{ request()->segment(1) == 'importExportBsfp' ? 'active' : '' }}">
-                        <a href="{{ route('importExportBsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                    class="nav-label">Import BSFP</span></a>
-                    </li>
-                    <li class="{{ request()->segment(1) == 'importExportTsfp' ? 'active' : '' }}">
-                        <a href="{{ route('importExportTsfp') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                    class="nav-label">Import TSFP</span></a>
-                    </li>
-                    <li class="{{ request()->segment(1) == 'importExportSc' ? 'active' : '' }}">
-                        <a href="{{ route('importExportSc') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                    class="nav-label">Import SC</span></a>
-                    </li>
 
 
-                @endif
-                <li class="{{ request()->segment(1) == 'reports' ? 'active' : '' }}">
-                    <a href="{{ route('reports') }}" style="color: #fff;"><i class="fa fa-laptop"></i> <span
-                                class="nav-label">Generate Reports</span></a>
-                </li>
-                <li class="{{ (request()->segment(1) == 'register' || request()->segment(1) ==  'children') ? 'active' : '' }}">
-                    <a href="{{ route('register') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span
-                                class="nav-label">Register</span></a>
-                </li>
-                @if(Auth::user()->role == 'user')
-                <li class="{{ request()->segment(1) == 'supply' ? 'active' : '' }}">
-                    <a href="{{ route('supply.index') }}" style="color: #fff;"><i class="fa fa-id-badge"></i> <span
-                                class="nav-label">Supply</span></a>
-                </li>
-                    @endif
             </ul>
 
         </div>
@@ -106,16 +39,70 @@
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i>
-                    </a>
-                </div>
-                <ul class="nav navbar-top-links navbar-right">
-                    <li>
-                        <span class="m-r-sm text-muted welcome-message">Welcome to Emergency Nutrition System.</span>
-                    </li>
 
-                    <li>
+                <ul class="nav navbar-top-links navbar">
+                  <li>
+                  <a href="{{ route((Auth::user()->role == 'manager')?'program-manager':'homepage') }}">
+  									<img alt="image" src="{{ asset('img/logo-nutrition.png')}}" width="100">
+  								</a>
+                  </li>
+                  <li class="{{ (request()->segment(1) == 'register' || request()->segment(1) ==  'children') ? 'active' : '' }}">
+                      <a href="{{ route('register') }}" ><i class="fa fa-id-badge"></i> <span
+                                  class="nav-label">Child</span></a>
+                  </li>
+                  <li class="{{ (request()->segment(1) == 'pregnant-women') ? 'active' : '' }}">
+                      <a href="/pregnant-women" ><i class="fa fa-id-badge"></i> <span
+                                  class="nav-label">Women</span></a>
+                  </li>
+                  <li class="{{ (request()->segment(1) == 'iycf-session') ? 'active' : '' }}">
+                      <a href="{{ route('iycf_session_home') }}" ><i class="fa fa-id-badge"></i> <span
+                                  class="nav-label">IYCF</span></a>
+                  </li>
+                  <li class="{{ request()->segment(1) == 'reports' ? 'active' : '' }}">
+                      <a href="{{ route('reports') }}" ><i class="fa fa-laptop"></i> <span
+                                  class="nav-label">Reports</span></a>
+                  </li>
+
+                  @if(Auth::user()->role == 'admin')
+                      <li class="{{ request()->segment(1) == 'user' ? 'active' : '' }}">
+                          <a href="{{ route('user.index') }}" ><i class="fa fa-users"></i> <span
+                                      class="nav-label">Manage Users</span></a>
+                      </li>
+                      <li class="{{ request()->segment(1) == 'facility' ? 'active' : '' }}">
+                          <a href="{{ route('facility.index') }}" ><i class="fa fa-home"></i> <span
+                                      class="nav-label">Manage Facilities</span></a>
+                      </li>
+                      <li class="{{ request()->segment(1) == 'monthly-dashboard' ? 'active' : '' }}">
+                          <a href="{{ route('monthly-dashboard.create')}}" ><i class="fa fa-home"></i>
+                              <span class="nav-label">Generate Cache</span></a>
+                      </li>
+                      <li class="{{ request()->segment(1) == 'importExportOtp' ? 'active' : '' }}">
+                          <a href="{{ route('importExportOtp') }}" ><i class="fa fa-laptop"></i> <span
+                                      class="nav-label">Import OTP</span></a>
+                      </li>
+                      <li class="{{ request()->segment(1) == 'importExportBsfp' ? 'active' : '' }}">
+                          <a href="{{ route('importExportBsfp') }}" ><i class="fa fa-laptop"></i> <span
+                                      class="nav-label">Import BSFP</span></a>
+                      </li>
+                      <li class="{{ request()->segment(1) == 'importExportTsfp' ? 'active' : '' }}">
+                          <a href="{{ route('importExportTsfp') }}" ><i class="fa fa-laptop"></i> <span
+                                      class="nav-label">Import TSFP</span></a>
+                      </li>
+                      <li class="{{ request()->segment(1) == 'importExportSc' ? 'active' : '' }}">
+                          <a href="{{ route('importExportSc') }}" ><i class="fa fa-laptop"></i> <span
+                                      class="nav-label">Import SC</span></a>
+                      </li>
+
+
+                  @endif
+
+                  @if(Auth::user()->role == 'user')
+                  <li class="{{ request()->segment(1) == 'supply' ? 'active' : '' }}">
+                      <a href="{{ route('supply.index') }}" ><i class="fa fa-id-badge"></i> <span
+                                  class="nav-label">Supply</span></a>
+                  </li>
+                      @endif
+                    <li class="pull-right">
                         <a href="{{ route('auth.logout') }}">
                             <i class="fa fa-sign-out"></i> Log out
                         </a>
