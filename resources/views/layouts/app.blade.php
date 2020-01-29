@@ -22,11 +22,26 @@
 
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.2.1/mapbox-gl.css' rel='stylesheet'/>
+    <style>
+    @media print {
+
+      nav.navbar-static-side {
+        display: none;
+      }
+      body {
+        overflow: visible !important;
+      }
+      #page-wrapper {
+        margin: 0;
+      }
+    }
+
+    </style>
     @stack('styles')
 </head>
 <body class="pace-done top-navigation">
 <div id="wrapper">
-    
+
 
     <div id="page-wrapper" class="gray-bg">
         <div class="row border-bottom">
