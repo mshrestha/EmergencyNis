@@ -17,8 +17,8 @@
                     <select name="facility_id" class="btn btn show-tick selectpicker"
                             data-live-search="true" required {{(Auth::user()->facility_id)?'disabled':''}}>
                         <option value="">Select Facility</option>
-                        @foreach($facilities as $facility)
-                            <option value="{{ $facility->id }}" {{ ($facility->id == $facility_id) ? ' selected' : '' }}>{{ $facility->facility_id }}</option>
+                        @foreach($facilities as $fac)
+                            <option value="{{ $fac->id }}" {{ ($fac->id == Auth::user()->facility_id) ? ' selected' : '' }}>{{ $fac->facility_id }}</option>
                         @endforeach
                     </select>
                     <select class="btn btn" name="month">
@@ -59,7 +59,8 @@
                             <tbody>
                             <tr>
                                 <td>Facility ID:
-                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>
+                                    <strong>{{ $facility->facility_id}}</strong>
+{{--                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>--}}
                                 </td>
                                 <td>Following Expanded Criteria:</td>
                                 <td>Name of Camp: <strong>{{ $facility->camp->name }}</strong></td>

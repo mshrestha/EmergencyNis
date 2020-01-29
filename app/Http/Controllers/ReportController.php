@@ -26,17 +26,18 @@ class ReportController extends Controller
                 $report_month = date('n') - 1;
                 $report_year = date('Y');
             }
-            $facility_id = Auth::user()->facility_id;
+//            $facilityId = Auth::user()->facility_id;
 
             $facilities = Facility::all();
             $current_month = $report_month;
             $current_year = $report_year;
             if ($facility->service_type == 'OTP') {
-                $report = $this->otp($facility_id, $report_month, $report_year);
-                return view('report.otp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
+                $report = $this->otp(Auth::user()->facility_id, $report_month, $report_year);
+//                dd($facility);
+                return view('report.otp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year'));
             }elseif($facility->service_type == 'BSFP'||$facility->service_type == 'TSFP/BSFP'){
-                $report = $this->bsfp($facility_id, $report_month, $report_year);
-                return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
+                $report = $this->bsfp(Auth::user()->facility_id, $report_month, $report_year);
+                return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year'));
             }else{
                 return view('report.noReport');
             }
