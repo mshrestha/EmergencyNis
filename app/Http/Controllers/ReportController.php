@@ -422,13 +422,13 @@ class ReportController extends Controller
 
 
         } else {
-            dd('No report');
 
-//            $children = Child::orderBy('created_at', 'desc')->get();
-//            $facilities = Facility::all();
-//            $current_month = date('n');
-//
-//            return view('report.search_home', compact('children', 'current_month', 'facilities'));
+            $children = Child::orderBy('created_at', 'desc')->get();
+
+            $facilities = Facility::all();
+            $current_month = date('n');
+
+            return view('report.search_home_bsfp', compact('children', 'current_month', 'facilities'));
         }
 
     }
