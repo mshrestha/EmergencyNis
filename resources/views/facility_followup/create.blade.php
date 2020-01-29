@@ -42,6 +42,16 @@
             }
         });
         load_child({{$children->sync_id}})
+        $("#discharge-criteria-tab").hide();
+        $( "#identification-outcome" ).change(function() {
+            if($("#identification-outcome").val() == 'New case'){
+              $("#admission-criteria-tab").show();
+              $("#discharge-criteria-tab").hide();
+            }else{
+              $("#admission-criteria-tab").hide();
+              $("#discharge-criteria-tab").show();
+            }
+    });
     })
 
     var abase_url = '{{url('/')}}';
@@ -54,36 +64,10 @@
             }
         });
     }
+
     </script>
 
-<script>
-    var ctx = document.getElementById('childWeight').getContext('2d');
-    var jsArrayweight = JSON.parse('<?php echo json_encode($chart_weight); ?>');
-    var jsArraydate = JSON.parse('<?php echo json_encode($chart_date); ?>');
 
-    var childWeight = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: jsArraydate,
-            datasets: [{
-                label: 'Child Weight Gain',
-                fill: false,
-                data: jsArrayweight,
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: false
-                    }
-                }],
-            }
-        }
-    });
-</script>
 
 {{--Autometic Z-Score calculation--}}
 <script>
