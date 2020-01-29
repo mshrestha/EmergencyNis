@@ -612,13 +612,7 @@
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 
 
-<script>
 
-    $(document).ready(function () {
-        $("body").toggleClass("mini-navbar");
-    });
-
-</script>
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
 
 
