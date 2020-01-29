@@ -32,7 +32,7 @@
                                                 <th>Father</th>
                                                 <th>Block HH-no</th>
                                                 <th>Facility</th>
-                                                <th>Status</th>
+
                                                 <th>Follow up</th>
                                             </tr>
                                             </thead>
@@ -47,42 +47,16 @@
                                                     <td>{{ $child->fathers_name }}</td>
                                                     <td>{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
                                                     <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
+
                                                     <td>
-                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
-                                                            <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
-                                                        @endif
-                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']))
-                                                            <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'Defaulter':'' }}</small>
-                                                            @else
-                                                                <small class="label label-warning">Missing Date</small>
-                                                        @endif
-                                                        @if ($child->facility_followup->count()>=2)
-                                                                <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
-                                                            {{--{{$child->facility_followup->count()}}--}}
-                                                        @endif
-                                                        {{--                                                    <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'' }}</small>--}}
+                                                        <a href="{{ route('iycf-followup.show', $child->sync_id) }}"
+                                                           class="edit-btn" title="IYCF Followup">
+                                                            <button class="btn btn-default  btn-registered"
+                                                                    type="button">
+                                                                Add Session
+                                                            </button>
+                                                        </a>
 
-
-                                                    </td>
-                                                    <td>
-
-                                                        @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
-                                                            <a href="{{ route('community-followup.show', $child->sync_id) }}"
-                                                               title="Community followup">
-                                                                <button type="button"
-                                                                        class="btn btn-default btn-registered">
-                                                                    <i class="fa fa-plus"></i> Follow up
-                                                                </button>
-                                                            </a>
-                                                        @endif
-                                                        @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
-                                                            <a href="{{ route('facility-followup.show', $child->sync_id) }}"
-                                                               class="edit-btn" title="Facility Followup">
-                                                                <button class="btn btn-default btn-circle btn-registered"
-                                                                        type="button"><i
-                                                                            class="fa fa-plus"></i></button>
-                                                            </a>
-                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -94,6 +68,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--This is where Pregnant woman register starts -->
 
                 </div>
                 <div class="col-sm-4">

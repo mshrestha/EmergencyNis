@@ -28,4 +28,19 @@ class RegisterController extends Controller
 
         return view('register.home', compact('children', 'facilities'));
     }
+    public function iycf() {
+//        dd(date('Y-m-d'));
+        if(Auth::user()->facility_id){
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+            $children = Child::where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->get();
+        }else{
+            $children = Child::orderBy('created_at', 'desc')->get();
+        }
+
+//        dd($children);
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
+
+
+        return view('register.iycf', compact('children', 'facilities'));
+    }
 }

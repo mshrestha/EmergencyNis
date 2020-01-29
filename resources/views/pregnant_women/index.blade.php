@@ -2,10 +2,7 @@
 @section('content')
 <div class="row" style="margin-top: 20px;">
     <div class="col-md-12">
-        <ul class="nav nav-tabs ens-register-tabs">
-            <li class=""><a href="{{ route('register') }}"> Child Register</a></li>
-            <li class="active"><a data-toggle="tab" href="#tab-2" aria-expanded="false">Pregnant Woman Register</a></li>
-        </ul>
+
         <div class="row">
             <div class="col-sm-8 tab-content">
                 <div class="ibox tab-pane" id="tab-1">
@@ -91,7 +88,7 @@
         var first_pregnant_women = {{ isset($pregnant_womens[0]) ? $pregnant_womens[0]->sync_id : '' }}
         $('#pregnant-women-info').html('Loading ...');
         load_pregnant_women(first_pregnant_women);
-        
+
         $('.dataTables').DataTable({
             "aaSorting": [],
             pageLength: 10,

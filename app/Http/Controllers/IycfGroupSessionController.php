@@ -11,7 +11,8 @@ class IycfGroupSessionController extends Controller
 
     public function iycf_session_home()
     {
-        return view('iycf_group_session.iycf_session_home');
+        $iycfGroupSessions = IycfGroupSession::latest()->get();
+        return view('iycf_group_session.iycf_session_home',compact('iycfGroupSessions'));
     }
     public function index()
     {

@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
 
     Route::get('register', 'RegisterController@index')->name('register');
+		Route::get('register-iycf', 'RegisterController@iycf')->name('register-iycf');
     Route::get('otp_report_admin', 'ReportController@otp_report_admin')->name('otp_report_admin');
     Route::get('bsfp_report_admin', 'ReportController@bsfp_report_admin')->name('bsfp_report_admin');
     Route::get('bsfp_report', 'ReportController@bsfp_report')->name('bsfp_report');
