@@ -36,9 +36,11 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('register', 'RegisterController@index')->name('register');
 		Route::get('register-iycf', 'RegisterController@iycf')->name('register-iycf');
+
     Route::get('otp_report_admin', 'ReportController@otp_report_admin')->name('otp_report_admin');
     Route::get('bsfp_report_admin', 'ReportController@bsfp_report_admin')->name('bsfp_report_admin');
     Route::get('bsfp_report', 'ReportController@bsfp_report')->name('bsfp_report');
+    Route::get('otp_report', 'ReportController@otp_report')->name('otp_report');
     Route::get('reports', 'ReportController@index')->name('reports');
 
 	Route::resource('children', 'ChildrenController');
@@ -63,6 +65,7 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
+    Route::get('importHome', 'OtpImportController@importHome')->name('importHome');
     Route::get('importExportOtp', 'OtpImportController@importExportOtp')->name('importExportOtp');
     Route::post('importOtp', 'OtpImportController@importOtp');
     Route::get('importExportBsfp', 'BsfpImportController@importExportBsfp')->name('importExportBsfp');

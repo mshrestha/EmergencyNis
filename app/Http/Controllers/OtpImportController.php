@@ -12,6 +12,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class OtpImportController extends Controller
 {
+    public function importHome()
+    {
+        return view('import_export/importHome');
+    }
     public function importExportOtp()
     {
         $generated_data = DB::table('otp_imports')

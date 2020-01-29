@@ -17,9 +17,8 @@ class ReportController extends Controller
     {
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
+//            dd($facility);
             $children = Child::where('camp_id', $facility->camp_id)->get();
-            //$facility_followup = FacilityFollowup::find();
-
             if (date('n') == 1) {
                 $report_month = 12;
                 $report_year = date('Y') - 1;
@@ -27,17 +26,56 @@ class ReportController extends Controller
                 $report_month = date('n') - 1;
                 $report_year = date('Y');
             }
-
             $facility_id = Auth::user()->facility_id;
 
-            $report = $this->otp_report($facility_id, $report_month, $report_year);
-//            dd($facility_id);
+            $facilities = Facility::all();
+            $current_month = $report_month;
+            $current_year = $report_year;
+            if ($facility->service_type == 'OTP') {
+                $report = $this->otp($facility_id, $report_month, $report_year);
+                return view('report.otp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
+            }elseif($facility->service_type == 'BSFP'||$facility->service_type == 'TSFP/BSFP'){
+                $report = $this->bsfp($facility_id, $report_month, $report_year);
+                return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
+            }else{
+                return view('report.noReport');
+            }
+
+        } else {
+
+//            $children = Child::orderBy('created_at', 'desc')->get();
+//            $facilities = Facility::all();
+//            $current_month = date('n');
+//            return view('report.search_home_otp', compact('children', 'current_month', 'facilities'));
+            return view('report/report_home_admin');
+
+        }
+
+
+    }
+
+    public function otp_report()
+    {
+        if (Auth::user()->facility_id) {
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+            $children = Child::where('camp_id', $facility->camp_id)->get();
+            //$facility_followup = FacilityFollowup::find();
+            if (date('n') == 1) {
+                $report_month = 12;
+                $report_year = date('Y') - 1;
+            } else {
+                $report_month = date('n') - 1;
+                $report_year = date('Y');
+            }
+            $facility_id = Auth::user()->facility_id;
+
             $facilities = Facility::all();
             $current_month = $report_month;
             $current_year = $report_year;
 
-            return view('report.home', compact('children', 'facility', 'report','facilities','current_month','current_year','facility_id'));
+            $report = $this->otp($facility_id, $report_month, $report_year);
 
+            return view('report.otp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
 
         } else {
 
@@ -46,7 +84,7 @@ class ReportController extends Controller
             $facilities = Facility::all();
             $current_month = date('n');
 
-            return view('report.search_home', compact('children', 'current_month', 'facilities'));
+            return view('report.search_home_otp', compact('children', 'current_month', 'facilities'));
         }
     }
 
@@ -58,19 +96,20 @@ class ReportController extends Controller
 
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
-        }else
-        $facility = Facility::findOrFail($request->facility_id);
+        } else
+            $facility = Facility::findOrFail($request->facility_id);
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
-        $report = $this->otp_report($facility_id, $report_month, $report_year);
+        $report = $this->otp($facility_id, $report_month, $report_year);
         $facilities = Facility::all();
         $current_month = $report_month;
         $current_year = $report_year;
 
 //            dd($report);
-        return view('report.home', compact('children', 'facility', 'report','facilities','facility_id','current_year','current_month'));
+        return view('report.otp', compact('children', 'facility', 'report', 'facilities', 'facility_id', 'current_year', 'current_month'));
 
     }
+
     public function bsfp_report_admin(Request $request)
     {
 //        dd($request);
@@ -79,8 +118,8 @@ class ReportController extends Controller
 
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
-        }else
-        $facility = Facility::findOrFail($request->facility_id);
+        } else
+            $facility = Facility::findOrFail($request->facility_id);
 //        dd($facility);
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
@@ -89,12 +128,10 @@ class ReportController extends Controller
         $current_month = $report_month;
         $current_year = $report_year;
 
-//            dd($report);
-        return view('report.bsfp', compact('children', 'facility', 'report','facilities','facility_id','current_year','current_month'));
-
+        return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'facility_id', 'current_year', 'current_month'));
     }
 
-    private function otp_report($facility_id, $report_month, $report_year)
+    private function otp($facility_id, $report_month, $report_year)
     {
 
         $days_in_month = cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year);
@@ -102,7 +139,7 @@ class ReportController extends Controller
 //dd($days_in_month);
         $begining_balance_1stday = \DB::table('facility_followups')->MIN('date');
         $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($report_year . '-' . $report_month . '-01')));
-        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month .'-'.(cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
+        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
 //dd($begining_balance_1stday.'/'.$begining_balance_lastday.'/'.$endof_month_lastday);
 
         $male_23 = Child::select('sync_id')->where('age', '<=', 23)->where('sex', 'male')->pluck('sync_id')->toArray();
@@ -114,48 +151,48 @@ class ReportController extends Controller
         $male_60 = Child::select('sync_id')->where('age', '>=', 60)->where('sex', 'male')->pluck('sync_id')->toArray();
         $female_60 = Child::select('sync_id')->where('age', '>=', 60)->where('sex', 'female')->pluck('sync_id')->toArray();
 
-        $begining_balance_total_enrollment=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
-            ->where('new_admission', '!=',null)
-            ->where('new_admission', '!=','Age 6 to 59m')
+        $begining_balance_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
 //            ->where('new_admission', '!=','MUAC and WFH Zscore')
-            ->where('transfer_in', '!=',null)
-            ->where('transfer_in', '!=','Transfer in from BSFP')
-            ->where('transfer_in', '!=','Transfer in from Medical Center')
+            ->where('transfer_in', '!=', null)
+            ->where('transfer_in', '!=', 'Transfer in from BSFP')
+            ->where('transfer_in', '!=', 'Transfer in from Medical Center')
             ->pluck('children_id')->toArray();
 
-        $begining_balance_total_exit=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
-            ->where('discharge_criteria_exit', '!=',null)
-            ->where('discharge_criteria_exit', '!=','Age > 59m')
-            ->where('discharge_criteria_transfer_out', '!=',null)
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to SAM treatment')
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to MAM treatment')
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to other TSFP')
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to other BSFP')
-            ->where('discharge_criteria_others', '!=',null)
+        $begining_balance_total_exit = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('discharge_criteria_exit', '!=', null)
+            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
+            ->where('discharge_criteria_transfer_out', '!=', null)
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to SAM treatment')
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to MAM treatment')
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other TSFP')
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other BSFP')
+            ->where('discharge_criteria_others', '!=', null)
             ->pluck('children_id')->toArray();
 
-        $endof_month_total_enrollment=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$endof_month_lastday])
-            ->where('new_admission', '!=',null)
-            ->where('new_admission', '!=','Age 6 to 59m')
+        $endof_month_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
 //            ->where('new_admission', '!=','MUAC and WFH Zscore')
-            ->where('transfer_in', '!=',null)
-            ->where('transfer_in', '!=','Transfer in from BSFP')
-            ->where('transfer_in', '!=','Transfer in from Medical Center')
+            ->where('transfer_in', '!=', null)
+            ->where('transfer_in', '!=', 'Transfer in from BSFP')
+            ->where('transfer_in', '!=', 'Transfer in from Medical Center')
             ->pluck('children_id')->toArray();
 
-        $endof_month_total_exit=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_exit', '!=',null)
-            ->where('discharge_criteria_exit', '!=','Age > 59m')
-            ->where('discharge_criteria_transfer_out', '!=',null)
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to SAM treatment')
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to MAM treatment')
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to other TSFP')
-            ->where('discharge_criteria_transfer_out', '!=','Transfer to other BSFP')
-            ->where('discharge_criteria_others', '!=',null)
+        $endof_month_total_exit = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_exit', '!=', null)
+            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
+            ->where('discharge_criteria_transfer_out', '!=', null)
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to SAM treatment')
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to MAM treatment')
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other TSFP')
+            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other BSFP')
+            ->where('discharge_criteria_others', '!=', null)
             ->pluck('children_id')->toArray();
 
 //OTP report 1st part (Table-1)
@@ -212,19 +249,19 @@ class ReportController extends Controller
 //            ->pluck('children_id')->toArray();
 //dd($readmission_after_default);
 
-        $report['begining_balance_23_male'] = count(array_intersect($begining_balance_total_enrollment, $male_23))-count(array_intersect($begining_balance_total_exit, $male_23));
-        $report['begining_balance_23_female'] = count(array_intersect($begining_balance_total_enrollment, $female_23))-count(array_intersect($begining_balance_total_exit, $female_23));
-        $report['begining_balance_24to59_male'] = count(array_intersect($begining_balance_total_enrollment, $male_24to59))-count(array_intersect($begining_balance_total_exit, $male_24to59));
-        $report['begining_balance_24to59_female'] = count(array_intersect($begining_balance_total_enrollment, $female_24to59))-count(array_intersect($begining_balance_total_exit, $female_24to59));
-        $report['begining_balance_60_male'] = count(array_intersect($begining_balance_total_enrollment, $male_60))-count(array_intersect($begining_balance_total_exit, $male_60));
-        $report['begining_balance_60_female'] = count(array_intersect($begining_balance_total_enrollment, $female_60))-count(array_intersect($begining_balance_total_exit, $female_60));
+        $report['begining_balance_23_male'] = count(array_intersect($begining_balance_total_enrollment, $male_23)) - count(array_intersect($begining_balance_total_exit, $male_23));
+        $report['begining_balance_23_female'] = count(array_intersect($begining_balance_total_enrollment, $female_23)) - count(array_intersect($begining_balance_total_exit, $female_23));
+        $report['begining_balance_24to59_male'] = count(array_intersect($begining_balance_total_enrollment, $male_24to59)) - count(array_intersect($begining_balance_total_exit, $male_24to59));
+        $report['begining_balance_24to59_female'] = count(array_intersect($begining_balance_total_enrollment, $female_24to59)) - count(array_intersect($begining_balance_total_exit, $female_24to59));
+        $report['begining_balance_60_male'] = count(array_intersect($begining_balance_total_enrollment, $male_60)) - count(array_intersect($begining_balance_total_exit, $male_60));
+        $report['begining_balance_60_female'] = count(array_intersect($begining_balance_total_enrollment, $female_60)) - count(array_intersect($begining_balance_total_exit, $female_60));
 
-        $report['endof_month_23_male'] = count(array_intersect($endof_month_total_enrollment, $male_23))-count(array_intersect($endof_month_total_exit, $male_23));
-        $report['endof_month_23_female'] = count(array_intersect($endof_month_total_enrollment, $female_23))-count(array_intersect($endof_month_total_exit, $female_23));
-        $report['endof_month_24to59_male'] = count(array_intersect($endof_month_total_enrollment, $male_24to59))-count(array_intersect($endof_month_total_exit, $male_24to59));
-        $report['endof_month_24to59_female'] = count(array_intersect($endof_month_total_enrollment, $female_24to59))-count(array_intersect($endof_month_total_exit, $female_24to59));
-        $report['endof_month_60_male'] = count(array_intersect($endof_month_total_enrollment, $male_60))-count(array_intersect($endof_month_total_exit, $male_60));
-        $report['endof_month_60_female'] = count(array_intersect($endof_month_total_enrollment, $female_60))-count(array_intersect($endof_month_total_exit, $female_60));
+        $report['endof_month_23_male'] = count(array_intersect($endof_month_total_enrollment, $male_23)) - count(array_intersect($endof_month_total_exit, $male_23));
+        $report['endof_month_23_female'] = count(array_intersect($endof_month_total_enrollment, $female_23)) - count(array_intersect($endof_month_total_exit, $female_23));
+        $report['endof_month_24to59_male'] = count(array_intersect($endof_month_total_enrollment, $male_24to59)) - count(array_intersect($endof_month_total_exit, $male_24to59));
+        $report['endof_month_24to59_female'] = count(array_intersect($endof_month_total_enrollment, $female_24to59)) - count(array_intersect($endof_month_total_exit, $female_24to59));
+        $report['endof_month_60_male'] = count(array_intersect($endof_month_total_enrollment, $male_60)) - count(array_intersect($endof_month_total_exit, $male_60));
+        $report['endof_month_60_female'] = count(array_intersect($endof_month_total_enrollment, $female_60)) - count(array_intersect($endof_month_total_exit, $female_60));
 
         $report['muac_23_male'] = count(array_intersect($facility_followup_muac, $male_23));
         $report['muac_23_female'] = count(array_intersect($facility_followup_muac, $female_23));
@@ -296,37 +333,37 @@ class ReportController extends Controller
             ->whereYear('date', '=', $report_year)
             ->pluck('children_id')->toArray();
 
-        $discharge_defaulted= FacilityFollowup::where('facility_id', $facility_id)
+        $discharge_defaulted = FacilityFollowup::where('facility_id', $facility_id)
             ->where('discharge_criteria_exit', 'Defaulted')
             ->whereMonth('date', '=', $report_month)
             ->whereYear('date', '=', $report_year)
             ->pluck('children_id')->toArray();
 
-        $discharge_non_responder= FacilityFollowup::where('facility_id', $facility_id)
+        $discharge_non_responder = FacilityFollowup::where('facility_id', $facility_id)
             ->where('discharge_criteria_exit', 'Non responder')
             ->whereMonth('date', '=', $report_month)
             ->whereYear('date', '=', $report_year)
             ->pluck('children_id')->toArray();
 
-        $discharge_medical_transfer= FacilityFollowup::where('facility_id', $facility_id)
+        $discharge_medical_transfer = FacilityFollowup::where('facility_id', $facility_id)
             ->where('discharge_criteria_exit', 'Medical Transfer')
             ->whereMonth('date', '=', $report_month)
             ->whereYear('date', '=', $report_year)
             ->pluck('children_id')->toArray();
 
-        $discharge_transferout_otp= FacilityFollowup::where('facility_id', $facility_id)
+        $discharge_transferout_otp = FacilityFollowup::where('facility_id', $facility_id)
             ->where('discharge_criteria_transfer_out', 'Transfer to other OTP')
             ->whereMonth('date', '=', $report_month)
             ->whereYear('date', '=', $report_year)
             ->pluck('children_id')->toArray();
 
-        $discharge_transferout_sc= FacilityFollowup::where('facility_id', $facility_id)
+        $discharge_transferout_sc = FacilityFollowup::where('facility_id', $facility_id)
             ->where('discharge_criteria_transfer_out', 'Transfer to SC')
             ->whereMonth('date', '=', $report_month)
             ->whereYear('date', '=', $report_year)
             ->pluck('children_id')->toArray();
 
-        $discharge_others_unkown= FacilityFollowup::where('facility_id', $facility_id)
+        $discharge_others_unkown = FacilityFollowup::where('facility_id', $facility_id)
             ->where('discharge_criteria_others', 'Unkown')
             ->whereMonth('date', '=', $report_month)
             ->whereYear('date', '=', $report_year)
@@ -395,7 +432,8 @@ class ReportController extends Controller
         return $report;
     }
 
-    public function bsfp_report(){
+    public function bsfp_report()
+    {
 
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
@@ -411,35 +449,31 @@ class ReportController extends Controller
             $facility_id = Auth::user()->facility_id;
 
 //            $report = $this->bsfp($facility_id, $report_month, $report_year);
-            $report = $this->bsfp($facility_id, $report_month, $report_year);
             $facilities = Facility::all();
             $current_month = $report_month;
             $current_year = $report_year;
-
-//            dd($report);
-
-            return view('report.bsfp', compact('children', 'facility', 'report','facilities','current_month','current_year','facility_id'));
-
+            $report = $this->bsfp($facility_id, $report_month, $report_year);
+            return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
 
         } else {
-            dd('No report');
 
-//            $children = Child::orderBy('created_at', 'desc')->get();
-//            $facilities = Facility::all();
-//            $current_month = date('n');
-//
-//            return view('report.search_home', compact('children', 'current_month', 'facilities'));
+            $children = Child::orderBy('created_at', 'desc')->get();
+            $facilities = Facility::all();
+            $current_month = date('n');
+
+            return view('report.search_home_bsfp', compact('children', 'current_month', 'facilities'));
         }
 
     }
+
     private function bsfp($facility_id, $report_month, $report_year)
     {
 //        dd($facility_id);
 //        $days_in_month = cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year);
         $begining_balance_1stday = \DB::table('facility_followups')->MIN('date');
         $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($report_year . '-' . $report_month . '-01')));
-        $this_month_1stday = date('Y-m-d', strtotime($report_year . '-' . $report_month .'-'.'1'));
-        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month .'-'.(cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
+        $this_month_1stday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . '1'));
+        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
 //dd($begining_balance_1stday.'/'.$begining_balance_lastday.'/'.$endof_month_lastday);
 
         $male_23 = Child::select('sync_id')->where('age', '<=', 23)->where('sex', 'male')->pluck('sync_id')->toArray();
@@ -447,106 +481,106 @@ class ReportController extends Controller
         $male_24to59 = Child::select('sync_id')->where('age', '>=', 24)->where('age', '<=', 59)->where('sex', 'male')->pluck('sync_id')->toArray();
         $female_24to59 = Child::select('sync_id')->where('age', '>=', 24)->where('age', '<=', 59)->where('sex', 'female')->pluck('sync_id')->toArray();
 
-        $begining_balance_new_admission=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
-            ->where('new_admission', '!=',null)
-            ->where('new_admission', '!=','Age 6 to 59m')
+        $begining_balance_new_admission = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
             ->pluck('children_id')->toArray();
-        $begining_balance_re_admission=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
+        $begining_balance_re_admission = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
             ->where('readmission', 'Readmission after default')
             ->pluck('children_id')->toArray();
-        $begining_balance_transfer_in=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
+        $begining_balance_transfer_in = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
             ->where('transfer_in', 'Transfer in from BSFP')
             ->pluck('children_id')->toArray();
-        $begining_balance_return_from=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
+        $begining_balance_return_from = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
             ->where('return_from', 'MAM Treatement')
             ->pluck('children_id')->toArray();
         $begining_balance_total_enrollment = array_merge($begining_balance_new_admission, $begining_balance_re_admission, $begining_balance_transfer_in, $begining_balance_return_from);
 //dd(count($begining_balance_total_enrollment));
-        $begining_balance_total_exit=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$begining_balance_lastday])
-            ->where('discharge_criteria_exit', '!=',null)
-            ->where('discharge_criteria_exit', '!=','Age > 59m')
+        $begining_balance_total_exit = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('discharge_criteria_exit', '!=', null)
+            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
             ->pluck('children_id')->toArray();
 //        dd($begining_balance_total_exit);
 
-        $endof_month_total_enrollment=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$endof_month_lastday])
-            ->where('new_admission', '!=',null)
-            ->where('new_admission', '!=','Age 6 to 59m')
+        $endof_month_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
             ->pluck('children_id')->toArray();
 
-        $endof_month_total_exit=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$begining_balance_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_exit', '!=',null)
-            ->where('discharge_criteria_exit', '!=','Age > 59m')
+        $endof_month_total_exit = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_exit', '!=', null)
+            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
             ->pluck('children_id')->toArray();
 
-        $new_admission=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('new_admission', '!=',null)
-            ->where('new_admission', '!=','Age 6 to 59m')
+        $new_admission = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
             ->pluck('children_id')->toArray();
-        $re_admission=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
+        $re_admission = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
             ->where('readmission', 'Readmission after default')
             ->pluck('children_id')->toArray();
-        $transfer_in=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
+        $transfer_in = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
             ->where('transfer_in', 'Transfer in from BSFP')
             ->pluck('children_id')->toArray();
-        $return_from=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
+        $return_from = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
             ->where('return_from', 'MAM Treatement')
             ->pluck('children_id')->toArray();
 
         $total_admission_report_month = array_merge($new_admission, $re_admission, $transfer_in, $return_from);
 //dd($total_admission_report_month);
-        $discharge=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_exit','Age > 59m')
+        $discharge = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_exit', 'Age > 59m')
             ->pluck('children_id')->toArray();
 //dd($discharge);
-        $defaulted=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_exit','Defaulted')
+        $defaulted = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_exit', 'Defaulted')
             ->pluck('children_id')->toArray();
 
-        $death=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_exit','Death')
+        $death = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_exit', 'Death')
             ->pluck('children_id')->toArray();
 
-        $transfer_out=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_transfer_out','Transfer to other BSFP')
+        $transfer_out = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_transfer_out', 'Transfer to other BSFP')
             ->pluck('children_id')->toArray();
 //dd($transfer_out);
-        $transfer_to_sam=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_transfer_out','Transfer to SAM treatment')
+        $transfer_to_sam = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_transfer_out', 'Transfer to SAM treatment')
             ->pluck('children_id')->toArray();
 
-        $transfer_to_mam=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_transfer_out','Transfer to MAM treatment')
+        $transfer_to_mam = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_transfer_out', 'Transfer to MAM treatment')
             ->pluck('children_id')->toArray();
 
-        $others=FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date',[$this_month_1stday,$endof_month_lastday])
-            ->where('discharge_criteria_others','!=',null)
+        $others = FacilityFollowup::where('facility_id', $facility_id)
+            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->where('discharge_criteria_others', '!=', null)
             ->pluck('children_id')->toArray();
 
-        $total_exits_report_month = array_merge($discharge, $defaulted, $death, $transfer_out,$transfer_to_sam,$transfer_to_mam,$others);
+        $total_exits_report_month = array_merge($discharge, $defaulted, $death, $transfer_out, $transfer_to_sam, $transfer_to_mam, $others);
 //        dd($total_exits_report_month);
 
-        $report['begining_balance_23_male'] = count(array_intersect($begining_balance_total_enrollment, $male_23))-count(array_intersect($begining_balance_total_exit, $male_23));
-        $report['begining_balance_23_female'] = count(array_intersect($begining_balance_total_enrollment, $female_23))-count(array_intersect($begining_balance_total_exit, $female_23));
-        $report['begining_balance_24to59_male'] = count(array_intersect($begining_balance_total_enrollment, $male_24to59))-count(array_intersect($begining_balance_total_exit, $male_24to59));
-        $report['begining_balance_24to59_female'] = count(array_intersect($begining_balance_total_enrollment, $female_24to59))-count(array_intersect($begining_balance_total_exit, $female_24to59));
+        $report['begining_balance_23_male'] = count(array_intersect($begining_balance_total_enrollment, $male_23)) - count(array_intersect($begining_balance_total_exit, $male_23));
+        $report['begining_balance_23_female'] = count(array_intersect($begining_balance_total_enrollment, $female_23)) - count(array_intersect($begining_balance_total_exit, $female_23));
+        $report['begining_balance_24to59_male'] = count(array_intersect($begining_balance_total_enrollment, $male_24to59)) - count(array_intersect($begining_balance_total_exit, $male_24to59));
+        $report['begining_balance_24to59_female'] = count(array_intersect($begining_balance_total_enrollment, $female_24to59)) - count(array_intersect($begining_balance_total_exit, $female_24to59));
 
         $report['new_admission_23_male'] = count(array_intersect($new_admission, $male_23));
         $report['new_admission_23_female'] = count(array_intersect($new_admission, $female_23));
@@ -614,10 +648,10 @@ class ReportController extends Controller
         $report['total_exits_24to59_male'] = count(array_intersect($total_exits_report_month, $male_24to59));
         $report['total_exits_24to59_female'] = count(array_intersect($total_exits_report_month, $female_24to59));
 
-        $report['endof_month_23_male'] = count(array_intersect($endof_month_total_enrollment, $male_23))-count(array_intersect($endof_month_total_exit, $male_23));
-        $report['endof_month_23_female'] = count(array_intersect($endof_month_total_enrollment, $female_23))-count(array_intersect($endof_month_total_exit, $female_23));
-        $report['endof_month_24to59_male'] = count(array_intersect($endof_month_total_enrollment, $male_24to59))-count(array_intersect($endof_month_total_exit, $male_24to59));
-        $report['endof_month_24to59_female'] = count(array_intersect($endof_month_total_enrollment, $female_24to59))-count(array_intersect($endof_month_total_exit, $female_24to59));
+        $report['endof_month_23_male'] = count(array_intersect($endof_month_total_enrollment, $male_23)) - count(array_intersect($endof_month_total_exit, $male_23));
+        $report['endof_month_23_female'] = count(array_intersect($endof_month_total_enrollment, $female_23)) - count(array_intersect($endof_month_total_exit, $female_23));
+        $report['endof_month_24to59_male'] = count(array_intersect($endof_month_total_enrollment, $male_24to59)) - count(array_intersect($endof_month_total_exit, $male_24to59));
+        $report['endof_month_24to59_female'] = count(array_intersect($endof_month_total_enrollment, $female_24to59)) - count(array_intersect($endof_month_total_exit, $female_24to59));
 
         $report['report_month'] = $report_month;
         $report['report_year'] = $report_year;
@@ -627,4 +661,4 @@ class ReportController extends Controller
     }
 
 
-    }
+}
