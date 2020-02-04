@@ -35,7 +35,7 @@
                         <option value="11" {{($current_month=='11') ? 'selected' : ''}}>November</option>
                         <option value="12" {{($current_month=='12') ? 'selected' : ''}}>December</option>
                     </select>
-                    <input class="date-year btn btn" type="text" name="year"
+                    <input class="date-oyear btn btn" type="text" name="year" id="date-oyear"
                            style=" z-index: 9999 !important;"
                            value="{{$current_year}}">
                     <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>Search</button>
@@ -611,9 +611,25 @@
 
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 
-
-
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
+<script type="text/javascript">
+
+
+//    $(document).ready(function() {
+//            $('.date-oyear').datepicker({
+//                minViewMode: 2,
+//                format: 'yyyy'
+//            });
+
+//        $("#date-oyear").datepicker({
+//            format: " yyyy",
+//            viewMode: "years",
+//            minViewMode: "years"
+//        });
+//    });
+
+
+</script>
 
 
 @endpush

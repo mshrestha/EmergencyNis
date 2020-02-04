@@ -1,4 +1,16 @@
 @extends('layouts.app')
+@push('styles')
+<style>
+    .modal {
+        border: 1px solid black;
+        background-color: rgba(255, 255, 255, 1.0);
+        height: 95%;
+        width: 95%;
+        margin:0 auto;
+    }
+</style>
+@endpush
+
 @section('content')
     <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
@@ -83,6 +95,8 @@
                                                                             class="fa fa-plus"></i></button>
                                                             </a>
                                                         @endif
+
+
                                                     </td>
                                                 </tr>
                                             @endforeach
