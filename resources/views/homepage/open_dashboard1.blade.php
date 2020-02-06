@@ -406,7 +406,6 @@
                 }
             }
         });
-
         var ctx_modal = document.getElementById('childAdmissionModal').getContext('2d');
         var myChartModal = new Chart(ctx_modal, {
             type: 'line',

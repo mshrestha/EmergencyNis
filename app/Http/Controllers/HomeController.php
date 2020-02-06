@@ -63,7 +63,7 @@ class HomeController extends Controller
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children',  'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
+                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -99,6 +99,7 @@ class HomeController extends Controller
                 'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
         }
     }
+
     public function dashboard()
     {
         if (Auth::user()->facility_id) {
@@ -140,7 +141,7 @@ class HomeController extends Controller
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children',  'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
+                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -176,6 +177,7 @@ class HomeController extends Controller
                 'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
         }
     }
+
     public function childInfo($child_id)
     {
 
@@ -203,7 +205,9 @@ class HomeController extends Controller
         }
         $chart_weight = array_column($facility_followups, 'weight');
 
-        return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();
+        $gmp_chart_weight = $this->gmp_weight_chart($child->sync_id);
+
+        return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight','gmp_chart_weight'))->render();
     }
 
     public function wfhCalculation(Request $request)
@@ -454,7 +458,7 @@ class HomeController extends Controller
 //        $user_barchart['count'] = array_values($admission);
 //        $user_barchart['date'] = array_keys($admission);
         $all_date = array_keys($admission);
-        $only_day=[];
+        $only_day = [];
         foreach ($all_date as $dt) {
             $date = DateTime::createFromFormat("Y-m-d", $dt);
             $only_day[] = $date->format("d");
@@ -683,9 +687,66 @@ class HomeController extends Controller
         return $rate;
     }
 
-    public function test()
+    private function gmp_weight_chart($child_id)
     {
-        return view('test');
+//        $cid = '1013132';
+//        $cid = '1013117';
+        $children = Child::where('sync_id', $child_id)->first();
+        $c_followup = FacilityFollowup::where('children_id', $child_id)->get();
+//        dd($c_followup);
+// If date of Birth null then calculate tentative DOB from age
+        if ($children->date_of_birth == null  ) {
+            $created_at=new DateTime($children->created_at);
+            $dob = $created_at->modify("-".$children->age.' months');
+        } else
+        $dob = new DateTime($children->date_of_birth);
+
+        $age=[];
+        $weight=[];
+        $height=[];
+        for ($i = 0; $i < count($c_followup); $i++) {
+            $diff = $dob->diff(new DateTime($c_followup[$i]->date));
+// calculate child age as month based on followup date
+            $age[] = $diff->format('%m') + 12 * $diff->format('%y');
+// get child weight based on followup date
+            $weight[] = ($c_followup[$i]->weight==null)? $c_followup[$i-1]->weight : $c_followup[$i]->weight;
+// get child height based on followup date
+            $height[] = ($c_followup[$i]->height==null)? $c_followup[$i-1]->height : $c_followup[$i]->height;
+        }
+//only unique month count and get the array key
+        $age_key=array_values(array_flip($age));
+//get age, weight and height based on unique age array
+        $gmpAge=[];
+        $gmpWeight=[];
+        $gmpHeight=[];
+        for ($x = 0; $x < count($age_key); $x++) {
+                $gmpAge[] = $age[$age_key[$x]];
+                $gmpWeight[] = $weight[$age_key[$x]];
+                $gmpHeight[] = $height[$age_key[$x]];
+        }
+//        dd($gmpAge);
+        $months = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60];
+
+        $gmp['weight']= [];
+        $gmp['height']= [];
+        for ($i = 0; $i < count($months); $i++) {
+            if (in_array($months[$i], $gmpAge)) {
+                $ii = array_search($months[$i], $gmpAge);
+                $gmp['weight'][] = $gmpWeight[$ii];
+            } else
+                $gmp['weight'][] = 0;
+        }
+        for ($j = 0; $j < count($months); $j++) {
+            if (in_array($months[$j], $gmpAge)) {
+                $jj = array_search($months[$j], $gmpAge);
+                $gmp['height'][] = $gmpHeight[$jj];
+            } else
+                $gmp['height'][] = 0;
+        }
+
+        return $gmp;
+//        dd($gmp);
+//        return view('test',compact('gmp','months'));
     }
 
 

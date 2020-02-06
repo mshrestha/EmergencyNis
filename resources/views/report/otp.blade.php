@@ -17,8 +17,8 @@
                     <select name="facility_id" class="btn btn show-tick selectpicker"
                             data-live-search="true" required {{(Auth::user()->facility_id)?'disabled':''}}>
                         <option value="">Select Facility</option>
-                        @foreach($facilities as $facility)
-                            <option value="{{ $facility->id }}" {{ ($facility->id == $facility_id) ? ' selected' : '' }}>{{ $facility->facility_id }}</option>
+                        @foreach($facilities as $fac)
+                            <option value="{{ $fac->id }}" {{ ($fac->id == Auth::user()->facility_id) ? ' selected' : '' }}>{{ $fac->facility_id }}</option>
                         @endforeach
                     </select>
                     <select class="btn btn" name="month">
@@ -35,7 +35,7 @@
                         <option value="11" {{($current_month=='11') ? 'selected' : ''}}>November</option>
                         <option value="12" {{($current_month=='12') ? 'selected' : ''}}>December</option>
                     </select>
-                    <input class="date-year btn btn" type="text" name="year"
+                    <input class="date-oyear btn btn" type="text" name="year" id="date-oyear"
                            style=" z-index: 9999 !important;"
                            value="{{$current_year}}">
                     <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>Search</button>
@@ -59,7 +59,8 @@
                             <tbody>
                             <tr>
                                 <td>Facility ID:
-                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>
+                                    <strong>{{ $facility->facility_id}}</strong>
+{{--                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>--}}
                                 </td>
                                 <td>Following Expanded Criteria:</td>
                                 <td>Name of Camp: <strong>{{ $facility->camp->name }}</strong></td>
@@ -610,9 +611,25 @@
 
 <script src="js/plugins/dataTables/datatables.min.js"></script>
 
-
-
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
+<script type="text/javascript">
+
+
+//    $(document).ready(function() {
+//            $('.date-oyear').datepicker({
+//                minViewMode: 2,
+//                format: 'yyyy'
+//            });
+
+//        $("#date-oyear").datepicker({
+//            format: " yyyy",
+//            viewMode: "years",
+//            minViewMode: "years"
+//        });
+//    });
+
+
+</script>
 
 
 @endpush

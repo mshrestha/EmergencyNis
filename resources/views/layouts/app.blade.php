@@ -150,6 +150,7 @@
 <script src="{{ asset('js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 <script src="{{ asset('custom/bootstrap_datetime_picker/moment.min.js') }}"></script>
 <script src="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.js') }}"></script>
+<script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
 
 <!-- Custom and plugin javascript -->

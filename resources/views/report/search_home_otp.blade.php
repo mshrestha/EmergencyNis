@@ -2,10 +2,11 @@
 @push('styles')
 <!-- Bootstrap Select Css -->
 <link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet"/>
-{{--<link href="{{ asset('custom/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}" rel="stylesheet">--}}
-{{--<link href="{{ asset('custom/bootstrap-datepicker/bootstrap-datepicker.css') }}" rel="stylesheet">--}}
-{{--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">--}}
-
+<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
 @endpush
 @section('content')
 
@@ -62,12 +63,11 @@
                         <div class="form-group">
                             <label class="control-label col-sm-3">Select Year </label>
                             <div class="col-sm-9">
-                                <input class="date-oyear form-control" type="text" name="year"
-                                       style=" z-index: 9999 !important;"
+                                <input class="date-oyear form-control" type="text" name="year" id="date-oyear"
+                                       {{--style=" z-index: 9999 !important;"--}}
                                        value="<?php echo date('Y') ?>">
                             </div>
                         </div>
-
 
                         <div class="form-actions">
                             <div class="row">
@@ -90,16 +90,20 @@
 @endsection
 
 @push('scripts')
+
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
-{{--<script src="{{ asset('custom/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>--}}
-{{--<script src="{{ asset('custom/bootstrap-datepicker/bootstrap-datepicker.js') }}"></script>--}}
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>--}}
 
 <script type="text/javascript">
-    $('.date-oyear').datepicker({
-        minViewMode: 2,
-        format: 'yyyy'
-    });
+//    $('.date-oyear').datepicker({
+//        minViewMode: 2,
+//        format: 'yyyy'
+//    });
+
+//    $("#date-oyear").datepicker({
+//        format: " yyyy",
+//        viewMode: "years",
+//        minViewMode: "years"
+//    });
 
 
 </script>
