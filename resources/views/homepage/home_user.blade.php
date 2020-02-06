@@ -96,6 +96,21 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-lg-3">
+                    <a href="{{ route('community') }}">
+                        <div class="widget style1 lazur-bg">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <i class="fa fa-plus fa-5x"></i>
+                                </div>
+                                <div class="col-xs-8 text-right">
+
+                                    <h2 class="font-bold">Community</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
 
             </div><!-- END OF INNER ROW -->

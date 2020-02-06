@@ -66,6 +66,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
 		Route::resource('community', 'CommunityController');
+		Route::get('community', 'CommunityController@index')->name('community');
+		Route::get('community/outreach', 'CommunityController@outreach')->name('community.outreach');
+		Route::post('community/{volunteer}/save', 'CommunityController@save')->name('community-followup.save');
 
     Route::get('importHome', 'OtpImportController@importHome')->name('importHome');
     Route::get('importExportOtp', 'OtpImportController@importExportOtp')->name('importExportOtp');
