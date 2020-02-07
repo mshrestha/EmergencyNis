@@ -115,8 +115,11 @@ class OutreachMonthlyReportController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            $data = $request->all();
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+
             $outreach_monthly_report = OutreachMonthlyReport::findOrFail($id);
-            $outreach_monthly_report->update($request->all());
+            $outreach_monthly_report->update($data);
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save monthly report, Try again.";
             $this->_notify_type = "danger";

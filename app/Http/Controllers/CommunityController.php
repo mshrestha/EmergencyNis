@@ -111,7 +111,10 @@ class CommunityController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Volunteer::findOrFail($id)->update($request->all());
+            $data = $request->all();
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+
+            Volunteer::findOrFail($id)->update($data);
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save volunteer, Try again.";
             $this->_notify_type = "danger";
