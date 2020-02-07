@@ -34,6 +34,29 @@ Route::post('/sync/save-pregnant-women-followup', [
 	'as' => 'sync.pregnant-women-followup.server'
 ]);
 
+Route::post('/sync/save-volunteers', [
+	'uses' => 'SyncDataServerController@syncVolunteersServer',
+	'as' => 'sync.volunteers.server'
+]);
+
+Route::post('/sync/save-community-sessions', [
+	'uses' => 'SyncDataServerController@syncCommunitySessionsServer',
+	'as' => 'sync.community-sessions.server'
+]);
+
+Route::post('/sync/save-outreach-supervisors', [
+	'uses' => 'SyncDataServerController@syncOutreachSupervisorsServer',
+	'as' => 'sync.outreach-supervisors.server'
+]);
+
+Route::post('/sync/save-outreach-monthly-reports', [
+	'uses' => 'SyncDataServerController@syncOutreachMonthlyReportsServer',
+	'as' => 'sync.outreach-monthly-reports.server'
+]);
+
+
+
+// Dump sql
 Route::get('/sync/generate/mysqldump', [
 	'uses' => 'SyncDataServerController@generateMysqldump',
 	'as' => 'sync.generate.mysqldump'

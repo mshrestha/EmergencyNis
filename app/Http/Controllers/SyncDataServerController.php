@@ -27,6 +27,19 @@ class SyncDataServerController extends Controller
 		return $this->updateDatabase('pregnant_women_followups', $request);
 	}
 
+	public function syncVolunteersServer(Request $request) {
+		return $this->updateDatabase('volunteers', $request);
+	}
+	public function syncCommunitySessionsServer(Request $request) {
+		return $this->updateDatabase('community_sessions', $request);
+	}
+	public function syncOutreachSupervisorsServer(Request $request) {
+		return $this->updateDatabase('outreach_supervisors', $request);
+	}
+	public function syncOutreachMonthlyReportsServer(Request $request) {
+		return $this->updateDatabase('outreach_monthly_reports', $request);
+	}
+
 
 	public function updateDatabase($table, Request $request) {
 		DB::beginTransaction();

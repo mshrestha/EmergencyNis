@@ -124,6 +124,27 @@ Route::get('/sync/pregnant-women-followup', [
 	'as' => 'sync.pregnant-women-followup.client'
 ]);
 
+// new
+Route::get('/sync/volunteers', [
+	'uses' => 'SyncDataClientController@syncVolunteers',
+	'as' => 'sync.volunteers.client'
+]);
+
+Route::get('/sync/community-sessions', [
+	'uses' => 'SyncDataClientController@syncCommunitySessions',
+	'as' => 'sync.community-sessions.client'
+]);
+
+Route::get('/sync/outreach-supervisors', [
+	'uses' => 'SyncDataClientController@syncOutreachSupervisors',
+	'as' => 'sync.outreach-supervisors.client'
+]);
+
+Route::get('/sync/outreach-monthly-reports', [
+	'uses' => 'SyncDataClientController@syncOutreachMonthlyReports',
+	'as' => 'sync.outreach-monthly-reports.client'
+]);
+
 
 
 

@@ -4,7 +4,7 @@
 <div class="wrapper wrapper-content  animated fadeInRight">
   <h1><strong>{{ Auth::user()->facility->facility_id }}</strong> </h1>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
             <div class="row">
                 <div class="col-lg-3">
                     <a href="{{ route('register') }}">
@@ -115,7 +115,10 @@
 
             </div><!-- END OF INNER ROW -->
         </div>
-
+        
+        <div class="col-lg-3">
+            @include('homepage.partials.sync')
+        </div>
     </div><!-- End of First Row -->
 
     <div class="row"></div>

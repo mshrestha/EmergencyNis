@@ -35,12 +35,18 @@ class SyncDataClientController extends Controller
 	public function syncPregnantWomenFollowupClient() {
 		return $this->sendDataToServer('App\Models\PregnantWomenFollowup', '/api/sync/save-pregnant-women-followup');
 	}
-
-
-
-
-
-
+	public function syncVolunteers() {
+		return $this->sendDataToServer('App\Models\Volunteer', '/api/sync/save-volunteers');
+	}
+	public function syncCommunitySessions() {
+		return $this->sendDataToServer('App\Models\CommunitySession', '/api/sync/save-community-sessions');
+	}
+	public function syncOutreachSupervisors() {
+		return $this->sendDataToServer('App\Models\OutreachSupervisor', '/api/sync/save-outreach-supervisors');
+	}
+	public function syncOutreachMonthlyReports() {
+		return $this->sendDataToServer('App\Models\OutreachMonthlyReport', '/api/sync/save-outreach-monthly-reports');
+	}
 
 
 

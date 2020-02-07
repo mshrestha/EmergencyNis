@@ -12,6 +12,10 @@ use App\Models\CommunityFollowup;
 use App\Models\IycfFollowup;
 use App\Models\PregnantWomen;
 use App\Models\PregnantWomenFollowup;
+use App\Models\Volunteer;
+use App\Models\CommunitySession;
+use App\Models\OutreachSupervisor;
+use App\Models\OutreachMonthlyReport;
 
 use Illuminate\Http\Request;
 use DB;
@@ -25,10 +29,8 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->facility_id) {
-
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
-//            dd($cache_data);
             if (empty($cache_data)) {
 
                 if (date('n') == 1) {
@@ -61,9 +63,15 @@ class HomeController extends Controller
             $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+            
+            $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
+            $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+            $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
+            $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
-            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
+
+            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
+            ));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -95,7 +103,6 @@ class HomeController extends Controller
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.home', compact('cache_data', 'dashboard', 'dashboard_data',
-//                'month_year',  'death_reportmonth','facilities',  'average_rate', 'admission_reportmonth', 'admission_total',
                 'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
         }
     }
