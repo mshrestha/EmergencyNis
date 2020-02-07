@@ -12,6 +12,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class OtpImportController extends Controller
 {
+    public function importHome()
+    {
+        return view('import_export/importHome');
+    }
     public function importExportOtp()
     {
         $generated_data = DB::table('otp_imports')
@@ -983,5 +987,7 @@ class OtpImportController extends Controller
         $bar_chart_tsfp['cumulative_nonRecoveredRate'] = ($total_nonRecovered==0)?0 : ($total_nonRecovered/($total_cured+$total_death+$total_default+$total_nonRecovered))*100;
         return $bar_chart_tsfp;
     }
+
+
 
 }

@@ -12,6 +12,10 @@ use App\Models\CommunityFollowup;
 use App\Models\IycfFollowup;
 use App\Models\PregnantWomen;
 use App\Models\PregnantWomenFollowup;
+use App\Models\Volunteer;
+use App\Models\CommunitySession;
+use App\Models\OutreachSupervisor;
+use App\Models\OutreachMonthlyReport;
 
 use Illuminate\Http\Request;
 use DB;
@@ -25,9 +29,8 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->facility_id) {
-
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
-            ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
             if (empty($cache_data)) {
 
                 if (date('n') == 1) {
@@ -53,7 +56,6 @@ class HomeController extends Controller
             $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
 
             $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
-            $user_barchart = $this->user_dashboard_barchart($report_month);
 
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
@@ -61,12 +63,18 @@ class HomeController extends Controller
             $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+            
+            $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
+            $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+            $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
+            $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
-            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children', 'user_barchart', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
+
+            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
+            ));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
-            ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
             if (empty($cache_data)) {
                 if (date('n') == 1) {
                     $report_month = 12;
@@ -86,7 +94,7 @@ class HomeController extends Controller
 
             $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
             $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
-            
+
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
             $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
@@ -94,7 +102,84 @@ class HomeController extends Controller
             $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
-            return view('homepage.home', compact('cache_data','dashboard','dashboard_data',
+            return view('homepage.home', compact('cache_data', 'dashboard', 'dashboard_data',
+                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
+        }
+    }
+
+    public function dashboard()
+    {
+        if (Auth::user()->facility_id) {
+
+            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
+//            dd($cache_data);
+            if (empty($cache_data)) {
+
+                if (date('n') == 1) {
+                    $report_month = 12;
+                    $report_year = date('Y') - 1;
+                } else {
+                    $report_month = date('n') - 1;
+                    $report_year = date('Y');
+                }
+            } else {
+                $report_month = $cache_data[0]->month;
+                $report_year = $cache_data[0]->year;
+            }
+            if ($report_month == 1) {
+                $previous_month = 12;
+                $previous_year = $report_year - 1;
+            } else {
+                $previous_month = $report_month - 1;
+                $previous_year = $report_year;
+            }
+            $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
+            $report_month_dashboard = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->first();
+            $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
+
+            $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
+
+            //Sync data count
+            $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
+            $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+            $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+            $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
+            $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+
+            return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
+                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
+        } else {
+            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
+                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
+            if (empty($cache_data)) {
+                if (date('n') == 1) {
+                    $report_month = 12;
+                    $report_year = date('Y') - 1;
+                } else {
+                    $report_month = date('n') - 1;
+                    $report_year = date('Y');
+                }
+            } else {
+                $report_month = $cache_data[0]->month;
+                $report_year = $cache_data[0]->year;
+            }
+
+            $dashboard_data = $this->admin_dashboard_data($report_year, $report_month);
+            $chart_doughnut_value = $this->admin_dashboard_doughnutchart();
+            $admin_barchart = $this->admin_dashboard_barchart($report_month);
+
+            $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
+            $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
+
+            //Sync data count
+            $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
+            $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+            $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+            $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
+            $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+
+            return view('homepage.dashboard', compact('cache_data', 'dashboard', 'dashboard_data',
 //                'month_year',  'death_reportmonth','facilities',  'average_rate', 'admission_reportmonth', 'admission_total',
                 'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
         }
@@ -114,16 +199,69 @@ class HomeController extends Controller
         });
 
         $iycf_followups = IycfFollowup::where('children_id', $child_id)->orderBy('created_at', 'asc')->get()->toArray();
-        
+
         $followups = array_merge($followups_facility, $iycf_followups);
         usort($followups, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
 
-        $chart_date = array_column($facility_followups, 'date');
+        $chart_full_date = array_column($facility_followups, 'date');
+        foreach ($chart_full_date as $dt) {
+            $date = DateTime::createFromFormat("Y-m-d", $dt);
+            $chart_date[] = $date->format("d/m");
+        }
         $chart_weight = array_column($facility_followups, 'weight');
 
-        return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight'))->render();
+        $gmp_chart_weight = $this->gmp_weight_chart($child->sync_id);
+
+        return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight','gmp_chart_weight'))->render();
+    }
+
+    public function wfhCalculation(Request $request)
+    {
+        $input_weight = $request->childWeight;
+        if ($request->childSex == 'female')
+            $wfh = DB::table('wfh_girls_2_5_zscores')->where('Height', $request->childHeight)->first();
+        else
+            $wfh = DB::table('wfh_boys_2_5_zscores')->where('Height', $request->childHeight)->first();
+
+        if ($input_weight == $wfh->SD3n)
+            $result = '= - 3SD';
+        elseif ($input_weight < $wfh->SD3n)
+            $result = '< - 3SD';
+        else
+            if ($input_weight == $wfh->SD2n)
+                $result = '= - 2SD';
+            elseif ($input_weight < $wfh->SD2n)
+                $result = '< - 2SD';
+            else
+                if ($input_weight == $wfh->SD1n)
+                    $result = '= - 1SD';
+                elseif ($input_weight < $wfh->SD1n)
+                    $result = '< - 1SD';
+                else
+                    if ($input_weight == $wfh->SD0)
+                        $result = '= 0SD';
+                    elseif ($input_weight < $wfh->SD0)
+                        $result = '< 0SD';
+                    else
+                        if ($input_weight == $wfh->SD1)
+                            $result = '= 1SD';
+                        elseif ($input_weight < $wfh->SD1)
+                            $result = '< 1SD';
+                        else
+                            if ($input_weight == $wfh->SD2)
+                                $result = '= 2SD';
+                            elseif ($input_weight < $wfh->SD2)
+                                $result = '< 2SD';
+                            else
+                                if ($input_weight == $wfh->SD3)
+                                    $result = '= 3SD';
+                                elseif ($input_weight < $wfh->SD3)
+                                    $result = '< 3SD';
+                                else
+                                    $result = '> 3SD';
+        return response()->json(['zscore' => $result]);
     }
 
     public function adminDashboard_ym($year, $month)
@@ -131,9 +269,9 @@ class HomeController extends Controller
         $report_month = $month;
         $report_year = $year;
         $cache_data = DB::table('monthly_dashboards')
-        ->select('year', 'month')->groupBy('year', 'month')
-        ->orderBy('year', 'desc')->orderBy('month', 'desc')
-        ->get()->toArray();
+            ->select('year', 'month')->groupBy('year', 'month')
+            ->orderBy('year', 'desc')->orderBy('month', 'desc')
+            ->get()->toArray();
         $dashboard_data = $this->admin_dashboard_data($report_year, $report_month);
         $chart_doughnut_value = $this->admin_dashboard_doughnutchart_ym($report_year, $report_month);
         $admin_barchart = $this->admin_dashboard_barchart($report_month);
@@ -148,7 +286,7 @@ class HomeController extends Controller
         $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
         $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
 
-        return view('homepage.home_ym', compact('cache_data', 'dashboard','dashboard_data',
+        return view('homepage.home_ym', compact('cache_data', 'dashboard', 'dashboard_data',
             'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count'));
     }
 
@@ -165,74 +303,72 @@ class HomeController extends Controller
         }
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $cache_data = DB::table('monthly_dashboards')
-        ->select('year', 'month')
-        ->groupBy('year', 'month')
-        ->orderBy('year', 'desc')
-        ->orderBy('month', 'desc')
-        ->get()->toArray();
+            ->select('year', 'month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
         $report_month_dashboard = MonthlyDashboard::where('year', $report_year)->where('month', $report_month)
-        ->where('facility_id', Auth::user()->facility_id)->first();
+            ->where('facility_id', Auth::user()->facility_id)->first();
 //        dd($report_month_dashboard);
-        if ($report_month_dashboard==null)
-        {
+        if ($report_month_dashboard == null) {
 //            dd($report_month_dashboard);
-            $report_month_dashboard['otp_admit_23m']=0;
-            $report_month_dashboard['otp_admit_23f']=0;
-            $report_month_dashboard['otp_admit_24m']=0;
-            $report_month_dashboard['otp_admit_24f']=0;
-            $report_month_dashboard['otp_admit_60m']=0;
-            $report_month_dashboard['otp_admit_60f']=0;
-            $report_month_dashboard['otp_admit_male']=0;
-            $report_month_dashboard['otp_admit_female']=0;
-            $report_month_dashboard['otp_admit_others']=0;
-            $report_month_dashboard['otp_admit_muac']=0;
-            $report_month_dashboard['otp_admit_whz']=0;
-            $report_month_dashboard['otp_admit_both']=0;
-            $report_month_dashboard['total_admit']=0;
-            $report_month_dashboard['cure_rate']=0;
-            $report_month_dashboard['death_rate']=0;
-            $report_month_dashboard['default_rate']=0;
-            $report_month_dashboard['nonrespondent_rate']=0;
-            $report_month_dashboard['avg_weight_gain']=0;
-            $report_month_dashboard['avg_length_stay']=0;
-            $report_month_dashboard['otp_mnthend_23m']=0;
-            $report_month_dashboard['otp_mnthend_23f']=0;
-            $report_month_dashboard['otp_mnthend_24m']=0;
-            $report_month_dashboard['otp_mnthend_24f']=0;
-            $report_month_dashboard['otp_mnthend_60m']=0;
-            $report_month_dashboard['otp_mnthend_60f']=0;
+            $report_month_dashboard['otp_admit_23m'] = 0;
+            $report_month_dashboard['otp_admit_23f'] = 0;
+            $report_month_dashboard['otp_admit_24m'] = 0;
+            $report_month_dashboard['otp_admit_24f'] = 0;
+            $report_month_dashboard['otp_admit_60m'] = 0;
+            $report_month_dashboard['otp_admit_60f'] = 0;
+            $report_month_dashboard['otp_admit_male'] = 0;
+            $report_month_dashboard['otp_admit_female'] = 0;
+            $report_month_dashboard['otp_admit_others'] = 0;
+            $report_month_dashboard['otp_admit_muac'] = 0;
+            $report_month_dashboard['otp_admit_whz'] = 0;
+            $report_month_dashboard['otp_admit_both'] = 0;
+            $report_month_dashboard['total_admit'] = 0;
+            $report_month_dashboard['cure_rate'] = 0;
+            $report_month_dashboard['death_rate'] = 0;
+            $report_month_dashboard['default_rate'] = 0;
+            $report_month_dashboard['nonrespondent_rate'] = 0;
+            $report_month_dashboard['avg_weight_gain'] = 0;
+            $report_month_dashboard['avg_length_stay'] = 0;
+            $report_month_dashboard['otp_mnthend_23m'] = 0;
+            $report_month_dashboard['otp_mnthend_23f'] = 0;
+            $report_month_dashboard['otp_mnthend_24m'] = 0;
+            $report_month_dashboard['otp_mnthend_24f'] = 0;
+            $report_month_dashboard['otp_mnthend_60m'] = 0;
+            $report_month_dashboard['otp_mnthend_60f'] = 0;
 
         }
         $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
-        ->where('facility_id', Auth::user()->facility_id)->first();
+            ->where('facility_id', Auth::user()->facility_id)->first();
 
-        if ($previous_month_dashboard==null)
-        {
-            $previous_month_dashboard['otp_admit_23m']=0;
-            $previous_month_dashboard['otp_admit_23f']=0;
-            $previous_month_dashboard['otp_admit_24m']=0;
-            $previous_month_dashboard['otp_admit_24f']=0;
-            $previous_month_dashboard['otp_admit_60m']=0;
-            $previous_month_dashboard['otp_admit_60f']=0;
-            $previous_month_dashboard['otp_admit_male']=0;
-            $previous_month_dashboard['otp_admit_female']=0;
-            $previous_month_dashboard['otp_admit_others']=0;
-            $previous_month_dashboard['otp_admit_muac']=0;
-            $previous_month_dashboard['otp_admit_whz']=0;
-            $previous_month_dashboard['otp_admit_both']=0;
-            $previous_month_dashboard['total_admit']=0;
-            $previous_month_dashboard['cure_rate']=0;
-            $previous_month_dashboard['death_rate']=0;
-            $previous_month_dashboard['default_rate']=0;
-            $previous_month_dashboard['nonrespondent_rate']=0;
-            $previous_month_dashboard['avg_weight_gain']=0;
-            $previous_month_dashboard['avg_length_stay']=0;
-            $previous_month_dashboard['otp_mnthend_23m']=0;
-            $previous_month_dashboard['otp_mnthend_23f']=0;
-            $previous_month_dashboard['otp_mnthend_24m']=0;
-            $previous_month_dashboard['otp_mnthend_24f']=0;
-            $previous_month_dashboard['otp_mnthend_60m']=0;
-            $previous_month_dashboard['otp_mnthend_60f']=0;
+        if ($previous_month_dashboard == null) {
+            $previous_month_dashboard['otp_admit_23m'] = 0;
+            $previous_month_dashboard['otp_admit_23f'] = 0;
+            $previous_month_dashboard['otp_admit_24m'] = 0;
+            $previous_month_dashboard['otp_admit_24f'] = 0;
+            $previous_month_dashboard['otp_admit_60m'] = 0;
+            $previous_month_dashboard['otp_admit_60f'] = 0;
+            $previous_month_dashboard['otp_admit_male'] = 0;
+            $previous_month_dashboard['otp_admit_female'] = 0;
+            $previous_month_dashboard['otp_admit_others'] = 0;
+            $previous_month_dashboard['otp_admit_muac'] = 0;
+            $previous_month_dashboard['otp_admit_whz'] = 0;
+            $previous_month_dashboard['otp_admit_both'] = 0;
+            $previous_month_dashboard['total_admit'] = 0;
+            $previous_month_dashboard['cure_rate'] = 0;
+            $previous_month_dashboard['death_rate'] = 0;
+            $previous_month_dashboard['default_rate'] = 0;
+            $previous_month_dashboard['nonrespondent_rate'] = 0;
+            $previous_month_dashboard['avg_weight_gain'] = 0;
+            $previous_month_dashboard['avg_length_stay'] = 0;
+            $previous_month_dashboard['otp_mnthend_23m'] = 0;
+            $previous_month_dashboard['otp_mnthend_23f'] = 0;
+            $previous_month_dashboard['otp_mnthend_24m'] = 0;
+            $previous_month_dashboard['otp_mnthend_24f'] = 0;
+            $previous_month_dashboard['otp_mnthend_60m'] = 0;
+            $previous_month_dashboard['otp_mnthend_60f'] = 0;
 
         }
         $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
@@ -259,11 +395,11 @@ class HomeController extends Controller
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
 
         $cache_data = DB::table('monthly_dashboards')
-        ->select('year', 'month')
-        ->groupBy('year', 'month')
-        ->orderBy('year', 'desc')
-        ->orderBy('month', 'desc')
-        ->get()->toArray();
+            ->select('year', 'month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
         $facility_supervision = FacilitySupervisor::where('user_id', Auth::user()->id)->pluck('facility_id')->toArray();
         $months = array();
         for ($i = 0; $i < 12; $i++) {
@@ -281,11 +417,11 @@ class HomeController extends Controller
     public function programManagerDashboard()
     {
         $cache_data = DB::table('monthly_dashboards')
-        ->select('year', 'month')
-        ->groupBy('year', 'month')
-        ->orderBy('year', 'desc')
-        ->orderBy('month', 'desc')
-        ->get()->toArray();
+            ->select('year', 'month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
         if (empty($cache_data)) {
             if (date('n') == 1) {
                 $report_month = 12;
@@ -316,18 +452,26 @@ class HomeController extends Controller
     {
         //dashboard chart bar
         $admission = FacilityFollowup::where('facility_id', Auth::user()->facility_id)
-        ->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
-        ->groupBy('dat')
+            ->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
+            ->groupBy('dat')
 //            ->whereDate('date', '>', \Carbon\Carbon::now()->subDays(30))
-        ->whereMonth('date', $report_month)
-        ->where('new_admission', '!=', 'Age 6 to 59m')
+            ->whereMonth('date', $report_month)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
 //            ->where('new_admission', 'MUAC')
 //            ->orWhere('new_admission', 'WFH Zscore')
 //            ->orWhere('new_admission', 'MUAC and WFH Zscore')
-        ->orderBy('dat', 'ASC')
-        ->pluck('cunt', 'dat')->toArray();
+            ->orderBy('dat', 'ASC')
+            ->pluck('cunt', 'dat')->toArray();
+//        $user_barchart['count'] = array_values($admission);
+//        $user_barchart['date'] = array_keys($admission);
+        $all_date = array_keys($admission);
+        $only_day = [];
+        foreach ($all_date as $dt) {
+            $date = DateTime::createFromFormat("Y-m-d", $dt);
+            $only_day[] = $date->format("d");
+        }
         $user_barchart['count'] = array_values($admission);
-        $user_barchart['date'] = array_keys($admission);
+        $user_barchart['date'] = $only_day;
 
 //        dd($user_barchart);
         return $user_barchart;
@@ -343,7 +487,7 @@ class HomeController extends Controller
         else
             $dashboard_data['admission_total'] = $admission_total;
         $admission_reportmonth = DB::table('facility_followups')->whereYear('date', $report_year)->whereMonth('date', $report_month)
-        ->where('new_admission', '!=', 'Age 6 to 59m')->count();
+            ->where('new_admission', '!=', 'Age 6 to 59m')->count();
         if ($admission_reportmonth == 0)
             $dashboard_data['admission_reportmonth'] = 0;
         else
@@ -385,6 +529,7 @@ class HomeController extends Controller
             $chart_doughnut['muac_zscore'] = $muac_zscore;
         return array_values($chart_doughnut);
     }
+
     private function admin_dashboard_doughnutchart_ym($report_year, $report_month)
     {
         $muac = FacilityFollowup::where('new_admission', 'MUAC')->whereMonth('date', '=', $report_month)->whereYear('date', '=', $report_year)->count();
@@ -409,15 +554,15 @@ class HomeController extends Controller
     private function admin_dashboard_barchart($report_month)
     {
         $admission = DB::table('facility_followups')->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
-        ->groupBy('dat')
-        ->whereMonth('date', $report_month)
-        ->where('new_admission', '!=', 'Age 6 to 59m')
+            ->groupBy('dat')
+            ->whereMonth('date', $report_month)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
 //            ->where('new_admission', 'MUAC')
 //            ->orwhere('new_admission', 'WFH Zscore')
 //            ->orWhere('new_admission', 'MUAC and WFH Zscore')
 //            ->whereBetween('created_at', [$fromDate, $tillDate])
-        ->orderBy('dat', 'ASC')
-        ->pluck('cunt', 'dat')->toArray();
+            ->orderBy('dat', 'ASC')
+            ->pluck('cunt', 'dat')->toArray();
         $admin_barchart['count'] = array_values($admission);
         $admin_barchart['date'] = array_keys($admission);
 
@@ -429,17 +574,17 @@ class HomeController extends Controller
     {
 
         $line_chart = DB::table('monthly_dashboards')
-        ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
+            ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
 //            ->select('monthly_dashboards.period as Month', 'monthly_dashboards.total_admit as TotalAdmission', 'facilities.facility_id as Facility_name')
-        ->select('monthly_dashboards.period as Month', 'monthly_dashboards.total_admit as TotalAdmission'
-            ,DB::raw('SUBSTRING_INDEX(facilities.facility_id, "/", -1) as Facility_name'))
-        ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
-        ->whereIn('monthly_dashboards.period', $months)
+            ->select('monthly_dashboards.period as Month', 'monthly_dashboards.total_admit as TotalAdmission'
+                , DB::raw('SUBSTRING_INDEX(facilities.facility_id, "/", -1) as Facility_name'))
+            ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
+            ->whereIn('monthly_dashboards.period', $months)
 //            ->orderBy('monthly_dashboards.facility_id','desc')
-        ->orderBy('monthly_dashboards.year', 'asc')
-        ->orderBy('monthly_dashboards.month', 'asc')
-        ->get()
-        ->toArray();
+            ->orderBy('monthly_dashboards.year', 'asc')
+            ->orderBy('monthly_dashboards.month', 'asc')
+            ->get()
+            ->toArray();
 //        dd($line_chart);
         return $line_chart;
     }
@@ -452,9 +597,9 @@ class HomeController extends Controller
             , DB::raw('sum(otp_admit_male) as otp_admit_male'), DB::raw('sum(otp_admit_female) as otp_admit_female'), DB::raw('sum(otp_admit_others) as otp_admit_others')
             , DB::raw('sum(otp_admit_muac) as otp_admit_muac'), DB::raw('sum(otp_admit_whz) as otp_admit_whz'), DB::raw('sum(otp_admit_both) as otp_admit_both')
         )
-        ->where('month', $report_month)->where('year', $report_year)
-        ->whereIn('facility_id', $facility_supervision)
-        ->get();
+            ->where('month', $report_month)->where('year', $report_year)
+            ->whereIn('facility_id', $facility_supervision)
+            ->get();
         return $doughnut_chart;
     }
 
@@ -462,13 +607,13 @@ class HomeController extends Controller
     {
         $facility_supervision = FacilitySupervisor::where('user_id', Auth::user()->id)->pluck('facility_id')->toArray();
         $bar_chart = DB::table('monthly_dashboards')
-        ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
-        ->select('facilities.facility_id', 'monthly_dashboards.avg_weight_gain', 'avg_length_stay',
-            'monthly_dashboards.cure_rate', 'monthly_dashboards.death_rate', 'monthly_dashboards.default_rate', 'monthly_dashboards.nonrespondent_rate')
-        ->where('month', $report_month)->where('year', $report_year)
-        ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
-        ->get()
-        ->toArray();
+            ->join('facilities', 'facilities.id', '=', 'monthly_dashboards.facility_id')
+            ->select('facilities.facility_id', 'monthly_dashboards.avg_weight_gain', 'avg_length_stay',
+                'monthly_dashboards.cure_rate', 'monthly_dashboards.death_rate', 'monthly_dashboards.default_rate', 'monthly_dashboards.nonrespondent_rate')
+            ->where('month', $report_month)->where('year', $report_year)
+            ->whereIn('monthly_dashboards.facility_id', $facility_supervision)
+            ->get()
+            ->toArray();
         $facilities = array_column($bar_chart, 'facility_id');
         $bar_chart['facility_id'] = array();
         foreach ($facilities as $facility) {
@@ -533,7 +678,7 @@ class HomeController extends Controller
             if ($child->new_admission == '') {
             }
         }
-        
+
         if ($dashboard['count'] == 0) {
             $rate['cureRate'] = 0;
             $rate['deathRate'] = 0;
@@ -549,9 +694,66 @@ class HomeController extends Controller
         return $rate;
     }
 
-    public function test()
+    private function gmp_weight_chart($child_id)
     {
-        return view('test');
+//        $cid = '1013132';
+//        $cid = '1013117';
+        $children = Child::where('sync_id', $child_id)->first();
+        $c_followup = FacilityFollowup::where('children_id', $child_id)->get();
+//        dd($c_followup);
+// If date of Birth null then calculate tentative DOB from age
+        if ($children->date_of_birth == null  ) {
+            $created_at=new DateTime($children->created_at);
+            $dob = $created_at->modify("-".$children->age.' months');
+        } else
+        $dob = new DateTime($children->date_of_birth);
+
+        $age=[];
+        $weight=[];
+        $height=[];
+        for ($i = 0; $i < count($c_followup); $i++) {
+            $diff = $dob->diff(new DateTime($c_followup[$i]->date));
+// calculate child age as month based on followup date
+            $age[] = $diff->format('%m') + 12 * $diff->format('%y');
+// get child weight based on followup date
+            $weight[] = ($c_followup[$i]->weight==null)? $c_followup[$i-1]->weight : $c_followup[$i]->weight;
+// get child height based on followup date
+            $height[] = ($c_followup[$i]->height==null)? $c_followup[$i-1]->height : $c_followup[$i]->height;
+        }
+//only unique month count and get the array key
+        $age_key=array_values(array_flip($age));
+//get age, weight and height based on unique age array
+        $gmpAge=[];
+        $gmpWeight=[];
+        $gmpHeight=[];
+        for ($x = 0; $x < count($age_key); $x++) {
+                $gmpAge[] = $age[$age_key[$x]];
+                $gmpWeight[] = $weight[$age_key[$x]];
+                $gmpHeight[] = $height[$age_key[$x]];
+        }
+//        dd($gmpAge);
+        $months = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60];
+
+        $gmp['weight']= [];
+        $gmp['height']= [];
+        for ($i = 0; $i < count($months); $i++) {
+            if (in_array($months[$i], $gmpAge)) {
+                $ii = array_search($months[$i], $gmpAge);
+                $gmp['weight'][] = $gmpWeight[$ii];
+            } else
+                $gmp['weight'][] = 0;
+        }
+        for ($j = 0; $j < count($months); $j++) {
+            if (in_array($months[$j], $gmpAge)) {
+                $jj = array_search($months[$j], $gmpAge);
+                $gmp['height'][] = $gmpHeight[$jj];
+            } else
+                $gmp['height'][] = 0;
+        }
+
+        return $gmp;
+//        dd($gmp);
+//        return view('test',compact('gmp','months'));
     }
 
 

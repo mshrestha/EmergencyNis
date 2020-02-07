@@ -5,16 +5,18 @@
         border: 1px solid black;
         background-color: rgba(255, 255, 255, 1.0);
     }
+
     #tabid {
-        width:0;
-        display:block;
-        visibility:hidden;
-        height:0;
+        width: 0;
+        display: block;
+        visibility: hidden;
+        height: 0;
     }
+
     #tabid.active {
-        width:100%;
-        height:100%;
-        visibility:visible;
+        width: 100%;
+        height: 100%;
+        visibility: visible;
     }
 </style>
 @endpush
@@ -67,13 +69,13 @@
 
         </div>
         <div class="row">{{$filter_message}}
-        <div class="pull-right">
-            @if (Auth::check())
-                <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
-            @else
-                <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
-            @endif
-        </div>
+            <div class="pull-right">
+                @if (Auth::check())
+                    <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
+                @else
+                    <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
+                @endif
+            </div>
         </div>
 
 
@@ -84,7 +86,7 @@
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
             </div>
-            <button id = 'btn' class= 'btn btn-info pull-right'>
+            <button id='zoombtn' class='btn btn-info pull-right'>
                 {{--Zoom View <i class="fa fa-window-maximize" aria-hidden="true"></i>--}}
                 Zoom View <i class="icon-zoom-in"></i>
             </button>
@@ -95,9 +97,9 @@
             </div>
         </div>
 
-        <div id = "myModal" class="modal">
+        <div id="myModal" class="modal">
             <div class="modalContent">
-                <span class = "close"> &times; </span>
+                <span class="close"> &times; </span>
                 <canvas id="childAdmissionModal"></canvas>
             </div>
         </div>
@@ -107,103 +109,103 @@
     {{--Tab test--}}
     <div class="row border-bottom">
         {{--<div class="portlet-body">--}}
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#tab_1_1" data-toggle="tab"> OTP </a>
-                </li>
-                <li>
-                    <a href="#tab_1_2" data-toggle="tab" id="bs-tab2"> TSFP </a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane fade active in" id="tab_1_1">
-                    <div class="row border-bottom">
-                        <div class="col-lg-10">
-                            <h2>OTP Performance
-                                <small> for {{$month_year}}</small>
-                            </h2>
-                            <canvas id="canvas-performance" height="100px"></canvas>
-                        </div>
-                        <div class="col-lg-2">
-                            <h4>Cumulative Rate</h4>
-                            <ul class="stat-list">
-                                <li>
-                                    <small>Non Respondant Rate</small>
-                                    <div class="stat-percent" id="cumulative_nonRecoveredRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="cumulative_nonRecoveredRate_bar" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <small> Death rate</small>
-                                    <div class="stat-percent" id="cumulative_deathRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="cumulative_deathRate_bar" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <small>Default Rate</small>
-                                    <div class="stat-percent" id="cumulative_defaultRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="cumulative_defaultRate_bar" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <small>Cure Rate</small>
-                                    <div class="stat-percent" id="cumulative_curedRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="cumulative_curedRate_bar"  class="progress-bar"></div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab_1_1" data-toggle="tab"> OTP </a>
+            </li>
+            <li>
+                <a href="#tab_1_2" data-toggle="tab" id="bs-tab2"> TSFP </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="tab_1_1">
+                <div class="row border-bottom">
+                    <div class="col-lg-10">
+                        <h2>OTP Performance
+                            <small> for {{$month_year}}</small>
+                        </h2>
+                        <canvas id="canvas-performance" height="100px"></canvas>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="tab_1_2">
-                    <div class="row border-bottom">
-                        <div class="col-lg-10">
-                            <h2>TSFP Performance
-                                <small> for {{$month_year}}</small>
-                            </h2>
-                            <canvas id="canvas-tsfp-performance" height="100%"></canvas>
-                        </div>
-                        <div class="col-lg-2">
-                            <h4>Cumulative Rate</h4>
-                            <ul class="stat-list">
-                                <li>
-                                    <small>Non Respondant Rate</small>
-                                    <div class="stat-percent" id="tsfpcumulative_nonRecoveredRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="tsfpcumulative_nonRecoveredRate_bar" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <small> Death rate</small>
-                                    <div class="stat-percent" id="tsfpcumulative_deathRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="tsfpcumulative_deathRate_bar" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <small>Default Rate</small>
-                                    <div class="stat-percent" id="tsfpcumulative_defaultRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="tsfpcumulative_defaultRate_bar" class="progress-bar"></div>
-                                    </div>
-                                </li>
-                                <li class="">
-                                    <small>Cure Rate</small>
-                                    <div class="stat-percent" id="tsfpcumulative_curedRate"> </div>
-                                    <div class="progress progress-mini">
-                                        <div id="tsfpcumulative_curedRate_bar"  class="progress-bar"></div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="col-lg-2">
+                        <h4>Cumulative Rate</h4>
+                        <ul class="stat-list">
+                            <li>
+                                <small>Non Respondant Rate</small>
+                                <div class="stat-percent" id="cumulative_nonRecoveredRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="cumulative_nonRecoveredRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <small> Death rate</small>
+                                <div class="stat-percent" id="cumulative_deathRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="cumulative_deathRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li class="">
+                                <small>Default Rate</small>
+                                <div class="stat-percent" id="cumulative_defaultRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="cumulative_defaultRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li class="">
+                                <small>Cure Rate</small>
+                                <div class="stat-percent" id="cumulative_curedRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="cumulative_curedRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-            {{--</div>--}}
+            <div class="tab-pane fade" id="tab_1_2">
+                <div class="row border-bottom">
+                    <div class="col-lg-10">
+                        <h2>TSFP Performance
+                            <small> for {{$month_year}}</small>
+                        </h2>
+                        <canvas id="canvas-tsfp-performance" height="100%"></canvas>
+                    </div>
+                    <div class="col-lg-2">
+                        <h4>Cumulative Rate</h4>
+                        <ul class="stat-list">
+                            <li>
+                                <small>Non Respondant Rate</small>
+                                <div class="stat-percent" id="tsfpcumulative_nonRecoveredRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="tsfpcumulative_nonRecoveredRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <small> Death rate</small>
+                                <div class="stat-percent" id="tsfpcumulative_deathRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="tsfpcumulative_deathRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li class="">
+                                <small>Default Rate</small>
+                                <div class="stat-percent" id="tsfpcumulative_defaultRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="tsfpcumulative_defaultRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                            <li class="">
+                                <small>Cure Rate</small>
+                                <div class="stat-percent" id="tsfpcumulative_curedRate"></div>
+                                <div class="progress progress-mini">
+                                    <div id="tsfpcumulative_curedRate_bar" class="progress-bar"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{--</div>--}}
     </div>
 
 
@@ -337,8 +339,8 @@
         var obj_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
         var obj_tsfp_plw = JSON.parse('<?php echo json_encode($line_chart['tsfp_plw']); ?>');
         var obj_sc = JSON.parse('<?php echo json_encode($line_chart['sc']); ?>');
-        var ctx = document.getElementById('childAdmission').getContext('2d');
 
+        var ctx = document.getElementById('childAdmission').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -404,14 +406,15 @@
                 }
             }
         });
+
         var ctx_modal = document.getElementById('childAdmissionModal').getContext('2d');
         var myChartModal = new Chart(ctx_modal, {
             type: 'line',
             data: {
-                labels: months.reverse(),
+                labels: months,
                 datasets: [{
                     label: 'OTP',
-                    data: obj_otp.reverse(),
+                    data: obj_otp,
                     backgroundColor: window.chartColors.red,
                     borderColor: window.chartColors.red,
                     borderDash: [5, 5],
@@ -421,7 +424,7 @@
                 },
                     {
                         label: 'BSFP',
-                        data: obj_bsfp.reverse(),
+                        data: obj_bsfp,
                         backgroundColor: window.chartColors.blue,
                         borderColor: window.chartColors.blue,
                         borderDash: [5, 5],
@@ -431,7 +434,7 @@
                     },
                     {
                         label: 'TSFP-Child',
-                        data: obj_tsfp.reverse(),
+                        data: obj_tsfp,
                         backgroundColor: window.chartColors.orange,
                         borderColor: window.chartColors.orange,
                         borderDash: [5, 5],
@@ -441,7 +444,7 @@
                     },
                     {
                         label: 'TSFP-PLW',
-                        data: obj_tsfp_plw.reverse(),
+                        data: obj_tsfp_plw,
                         backgroundColor: window.chartColors.green,
                         borderColor: window.chartColors.green,
                         borderDash: [5, 5],
@@ -451,7 +454,7 @@
                     },
                     {
                         label: 'SC',
-                        data: obj_sc.reverse(),
+                        data: obj_sc,
                         backgroundColor: window.chartColors.purple,
                         borderColor: window.chartColors.purple,
                         borderDash: [5, 5],
@@ -464,7 +467,7 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-                bezierCurve : false,
+                bezierCurve: false,
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -472,32 +475,11 @@
                         }
                     }]
                 },
-//                animation: {
-//                    duration: 1,
-//                    onComplete: function() {
-//                        var chartInstance = this.chart,
-//                            ctx = chartInstance.ctx;
-//
-//                        ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontSize, Chart.defaults.global.defaultFontStyle, Chart.defaults.global.defaultFontFamily);
-//                        ctx.textAlign = 'center';
-//                        ctx.textBaseline = 'bottom';
-//
-//                        this.data.datasets.forEach(function(dataset, i) {
-//                            var meta = chartInstance.controller.getDatasetMeta(i);
-//                            meta.data.forEach(function(line, index) {
-//                                if (dataset.data[index] > 0) {
-//                                    var data = dataset.data[index];
-//                                    ctx.fillText(data, line._model.x, line._model.y);
-//                                }
-//                            });
-//                        });
-//                    }
-//                }
             }
         });
 
         var modal = document.getElementById("myModal");
-        var btn = document.getElementById("btn");
+        var btn = document.getElementById("zoombtn");
         var span = document.getElementsByClassName("close")[0];
 
         btn.onclick = function () {
@@ -505,11 +487,11 @@
             renderChart();
         }
 
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = 'none';
         }
 
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = 'none';
             }
@@ -584,14 +566,14 @@
     var cumulative_defaultRate = JSON.parse('<?php echo json_encode($bar_chart['cumulative_defaultRate']); ?>');
     var cumulative_nonRecoveredRate = JSON.parse('<?php echo json_encode($bar_chart['cumulative_nonRecoveredRate']); ?>');
 
-    document.getElementById('cumulative_curedRate').innerHTML = cumulative_curedRate.toFixed(2)+'%';
-    document.getElementById('cumulative_curedRate_bar').style.width = cumulative_curedRate.toFixed(2)+'%';
-    document.getElementById('cumulative_deathRate').innerHTML = cumulative_deathRate.toFixed(2)+'%';
-    document.getElementById('cumulative_deathRate_bar').style.width = cumulative_deathRate.toFixed(2)+'%';
-    document.getElementById('cumulative_defaultRate').innerHTML = cumulative_defaultRate.toFixed(2)+'%';
-    document.getElementById('cumulative_defaultRate_bar').style.width = cumulative_defaultRate.toFixed(2)+'%';
-    document.getElementById('cumulative_nonRecoveredRate').innerHTML = cumulative_nonRecoveredRate.toFixed(2)+'%';
-    document.getElementById('cumulative_nonRecoveredRate_bar').style.width = cumulative_nonRecoveredRate.toFixed(2)+'%';
+    document.getElementById('cumulative_curedRate').innerHTML = cumulative_curedRate.toFixed(2) + '%';
+    document.getElementById('cumulative_curedRate_bar').style.width = cumulative_curedRate.toFixed(2) + '%';
+    document.getElementById('cumulative_deathRate').innerHTML = cumulative_deathRate.toFixed(2) + '%';
+    document.getElementById('cumulative_deathRate_bar').style.width = cumulative_deathRate.toFixed(2) + '%';
+    document.getElementById('cumulative_defaultRate').innerHTML = cumulative_defaultRate.toFixed(2) + '%';
+    document.getElementById('cumulative_defaultRate_bar').style.width = cumulative_defaultRate.toFixed(2) + '%';
+    document.getElementById('cumulative_nonRecoveredRate').innerHTML = cumulative_nonRecoveredRate.toFixed(2) + '%';
+    document.getElementById('cumulative_nonRecoveredRate_bar').style.width = cumulative_nonRecoveredRate.toFixed(2) + '%';
     var barChartData = {
         labels: facility_name,
         datasets: [
@@ -731,7 +713,7 @@
         });
     }
 
-    $('#bs-tab2').on("shown.bs.tab", function() {
+    $('#bs-tab2').on("shown.bs.tab", function () {
         ct1();
         $('#bs-tab2').off(); //to remove the binded event after initial rendering
     });

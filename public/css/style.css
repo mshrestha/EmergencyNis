@@ -8558,7 +8558,9 @@ body.md-skin {
     display: none;
   }
 }
+
 @media print {
+
   nav.navbar-static-side {
     display: none;
   }

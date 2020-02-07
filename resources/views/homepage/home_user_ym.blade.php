@@ -24,7 +24,7 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <span class="label label-info pull-right">Children</span>
-                            <h5>New Admissions</h5>
+                            <h5>Admissions</h5>
                         </div>
                         <div class="ibox-content">
                             <h1 class="no-margins">{{ $report_month_dashboard['total_admit']}} <small> ({{ $total_admission }})</small></h1>
@@ -153,7 +153,7 @@
                                     <ul class="stat-list">
                                         <li>
                                             <h2 class="no-margins">{{ $total_admission }}</h2>
-                                            <small>Total admissions</small>
+                                            <small>Total admissions till now</small>
                                             {{--<div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
                                                 <div style="width: 100%;" class="progress-bar"></div>
@@ -161,7 +161,7 @@
                                         </li>
                                         <li>
                                             <h2 class="no-margins ">{{ $report_month_dashboard['total_admit']}}</h2>
-                                            <small> Enrolled this Month</small>
+                                            <small> Enrolled only {{$month_year}}</small>
                                             {{--<div class="stat-percent"> <i class="fa fa-level-down text-navy"></i></div>--}}
                                             <div class="progress progress-mini">
                                                 <div style="width: 100%;" class="progress-bar"></div>
@@ -202,7 +202,7 @@
 
             @include('homepage.partials.sync')
 
-            <div id="map" style="width:100%; height:750px;"></div>
+            {{--<div id="map" style="width:100%; height:750px;"></div>--}}
         </div>
     </div><!-- End of First Row -->
 
@@ -312,19 +312,19 @@
 
     <!-- Mapping Script starts here -->
     //<script>
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/kazistudios/cjl5hbcc36in92sp9uzflvcsf',
-        zoom: 10,
-//center: [-122.204303, 37.730574]
-center: [92.146278, 21.226305]
-});
-    var nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'bottom-left');
-
-    map.on('load', function () {
-    });
+//    mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
+//    var map = new mapboxgl.Map({
+//        container: 'map',
+//        style: 'mapbox://styles/kazistudios/cjl5hbcc36in92sp9uzflvcsf',
+//        zoom: 10,
+////center: [-122.204303, 37.730574]
+//center: [92.146278, 21.226305]
+//});
+//    var nav = new mapboxgl.NavigationControl();
+//    map.addControl(nav, 'bottom-left');
+//
+//    map.on('load', function () {
+//    });
 
     setTimeout(function () {
         toastr.options = {

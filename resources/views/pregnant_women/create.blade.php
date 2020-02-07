@@ -15,28 +15,5 @@
 <script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>
 <script src="{{ asset('js/plugins/datapicker/bootstrap-datepicker.js')}}"></script>
 <script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>
-<script>
-    // $(document).ready(function () {
-    //     navigator.geolocation.getCurrentPosition(success, error, options);
-    // });
 
-    // var options = {
-    //     enableHighAccuracy: true,
-    //     timeout: 5000,
-    //     maximumAge: 0
-    // };
-
-    // function success(pos) {
-    //     var crd = pos.coords;
-
-
-    //     $('#currentLongitude').val(crd.longitude);
-    //     $('#currentLatitude').val(crd.latitude);
-
-    // }
-
-    // function error(err) {
-    //     console.warn(`ERROR(${err.code}): ${err.message}`);
-    // }
-</script>
 @endpush

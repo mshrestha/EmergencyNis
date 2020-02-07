@@ -31,6 +31,8 @@
 @push('scripts')
 
 <script src="{{ asset('js/plugins/steps/jquery.steps.min.js')}}"></script>
+<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+
 
 <script>
     $(document).ready(function () {
@@ -40,6 +42,16 @@
             }
         });
         load_child({{$children->sync_id}})
+        $("#discharge-criteria-tab").hide();
+        $( "#identification-outcome" ).change(function() {
+            if($("#identification-outcome").val() == 'New case'){
+              $("#admission-criteria-tab").show();
+              $("#discharge-criteria-tab").hide();
+            }else{
+              $("#admission-criteria-tab").hide();
+              $("#discharge-criteria-tab").show();
+            }
+    });
     })
 
     var abase_url = '{{url('/')}}';
@@ -53,7 +65,35 @@
         });
     }
 
+    </script>
+
+
+
+{{--Autometic Z-Score calculation--}}
+<script>
+    $(document).on('change', '.child_height', function () {
+        var child_weight = document.getElementById('child_weight').value;
+//        console.log(child_weight);
+        var child_sex = JSON.parse('<?php echo json_encode($child_sex); ?>');
+//        console.log(child_sex);
+        var child_height = $(this).val();
+//        console.log(child_height)
+        var $this = $(this);
+        var abase_url = '{{url('/')}}';
+        var url = abase_url + '/wfh_calculation';
+        var sendData = {
+            childHeight: child_height,
+            childWeight: child_weight,
+            childSex: child_sex,
+        _token: $("input[name='_token']").val()
+        };
+        $.get(url, sendData, function (data) {
+            console.log(data)
+            $("#zscore").val(data.zscore);
+        }, 'json')
+    });
 
 </script>
+
 
 @endpush

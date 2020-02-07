@@ -3,8 +3,8 @@
 	<div class="col-md-12" id="wizard">
         <h1>Anthropometric Measurement</h1>
 		<div class="row step-content">
-			
-            
+
+
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
@@ -21,7 +21,7 @@
                                 <label for="">Date</label>
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}" />
                                 <input type="hidden" name="children_id" value="{{ $children->sync_id }}" />
-                                <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}"> 
+                                <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
                             </div>
 						</div>
                         <div class="form-group row">
@@ -29,51 +29,54 @@
                                 <label for="refered_by">Referred From</label>
                                 <select name="refered_by" class="form-control">
                                     <option value="" >Please Select Referral</option>
-                                    <option value="MUAC Assessed at Community" 
+                                    <option value="MUAC Assessed at Community"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'MUAC Assessed at Community') ? ' selected' : '' }}>
                                         MUAC Assessed at Community
                                     </option>
                                     <option value="Other Service centre" {{ (isset($facility_followup) && $facility_followup->refered_by == 'Other Service centre') ? ' selected' : '' }}>Other Service centre</option>
-                                    <option value="Inpatient (SC)" 
+                                    <option value="Inpatient (SC)"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'Inpatient (SC)') ? ' selected' : '' }}>
                                             Inpatient (SC)</option>
-                                    <option value="Self" 
+                                    <option value="Self"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'Self') ? ' selected' : '' }}>
                                             Self</option>
-                                    <option value="OTP" 
+                                    <option value="OTP"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'OTP') ? ' selected' : '' }}>
                                             OTP</option>
-                                    <option value="TSFP" 
+                                    <option value="TSFP"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'TSFP') ? ' selected' : '' }}>
                                             TSFP</option>
-                                    <option value="BSFP" 
+                                    <option value="BSFP"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'BSFP') ? ' selected' : '' }}>
                                             BSFP</option>
-                                    <option value="Health Facility" 
+                                    <option value="Health Facility"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'Health Facility') ? ' selected' : '' }}>
                                             Health Facility</option>
 							     </select>
                             </div>
                         </div>
 						<div class="form-group row">
-                            <div class="col-md-3">
+							<div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
                                 <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
                             </div>
-                            <div class="col-md-3">
-                                <label for="">Weight (kg)</label>
-                                <input type="number" name="weight" class="form-control" placeholder="Weight (kg)" value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.01">
-						    </div>
-                            <div class="col-md-3">
-                                <label for="">Height (cm)</label>
-                                <input type="number" name="height" class="form-control" placeholder="Height (cm)" value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.01">
-                            </div>
+							<div class="col-md-3">
+								<label for="">Weight (kg)</label>
+								<input type="number" name="weight" class="form-control child_weight" placeholder="Weight (kg)" id="child_weight"
+									   value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.1">
+							</div>
+							<div class="col-md-3">
+								<label for="">Height (cm)</label>
+								<input type="number" name="height" class="form-control child_height" placeholder="Height (cm)" id="child_height"
+									   value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.5">
+							</div>
 						</div>
 						<div class="form-group row">
-                            <div class="col-md-5">
-                                <label for="">WFH Z Score (SD)</label>
-                                <input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
-                            </div>
+							<div class="col-md-5">
+								<label for="">WFH Z Score (SD)</label>
+								<input type="text" name="wfh_z_score" class="form-control " placeholder="WFH Z Score" id="zscore"
+									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
+							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
                                 <select name="oedema" class="form-control">
@@ -81,7 +84,7 @@
                                     <option value="+" {{ (isset($facility_followup) && $facility_followup->oedema == '+') ? ' selected' : '' }}>+</option>
                                     <option value="++" {{ (isset($facility_followup) && $facility_followup->oedema == '++') ? ' selected' : '' }}>++</option>
                                     <option value="+++" {{ (isset($facility_followup) && $facility_followup->oedema == '+++') ? ' selected' : '' }}>+++</option>
-                                
+
 							     </select>
                                 </div>
 						</div>
@@ -93,25 +96,25 @@
 									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
 									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
 									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
-                                    
-                                
+
+
 							     </select>
                             </div>
                             <div class="col-md-5">
                                 <label for="">Identification Outcome</label>
-                                <select name="outcome" class="form-control">
+                                <select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="SAM">
                                         <option value="New case" >New case</option>
                                         <option value="Followup visit at OTP" >Followup visit at OTP</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to OTP" >Referred to OTP</option>
-                                        
+
                                     </optgroup>
                                     <optgroup label="MAM">
                                         <option value="OTP follow up visit" >OTP follow up visit</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to TSFP" >Referred to TSFP</option>
-                                        
+
                                         <option value="New Case" >New Case</option>
                                         <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
@@ -122,19 +125,19 @@
                                         <option value="" >Referred to BSFP</option>
                                         <option value="" >Follow up visit</option>
                                     </optgroup>
-                                        
-                                
+
+
 							     </select>
                             </div>
                         </div>
 
-                        
+
 					</div>
 				</div>
 			</div>
 		</div>
         <h1>Medical History and Physical Examinations</h1>
-		
+
 		<div class="row step-content">
             <div class="col-lg-6">
 				<div class="ibox float-e-margins ">
@@ -224,7 +227,7 @@
 								<option value="">Signs of anaemia/palmer</option>
 								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->pneumonia == 'Yes') ? ' selected' : '' }}>Yes</option>
 								<option value="No" {{ (isset($facility_followup) && $facility_followup->pneumonia == 'No') ? ' selected' : '' }}>No</option>
-								
+
 							</select>
 						</div>
 						<div class="form-group">
@@ -269,7 +272,7 @@
 				</div>
 			</div>
 
-			
+
 
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins ">
@@ -308,7 +311,7 @@
 								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->measles == 'Yes') ? ' selected' : '' }}>Yes</option>
                                 <option value="No"{{ (isset($facility_followup) && $facility_followup->measles == 'No') ? ' selected' : '' }}>No</option>
                                 <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->measles == 'Not Applicable') ? ' selected' : '' }}>Not Applicable</option>
-								
+
 							</select>
 						</div>
 					</div>
@@ -316,9 +319,9 @@
 			</div>
             </div>
             <h1>Admission and Discharge Criteria</h1>
-            
+
             <div class="row step-content">
-            <div class="col-lg-6">
+            <div class="col-lg-6 admission-criteria-tab" id="admission-criteria-tab">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Admission criteria</h5>
@@ -340,9 +343,9 @@
 								<option value="Age 6 to 59m" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Age 6 to 59m') ? ' selected' : '' }}>Age 6 to 59m</option>
                                 <option value="Relapse" {{ (isset($facility_followup) && $facility_followup->new_admission == 'Relapse') ? ' selected' : '' }}>Relapse</option>
 							</select>
-                            
+
 						</div>
-                        
+
 						<div class="form-group">
 							<label for="">Readmission</label>
 							<select name="readmission" class="form-control">
@@ -373,7 +376,7 @@
 						</div>
                         <div class="form-group">
                                 <label>Next visit date</label>
-                                <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">    
+                                <input type="date" name="next_visit_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
 						</div>
 					</div>
 				</div>
@@ -416,8 +419,8 @@
 					</div>
 				</div>
 			</div>
-            
-                <div class="col-lg-6">
+
+                <div class="col-lg-6 discharge-criteria-tab" id="discharge-criteria-tab">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Discharge Critera</h5>
@@ -463,7 +466,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins ">
@@ -500,7 +503,8 @@
 				</div>
 			</div>
 		</div><!-- End of Second Row -->
+
 	</div>
 
-	
+
 </div>
