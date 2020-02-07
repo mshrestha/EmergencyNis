@@ -12,3 +12,5 @@ yarn-error.log
 /public/uploads
 /*/.DS_Store
 .DS_Store
+/.phpintel
+/.idea

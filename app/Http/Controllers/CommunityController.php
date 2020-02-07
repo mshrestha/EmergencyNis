@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class CommunityController extends Controller
 {
-  private $_notify_message = 'Volunteer information saved successfully.';
-  private $_notify_type = 'success';
-    //
+    private $_notify_message = 'Volunteer information saved successfully.';
+    private $_notify_type = 'success';
+
+    public function __construct() {
+        if(!env('SERVER_CODE')) {
+            dd('No server code found.');
+        }
+    }
+    
     /**
      * Display Community Information
      *
@@ -19,21 +25,30 @@ class CommunityController extends Controller
      */
     public function index()
     {
-      $volunteers = Volunteer::orderBy('created_at', 'desc')->get();
-      return view('community.index', compact('volunteers'));
+        if(!request()->user()->facility) {
+            dd('No facility associated to user.');
+        }
 
+        $auth_user_camp_id = request()->user()->facility->camp->id;
+        $volunteers = Volunteer::with('communitySessions')
+            ->where('camp_id', $auth_user_camp_id)
+            ->orderBy('created_at', 'desc')->get();
 
+        return view('community.index', compact('volunteers'));
     }
+
     public function create()
     {
+        if(!request()->user()->facility_id) {
+            dd('No facility associated to user.');
+        }
 
-        $camps = Camp::orderBy('id', 'asc')->get();
-        //$facility = Facility::findOrFail(Auth::user()->facility_id);
-
-
+        $auth_user_camp_id = request()->user()->facility->camp->id;
+        $camps = Camp::orderBy('id', 'asc')->where('id', $auth_user_camp_id)->pluck('name', 'id');
 
         return view('community.create', compact('camps'));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -42,18 +57,31 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
+        if(!env('SERVER_CODE')) {
+            dd('No server code found.');
+        }
+
         try {
-            Volunteer::create($request->all());
+            $data = $request->all();
+
+            //Create sync id
+            $latest_volunteer = Volunteer::orderBy('id', 'desc')->first();
+            $app_id = $latest_volunteer ? $latest_volunteer->id + 1 : 1;
+            $data['sync_id'] = env('SERVER_CODE') . $app_id;
+            $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
+
+            Volunteer::create($data);
         } catch (Exception $e) {
-            $this->_notify_message = "Failed to save facility, Try again.";
+            $this->_notify_message = "Failed to save volunteer, Try again.";
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('community')->with([
+        return redirect()->route('community.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -62,7 +90,12 @@ class CommunityController extends Controller
      */
     public function edit($id)
     {
-        $camps = Camp::orderBy('created_at', 'asc')->get();
+        if(!request()->user()->facility_id) {
+            dd('No facility associated to user.');
+        }
+
+        $auth_user_camp_id = request()->user()->facility->camp->id;
+        $camps = Camp::orderBy('id', 'asc')->where('id', $auth_user_camp_id)->pluck('name', 'id');
         $volunteer = Volunteer::findOrFail($id);
 
         return view('community.edit', compact('camps', 'volunteer'));
@@ -78,17 +111,18 @@ class CommunityController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            Facility::findOrFail($id)->update($request->all());
+            Volunteer::findOrFail($id)->update($request->all());
         } catch (Exception $e) {
-            $this->_notify_message = "Failed to save facility, Try again.";
+            $this->_notify_message = "Failed to save volunteer, Try again.";
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('community.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -111,12 +145,5 @@ class CommunityController extends Controller
             'notify_type' => $this->_notify_type
         ]);
     }
-    public function outreach(){
 
-      return view('community.outreach');
-    }
-    public function show(){
-
-      return view('community.outreach');
-    }
 }

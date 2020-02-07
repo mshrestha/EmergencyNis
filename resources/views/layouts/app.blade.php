@@ -113,7 +113,7 @@
                                   class="nav-label">Supply</span></a>
                   </li>
                   <li class="{{ request()->segment(1) == 'community' ? 'active' : '' }}">
-                      <a href="{{ route('community') }}" ><i class="fa fa-id-badge"></i> <span
+                      <a href="{{ route('community.index') }}" ><i class="fa fa-id-badge"></i> <span
                                   class="nav-label">Community</span></a>
                   </li>
                       @endif

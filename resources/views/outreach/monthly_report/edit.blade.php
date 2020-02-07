@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-<div class="wrapper wrapper-content  animated fadeInRight">
+<div class="wrapper wrapper-content animated fadeInRight">
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Volunteer registration</h5>
+					<h5>Update outreach monthly report</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -16,11 +16,11 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					{{ html()->form('POST', route('community.store'))->class('form-horizontal')->open() }}
-						@include('community.partials.fields')
+					{{ html()->modelForm($outreach_monthly_report, 'PATCH', route('outreach-monthly-report.update', $outreach_monthly_report->sync_id))->open() }}
+						@include('outreach.monthly_report.partials.fields')
 
-						<button class="btn btn-success">Save</button>
-					{{ html()->form()->close() }}
+						<button class="btn btn-success" type="submit">Save</button>
+					{{ html()->closeModelForm() }}
 				</div> <!-- ibox-content -->
 			</div> <!-- ibox -->
 		</div> <!-- col -->
@@ -28,7 +28,7 @@
 </div> <!-- wrapper -->
 @endsection
 
-@section('scripts')
+@push('scripts')
 <script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>
 <script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>
-@endsection
+@endpush

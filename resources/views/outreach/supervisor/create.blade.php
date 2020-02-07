@@ -5,7 +5,7 @@
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Volunteer registration</h5>
+					<h5>Outreach supervisor registration</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -16,8 +16,10 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					{{ html()->form('POST', route('community.store'))->class('form-horizontal')->open() }}
-						@include('community.partials.fields')
+					{{-- <form action="{{ route('community.store') }}" class="form-horizontal"> --}}
+					{{ html()->form('POST', route('outreach-supervisor.store'))->open() }}
+						@csrf
+						@include('outreach.supervisor.partials.fields')
 
 						<button class="btn btn-success">Save</button>
 					{{ html()->form()->close() }}

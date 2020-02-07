@@ -97,7 +97,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3">
-                    <a href="{{ route('community') }}">
+                    <a href="{{ route('community.index') }}">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
                                 <div class="col-xs-4">

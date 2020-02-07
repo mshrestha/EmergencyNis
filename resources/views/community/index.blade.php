@@ -6,7 +6,7 @@
         <div class="col-lg-12">
           <div class="row">
             <div class="col-lg-3">
-                <a href="{{ route('community') }}">
+                <a href="{{ route('community.index') }}">
                     <div class="widget style1 lazur-bg">
                         <div class="row">
                             <div class="col-xs-4">
@@ -14,14 +14,14 @@
                             </div>
                             <div class="col-xs-8 text-right">
 
-                                <h2 class="font-bold">Volunteer log</h2>
+                                <h2 class="font-bold">Volunteer <br>Log</h2>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3">
-                <a href="{{ route('community.outreach') }}">
+                <a href="{{ route('outreach-supervisor.index') }}">
                     <div class="widget style1 lazur-bg">
                         <div class="row">
                             <div class="col-xs-4">
@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-xs-8 text-right">
 
-                                <h2 class="font-bold">Outreach Supervisor</h2>
+                                <h2 class="font-bold">Outreach <br>Supervisor</h2>
                             </div>
                         </div>
                     </div>
@@ -64,25 +64,32 @@
                                       <th>Screened</th>
                                       <th>Referred</th>
                                       <th>In Progress</th>
-
-                                      <th width="100">Action</th>
+                                      <th width="200">Action</th>
                                   </tr>
                               </thead>
                               <tbody>
                                   @foreach($volunteers as $volunteer)
                                   <tr class="volunteer" data-volunteer-id={{ $volunteer->id }}>
-                                      <td><a class="client-link">{{ $volunteer->name }}</a></td>
-                                      <td><i class="fa fa-flag"></i> {{ $volunteer->block }} - {{ $volunteer->subblock }}</td>
-                                      <td><input type="text" name="screened"></td>
-                                      <td><input type="text" name="referred"></td>
-                                      <td><input type="text" name="progress"></td>
-
-
+                                      {{ html()->form('POST', route('community-session.store'))->open() }}
                                       <td>
-                                        <button  class="btn btn-default btn-sm btn-block" type="button" ><i class="fa fa-plus"></i> Submit</button>
-
-
+                                        <a class="client-link">{{ $volunteer->name }}</a>
+                                        {{ html()->hidden('volunteer_id', $volunteer->sync_id) }}
                                       </td>
+                                      <td><i class="fa fa-flag"></i> {{ $volunteer->block }} - {{ $volunteer->subblock }}</td>
+                                      <td>
+                                        {{ html()->number('screened', $volunteer->todaysCommunitySession()['screened'])->placeholder('Screened')->required() }}
+                                      </td>
+                                      <td>
+                                        {{ html()->number('referred', $volunteer->todaysCommunitySession()['referred'])->placeholder('Referred')->required() }}
+                                      </td>
+                                      <td>
+                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySession()['inprogram'])->placeholder('In Program')->required() }}
+                                      </td>
+                                      <td>
+                                        <button class="btn btn-default btn-sm" type="submit" ><i class="fa fa-plus"></i> Submit</button>
+                                        <a href="{{ route('community.edit', $volunteer->sync_id) }}" class="btn btn-default btn-sm"><i class="fa fa-info"></i> Edit</a>
+                                      </td>
+                                      {{ html()->form()->close() }}
                                   </tr>
                                   @endforeach
                               </tbody>
@@ -97,3 +104,33 @@
     </div>
 </div> <!-- row -->
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/plugins/dataTables/datatables.min.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        $('.dataTables').DataTable({
+            "aaSorting": [],
+            pageLength: 10,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgtip',
+            buttons: [
+                {extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'RegisteredChildren'},
+                {extend: 'pdf', title: 'RegisteredChildren'},
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+    });
+  </script>
+@endpush

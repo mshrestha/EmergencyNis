@@ -168,7 +168,8 @@ return [
          */
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        Spatie\Html\HtmlServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */

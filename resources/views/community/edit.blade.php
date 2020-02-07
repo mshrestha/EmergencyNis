@@ -16,12 +16,11 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('community.update', $volunteer->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
-						@csrf
+					{{ html()->modelForm($volunteer, 'PATCH', route('community.update', $volunteer->sync_id))->class('form-horizontal')->open() }}
 						@include('community.partials.fields')
 
 						<button class="btn btn-success">Save</button>
-					</form>
+					{{ html()->closeModelForm() }}
 				</div> <!-- ibox-content -->
 			</div> <!-- ibox -->
 		</div> <!-- col -->

@@ -3,12 +3,7 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Settlement</label>
 	<div class="col-sm-9">
-		<select name="camp_id" class="form-control" required>
-			<option value="">Select camp</option>
-			@foreach($camps as $camp)
-			<option value="{{ $camp->id }}" {{ (isset($facility) && $facility->camp_id == $camp->id) ? ' selected' : '' }}>{{ $camp->name }}</option>
-			@endforeach
-		</select>
+		{{ html()->select('camp_id', $camps)->class('form-control')->placeholder('Select camp')->required() }}
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Block</label>

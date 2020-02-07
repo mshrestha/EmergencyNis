@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVolunteersTable extends Migration
+class CreateCommunitySessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class CreateVolunteersTable extends Migration
      */
     public function up()
     {
-        Schema::create('volunteers', function (Blueprint $table) {
+        Schema::create('community_sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('sync_id')->unique()->unsigned();
             $table->enum('sync_status', ['created', 'updated', 'synced'])->default('synced');
-            $table->string('name');
-            $table->string('block');
-            $table->string('subblock')->nullable();
-            $table->bigInteger('camp_id')->unsigned()->nullable();
-            $table->foreign('camp_id')->references('id')->on('camps')->onDelete('cascade');
+            $table->bigInteger('volunteer_id')->unsigned();
+            $table->foreign('volunteer_id')->references('sync_id')->on('volunteers')->onDelete('cascade');
+            $table->integer('screened')->default(0);
+            $table->integer('referred')->default(0);
+            $table->integer('inprogram')->default(0);
+            $table->date('date');
             $table->timestamps();
         });
 
-        Schema::table('volunteers', function(Blueprint $table) {
+        Schema::table('community_sessions', function(Blueprint $table) {
             $table->unique('id');
             $table->dropPrimary('id');
             $table->primary('sync_id');
@@ -39,6 +40,6 @@ class CreateVolunteersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('volunteers');
+        Schema::dropIfExists('community_sessions');
     }
 }

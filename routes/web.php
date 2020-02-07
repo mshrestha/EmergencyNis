@@ -35,7 +35,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
 
     Route::get('register', 'RegisterController@index')->name('register');
-		Route::get('register-iycf', 'RegisterController@iycf')->name('register-iycf');
+	Route::get('register-iycf', 'RegisterController@iycf')->name('register-iycf');
 
     Route::get('otp_report_admin', 'ReportController@otp_report_admin')->name('otp_report_admin');
     Route::get('bsfp_report_admin', 'ReportController@bsfp_report_admin')->name('bsfp_report_admin');
@@ -65,10 +65,14 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('monthly-dashboard', 'MonthlyDashboardController');
 
-		Route::resource('community', 'CommunityController');
-		Route::get('community', 'CommunityController@index')->name('community');
-		Route::get('community/outreach', 'CommunityController@outreach')->name('community.outreach');
-		Route::post('community/{volunteer}/save', 'CommunityController@save')->name('community-followup.save');
+    //Community Volunteer
+	Route::resource('community', 'CommunityController');
+	Route::resource('community-session', 'CommunitySessionController');
+
+	//Community Supervisor
+	Route::resource('outreach-supervisor', 'OutreachSupervisorController');
+	Route::resource('outreach-monthly-report', 'OutreachMonthlyReportController');
+
 
     Route::get('importHome', 'OtpImportController@importHome')->name('importHome');
     Route::get('importExportOtp', 'OtpImportController@importExportOtp')->name('importExportOtp');
@@ -81,10 +85,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importSc', 'ScImportController@importSc');
 
     Route::resource('supply', 'SupplyController');
-		Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
-
-
-
+	Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
 });
 
 Route::get('/sync/get-live-data', [
@@ -126,7 +127,7 @@ Route::get('/sync/pregnant-women-followup', [
 
 
 
-Route::get('fix-sync', function() {
+// Route::get('fix-sync', function() {
 	// $childrens = App\Models\Child::orderBy('id', 'desc')->limit(50)->get();
 	// foreach($childrens as $child) {
 	// 	$child->sync_status = 'updated';
@@ -157,5 +158,5 @@ Route::get('fix-sync', function() {
 	// 	$pregnant_women_followup->save();
 	// }
 
-	dd('done');
-});
+	// dd('done');
+// });
