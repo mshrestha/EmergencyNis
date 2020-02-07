@@ -120,7 +120,7 @@
                                         <td><input type="text" style="width:50px" /></td>
                                         <td><input type="text" style="width:50px" /></td>
                                         <td><input type="text" style="width:50px" />
-                                          <button  class="btn btn-default btn-sm" type="button" ><i class="fa fa-plus"></i> Submit</button>
+                                          <button  class="btn btn-default btn-sm btn-circle pull-right" type="button" ><i class="fa fa-plus"></i> </button>
 
                                         </td>
 
