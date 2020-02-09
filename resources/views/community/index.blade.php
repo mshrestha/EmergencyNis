@@ -63,7 +63,7 @@
                                       <th>Block - Subblock</th>
                                       <th>Screened</th>
                                       <th>Referred</th>
-                                      <th>In Progress</th>
+                                      <th>In Program</th>
                                       <th width="200">Action</th>
                                   </tr>
                               </thead>
