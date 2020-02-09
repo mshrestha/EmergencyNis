@@ -73,7 +73,7 @@
                                       <th>Date</th>
                                       <th>Screened</th>
                                       <th>Referred</th>
-                                      <th>In Progress</th>
+                                      <th>In Program</th>
                                       <th>SAM</th>
                                       <th>MAM</th>
                                       <th>At Risk</th>
