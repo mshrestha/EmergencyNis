@@ -766,10 +766,10 @@ class OtpImportController extends Controller
         foreach ($bar_chart2 as $bc) {
             for ($i = 0; $i < count($bar_chart2); $i++) ;
             $campSettlement[] = $bc->campSettlement;
-            $curedRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalCured / $bc->totalDischarged) * 100);
-            $deathRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDeath / $bc->totalDischarged) * 100);
-            $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDefault / $bc->totalDischarged) * 100);
-            $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalNonRecovered / $bc->totalDischarged) * 100);
+            $curedRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalCured / $bc->totalDischarged) * 100),1);
+            $deathRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalDeath / $bc->totalDischarged) * 100),1);
+            $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalDefault / $bc->totalDischarged) * 100),1);
+            $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalNonRecovered / $bc->totalDischarged) * 100),1);
             $total_cured+=$bc->totalCured;
             $total_discharged+=$bc->totalDischarged;
             $total_death+=$bc->totalDeath;
@@ -783,10 +783,10 @@ class OtpImportController extends Controller
         $bar_chart['deathRate'] = $deathRate;
         $bar_chart['defaultRate'] = $defaultRate;
         $bar_chart['nonRecoveredRate'] = $nonRecoveredRate;
-        $bar_chart['cumulative_curedRate'] =($total_discharged==0)?0 : ($total_cured/$total_discharged)*100;
-        $bar_chart['cumulative_deathRate'] = ($total_discharged==0)?0 : ($total_death/$total_discharged)*100;
-        $bar_chart['cumulative_defaultRate'] = ($total_discharged==0)?0 : ($total_default/$total_discharged)*100;
-        $bar_chart['cumulative_nonRecoveredRate'] = ($total_discharged==0)?0 : ($total_nonRecovered/$total_discharged)*100;
+        $bar_chart['cumulative_curedRate'] =($total_discharged==0)?0 : round(($total_cured/$total_discharged)*100,1);
+        $bar_chart['cumulative_deathRate'] = ($total_discharged==0)?0 : round(($total_death/$total_discharged)*100,1);
+        $bar_chart['cumulative_defaultRate'] = ($total_discharged==0)?0 : round(($total_default/$total_discharged)*100,1);
+        $bar_chart['cumulative_nonRecoveredRate'] = ($total_discharged==0)?0 : round(($total_nonRecovered/$total_discharged)*100,1);
         return $bar_chart;
     }
 
@@ -842,10 +842,10 @@ class OtpImportController extends Controller
         foreach ($bar_chart2 as $bc) {
             for ($i = 0; $i < count($bar_chart2); $i++) ;
             $campSettlement[] = $bc->campSettlement;
-            $curedRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalCured / $bc->totalDischarged) * 100);
-            $deathRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDeath / $bc->totalDischarged) * 100);
-            $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalDefault / $bc->totalDischarged) * 100);
-            $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : (($bc->totalNonRecovered / $bc->totalDischarged) * 100);
+            $curedRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalCured / $bc->totalDischarged) * 100),1);
+            $deathRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalDeath / $bc->totalDischarged) * 100),1);
+            $defaultRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalDefault / $bc->totalDischarged) * 100),1);
+            $nonRecoveredRate[] = ($bc->totalDischarged == 0) ? 0 : round((($bc->totalNonRecovered / $bc->totalDischarged) * 100),1);
             $total_cured+=$bc->totalCured;
             $total_discharged+=$bc->totalDischarged;
             $total_death+=$bc->totalDeath;
@@ -859,10 +859,11 @@ class OtpImportController extends Controller
         $bar_chart['deathRate'] = $deathRate;
         $bar_chart['defaultRate'] = $defaultRate;
         $bar_chart['nonRecoveredRate'] = $nonRecoveredRate;
-        $bar_chart['cumulative_curedRate'] =($total_discharged==0)?0 : ($total_cured/$total_discharged)*100;
-        $bar_chart['cumulative_deathRate'] = ($total_discharged==0)?0 : ($total_death/$total_discharged)*100;
-        $bar_chart['cumulative_defaultRate'] = ($total_discharged==0)?0 : ($total_default/$total_discharged)*100;
-        $bar_chart['cumulative_nonRecoveredRate'] = ($total_discharged==0)?0 : ($total_nonRecovered/$total_discharged)*100;
+        $bar_chart['cumulative_curedRate'] =($total_discharged==0)?0 : round(($total_cured/$total_discharged)*100,1);
+        $bar_chart['cumulative_deathRate'] = ($total_discharged==0)?0 : round(($total_death/$total_discharged)*100,1);
+        $bar_chart['cumulative_defaultRate'] = ($total_discharged==0)?0 : round(($total_default/$total_discharged)*100,1);
+        $bar_chart['cumulative_nonRecoveredRate'] = ($total_discharged==0)?0 : round(($total_nonRecovered/$total_discharged)*100,1);
+//dd($bar_chart);
         return $bar_chart;
 
     }
@@ -988,6 +989,119 @@ class OtpImportController extends Controller
         return $bar_chart_tsfp;
     }
 
+    public function fourW()
+    {
+        $filter_message='';
+        $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
+        $partners = ['ACF', 'BRAC', 'CWW', 'SARPV', 'SCI', 'SHED', 'TDH', 'WC', 'WFP', 'WVI'];
+        $camps = ['3', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27',
+            '1E', '1W', '20EX', '2E', '2W', '4EX', '8E', '8W', 'KRC', 'KTP', 'KTP RC', 'NRC'];
+        $periods = DB::table('otp_imports')
+            ->groupBy('period')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->pluck('period')->toArray();
+//        dd($periods);
+
+        $cache_data = DB::table('otp_imports')
+            ->select('year', 'month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
+        if (empty($cache_data)) {
+            if (date('n') == 1) {
+                $report_month = 12;
+                $report_year = date('Y') - 1;
+            } else {
+                $report_month = date('n') - 1;
+                $report_year = date('Y');
+            }
+        } else {
+            $report_month = $cache_data[0]->month;
+            $report_year = $cache_data[0]->year;
+        }
+//
+//        $months = array();
+//        for ($i = 0; $i < 12; $i++) {
+//            $months[] = date("M-y", strtotime(date('Y-m-01') . " -$i months"));
+//        }
+//        $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
+//        $report_month = $db_month_year->month;
+//        $report_year = $db_month_year->year;
+        $months = array();
+        for ($i = 0; $i < 12; $i++) {
+            $months[] = date("M-y", strtotime(date($report_year . '-' . $report_month . '-01') . " -$i months"));
+        }
+
+        $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
+        $line_chart = $this->open_dashboard_linechart($months);
+        $doughnut_chart = $this->open_dashboard_doughnutchart($report_year, $report_month);
+        $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
+        $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp($report_year, $report_month);
+        return view('homepage.fourWdashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+    }
+
+    public function fourW_ym(Request $request)
+    {
+        if (Input::get('program_partner') != null)
+            $program_partner = Input::get('program_partner');
+        else $program_partner = '';
+        if (Input::get('partner') != null)
+            $partner = Input::get('partner');
+        else $partner = '';
+        if (Input::get('camp')!=null)
+            $camp = Input::get('camp');
+        else $camp='';
+        if (Input::get('period')!=null)
+            $period = Input::get('period');
+        else $period = '';
+        $filter_message = "Result for " . (($program_partner != null) ? 'Program Partner is ' . $program_partner : '')
+            . (($partner != null) ? ' Partner is ' . $partner : '')
+            . (($camp != null) ? ' Camp is ' . $camp : '')
+            . (($period != null) ? ' Period is ' . $period : '');
+//        dd($filter_message);
+//        $db_month_year = DB::table('otp_imports')->where('period', $request->period)->first();
+        $program_partners = ['ACF', 'IAID', 'MULTI', 'PAPIL', 'UNHCR', 'UNICEF', 'WFP'];
+//            DB::table('otp_imports')
+//            ->groupBy('programPartner')
+//            ->pluck('programPartner')->toArray();
+        $partners = ['ACF', 'BRAC', 'CWW', 'SARPV', 'SCI', 'SHED', 'TDH', 'WC', 'WFP', 'WVI'];
+//            DB::table('otp_imports')
+//            ->groupBy('partner')
+//            ->pluck('partner')->toArray();
+        $camps = ['3', '4', '5', '6', '7', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27',
+            '1E', '1W', '20EX', '2E', '2W', '4EX', '8E', '8W', 'KRC', 'KTP', 'KTP RC', 'NRC'];
+//            DB::table('otp_imports')
+//            ->groupBy('campSettlement')
+//            ->pluck('campSettlement')->toArray();
+        $periods = DB::table('otp_imports')
+            ->groupBy('period')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->pluck('period')->toArray();
+//dd($request->period);
+        $pieces = explode("-", $request->period);
+
+        $report_month = date('m', strtotime($pieces[0]));
+        $report_year = '20' . $pieces[1];
+        $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
+        $months = array();
+        for ($i = 0; $i < 12; $i++) {
+            $months[] = date("M-y", strtotime(date($report_year . '-' . $report_month . '-01') . " -$i months"));
+        }
+        $programPartner = $request->program_partner;
+        $partner = $request->partner;
+        $camp = $request->camp;
+
+        $line_chart = $this->open_dashboard_linechart_ym($months, $programPartner, $partner, $camp);
+//        dd($line_chart);
+        $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner, $camp);
+        $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
+        $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
+
+        return view('homepage.fourWdashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+    }
 
 
 }

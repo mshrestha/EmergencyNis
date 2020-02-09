@@ -1,4 +1,4 @@
-@extends('layouts.app_opendashboard')
+@extends('layouts.app')
 @push('styles')
 <style>
     .modal {
@@ -21,14 +21,11 @@
 </style>
 @endpush
 @section('content')
-    <div class="row">
+    <div class="row" style="padding-top: 20px">
+        <div class="row col-lg-1"></div>
+    <div class="row col-lg-10">
         <div class="col-lg-12 border-bottom">
-            <div class="col-lg-9 ">
-                <div class="col-lg-12 center">
-                    <h1>Welcome to Emergency Nutrition System </h1>
-                </div>
-                <div class="col-lg-12">
-                    <form action="{{ route('open_dashboard_ym') }}" class="form-horizontal" method="get">
+                    <form action="{{ route('fourW_ym') }}" class="form-horizontal" method="get">
 
                         <div class="form-group">
                             <select name="program_partner" class="btn btn">
@@ -58,29 +55,62 @@
                             <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
                         </div>
                     </form>
-                </div>
+        </div>
+
+        <div class="col-lg-12 border-bottom">
+
+            <div class="heading-block center">
+                <h2>Our Reach</h2>
+                <span>The areas in which we have reached </span>
             </div>
 
-            <div class="col-lg-3 ">
-                <div class=" pull-right">
-                    <img src="./img/logo-nutrition.png" width="200px"/>
+            <div class="container clearfix">
+
+                <div class="row ">
+                    <div class="col-lg-12 border-bottom" style="padding-bottom: 40px">
+                    <div class="col-lg-4 bottommargin center">
+                        <canvas id="sam-reached"></canvas>
+                        <div class="team-title"><h4>85% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span></div>
+                    </div>
+
+                    <div class="col-lg-4 bottommargin center">
+                        <canvas id="mam-reached"></canvas>
+                        <div class="team-title"><h4>41% <br />Moderate acute malnutrition</h4><span>children reached of the target population</span></div>
+                    </div>
+                    <div class="col-lg-4 bottommargin center">
+                        <canvas id="iycf-reached"></canvas>
+                        <div class="team-title "><h4>48% <br />IYCF Counseling</h4><span>children reached of the target population</span></div>
+                    </div>
+                    </div>
+                    {{--<div class="w-100"></div>--}}
+                    <div class="col-lg-12 border-bottom">
+                    <div class="col-lg-6 bottommargin">
+
+                        <div class="team team-list clearfix">
+                            <h4>SAM Reached Cumulative</h4>
+                            <canvas id="sam-cumulative"></canvas>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-6 bottommargin">
+
+                        <div class="team team-list clearfix">
+                            <h4>MAM Reached Cumulative</h4>
+                            <canvas id="mam-cumulative"></canvas>
+                        </div>
+
+                    </div>
                 </div>
+                </div>
+
+                <div class="clear"></div>
             </div>
 
         </div>
-        <div class="row">{{$filter_message}}
-            <div class="pull-right">
-                @if (Auth::check())
-                    <a href="{{ url('/logout') }}"><i class="fa fa-sign-out"></i> Log out</a>
-                @else
-                    <a href="{{ url('/login') }}"><i class="fa fa-sign-in"></i> Log in</a>
-                @endif
-            </div>
-        </div>
 
 
-    </div>
-    <div class="row ">
+        <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
             {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
@@ -106,7 +136,6 @@
         </body>
     </div>
 
-    {{--Tab test--}}
     <div class="row border-bottom">
         {{--<div class="portlet-body">--}}
         <ul class="nav nav-tabs">
@@ -208,8 +237,6 @@
         {{--</div>--}}
     </div>
 
-
-
     <div class="row border-bottom">
         <h2>OTP New Admission
             <small> for {{$month_year}}</small>
@@ -287,6 +314,9 @@
         </div>
     </div>
 
+    </div>
+        <div class="row col-lg-1"></div>
+    </div>
 @endsection
 
 @push('scripts')
@@ -320,7 +350,13 @@
 
 <!-- ChartJS-->
 {{--<script src="js/plugins/chartJs/Chart.min.js"></script>--}}
-<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+{{--<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+<script src={{ asset('sectorPageResource/functions.js')}}></script>
+{{--<script src={{ asset('sectorPageResource/plugins.js')}}></script>--}}
+{{--<script src={{ asset('sectorPageResource/chartjs-plugin-datalabels/plugin.js')}}></script>--}}
+
 
 <script>
     $('#btn-sync-now').on('click', function () {
@@ -395,7 +431,7 @@
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
 //                bezierCurve : false,
                 scales: {
                     yAxes: [{
@@ -511,7 +547,7 @@
             }]
         };
         var doughnutOptions = {
-            responsive: false,
+            responsive: true,
             legend: {
                 display: true
             }
@@ -616,12 +652,19 @@
                 display: false,
                 text: 'OTP Performance'
             },
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    display: false,
+//                    color: '#36A2EB'
+                }
+            },
 //                tooltips: {
 //                    mode: 'index',
 //                    intersect: true
 //                },
             responsive: true,
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
 //                scales: {
 //                    xAxes: [{
 //                        stacked: true,
@@ -695,12 +738,20 @@
                     display: false,
                     text: 'TSFP Performance'
                 },
+                plugins: {
+                    // Change options for ALL labels of THIS CHART
+                    datalabels: {
+                        display: false,
+//                    color: '#36A2EB'
+                    }
+                },
+
 //                tooltips: {
 //                    mode: 'index',
 //                    intersect: true
 //                },
                 responsive: true,
-                maintainAspectRatio: false,
+                maintainAspectRatio: true,
 //                scales: {
 //                    xAxes: [{
 //                        stacked: true,
@@ -734,6 +785,231 @@
 
 </script>
 <!-- Mapping script ends here -->
+
+<script>
+//    window.chartColors = {
+//        red: 'rgb(255, 99, 132)',
+//        orange: 'rgb(255, 159, 64)',
+//        yellow: 'rgb(255, 205, 86)',
+//        green: 'rgb(75, 192, 192)',
+//        blue: 'rgb(54, 162, 235)',
+//        purple: 'rgb(153, 102, 255)',
+//        grey: 'rgb(201, 203, 207)'
+//    };
+    var options = {};
+    var options2 = {
+        responsive: true,
+        legend: {
+            display: false,
+            labels: {
+                display: false
+            }
+        }
+    };
+    var options3 = {
+        responsive: true,
+        legend: {
+            display: false,
+            labels: {
+                display: false
+            }
+        },
+
+        scales: {
+            pointLabels :{
+                fontStyle: "bold",
+            },
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    stepSize: 20,
+                    fontColor : "#ccc",
+                    fontSize : 8,
+
+                },
+                gridLines:{
+                    color: "#E5E5E5",
+                    lineWidth:1,
+                    zeroLineColor :"#ccc",
+                    zeroLineWidth : 0
+                }
+            }],
+            xAxes: [{
+                ticks:{
+                    fontColor : "#ccc",
+                    fontSize : 8,
+
+                },
+                gridLines:{
+                    color: "rgba(255, 255, 255, 0)",
+                    lineWidth:1,
+                    drawBorder: true
+                }
+            }]
+        }};
+    var ctx = document.getElementById('sam-reached').getContext('2d');
+    data = {
+        datasets: [{
+            data: [29716, 5377],
+            backgroundColor: [
+                window.chartColors.red,
+                window.chartColors.orange,
+                window.chartColors.yellow,
+                window.chartColors.green,
+                window.chartColors.blue,
+            ],
+            label: 'Dataset 1'
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ["Reached", "Not Reached"
+
+        ]
+    };
+    var ctx2 = document.getElementById('mam-reached').getContext('2d');
+    data2 = {
+        datasets: [{
+            data: [42959, 60814],
+            backgroundColor: [
+                window.chartColors.red,
+                window.chartColors.orange,
+            ],
+            label: 'Dataset 1'
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ["Reached", "Not Reached"
+
+        ]
+    };
+    var ctx3 = document.getElementById('iycf-reached').getContext('2d');
+    data3 = {
+        datasets: [{
+            data: [41328, 44628],
+            backgroundColor: [
+                window.chartColors.red,
+                window.chartColors.orange,
+            ],
+            label: 'Dataset 1'
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ["Reached", "Not Reached"
+
+        ]
+    };
+    var ctx4 = document.getElementById('sam-cumulative').getContext('2d');
+    data4 = {
+        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
+        datasets: [{
+
+            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.blue,
+            borderWidth: 1,
+            data: [
+                2525,
+                6019,
+                10533,
+                12629,
+                16620,
+                20028,
+                22881,
+                25649
+
+            ]
+        }]
+
+    };
+
+    var ctx5 = document.getElementById('mam-cumulative').getContext('2d');
+    data5 = {
+        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
+        datasets: [{
+
+            backgroundColor: window.chartColors.yellow,
+            borderColor: window.chartColors.yellow,
+            borderWidth: 1,
+            data: [
+
+                3038,
+                6573,
+                13019,
+                15417,
+                20236,
+                25243,
+                29764,
+                35249
+            ]
+        }]
+
+    };
+
+
+    // For a pie chart
+    var samChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: {
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    color: '#36A2EB'
+                }
+            }
+        }
+    });
+    var mamChart = new Chart(ctx2, {
+        type: 'pie',
+        data: data2,
+        options: {
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(0, 0, 0)'
+                }
+            }
+        }
+    });
+    var iycfChart = new Chart(ctx3, {
+        type: 'pie',
+        data: data3,
+        options: {
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(0, 0, 0)'
+                }
+            }
+        }
+    });
+
+    var samCumulative = new Chart(ctx4, {
+        type: 'bar',
+        data: data4,
+        options: options2
+    });
+
+    var mamCumulative = new Chart(ctx5, {
+        type: 'bar',
+        data: data5,
+        options: options2
+    });
+
+    var otpPerformance = new Chart(ctx6, {
+        type: 'bar',
+        data: data6,
+        options: options3
+    });
+
+    var tsfpPerformance = new Chart(ctx7, {
+        type: 'bar',
+        data: data7,
+        options: options3
+    });
+
+
+</script>
 
 @endpush
 
