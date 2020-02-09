@@ -56,7 +56,7 @@
           <div class="col-lg-12">
               <div class="ibox">
                   <div class="ibox-title">
-                      <h2>Community Sessions Children
+                      <h2>Community Sessions Pregnant & Lactating
                         <a href="{{ route('community.create') }}" class="pull-right">
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Volunteer</button>
                         </a>
@@ -89,14 +89,13 @@
                                       <th>In Program</th>
                                       <th>SAM</th>
                                       <th>MAM</th>
-                                      <th>At Risk</th>
                                       <th width="220">Action</th>
                                   </tr>
                               </thead>
                               <tbody>
                                   @foreach($volunteers as $volunteer)
                                   <tr class="volunteer" data-volunteer-id={{ $volunteer->id }}>
-                                      {{ html()->form('POST', route('community-session.store'))->open() }}
+                                      {{ html()->form('POST', route('community-session-women.store'))->open() }}
                                       <td>
                                         <a class="client-link">{{ $volunteer->name }}</a>
                                         {{ html()->hidden('volunteer_id', $volunteer->sync_id) }}
@@ -109,26 +108,23 @@
                                       <td>
                                         {{ html()
                                           ->number('screened',
-                                            $volunteer->todaysCommunitySession($selected_date)['screened']
+                                            $volunteer->todaysCommunitySessionWomen($selected_date)['screened']
                                           )
                                           ->style(['width' => '100px'])
                                           ->placeholder('Screened')
                                           ->required() }}
                                       </td>
                                       <td>
-                                        {{ html()->number('referred', $volunteer->todaysCommunitySession($selected_date)['referred'])->style(['width' => '100px'])->placeholder('Referred')->required() }}
+                                        {{ html()->number('referred', $volunteer->todaysCommunitySessionWomen($selected_date)['referred'])->style(['width' => '100px'])->placeholder('Referred')->required() }}
                                       </td>
                                       <td>
-                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySession($selected_date)['inprogram'])->style(['width' => '100px'])->placeholder('In Program')->required() }}
+                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySessionWomen($selected_date)['inprogram'])->style(['width' => '100px'])->placeholder('In Program')->required() }}
                                       </td>
                                       <td>
-                                        {{ html()->number('sam', $volunteer->todaysCommunitySession($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
+                                        {{ html()->number('sam', $volunteer->todaysCommunitySessionWomen($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
                                       </td>
                                       <td>
-                                        {{ html()->number('mam', $volunteer->todaysCommunitySession($selected_date)['mam'])->style(['width' => '100px'])->placeholder('MAM')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('atrisk', $volunteer->todaysCommunitySession($selected_date)['atrisk'])->style(['width' => '100px'])->placeholder('At Risk')->required() }}
+                                        {{ html()->number('mam', $volunteer->todaysCommunitySessionWomen($selected_date)['mam'])->style(['width' => '100px'])->placeholder('MAM')->required() }}
                                       </td>
                                       <td>
                                         <button class="btn btn-default btn-sm" type="submit" ><i class="fa fa-plus"></i> Submit</button>

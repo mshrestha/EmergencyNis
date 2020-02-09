@@ -44,6 +44,11 @@ Route::post('/sync/save-community-sessions', [
 	'as' => 'sync.community-sessions.server'
 ]);
 
+Route::post('/sync/save-community-sessions-womens', [
+	'uses' => 'SyncDataServerController@syncCommunitySessionsWomensServer',
+	'as' => 'sync.community-sessions-womens.server'
+]);
+
 Route::post('/sync/save-outreach-supervisors', [
 	'uses' => 'SyncDataServerController@syncOutreachSupervisorsServer',
 	'as' => 'sync.outreach-supervisors.server'
