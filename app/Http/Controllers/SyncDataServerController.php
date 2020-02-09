@@ -33,6 +33,9 @@ class SyncDataServerController extends Controller
 	public function syncCommunitySessionsServer(Request $request) {
 		return $this->updateDatabase('community_sessions', $request);
 	}
+	public function syncCommunitySessionsWomensServer(Request $request) {
+		return $this->updateDatabase('community_session_womens', $request);
+	}
 	public function syncOutreachSupervisorsServer(Request $request) {
 		return $this->updateDatabase('outreach_supervisors', $request);
 	}

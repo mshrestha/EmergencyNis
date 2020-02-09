@@ -14,6 +14,7 @@ use App\Models\PregnantWomen;
 use App\Models\PregnantWomenFollowup;
 use App\Models\Volunteer;
 use App\Models\CommunitySession;
+use App\Models\CommunitySessionWomen;
 use App\Models\OutreachSupervisor;
 use App\Models\OutreachMonthlyReport;
 
@@ -66,11 +67,12 @@ class HomeController extends Controller
             
             $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
             $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
 
-            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
+            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
             ));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
@@ -103,11 +105,12 @@ class HomeController extends Controller
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
             $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.home', compact('cache_data', 'dashboard', 'dashboard_data',
-                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
         }
     }
 
@@ -152,11 +155,12 @@ class HomeController extends Controller
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
             $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
         } else {
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -188,11 +192,12 @@ class HomeController extends Controller
             $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
             $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
             $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.dashboard', compact('cache_data', 'dashboard', 'dashboard_data',
-                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count','outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
         }
     }
 
@@ -298,11 +303,12 @@ class HomeController extends Controller
         $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
         $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
         $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+        $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
         $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
         $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
         return view('homepage.home_ym', compact('cache_data', 'dashboard', 'dashboard_data',
-            'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+            'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
     }
 
     public function programUserDashboard_ym($year, $month)
@@ -400,11 +406,12 @@ class HomeController extends Controller
         $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
         $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
         $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+        $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
         $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
         $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
         
         return view('homepage.home_user_ym', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-            'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'total_admission', 'volunteers_sync_count', 'community_sessions_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+            'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'total_admission', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
     }
 
     public function programManagerDashboard_ym($year, $month)
@@ -718,6 +725,7 @@ class HomeController extends Controller
 //        $cid = '1013132';
 //        $cid = '1013117';
         $children = Child::where('sync_id', $child_id)->first();
+//        dd($children);
         $c_followup = FacilityFollowup::where('children_id', $child_id)->get();
 //        dd($c_followup);
 // If date of Birth null then calculate tentative DOB from age
@@ -725,8 +733,9 @@ class HomeController extends Controller
             $created_at=new DateTime($children->created_at);
             $dob = $created_at->modify("-".$children->age.' months');
         } else
-        $dob = new DateTime($children->date_of_birth);
-
+            $dob = new DateTime($children->date_of_birth);
+        $gmp['sex']=$children->sex;
+        $gmp['child_info']='Name: '.$children->children_name.', Sex: '.$children->sex.', ID: '.$children->sync_id.', MNR: '.$children->mnr_no.', Facility: '.$children->facility->facility_id;
         $age=[];
         $weight=[];
         $height=[];
@@ -746,9 +755,9 @@ class HomeController extends Controller
         $gmpWeight=[];
         $gmpHeight=[];
         for ($x = 0; $x < count($age_key); $x++) {
-                $gmpAge[] = $age[$age_key[$x]];
-                $gmpWeight[] = $weight[$age_key[$x]];
-                $gmpHeight[] = $height[$age_key[$x]];
+            $gmpAge[] = $age[$age_key[$x]];
+            $gmpWeight[] = $weight[$age_key[$x]];
+            $gmpHeight[] = $height[$age_key[$x]];
         }
 //        dd($gmpAge);
         $months = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60];
@@ -769,7 +778,6 @@ class HomeController extends Controller
             } else
                 $gmp['height'][] = 0;
         }
-
         return $gmp;
 //        dd($gmp);
 //        return view('test',compact('gmp','months'));

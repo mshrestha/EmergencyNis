@@ -18,11 +18,30 @@ class Volunteer extends Model
     	return $this->hasMany('App\Models\CommunitySession', 'volunteer_id');
     }
 
-    public function todaysCommunitySession() {
-    	return $this->communitySessions()->where('date', date('Y-m-d'))->first() ?: [
+    public function todaysCommunitySession($date) {
+    	return $this->communitySessions()->where('date', $date)->first() ?: [
     		'screened'=>null, 
     		'referred'=>null, 
     		'inprogram'=>null, 
+            'sam'=>null, 
+            'mam'=>null, 
+            'atrisk'=>null, 
     	];
     }
+
+    public function communitySessionWomens() {
+        return $this->hasMany('App\Models\CommunitySessionWomen', 'volunteer_id');
+    }
+
+    public function todaysCommunitySessionWomen($date) {
+        return $this->communitySessionWomens()->where('date', $date)->first() ?: [
+            'screened'=>null, 
+            'referred'=>null, 
+            'inprogram'=>null, 
+            'sam'=>null, 
+            'mam'=>null,
+        ];
+    }
+
+
 }
