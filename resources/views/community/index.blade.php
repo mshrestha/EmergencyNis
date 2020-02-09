@@ -85,14 +85,12 @@
                                       <th>Block - Subblock</th>
                                       <th>Date</th>
                                       <th>Screened</th>
-                                      
                                       <th>SAM</th>
                                       <th>MAM</th>
                                       <th>At Risk</th>
-
                                       <th>Referred</th>
                                       <th>In Program</th>
-                                      <th width="200">Action</th>
+                                      <th width="220">Action</th>
                                   </tr>
                               </thead>
                               <tbody>
