@@ -14,7 +14,22 @@
                             </div>
                             <div class="col-xs-8 text-right">
 
-                                <h2 class="font-bold">Volunteer <br>Log</h2>
+                                <h2 class="font-bold">Children</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3">
+                <a href="{{ route('community-session-women.index') }}">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-plus fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+
+                                <h2 class="font-bold">Pregnant & Lactating</h2>
                             </div>
                         </div>
                     </div>
@@ -29,7 +44,7 @@
                             </div>
                             <div class="col-xs-8 text-right">
 
-                                <h2 class="font-bold">Outreach <br>Supervisor</h2>
+                                <h2 class="font-bold">IYCF</h2>
                             </div>
                         </div>
                     </div>
@@ -79,7 +94,7 @@
                                                     $month = $outreach_monthly_report->date_year.'-'.$outreach_monthly_report->date_month.'-01';
                                                     $month = date('F Y', strtotime($month));
                                                 @endphp
-                                                
+
                                                 {{ $month }}
                                             </td>
                                             <td>{{ $outreach_monthly_report->pregnant_women }}</td>
@@ -123,7 +138,7 @@
                                           </select>
                                           <select name="date_year" required>
                                               @for ($i=2020; $i <= date('Y'); $i++)
-                                                <option value="{{$i}}">{{$i}}</option> 
+                                                <option value="{{$i}}">{{$i}}</option>
                                               @endfor
                                           </select>
                                         </td>

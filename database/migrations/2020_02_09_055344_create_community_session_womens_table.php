@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommunitySessionsTable extends Migration
+class CreateCommunitySessionWomensTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCommunitySessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('community_sessions', function (Blueprint $table) {
+        Schema::create('community_session_womens', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('sync_id')->unique()->unsigned();
             $table->enum('sync_status', ['created', 'updated', 'synced'])->default('synced');
@@ -24,12 +24,11 @@ class CreateCommunitySessionsTable extends Migration
             $table->integer('inprogram')->default(0);
             $table->integer('sam')->default(0);
             $table->integer('mam')->default(0);
-            $table->integer('atrisk')->default(0);
             $table->date('date');
             $table->timestamps();
         });
 
-        Schema::table('community_sessions', function(Blueprint $table) {
+        Schema::table('community_session_womens', function(Blueprint $table) {
             $table->unique('id');
             $table->dropPrimary('id');
             $table->primary('sync_id');
@@ -43,6 +42,6 @@ class CreateCommunitySessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('community_sessions');
+        Schema::dropIfExists('community_session_womens');
     }
 }

@@ -70,7 +70,8 @@ Route::group(['middleware' => ['auth']], function() {
     //Community Volunteer
 	Route::resource('community', 'CommunityController');
 	Route::resource('community-session', 'CommunitySessionController');
-
+	Route::resource('community-session-women', 'CommunitySessionWomenController');
+	
 	//Community Supervisor
 	Route::resource('outreach-supervisor', 'OutreachSupervisorController');
 	Route::resource('outreach-monthly-report', 'OutreachMonthlyReportController');
@@ -135,6 +136,11 @@ Route::get('/sync/volunteers', [
 Route::get('/sync/community-sessions', [
 	'uses' => 'SyncDataClientController@syncCommunitySessions',
 	'as' => 'sync.community-sessions.client'
+]);
+
+Route::get('/sync/community-sessions-womens', [
+	'uses' => 'SyncDataClientController@syncCommunitySessionsWomens',
+	'as' => 'sync.community-sessions-womens.client'
 ]);
 
 Route::get('/sync/outreach-supervisors', [
