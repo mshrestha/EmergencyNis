@@ -4,8 +4,10 @@
     .modal {
         border: 1px solid black;
         background-color: rgba(255, 255, 255, 1.0);
+        height: 95%;
+        width: 95%;
+        margin:0 auto;
     }
-
     #tabid {
         width: 0;
         display: block;
@@ -21,301 +23,305 @@
 </style>
 @endpush
 @section('content')
-    <div class="row" style="padding-top: 20px">
-        <div class="row col-lg-1"></div>
-    <div class="row col-lg-10">
-        <div class="col-lg-12 border-bottom">
-                    <form action="{{ route('fourW_ym') }}" class="form-horizontal" method="get">
+    <div class="container clearfix">
+        <div class="row" style="padding-top: 20px">
+            <div class="col-lg-12 border-bottom">
+                <form action="{{ route('fourW_ym') }}" class="form-horizontal" method="get">
 
-                        <div class="form-group">
-                            <select name="program_partner" class="btn btn">
-                                <option value="">Program Partner</option>
-                                @foreach($program_partners as $pp)
-                                    <option value="{{ $pp }}">{{ $pp }}</option>
-                                @endforeach
-                            </select>
-                            <select name="partner" class="btn btn">
-                                <option value="">Implementing Partner</option>
-                                @foreach($partners as $p)
-                                    <option value="{{ $p }}">{{ $p }}</option>
-                                @endforeach
-                            </select>
-                            <select name="camp" class="btn btn">
-                                <option value="">Camp</option>
-                                @foreach($camps as $c)
-                                    <option value="{{ $c }}">{{ $c }}</option>
-                                @endforeach
-                            </select>
-                            <select name="period" required class="btn ">
-                                {{--<option value="">Period</option>--}}
-                                @foreach($periods as $month_list)
-                                    <option value="{{ $month_list }}">{{ $month_list }}</option>
-                                @endforeach
-                            </select>
-                            <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
+                    <div class="form-group">
+                        <select name="program_partner" class="btn btn">
+                            <option value="">Program Partner</option>
+                            @foreach($program_partners as $pp)
+                                <option value="{{ $pp }}">{{ $pp }}</option>
+                            @endforeach
+                        </select>
+                        <select name="partner" class="btn btn">
+                            <option value="">Implementing Partner</option>
+                            @foreach($partners as $p)
+                                <option value="{{ $p }}">{{ $p }}</option>
+                            @endforeach
+                        </select>
+                        <select name="camp" class="btn btn">
+                            <option value="">Camp</option>
+                            @foreach($camps as $c)
+                                <option value="{{ $c }}">{{ $c }}</option>
+                            @endforeach
+                        </select>
+                        <select name="period" required class="btn ">
+                            {{--<option value="">Period</option>--}}
+                            @foreach($periods as $month_list)
+                                <option value="{{ $month_list }}">{{ $month_list }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="btn "><i class="fa fa-search"></i>Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-12 border-bottom">
+                <div class="container clearfix">
+                    <div class="heading-block center">
+                        <h2>Our Reach</h2>
+                        <span>The areas in which we have reached </span>
+                    </div>
+
+                    <div class="row ">
+                        <div class="col-lg-12 border-bottom" style="padding-bottom: 40px">
+                            <div class="col-lg-4 bottommargin center">
+                                <canvas id="sam-reached"></canvas>
+                                <div class="team-title"><h4>85% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 bottommargin center">
+                                <canvas id="mam-reached"></canvas>
+                                <div class="team-title"><h4>41% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bottommargin center">
+                                <canvas id="iycf-reached"></canvas>
+                                <div class="team-title "><h4>48% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
+                                </div>
+                            </div>
                         </div>
-                    </form>
-        </div>
+                        {{--<div class="w-100"></div>--}}
+                        <div class="col-lg-12 border-bottom">
+                            <div class="col-lg-6 bottommargin">
 
-        <div class="col-lg-12 border-bottom">
+                                <div class="team team-list clearfix">
+                                    <h4>SAM Reached Cumulative</h4>
+                                    <canvas id="sam-cumulative"></canvas>
+                                </div>
 
-            <div class="heading-block center">
-                <h2>Our Reach</h2>
-                <span>The areas in which we have reached </span>
+                            </div>
+
+                            <div class="col-lg-6 bottommargin">
+
+                                <div class="team team-list clearfix">
+                                    <h4>MAM Reached Cumulative</h4>
+                                    <canvas id="mam-cumulative"></canvas>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+
+
+            <div class="container clearfix">
+                <div class="col-lg-12  border-bottom dashboard-header">
+                    {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
+                    <div class="small pull-left col-md-3 m-l-lg m-t-md">
+                        <strong>ADMISSION TREND </strong>
+                    </div>
+                    <button id='zoombtn' class='btn btn-info pull-right'>
+                        {{--Zoom View <i class="fa fa-window-maximize" aria-hidden="true"></i>--}}
+                        Zoom View <i class="icon-zoom-in"></i>
+                    </button>
+
+
+                    <div class="flot-chart-content">
+                        <canvas id="childAdmission"></canvas>
+                    </div>
+                </div>
+                <div id="myModal" class="modal">
+                    <div class="modalContent" style="height: 85%; width: 85%; margin:0 auto;">
+                        <span class="close"> &times; </span>
+                        <canvas id="childAdmissionModal"></canvas>
+                    </div>
+                </div>
+                {{--</body>--}}
             </div>
 
             <div class="container clearfix">
-
-                <div class="row ">
-                    <div class="col-lg-12 border-bottom" style="padding-bottom: 40px">
-                    <div class="col-lg-4 bottommargin center">
-                        <canvas id="sam-reached"></canvas>
-                        <div class="team-title"><h4>85% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span></div>
-                    </div>
-
-                    <div class="col-lg-4 bottommargin center">
-                        <canvas id="mam-reached"></canvas>
-                        <div class="team-title"><h4>41% <br />Moderate acute malnutrition</h4><span>children reached of the target population</span></div>
-                    </div>
-                    <div class="col-lg-4 bottommargin center">
-                        <canvas id="iycf-reached"></canvas>
-                        <div class="team-title "><h4>48% <br />IYCF Counseling</h4><span>children reached of the target population</span></div>
-                    </div>
-                    </div>
-                    {{--<div class="w-100"></div>--}}
-                    <div class="col-lg-12 border-bottom">
-                    <div class="col-lg-6 bottommargin">
-
-                        <div class="team team-list clearfix">
-                            <h4>SAM Reached Cumulative</h4>
-                            <canvas id="sam-cumulative"></canvas>
-                        </div>
-
-                    </div>
-
-                    <div class="col-lg-6 bottommargin">
-
-                        <div class="team team-list clearfix">
-                            <h4>MAM Reached Cumulative</h4>
-                            <canvas id="mam-cumulative"></canvas>
-                        </div>
-
-                    </div>
-                </div>
-                </div>
-
-                <div class="clear"></div>
-            </div>
-
-        </div>
-
-
-        <div class="row ">
-        <div class="col-lg-12  border-bottom dashboard-header">
-            {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
-            <div class="small pull-left col-md-3 m-l-lg m-t-md">
-                <strong>ADMISSION TREND </strong>
-            </div>
-            <button id='zoombtn' class='btn btn-info pull-right'>
-                {{--Zoom View <i class="fa fa-window-maximize" aria-hidden="true"></i>--}}
-                Zoom View <i class="icon-zoom-in"></i>
-            </button>
-
-
-            <div class="flot-chart-content">
-                <canvas id="childAdmission"></canvas>
-            </div>
-        </div>
-
-        <div id="myModal" class="modal">
-            <div class="modalContent">
-                <span class="close"> &times; </span>
-                <canvas id="childAdmissionModal"></canvas>
-            </div>
-        </div>
-        </body>
-    </div>
-
-    <div class="row border-bottom">
-        {{--<div class="portlet-body">--}}
-        <ul class="nav nav-tabs">
-            <li class="active">
-                <a href="#tab_1_1" data-toggle="tab"> OTP </a>
-            </li>
-            <li>
-                <a href="#tab_1_2" data-toggle="tab" id="bs-tab2"> TSFP </a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane fade active in" id="tab_1_1">
                 <div class="row border-bottom">
-                    <div class="col-lg-10">
-                        <h2>OTP Performance
-                            <small> for {{$month_year}}</small>
-                        </h2>
-                        <canvas id="canvas-performance" height="100px"></canvas>
+                    {{--<div class="portlet-body">--}}
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_1_1" data-toggle="tab"> OTP </a>
+                        </li>
+                        <li>
+                            <a href="#tab_1_2" data-toggle="tab" id="bs-tab2"> TSFP </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_1_1">
+                            <div class="row border-bottom">
+                                <div class="col-lg-10">
+                                    <h2>OTP Performance
+                                        <small> for {{$month_year}}</small>
+                                    </h2>
+                                    <canvas id="canvas-performance" height="100px"></canvas>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h4>Cumulative Rate</h4>
+                                    <ul class="stat-list">
+                                        <li>
+                                            <small>Non Respondant Rate</small>
+                                            <div class="stat-percent" id="cumulative_nonRecoveredRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="cumulative_nonRecoveredRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <small> Death rate</small>
+                                            <div class="stat-percent" id="cumulative_deathRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="cumulative_deathRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <small>Default Rate</small>
+                                            <div class="stat-percent" id="cumulative_defaultRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="cumulative_defaultRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <small>Cure Rate</small>
+                                            <div class="stat-percent" id="cumulative_curedRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="cumulative_curedRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab_1_2">
+                            <div class="row border-bottom">
+                                <div class="col-lg-10">
+                                    <h2>TSFP Performance
+                                        <small> for {{$month_year}}</small>
+                                    </h2>
+                                    <canvas id="canvas-tsfp-performance" height="100%"></canvas>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h4>Cumulative Rate</h4>
+                                    <ul class="stat-list">
+                                        <li>
+                                            <small>Non Respondant Rate</small>
+                                            <div class="stat-percent" id="tsfpcumulative_nonRecoveredRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="tsfpcumulative_nonRecoveredRate_bar"
+                                                     class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <small> Death rate</small>
+                                            <div class="stat-percent" id="tsfpcumulative_deathRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="tsfpcumulative_deathRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <small>Default Rate</small>
+                                            <div class="stat-percent" id="tsfpcumulative_defaultRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="tsfpcumulative_defaultRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li class="">
+                                            <small>Cure Rate</small>
+                                            <div class="stat-percent" id="tsfpcumulative_curedRate"></div>
+                                            <div class="progress progress-mini">
+                                                <div id="tsfpcumulative_curedRate_bar" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-2">
-                        <h4>Cumulative Rate</h4>
-                        <ul class="stat-list">
-                            <li>
-                                <small>Non Respondant Rate</small>
-                                <div class="stat-percent" id="cumulative_nonRecoveredRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="cumulative_nonRecoveredRate_bar" class="progress-bar"></div>
-                                </div>
-                            </li>
-                            <li>
-                                <small> Death rate</small>
-                                <div class="stat-percent" id="cumulative_deathRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="cumulative_deathRate_bar" class="progress-bar"></div>
-                                </div>
-                            </li>
-                            <li class="">
-                                <small>Default Rate</small>
-                                <div class="stat-percent" id="cumulative_defaultRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="cumulative_defaultRate_bar" class="progress-bar"></div>
-                                </div>
-                            </li>
-                            <li class="">
-                                <small>Cure Rate</small>
-                                <div class="stat-percent" id="cumulative_curedRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="cumulative_curedRate_bar" class="progress-bar"></div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+                    {{--</div>--}}
                 </div>
             </div>
-            <div class="tab-pane fade" id="tab_1_2">
+
+            <div class="container clearfix">
                 <div class="row border-bottom">
-                    <div class="col-lg-10">
-                        <h2>TSFP Performance
-                            <small> for {{$month_year}}</small>
-                        </h2>
-                        <canvas id="canvas-tsfp-performance" height="100%"></canvas>
+                    <h2>OTP New Admission
+                        <small> for {{$month_year}}</small>
+                    </h2>
+                    <div class="col-md-4">
+                        <div class="statistic-box">
+                            <h3>
+                                By Age
+                            </h3>
+                            {{--<p>--}}
+                            {{--for {{$month_year}} by age.--}}
+                            {{--</p>--}}
+                            <div class="row text-center">
+
+                                <div class="col-lg-9">
+                                    <canvas id="doughnutChart" width="280" height="270"
+                                            style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                                    <h5>Age</h5>
+                                </div>
+                            </div>
+                            <div class="m-t">
+                                <small>This chart is an accumulation of new admissions of all the OTPs segregated by
+                                    Age
+                                </small>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="col-lg-2">
-                        <h4>Cumulative Rate</h4>
-                        <ul class="stat-list">
-                            <li>
-                                <small>Non Respondant Rate</small>
-                                <div class="stat-percent" id="tsfpcumulative_nonRecoveredRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="tsfpcumulative_nonRecoveredRate_bar" class="progress-bar"></div>
+                    <div class="col-md-4">
+                        <div class="statistic-box">
+                            <h3>
+                                By Gender
+                            </h3>
+                            {{--<p>--}}
+                            {{--for {{$month_year}} by Gender.--}}
+                            {{--</p>--}}
+                            <div class="row text-center">
+                                <div class="col-lg-9">
+                                    <canvas id="doughnutChart2" width="280" height="270"
+                                            style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                                    <h5>Gender</h5>
                                 </div>
-                            </li>
-                            <li>
-                                <small> Death rate</small>
-                                <div class="stat-percent" id="tsfpcumulative_deathRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="tsfpcumulative_deathRate_bar" class="progress-bar"></div>
+                            </div>
+                            <div class="m-t">
+                                <small>This chart is an accumulation of new admissions of all the OTPs segregated by
+                                    Gender
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="statistic-box">
+                            <h3>
+                                By Anthropometry
+                            </h3>
+                            {{--<p>--}}
+                            {{--for {{$month_year}} Anthropometry.--}}
+                            {{--</p>--}}
+                            <div class="row text-center">
+                                <div class="col-lg-9">
+                                    <canvas id="doughnutChart3" width="280" height="270"
+                                            style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                                    <h5>Anthropometry</h5>
                                 </div>
-                            </li>
-                            <li class="">
-                                <small>Default Rate</small>
-                                <div class="stat-percent" id="tsfpcumulative_defaultRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="tsfpcumulative_defaultRate_bar" class="progress-bar"></div>
-                                </div>
-                            </li>
-                            <li class="">
-                                <small>Cure Rate</small>
-                                <div class="stat-percent" id="tsfpcumulative_curedRate"></div>
-                                <div class="progress progress-mini">
-                                    <div id="tsfpcumulative_curedRate_bar" class="progress-bar"></div>
-                                </div>
-                            </li>
-                        </ul>
+                            </div>
+                            <div class="m-t">
+                                <small>This chart is an accumulation of new admissions of all the OTPs segregated by
+                                    Anthropometry
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+
+
                     </div>
                 </div>
             </div>
         </div>
-        {{--</div>--}}
-    </div>
-
-    <div class="row border-bottom">
-        <h2>OTP New Admission
-            <small> for {{$month_year}}</small>
-        </h2>
-        <div class="col-md-4">
-            <div class="statistic-box">
-                <h3>
-                    By Age
-                </h3>
-                {{--<p>--}}
-                {{--for {{$month_year}} by age.--}}
-                {{--</p>--}}
-                <div class="row text-center">
-
-                    <div class="col-lg-9">
-                        <canvas id="doughnutChart" width="280" height="270"
-                                style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
-                        <h5>Age</h5>
-                    </div>
-                </div>
-                <div class="m-t">
-                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Age</small>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="statistic-box">
-                <h3>
-                    By Gender
-                </h3>
-                {{--<p>--}}
-                {{--for {{$month_year}} by Gender.--}}
-                {{--</p>--}}
-                <div class="row text-center">
-                    <div class="col-lg-9">
-                        <canvas id="doughnutChart2" width="280" height="270"
-                                style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
-                        <h5>Gender</h5>
-                    </div>
-                </div>
-                <div class="m-t">
-                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Gender
-                    </small>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="statistic-box">
-                <h3>
-                    By Anthropometry
-                </h3>
-                {{--<p>--}}
-                {{--for {{$month_year}} Anthropometry.--}}
-                {{--</p>--}}
-                <div class="row text-center">
-                    <div class="col-lg-9">
-                        <canvas id="doughnutChart3" width="280" height="270"
-                                style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
-                        <h5>Anthropometry</h5>
-                    </div>
-                </div>
-                <div class="m-t">
-                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by
-                        Anthropometry
-                    </small>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-lg-6">
-
-
-        </div>
-    </div>
-
-    </div>
-        <div class="row col-lg-1"></div>
+        {{--<div class="row col-lg-1"></div>--}}
     </div>
 @endsection
 
@@ -787,15 +793,15 @@
 {{--<!-- Mapping script ends here -->--}}
 
 <script>
-//    window.chartColors = {
-//        red: 'rgb(255, 99, 132)',
-//        orange: 'rgb(255, 159, 64)',
-//        yellow: 'rgb(255, 205, 86)',
-//        green: 'rgb(75, 192, 192)',
-//        blue: 'rgb(54, 162, 235)',
-//        purple: 'rgb(153, 102, 255)',
-//        grey: 'rgb(201, 203, 207)'
-//    };
+    //    window.chartColors = {
+    //        red: 'rgb(255, 99, 132)',
+    //        orange: 'rgb(255, 159, 64)',
+    //        yellow: 'rgb(255, 205, 86)',
+    //        green: 'rgb(75, 192, 192)',
+    //        blue: 'rgb(54, 162, 235)',
+    //        purple: 'rgb(153, 102, 255)',
+    //        grey: 'rgb(201, 203, 207)'
+    //    };
     var options = {};
     var options2 = {
         responsive: true,
@@ -816,7 +822,7 @@
         },
 
         scales: {
-            pointLabels :{
+            pointLabels: {
                 fontStyle: "bold",
             },
             yAxes: [{
@@ -824,30 +830,31 @@
                     min: 0,
                     max: 100,
                     stepSize: 20,
-                    fontColor : "#ccc",
-                    fontSize : 8,
+                    fontColor: "#ccc",
+                    fontSize: 8,
 
                 },
-                gridLines:{
+                gridLines: {
                     color: "#E5E5E5",
-                    lineWidth:1,
-                    zeroLineColor :"#ccc",
-                    zeroLineWidth : 0
+                    lineWidth: 1,
+                    zeroLineColor: "#ccc",
+                    zeroLineWidth: 0
                 }
             }],
             xAxes: [{
-                ticks:{
-                    fontColor : "#ccc",
-                    fontSize : 8,
+                ticks: {
+                    fontColor: "#ccc",
+                    fontSize: 8,
 
                 },
-                gridLines:{
+                gridLines: {
                     color: "rgba(255, 255, 255, 0)",
-                    lineWidth:1,
+                    lineWidth: 1,
                     drawBorder: true
                 }
             }]
-        }};
+        }
+    };
     var ctx = document.getElementById('sam-reached').getContext('2d');
     data = {
         datasets: [{
@@ -899,10 +906,10 @@
 
         ]
     };
-var months = JSON.parse('<?php echo json_encode($months); ?>');
-var sam_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
-var mam_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
-//console.log(sam_otp[1]);
+    var months = JSON.parse('<?php echo json_encode($months); ?>');
+    var sam_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
+    var mam_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
+    //console.log(sam_otp[1]);
     var ctx4 = document.getElementById('sam-cumulative').getContext('2d');
     data4 = {
 //        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
