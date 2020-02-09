@@ -22,6 +22,9 @@ class CreateCommunitySessionsTable extends Migration
             $table->integer('screened')->default(0);
             $table->integer('referred')->default(0);
             $table->integer('inprogram')->default(0);
+            $table->integer('sam')->default(0);
+            $table->integer('mam')->default(0);
+            $table->integer('atrisk')->default(0);
             $table->date('date');
             $table->timestamps();
         });

@@ -47,11 +47,10 @@ class CommunitySessionController extends Controller
     {
         try {
             $community_session = CommunitySession::where('volunteer_id', $request->volunteer_id)
-                ->where('date', date('Y-m-d'))
+                ->where('date', $request->date)
                 ->first();
 
             $data = $request->all();
-            $data['date'] = date('Y-m-d');
 
             // IF NEW COMMUNITY SESSION
             if(!$community_session) {

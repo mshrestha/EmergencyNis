@@ -34,7 +34,9 @@ class CommunityController extends Controller
             ->where('camp_id', $auth_user_camp_id)
             ->orderBy('created_at', 'desc')->get();
 
-        return view('community.index', compact('volunteers'));
+        $selected_date = request()->get('date') ?: date('Y-m-d');
+
+        return view('community.index', compact('volunteers', 'selected_date'));
     }
 
     public function create()
