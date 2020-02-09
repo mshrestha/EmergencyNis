@@ -203,6 +203,7 @@ class OtpImportController extends Controller
             } else
                 $lc['otp'][] = 0;
         }
+//        dd(array_sum($lc['otp']));
         $bsfp_period = [];
         $bsfp_admission = [];
         $lc['bsfp'] = [];
@@ -467,6 +468,8 @@ class OtpImportController extends Controller
             } else
                 $lc['otp'][] = 0;
         }
+        $lc['cumulative_otp']=array_sum($lc['otp']);
+
         $bsfp_period = [];
         $bsfp_admission = [];
         $lc['bsfp'] = [];
@@ -482,6 +485,7 @@ class OtpImportController extends Controller
                 $lc['bsfp'][] = 0;
 //            dd($lc['bsfp']);
         }
+        $lc['cumulative_bsfp']=array_sum($lc['bsfp']);
         $tsfp_period = [];
         $tsfp_admission = [];
         $lc['tsfp'] = [];
@@ -496,6 +500,7 @@ class OtpImportController extends Controller
             } else
                 $lc['tsfp'][] = 0;
         }
+        $lc['cumulative_tsfp']=array_sum($lc['tsfp']);
         $tsfp_plw_period = [];
         $tsfp_plw_admission = [];
         $lc['tsfp_plw'] = [];
@@ -524,6 +529,7 @@ class OtpImportController extends Controller
             } else
                 $lc['sc'][] = 0;
         }
+        $lc['cumulative_sc']=array_sum($lc['sc']);
 //        dd($lc);
         return $lc;
     }

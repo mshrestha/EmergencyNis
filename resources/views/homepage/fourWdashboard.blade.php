@@ -784,7 +784,7 @@
 
 
 </script>
-<!-- Mapping script ends here -->
+{{--<!-- Mapping script ends here -->--}}
 
 <script>
 //    window.chartColors = {
@@ -899,48 +899,57 @@
 
         ]
     };
+var months = JSON.parse('<?php echo json_encode($months); ?>');
+var sam_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
+var mam_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
+//console.log(sam_otp[1]);
     var ctx4 = document.getElementById('sam-cumulative').getContext('2d');
     data4 = {
-        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
-        datasets: [{
+//        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
+        labels: months.reverse(),
 
+        datasets: [{
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
             borderWidth: 1,
-            data: [
-                2525,
-                6019,
-                10533,
-                12629,
-                16620,
-                20028,
-                22881,
-                25649
-
-            ]
+            data: [sam_otp[11],
+                +sam_otp[11] + +sam_otp[10],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3] + +sam_otp[2],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3] + +sam_otp[2] + +sam_otp[1],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3] + +sam_otp[2] + +(sam_otp[1]) + +sam_otp[0]]
+//            data: sam_otp.reverse()
         }]
 
     };
 
     var ctx5 = document.getElementById('mam-cumulative').getContext('2d');
     data5 = {
-        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
+        labels: months,
         datasets: [{
 
             backgroundColor: window.chartColors.yellow,
             borderColor: window.chartColors.yellow,
             borderWidth: 1,
-            data: [
-
-                3038,
-                6573,
-                13019,
-                15417,
-                20236,
-                25243,
-                29764,
-                35249
-            ]
+            data: [mam_tsfp[11],
+                +mam_tsfp[11] + +mam_tsfp[10],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3] + +mam_tsfp[2],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3] + +mam_tsfp[2] + +mam_tsfp[1],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3] + +mam_tsfp[2] + +(mam_tsfp[1]) + +mam_tsfp[0]]
+//            data: mam_tsfp.reverse()
         }]
 
     };
