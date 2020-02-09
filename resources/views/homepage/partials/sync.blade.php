@@ -20,6 +20,7 @@
                 
                 <p>Volunteer data sync : <span class="volunteers_sync_count">{{ $volunteers_sync_count }}</span></p>
                 <p>Community sections data sync : <span class="community_sessions_sync_count">{{ $community_sessions_sync_count }}</span></p>
+                <p>Community sections womens data sync : <span class="community_sessions_womens_sync_count">{{ $community_sessions_womens_sync_count }}</span></p>
                 <p>Outreach supervisor data sync : <span class="outreach_supervisors_sync_count">{{ $outreach_supervisors_sync_count }}</span></p>
                 <p>Outreach monthly report data sync : <span class="outreach_monthly_reports_sync_count">{{ $outreach_monthly_reports_sync_count }}</span></p>
 			</small>
@@ -170,12 +171,32 @@
                 update_progress_bar();
 
                 if(res.has_more == true) {
-                    sync_pregnant_women_followup();
+                    sync_community_sessions();
+                } else {
+                    sync_community_sessions_womens();
+                }
+            }, error: function (err) {
+                $('.community_sessions_sync_count').html('Try again.');
+                $('#btn-sync-now').show();
+            }
+        });
+    }
+
+    function sync_community_sessions_womens() {
+        $.ajax({
+            type: 'get',
+            url: '/sync/community-sessions',
+            success: function (res) {
+                $('.community_sessions_womens_sync_count').html(res.sync_left);
+                update_progress_bar();
+
+                if(res.has_more == true) {
+                    sync_community_sessions_womens();
                 } else {
                     sync_outreach_supervisors();
                 }
             }, error: function (err) {
-                $('.community_sessions_sync_count').html('Try again.');
+                $('.community_sessions_womens_sync_count').html('Try again.');
                 $('#btn-sync-now').show();
             }
         });
@@ -190,7 +211,7 @@
                 update_progress_bar();
 
                 if(res.has_more == true) {
-                    sync_pregnant_women_followup();
+                    sync_outreach_supervisors();
                 } else {
                     sync_outreach_monthly_reports();
                 }
@@ -210,7 +231,7 @@
                 update_progress_bar();
 
                 if(res.has_more == true) {
-                    sync_pregnant_women_followup();
+                    sync_outreach_monthly_reports();
                 } else {
                     $('#syncing-msg').html('All data synced.');
                     $('#btn-sync-now').show();
@@ -230,10 +251,11 @@
     
     var volunteers_sync_count = $('.volunteers_sync_count').html();
     var community_sessions_sync_count = $('.community_sessions_sync_count').html();
+    var community_sessions_womens_sync_count = $('.community_sessions_womens_sync_count').html();
     var outreach_supervisors_sync_count = $('.outreach_supervisors_sync_count').html();
     var outreach_monthly_reports_sync_count = $('.outreach_monthly_reports_sync_count').html();
 
-	var main_total_count = parseInt(children_sync_count) + parseInt(facility_followup_sync_count) + parseInt(iycf_followup_sync_count) + parseInt(pregnant_women_sync_count) + parseInt(pregnant_women_followup_sync_count) + parseInt(volunteers_sync_count) + parseInt(community_sessions_sync_count) + parseInt(outreach_supervisors_sync_count) + parseInt(outreach_monthly_reports_sync_count);
+	var main_total_count = parseInt(children_sync_count) + parseInt(facility_followup_sync_count) + parseInt(iycf_followup_sync_count) + parseInt(pregnant_women_sync_count) + parseInt(pregnant_women_followup_sync_count) + parseInt(volunteers_sync_count) + parseInt(community_sessions_sync_count) + parseInt(community_sessions_womens_sync_count) + parseInt(outreach_supervisors_sync_count) + parseInt(outreach_monthly_reports_sync_count);
 
 	function update_progress_bar() {
 		var children_sync_count = $('.children_sync_count').html();
@@ -243,10 +265,11 @@
 		var pregnant_women_followup_sync_count = $('.pregnant_women_followup_sync_count').html();
         var volunteers_sync_count = $('.volunteers_sync_count').html();
         var community_sessions_sync_count = $('.community_sessions_sync_count').html();
+        var community_sessions_womens_sync_count = $('.community_sessions_womens_sync_count').html();
         var outreach_supervisors_sync_count = $('.outreach_supervisors_sync_count').html();
         var outreach_monthly_reports_sync_count = $('.outreach_monthly_reports_sync_count').html();
 
-		var total_count = parseInt(children_sync_count) + parseInt(facility_followup_sync_count) + parseInt(iycf_followup_sync_count) + parseInt(pregnant_women_sync_count) + parseInt(pregnant_women_followup_sync_count) + parseInt(volunteers_sync_count) + parseInt(community_sessions_sync_count) + parseInt(outreach_supervisors_sync_count) + parseInt(outreach_monthly_reports_sync_count);
+		var total_count = parseInt(children_sync_count) + parseInt(facility_followup_sync_count) + parseInt(iycf_followup_sync_count) + parseInt(pregnant_women_sync_count) + parseInt(pregnant_women_followup_sync_count) + parseInt(volunteers_sync_count) + parseInt(community_sessions_sync_count) + parseInt(community_sessions_womens_sync_count) + parseInt(outreach_supervisors_sync_count) + parseInt(outreach_monthly_reports_sync_count);
 
 		var percentage = (total_count/main_total_count) * 100;
 		var completed_percentage = 100 - parseInt(percentage);
@@ -254,7 +277,7 @@
 		if(main_total_count == 0) {
 			completed_percentage = 100;
 		}
-		console.log(completed_percentage);
+		// console.log(completed_percentage);
 
 		$('.progress-bar').css({'width': completed_percentage + '%'});
 		$('.progress-bar').html(completed_percentage + '%');

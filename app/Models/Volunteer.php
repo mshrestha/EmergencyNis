@@ -28,4 +28,20 @@ class Volunteer extends Model
             'atrisk'=>null, 
     	];
     }
+
+    public function communitySessionWomens() {
+        return $this->hasMany('App\Models\CommunitySessionWomen', 'volunteer_id');
+    }
+
+    public function todaysCommunitySessionWomen($date) {
+        return $this->communitySessionWomens()->where('date', $date)->first() ?: [
+            'screened'=>null, 
+            'referred'=>null, 
+            'inprogram'=>null, 
+            'sam'=>null, 
+            'mam'=>null,
+        ];
+    }
+
+
 }
