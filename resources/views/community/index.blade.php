@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-xs-8 text-right">
 
-                                <h2 class="font-bold">Volunteer <br>Log</h2>
+                                <h2 class="font-bold">Children</h2>
                             </div>
                         </div>
                     </div>
@@ -28,13 +28,26 @@
                                 <i class="fa fa-plus fa-5x"></i>
                             </div>
                             <div class="col-xs-8 text-right">
-                                <h2 class="font-bold">Outreach <br>Supervisor</h2>
+                                <h2 class="font-bold">Pregnant & Lactating</h2>
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
-
+            <div class="col-lg-3">
+                <a href="{{ route('outreach-supervisor.index') }}">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <i class="fa fa-plus fa-5x"></i>
+                            </div>
+                            <div class="col-xs-8 text-right">
+                                <h2 class="font-bold">IYCF</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
           </div>
         </div>
 
@@ -95,7 +108,7 @@
                                       </td>
                                       <td>
                                         {{ html()
-                                          ->number('screened', 
+                                          ->number('screened',
                                             $volunteer->todaysCommunitySession($selected_date)['screened']
                                           )
                                           ->style(['width' => '100px'])
