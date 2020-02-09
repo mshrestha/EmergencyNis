@@ -85,11 +85,12 @@
                                       <th>Block - Subblock</th>
                                       <th>Date</th>
                                       <th>Screened</th>
-                                      <th>Referred</th>
-                                      <th>In Program</th>
+                                      
                                       <th>SAM</th>
                                       <th>MAM</th>
                                       <th>At Risk</th>
+                                      <th>Referred</th>
+                                      <th>In Program</th>
                                       <th width="200">Action</th>
                                   </tr>
                               </thead>
@@ -115,12 +116,7 @@
                                           ->placeholder('Screened')
                                           ->required() }}
                                       </td>
-                                      <td>
-                                        {{ html()->number('referred', $volunteer->todaysCommunitySession($selected_date)['referred'])->style(['width' => '100px'])->placeholder('Referred')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySession($selected_date)['inprogram'])->style(['width' => '100px'])->placeholder('In Program')->required() }}
-                                      </td>
+                                      
                                       <td>
                                         {{ html()->number('sam', $volunteer->todaysCommunitySession($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
                                       </td>
@@ -129,6 +125,12 @@
                                       </td>
                                       <td>
                                         {{ html()->number('atrisk', $volunteer->todaysCommunitySession($selected_date)['atrisk'])->style(['width' => '100px'])->placeholder('At Risk')->required() }}
+                                      </td>
+                                      <td>
+                                        {{ html()->number('referred', $volunteer->todaysCommunitySession($selected_date)['referred'])->style(['width' => '100px'])->placeholder('Referred')->required() }}
+                                      </td>
+                                      <td>
+                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySession($selected_date)['inprogram'])->style(['width' => '100px'])->placeholder('In Program')->required() }}
                                       </td>
                                       <td>
                                         <button class="btn btn-default btn-sm" type="submit" ><i class="fa fa-plus"></i> Submit</button>
