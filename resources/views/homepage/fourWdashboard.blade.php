@@ -60,26 +60,25 @@
             <div class="col-lg-12 border-bottom">
                 <div class="container clearfix">
                     <div class="heading-block center">
-                        <h2>Our Reach</h2>
+                        <h2>Our Reach (2019)</h2>
                         <span>The areas in which we have reached </span>
                     </div>
-
                     <div class="row ">
                         <div class="col-lg-12 border-bottom" style="padding-bottom: 40px">
                             <div class="col-lg-4 bottommargin center">
                                 <canvas id="sam-reached"></canvas>
-                                <div class="team-title"><h4>85% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
+                                <div class="team-title"><h4>100.01% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
                                 </div>
                             </div>
 
                             <div class="col-lg-4 bottommargin center">
                                 <canvas id="mam-reached"></canvas>
-                                <div class="team-title"><h4>41% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
+                                <div class="team-title"><h4>50.50% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
                                 </div>
                             </div>
                             <div class="col-lg-4 bottommargin center">
                                 <canvas id="iycf-reached"></canvas>
-                                <div class="team-title "><h4>48% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
+                                <div class="team-title "><h4>98.95% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
                                 </div>
                             </div>
                         </div>
@@ -365,13 +364,6 @@
 
 
 <script>
-    $('#btn-sync-now').on('click', function () {
-        $(this).hide();
-        $('#syncing-msg').html('Syncing ...');
-        $('#syncing-msg').show();
-
-        sync_children();
-    });
 
     $(document).ready(function () {
 //Line chart Admission trend start
@@ -858,7 +850,7 @@
     var ctx = document.getElementById('sam-reached').getContext('2d');
     data = {
         datasets: [{
-            data: [29716, 5377],
+            data: [24831, 24855],
             backgroundColor: [
                 window.chartColors.red,
                 window.chartColors.orange,
@@ -870,14 +862,12 @@
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: ["Reached", "Not Reached"
-
-        ]
+        labels: ["Target","Reached"]
     };
     var ctx2 = document.getElementById('mam-reached').getContext('2d');
     data2 = {
         datasets: [{
-            data: [42959, 60814],
+            data: [80981, 40892],
             backgroundColor: [
                 window.chartColors.red,
                 window.chartColors.orange,
@@ -886,14 +876,12 @@
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: ["Reached", "Not Reached"
-
-        ]
+        labels: ["Target","Reached"]
     };
     var ctx3 = document.getElementById('iycf-reached').getContext('2d');
     data3 = {
         datasets: [{
-            data: [41328, 44628],
+            data: [55544, 54962],
             backgroundColor: [
                 window.chartColors.red,
                 window.chartColors.orange,
@@ -902,7 +890,7 @@
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: ["Reached", "Not Reached"
+        labels: ["Target", "Reached"
 
         ]
     };

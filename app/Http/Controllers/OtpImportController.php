@@ -156,6 +156,9 @@ class OtpImportController extends Controller
 
     private function open_dashboard_linechart($months)
     {
+//        $total_tsfp=DB::table('tsfp_imports')
+//            ->select(DB::raw('sum(newAdmissionTotal) as TotalAdmission'))->get();
+//            dd($total_tsfp);
         $line_chart['otp'] = DB::table('otp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period as MonthYear'), DB::raw('sum(totalNewEnrolment) as TotalAdmission'))
             ->whereIn('period', $months)
