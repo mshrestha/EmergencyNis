@@ -185,7 +185,7 @@
     function sync_community_sessions_womens() {
         $.ajax({
             type: 'get',
-            url: '/sync/community-sessions',
+            url: '/sync/community-sessions-womens',
             success: function (res) {
                 $('.community_sessions_womens_sync_count').html(res.sync_left);
                 update_progress_bar();
