@@ -6,8 +6,9 @@
         background-color: rgba(255, 255, 255, 1.0);
         height: 95%;
         width: 95%;
-        margin:0 auto;
+        margin: 0 auto;
     }
+
     #tabid {
         width: 0;
         display: block;
@@ -100,6 +101,49 @@
                                     <canvas id="mam-cumulative"></canvas>
                                 </div>
 
+                            </div>
+                        </div>
+                        <div class="col-lg-12 border-bottom" style="padding-top: 20px; padding-bottom: 20px">
+                            <div class="col-lg-6 bottommargin">
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">BSFP Child</div>
+                                    <div class="panel-body">
+
+                                        <h4>
+                                            BSFP 6-59 Months Target - 161413</h4>
+                                        <h4>BSFP 6-59 Months Reached - 165589</h4>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                                 aria-valuenow="102" aria-valuemin="0" aria-valuemax="100"
+                                                 style="width:100%">
+                                                102.59%
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 bottommargin">
+
+                                {{--<div class="team team-list clearfix">--}}
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">Vitamin A Supplementation</div>
+                                    <div class="panel-body">
+                                        <h4>Vitamin A (6-59) Target - 191074</h4>
+                                        <h4>Vitamin A (6-59) Reached- 194966</h4>
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped active " role="progressbar"
+                                                 aria-valuenow="102" aria-valuemin="0" aria-valuemax="100"
+                                                 style="width:100%">
+                                                102.04%
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -862,7 +906,7 @@
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: ["Target","Reached"]
+        labels: ["Target", "Reached"]
     };
     var ctx2 = document.getElementById('mam-reached').getContext('2d');
     data2 = {
@@ -876,7 +920,7 @@
         }],
 
         // These labels appear in the legend and in the tooltips when hovering different arcs
-        labels: ["Target","Reached"]
+        labels: ["Target", "Reached"]
     };
     var ctx3 = document.getElementById('iycf-reached').getContext('2d');
     data3 = {
