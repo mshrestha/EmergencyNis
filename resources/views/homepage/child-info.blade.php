@@ -178,20 +178,6 @@
     </div>
 </div>
 
-{{--<div id="myModal" class="modal" >--}}
-{{--<div class="modal-content">--}}
-    {{--<div class="modal-header">--}}
-        {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
-        {{--<h4 class="modal-title">CanvasJS Chart within Bootstrap Modal</h4>--}}
-    {{--</div>--}}
-    {{--<div class="modal-body">--}}
-        {{--<div id="myModal" style="height: 360px; width: 100%;">--}}
-            {{--<canvas id="gmpChartModal"></canvas>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</div>--}}
-{{--</div>--}}
-
 
 <script>
     var ctx = document.getElementById('childWeight').getContext('2d');
@@ -229,9 +215,10 @@
 <script>
     var ctx = document.getElementById('gmpChart').getContext('2d');
     var actual_weight = JSON.parse('<?php echo json_encode($gmp_chart_weight['weight']); ?>');
+    var radiusW = JSON.parse('<?php echo json_encode($gmp_chart_weight['radiusW']); ?>');
     var child_sex = JSON.parse('<?php echo json_encode($gmp_chart_weight['sex']); ?>');
     var child_info = JSON.parse('<?php echo json_encode($gmp_chart_weight['child_info']); ?>');
-    //    console.log(child_sex);
+//        console.log(radiusW);
     if (child_sex =='male') {
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -353,7 +340,7 @@
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '00'],
+                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
                 datasets: [
                     {
                         label: 'Child Weight',
@@ -475,13 +462,25 @@
             data: {
                 labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
                 datasets: [
+//                    {
+//                        label: 'Child Weight',
+//                        data: actual_weight,
+//                        backgroundColor: ['rgba(255, 99, 132, 1)'],
+//                        borderColor: ['rgba(255, 99, 132, 1)'],
+//                        borderWidth: 2,
+//                        fill: false,
+//                    },
                     {
                         label: 'Child Weight',
                         data: actual_weight,
-                        backgroundColor: ['rgba(255, 99, 132, 1)'],
-                        borderColor: ['rgba(255, 99, 132, 1)'],
-                        borderWidth: 2,
+                        type: 'line',
+                        pointBackgroundColor: 'black',
+                        pointRadius: radiusW,
+                        borderColor:'black',
+//                        pointRadius: 5,
                         fill: false,
+                        showLine: false, //<- set this
+                        order: 1
                     },
                     {
                         label: '-3Z',
@@ -566,7 +565,8 @@
                             'rgba(55, 59, 64, .2)'
                         ],
                         borderWidth: 1
-                    }]
+                    }],
+
             },
             options: {
                 responsive: true,
@@ -585,7 +585,7 @@
                 },
                 elements: {
                     point: {
-                        radius: 1
+                        radius: 0
                     }
                 }
             }
@@ -594,15 +594,19 @@
         var myChartModal = new Chart(ctx_modal, {
             type: 'line',
             data: {
-                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '00'],
+                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
                 datasets: [
                     {
                         label: 'Child Weight',
                         data: actual_weight,
-                        backgroundColor: ['rgba(255, 99, 132, 1)'],
-                        borderColor: ['rgba(255, 99, 132, 1)'],
-                        borderWidth: 2,
+                        type: 'line',
+                        pointBackgroundColor: 'black',
+                        pointRadius: radiusW,
+                        borderColor:'black',
+//                        pointRadius: 5,
                         fill: false,
+                        showLine: false, //<- set this
+                        order: 1
                     },{
                         label: '-3Z',
                         data: [2, 2.6, 3.4, 4, 4.4, 4.8, 5.1, 5.4, 5.6, 5.8, 6, 6.1, 6.25, 6.5, 6.6, 6.8, 6.9, 7, 7.2, 7.4, 7.5, 7.6, 7.8, 8, 8.1,
@@ -708,7 +712,7 @@
                 },
                 elements: {
                     point: {
-                        radius: 1
+                        radius: 0
                     }
                 }
             }
@@ -733,8 +737,6 @@
             modal.style.display = 'none';
         }
     }
-
-
-
+    
 </script>
 

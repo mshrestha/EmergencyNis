@@ -764,12 +764,14 @@ class HomeController extends Controller
 
         $gmp['weight']= [];
         $gmp['height']= [];
+        $gmp['radiusW']= [];
+        $gmp['radiusH']= [];
         for ($i = 0; $i < count($months); $i++) {
             if (in_array($months[$i], $gmpAge)) {
                 $ii = array_search($months[$i], $gmpAge);
                 $gmp['weight'][] = $gmpWeight[$ii];
             } else
-                $gmp['weight'][] = 0;
+            $gmp['weight'][] = 0;
         }
         for ($j = 0; $j < count($months); $j++) {
             if (in_array($months[$j], $gmpAge)) {
@@ -778,9 +780,27 @@ class HomeController extends Controller
             } else
                 $gmp['height'][] = 0;
         }
+
+        for ($r = 0; $r < count($gmp['weight']); $r++) {
+            if ($gmp['weight'][$r]>0) {
+                $gmp['radiusW'][] = 5;
+            } else
+                $gmp['radiusW'][] = 0;
+        }
+        for ($p = 0; $p < count($gmp['height']); $p++) {
+            if ($gmp['height'][$p]>0) {
+                $gmp['radiusH'][] = 5;
+            } else
+                $gmp['radiusH'][] = 0;
+        }
+//dd($gmp);
         return $gmp;
 //        dd($gmp);
 //        return view('test',compact('gmp','months'));
+    }
+
+    public function test(){
+        return view('test');
     }
 
 
