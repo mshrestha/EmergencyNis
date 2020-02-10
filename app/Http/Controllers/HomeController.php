@@ -734,8 +734,10 @@ class HomeController extends Controller
             $dob = $created_at->modify("-".$children->age.' months');
         } else
             $dob = new DateTime($children->date_of_birth);
+//        dd($dob);
         $gmp['sex']=$children->sex;
         $gmp['child_info']='Name: '.$children->children_name.', Sex: '.$children->sex.', ID: '.$children->sync_id.', MNR: '.$children->mnr_no.', Facility: '.$children->facility->facility_id;
+//        dd($gmp['child_info']);
         $age=[];
         $weight=[];
         $height=[];
@@ -744,10 +746,11 @@ class HomeController extends Controller
 // calculate child age as month based on followup date
             $age[] = $diff->format('%m') + 12 * $diff->format('%y');
 // get child weight based on followup date
-            $weight[] = ($c_followup[$i]->weight==null)? $c_followup[$i-1]->weight : $c_followup[$i]->weight;
+            $weight[] = ($c_followup[$i]->weight==null)? 0 : $c_followup[$i]->weight;
 // get child height based on followup date
-            $height[] = ($c_followup[$i]->height==null)? $c_followup[$i-1]->height : $c_followup[$i]->height;
+            $height[] = ($c_followup[$i]->height==null)? 0 : $c_followup[$i]->height;
         }
+//        dd($height);
 //only unique month count and get the array key
         $age_key=array_values(array_flip($age));
 //get age, weight and height based on unique age array
@@ -793,7 +796,6 @@ class HomeController extends Controller
             } else
                 $gmp['radiusH'][] = 0;
         }
-//dd($gmp);
         return $gmp;
 //        dd($gmp);
 //        return view('test',compact('gmp','months'));
