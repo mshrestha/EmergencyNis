@@ -228,9 +228,9 @@ class HomeController extends Controller
         }
         $chart_weight = array_column($facility_followups, 'weight');
 
-        $gmp_chart_weight = $this->gmp_weight_chart($child->sync_id);
+        $gmp_chart = $this->gmp_chart($child->sync_id);
 
-        return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight','gmp_chart_weight'))->render();
+        return view('homepage.child-info', compact('child', 'followups', 'chart_date', 'chart_weight','gmp_chart'))->render();
     }
 
     public function wfhCalculation(Request $request)
@@ -720,7 +720,7 @@ class HomeController extends Controller
         return $rate;
     }
 
-    private function gmp_weight_chart($child_id)
+    private function gmp_chart($child_id)
     {
 //        $cid = '1013132';
 //        $cid = '1013117';

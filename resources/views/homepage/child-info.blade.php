@@ -34,12 +34,14 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button id='zoombtn' class='btn btn-info pull-right'>
+        <button id='zoombtnW' class='btn btn-info '>
             GMP-Weight <i class="fa fa-bar-chart"></i>
         </button>
-
-        <canvas  class="hidden" id="gmpChart" ></canvas>
-
+        <canvas  class="hidden" id="gmpWChart" ></canvas>
+        <button id='zoombtnH' class='btn btn-success '>
+            GMP-Height <i class="fa fa-bar-chart"></i>
+        </button>
+        <canvas  class="hidden" id="gmpHChart" ></canvas>
     </div>
 </div>
 <div class="row">
@@ -121,6 +123,9 @@
                                 @if(isset($followup['weight']))
                                     <strong>Weight: </strong> {{ $followup['weight'] }} kg <br />
                                 @endif
+                                @if(isset($followup['height']))
+                                    <strong>Height: </strong> {{ $followup['height'] }} cm <br />
+                                @endif
 
                                 @if(isset($followup['wfh_z_score']))
                                     <strong>Z-score: </strong> {{ $followup['wfh_z_score'] }} <br />
@@ -171,10 +176,16 @@
    {!! QrCode::size(200)->generate(route('facility-followup.show', $child->id)) !!}
 </div>
 
-<div id="myModal" class="modal" >
+<div id="gmpWModal" class="modal" >
     <div class="modalContent" style="height: 85%; width: 85%; margin:0 auto;">
-        <span class="close"> &times; </span>
-        <canvas id="gmpChartModal"></canvas>
+        <span class="close gmpWclose"> &times; </span>
+        <canvas id="gmpWChartModal"></canvas>
+    </div>
+</div>
+<div id="gmpHModal" class="modal" >
+    <div class="modalContent" style="height: 85%; width: 85%; margin:0 auto;">
+        <span class="close gmpHclose"> &times; </span>
+        <canvas id="gmpHChartModal"></canvas>
     </div>
 </div>
 
@@ -213,16 +224,21 @@
 </script>
 
 <script>
-    var ctx = document.getElementById('gmpChart').getContext('2d');
-    var actual_weight = JSON.parse('<?php echo json_encode($gmp_chart_weight['weight']); ?>');
-    var radiusW = JSON.parse('<?php echo json_encode($gmp_chart_weight['radiusW']); ?>');
-    var child_sex = JSON.parse('<?php echo json_encode($gmp_chart_weight['sex']); ?>');
-    var child_info = JSON.parse('<?php echo json_encode($gmp_chart_weight['child_info']); ?>');
-//        console.log(radiusW);
+    var ctx = document.getElementById('gmpWChart').getContext('2d');
+    var actual_weight = JSON.parse('<?php echo json_encode($gmp_chart['weight']); ?>');
+    var actual_height = JSON.parse('<?php echo json_encode($gmp_chart['height']); ?>');
+    var radiusW = JSON.parse('<?php echo json_encode($gmp_chart['radiusW']); ?>');
+    var radiusH = JSON.parse('<?php echo json_encode($gmp_chart['radiusH']); ?>');
+    var child_sex = JSON.parse('<?php echo json_encode($gmp_chart['sex']); ?>');
+    var child_info = JSON.parse('<?php echo json_encode($gmp_chart['child_info']); ?>');
+        console.log(actual_height);
+        console.log(radiusH);
 
-    var ctx_modal = document.getElementById('gmpChartModal').getContext('2d');
+//GMP Weight Start
+    var ctx_gmpW = document.getElementById('gmpWChartModal').getContext('2d');
+    var ctx_gmpH = document.getElementById('gmpHChartModal').getContext('2d');
     if (child_sex =='male') {
-        var myChartModal = new Chart(ctx_modal, {
+        var gmpWModal = new Chart(ctx_gmpW, {
             type: 'line',
             data: {
                 labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
@@ -347,8 +363,134 @@
                 }
             }
         });
+        var gmpHModal = new Chart(ctx_gmpH, {
+            type: 'line',
+            data: {
+                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
+                datasets: [
+                    {
+                        label: 'Child Height',
+                        data: actual_height,
+                        type: 'line',
+                        pointBackgroundColor: 'black',
+                        borderColor:'black',
+                        pointRadius: radiusH,
+//                        pointRadius: 5,
+                        fill: false,
+                        showLine: false,
+                        order: 1
+                    },
+
+                    {
+                        label: '-3Z',
+                        data: [45,49,52,55,57,60,62,64,65,66,67,68,69,70,71,72,73,74,75,75,76,77,78,78.5,79,79,80,80,80.5,81,
+                            81.25,81.5,82,82.5,83,83.5,84,84.5,85,85.5,86,86.5,87,87,88,88.5,89,89,90,91,91,92,92,93,93,94,94,95,95,96,96],
+                        backgroundColor: [
+                            'rgba(230, 126, 34, .5)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '-2Z',
+                        data: [46,51,54,57,59,62,64,65,66,67,68,70,71,72,73,74,75,76,77,78,78.5,79,80,81,82,83,83.5,84,84.5,85,
+                            85.5,86,86.5,87,87.5,88,89,90,90.5,91,92,92.5,93,93.5,94,94.5,95,95.5,96,96.5,97,97.5,97.75,98.25,98.5,99,99.25,99.5,100,100.5,101],
+                        backgroundColor: [
+                            'rgba(255, 255, 126, 1)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '-1Z',
+                        data: [48.5,53,57,59,62,64,65,67,68.5,70,71,72.5,74,75,76,77,78,79,80,81,82,83,83.5,84,85,85.5,86,87,88,
+                            89,89.5,90,90.5,91,91.5,92,93,94,94.5,95,95.5,96,96.5,97,97.5,98,98.5,99,99.5,100,100.5,101,102,102,103,103,104,104.25,104.5,105,105.5],
+                        backgroundColor: [
+                            'rgba(240, 255, 0, 1)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Medium',
+                        data: [50,54,59,61,64,66,67,69,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,91.5,
+                            92,93,94,93.5,94,95,96,96.5,97,98,99,99.5,100,101,101.5,102,102.5,103,104,104.5,105,105.5,106,106.5,107,107.5,108,108.5,109,109.5,110],
+                        backgroundColor: [
+                            'rgba(77, 175, 124, 1)'
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '+1Z',
+                        data: [52,57,60,64,66,68,70,71.5,73,74,75.5,77,78,79,81,82,83,84,85,86,87,88,89,90,91,92,93,93.5,94,95,95.5,
+                            96,96.5,97,98,99,99.5,100,100.5,101,102,103,104,104.5,105,105.5,106,106.25,106.5,107,107.5,108,108.5,109,109.5,110,111,111.5,112,113,114],
+                        backgroundColor: [
+                            'rgba(77, 175, 124, .8)'
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '+2Z',
+                        data: [54,59,62,66,68,70,72,74,75,77,78,79,80,82,83,84.5,86,87,88,89,90,91,92,93,94,95,96,97,97.5,98,
+                            99,100,100.5,101,102,103,104,104.5,105,105.5,106,106.5,107,108,108.5,109,110,110.5,111,112,113,113.5,114,114.5,115,115.5,116,117,118,118.5,119],
+                        backgroundColor: [
+                            'rgba(77, 175, 124, .5)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '+3Z',
+                        data: [55,60,65,67,70,71,73,75,77,78,80,81,82,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,
+                            102,103,103.5,104,105,106,107,108,108.5,109,110,111,111.5,112,113,114,114.5,115,115.5,116,117,118,118.5,119,120,120.5,121,122,123,124],
+                        backgroundColor: [
+                            'rgba(236, 236, 236, .5)'
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    }]
+
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                bezierCurve: false,
+                title: {
+                    display: true,
+                    text: child_info
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
+        });
     } else {
-        var myChartModal = new Chart(ctx_modal, {
+        var gmpWModal = new Chart(ctx_gmpW, {
             type: 'line',
             data: {
                 labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
@@ -474,24 +616,168 @@
                 }
             }
         });
+        var gmpHModal = new Chart(ctx_gmpH, {
+            type: 'line',
+            data: {
+                labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '55', '56', '57', '58', '59', '60'],
+                datasets: [
+                    {
+                        label: 'Child Height',
+                        data: actual_height,
+                        type: 'line',
+                        pointBackgroundColor: 'black',
+                        borderColor:'black',
+                        pointRadius: radiusH,
+//                        pointRadius: 5,
+                        fill: false,
+                        showLine: false,
+                        order: 1
+                    },
 
+                    {
+                        label: '-3Z',
+                        data: [45,49,52,55,57,60,62,64,65,66,67,68,69,70,71,72,73,74,75,75,76,77,78,78.5,79,79,80,80,80.5,81,
+                            81.25,81.5,82,82.5,83,83.5,84,84.5,85,85.5,86,86.5,87,87,88,88.5,89,89,90,91,91,92,92,93,93,94,94,95,95,96,96],
+                        backgroundColor: [
+                            'rgba(230, 126, 34, .5)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '-2Z',
+                        data: [46,51,54,57,59,62,64,65,66,67,68,70,71,72,73,74,75,76,77,78,78.5,79,80,81,82,83,83.5,84,84.5,85,
+                            85.5,86,86.5,87,87.5,88,89,90,90.5,91,92,92.5,93,93.5,94,94.5,95,95.5,96,96.5,97,97.5,97.75,98.25,98.5,99,99.25,99.5,100,100.5,101],
+                        backgroundColor: [
+                            'rgba(255, 255, 126, 1)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '-1Z',
+                        data: [48.5,53,57,59,62,64,65,67,68.5,70,71,72.5,74,75,76,77,78,79,80,81,82,83,83.5,84,85,85.5,86,87,88,
+                            89,89.5,90,90.5,91,91.5,92,93,94,94.5,95,95.5,96,96.5,97,97.5,98,98.5,99,99.5,100,100.5,101,102,102,103,103,104,104.25,104.5,105,105.5],
+                        backgroundColor: [
+                            'rgba(240, 255, 0, 1)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Medium',
+                        data: [50,54,59,61,64,66,67,69,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,91.5,
+                            92,93,94,93.5,94,95,96,96.5,97,98,99,99.5,100,101,101.5,102,102.5,103,104,104.5,105,105.5,106,106.5,107,107.5,108,108.5,109,109.5,110],
+                        backgroundColor: [
+                            'rgba(77, 175, 124, 1)'
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '+1Z',
+                        data: [52,57,60,64,66,68,70,71.5,73,74,75.5,77,78,79,81,82,83,84,85,86,87,88,89,90,91,92,93,93.5,94,95,95.5,
+                            96,96.5,97,98,99,99.5,100,100.5,101,102,103,104,104.5,105,105.5,106,106.25,106.5,107,107.5,108,108.5,109,109.5,110,111,111.5,112,113,114],
+                        backgroundColor: [
+                            'rgba(77, 175, 124, .8)'
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '+2Z',
+                        data: [54,59,62,66,68,70,72,74,75,77,78,79,80,82,83,84.5,86,87,88,89,90,91,92,93,94,95,96,97,97.5,98,
+                            99,100,100.5,101,102,103,104,104.5,105,105.5,106,106.5,107,108,108.5,109,110,110.5,111,112,113,113.5,114,114.5,115,115.5,116,117,118,118.5,119],
+                        backgroundColor: [
+                            'rgba(77, 175, 124, .5)',
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '+3Z',
+                        data: [55,60,65,67,70,71,73,75,77,78,80,81,82,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,
+                            102,103,103.5,104,105,106,107,108,108.5,109,110,111,111.5,112,113,114,114.5,115,115.5,116,117,118,118.5,119,120,120.5,121,122,123,124],
+                        backgroundColor: [
+                            'rgba(236, 236, 236, .5)'
+                        ],
+                        borderColor: [
+                            'rgba(55, 59, 64, .2)'
+                        ],
+                        borderWidth: 1
+                    }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                bezierCurve: false,
+                title: {
+                    display: true,
+                    text: child_info
+                },
+
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                elements: {
+                    point: {
+                        radius: 0
+                    }
+                }
+            }
+        });
     }
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("zoombtn");
-    var span = document.getElementsByClassName("close")[0];
+    var modalW = document.getElementById("gmpWModal");
+    var btn = document.getElementById("zoombtnW");
+    var span = document.getElementsByClassName("gmpWclose")[0];
 
     btn.onclick = function () {
-        modal.style.display = 'block';
+        modalW.style.display = 'block';
         renderChart();
     }
-
     span.onclick = function () {
-        modal.style.display = 'none';
+        modalW.style.display = 'none';
     }
-
     window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = 'none';
+        if (event.target == modalW) {
+            modalW.style.display = 'none';
+        }
+    }
+//GMP Weight End
+//GMP Height Start
+//    if (child_sex =='male') {
+//    } else {
+//    }
+    var modalH = document.getElementById("gmpHModal");
+    var btn = document.getElementById("zoombtnH");
+    var span = document.getElementsByClassName("gmpHclose")[0];
+
+    btn.onclick = function () {
+        modalH.style.display = 'block';
+        renderChart();
+    }
+    span.onclick = function () {
+        modalH.style.display = 'none';
+    }
+    window.onclick = function (event) {
+        if (event.target == modalH) {
+            modalH.style.display = 'none';
         }
     }
 
