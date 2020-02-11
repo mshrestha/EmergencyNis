@@ -71,29 +71,33 @@
 
 <script>
     {{--Autometic Z-Score calculation--}}
-$(document).on('focus', '.zscore', function () {
-        var child_weight = document.getElementById('child_weight').value;
-        var child_height = document.getElementById('child_height').value;
-//        console.log(child_weight);
-        var child_sex = JSON.parse('<?php echo json_encode($child_sex); ?>');
-//        console.log(child_sex);
-//        var child_height = $(this).val();
-//        console.log(child_height)
-        var $this = $(this);
-        var abase_url = '{{url('/')}}';
-        var url = abase_url + '/wfh_calculation';
-        var sendData = {
-            childHeight: child_height,
-            childWeight: child_weight,
-            childSex: child_sex,
-        _token: $("input[name='_token']").val()
-        };
-        $.get(url, sendData, function (data) {
-            console.log(data)
-            $("#zscore").val(data.zscore);
-        }, 'json')
+    $(document).ready(function() {
+        $('#child_weight').keyup(function() {
+            recalc();
+        });
+        $('#child_height').keyup(function() {
+            recalc();
+        });
+        function recalc() {
+            var child_weight = $("#child_weight").val();
+            var child_height = $("#child_height").val();
+            console.log(child_weight)
+            var abase_url = '{{url('/')}}';
+            var url = abase_url + '/wfh_calculation';
+            var sendData = {
+                childHeight: child_height,
+                childWeight: child_weight,
+                childSex: child_sex,
+                _token: $("input[name='_token']").val()
+            };
+            $.get(url, sendData, function (data) {
+                $("#zscore").val(data.zscore);
+            }, 'json')
+        }
     });
-    {{--Autometic nutritionStatusCalculation calculation--}}
+
+
+
 
 </script>
 
