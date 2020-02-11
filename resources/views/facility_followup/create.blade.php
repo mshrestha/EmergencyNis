@@ -69,14 +69,15 @@
 
 
 
-{{--Autometic Z-Score calculation--}}
 <script>
-    $(document).on('change', '.child_height', function () {
+    {{--Autometic Z-Score calculation--}}
+$(document).on('focus', '.zscore', function () {
         var child_weight = document.getElementById('child_weight').value;
+        var child_height = document.getElementById('child_height').value;
 //        console.log(child_weight);
         var child_sex = JSON.parse('<?php echo json_encode($child_sex); ?>');
 //        console.log(child_sex);
-        var child_height = $(this).val();
+//        var child_height = $(this).val();
 //        console.log(child_height)
         var $this = $(this);
         var abase_url = '{{url('/')}}';
@@ -92,6 +93,7 @@
             $("#zscore").val(data.zscore);
         }, 'json')
     });
+    {{--Autometic nutritionStatusCalculation calculation--}}
 
 </script>
 

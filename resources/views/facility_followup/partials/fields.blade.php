@@ -74,7 +74,7 @@
 						<div class="form-group row">
 							<div class="col-md-5">
 								<label for="">WFH Z Score (SD)</label>
-								<input type="text" name="wfh_z_score" class="form-control " placeholder="WFH Z Score" id="zscore"
+								<input type="text" name="wfh_z_score" class="form-control zscore" placeholder="WFH Z Score" id="zscore"
 									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
 							</div>
                             <div class="col-md-5">
