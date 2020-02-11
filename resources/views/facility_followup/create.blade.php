@@ -129,10 +129,10 @@
                 _token: $("input[name='_token']").val()
             };
             $.get(url, sendData, function (data) {
-                console.log(data)
+//                console.log(data)
+                var inputColor = document.getElementById("nutritionstatus");
                 $("#nutritionstatus").val(data.nutritionstatus)
-//                    .style.backgroundColor = "data.nutritionstatusColor"
-                ;
+                    .css('background-color', data.nutritionstatusColor);
             }, 'json')
         }
     });

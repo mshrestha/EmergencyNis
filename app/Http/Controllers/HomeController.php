@@ -377,11 +377,11 @@ class HomeController extends Controller
         }
         elseif ($result== '< - 2SD' || $result== '> - 3SD' || $result== '= - 3SD' || $input_muac >= 11.5 && $input_muac <= 12.4) {
             $nStatus = 'MAM';
-            $nStatusColor = 'blue';
+            $nStatusColor = 'yellow';
         }
     else {
         $nStatus = 'Normal';
-        $nStatusColor = 'Green';
+        $nStatusColor = '#00ff00';
     }
 
         return response()->json(['nutritionstatus' => $nStatus,'nutritionstatusColor' => $nStatusColor]);
