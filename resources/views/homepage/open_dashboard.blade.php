@@ -4,20 +4,11 @@
     .modal {
         border: 1px solid black;
         background-color: rgba(255, 255, 255, 1.0);
+        height: 95%;
+        width: 95%;
+        margin: 0 auto;
     }
 
-    #tabid {
-        width: 0;
-        display: block;
-        visibility: hidden;
-        height: 0;
-    }
-
-    #tabid.active {
-        width: 100%;
-        height: 100%;
-        visibility: visible;
-    }
 </style>
 @endpush
 @section('content')
@@ -98,7 +89,7 @@
         </div>
 
         <div id="myModal" class="modal">
-            <div class="modalContent">
+            <div class="modalContent" style="height: 85%; width: 85%; margin:0 auto;">
                 <span class="close"> &times; </span>
                 <canvas id="childAdmissionModal"></canvas>
             </div>
@@ -209,6 +200,7 @@
     </div>
 
 
+
     <div class="row border-bottom">
         <h2>OTP New Admission
             <small> for {{$month_year}}</small>
@@ -285,7 +277,6 @@
 
         </div>
     </div>
-
 
 @endsection
 

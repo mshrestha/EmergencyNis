@@ -103,6 +103,10 @@
                           <a href="{{ route('importHome') }}" ><i class="fa fa-upload"></i> <span
                                       class="nav-label">Import Report</span></a>
                       </li>
+                      <li class="{{ request()->segment(1) == 'FourW' ? 'active' : '' }}">
+                          <a href="{{ route('fourW') }}" ><i class="fa fa-upload"></i> <span
+                                      class="nav-label">4W</span></a>
+                      </li>
 
 
                   @endif
@@ -151,7 +155,6 @@
 <script src="{{ asset('custom/bootstrap_datetime_picker/moment.min.js') }}"></script>
 <script src="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.js') }}"></script>
 <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-
 
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/inspinia.js')}}"></script>

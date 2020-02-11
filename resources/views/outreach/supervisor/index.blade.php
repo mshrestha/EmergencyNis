@@ -21,7 +21,7 @@
                 </a>
             </div>
             <div class="col-lg-3">
-                <a href="{{ route('outreach-supervisor.index') }}">
+                <a href="{{ route('community-session-women.index') }}">
                     <div class="widget style1 lazur-bg">
                         <div class="row">
                             <div class="col-xs-4">
