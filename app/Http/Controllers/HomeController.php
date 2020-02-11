@@ -268,7 +268,7 @@ class HomeController extends Controller
         $input_weight = $request->childWeight;
         $input_height = $request->childHeight;
 
-        if ($input_height < 65 || $input_height >120)
+        if ($input_height < 65 || $input_height >120 )
             $result = 'N/A';
         else {
             if ($request->childSex == 'female')

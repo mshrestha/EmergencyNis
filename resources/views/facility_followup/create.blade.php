@@ -81,7 +81,7 @@
         function recalc() {
             var child_weight = $("#child_weight").val();
             var child_height = $("#child_height").val();
-            console.log(child_weight)
+//            console.log(child_weight)
             var abase_url = '{{url('/')}}';
             var url = abase_url + '/wfh_calculation';
             var sendData = {
@@ -95,6 +95,31 @@
             }, 'json')
         }
     });
+    {{--Autometic Nutrition Status calculation--}}
+    {{--$(document).ready(function() {--}}
+        {{--$('#child_weight').keyup(function() {--}}
+            {{--recalc();--}}
+        {{--});--}}
+        {{--$('#child_height').keyup(function() {--}}
+            {{--recalc();--}}
+        {{--});--}}
+        {{--function recalc() {--}}
+            {{--var child_weight = $("#child_weight").val();--}}
+            {{--var child_height = $("#child_height").val();--}}
+{{--//            console.log(child_weight)--}}
+            {{--var abase_url = '{{url('/')}}';--}}
+            {{--var url = abase_url + '/wfh_calculation';--}}
+            {{--var sendData = {--}}
+                {{--childHeight: child_height,--}}
+                {{--childWeight: child_weight,--}}
+                {{--childSex: child_sex,--}}
+                {{--_token: $("input[name='_token']").val()--}}
+            {{--};--}}
+            {{--$.get(url, sendData, function (data) {--}}
+                {{--$("#zscore").val(data.zscore);--}}
+            {{--}, 'json')--}}
+        {{--}--}}
+    {{--});--}}
 
 
 
