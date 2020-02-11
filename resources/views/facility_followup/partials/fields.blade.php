@@ -62,24 +62,24 @@
                             </div>
 							<div class="col-md-3">
 								<label for="">Weight (kg)</label>
-								<input type="number" name="weight" class="form-control child_weight" placeholder="Weight (kg)" id="child_weight"
+								<input type="number" name="weight" class="form-control" placeholder="Weight (kg)" id="child_weight"
 									   value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.1">
 							</div>
 							<div class="col-md-3">
 								<label for="">Height (cm)</label>
-								<input type="number" name="height" class="form-control child_height" placeholder="Height (cm)" id="child_height"
+								<input type="number" name="height" class="form-control" placeholder="Height (cm)" id="child_height"
 									   value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.5">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-md-5">
 								<label for="">WFH Z Score (SD)</label>
-								<input type="text" name="wfh_z_score" class="form-control " placeholder="WFH Z Score" id="zscore"
+								<input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" id="zscore"
 									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
 							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
-                                <select name="oedema" class="form-control">
+                                <select name="oedema" class="form-control" id="oedema">
                                     <option value="0" {{ (isset($facility_followup) && $facility_followup->oedema == '0') ? ' selected' : '' }}>0</option>
                                     <option value="+" {{ (isset($facility_followup) && $facility_followup->oedema == '+') ? ' selected' : '' }}>+</option>
                                     <option value="++" {{ (isset($facility_followup) && $facility_followup->oedema == '++') ? ' selected' : '' }}>++</option>

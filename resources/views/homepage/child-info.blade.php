@@ -231,8 +231,8 @@
     var radiusH = JSON.parse('<?php echo json_encode($gmp_chart['radiusH']); ?>');
     var child_sex = JSON.parse('<?php echo json_encode($gmp_chart['sex']); ?>');
     var child_info = JSON.parse('<?php echo json_encode($gmp_chart['child_info']); ?>');
-        console.log(actual_height);
-        console.log(radiusH);
+//        console.log(actual_height);
+//        console.log(radiusH);
 
 //GMP Weight Start
     var ctx_gmpW = document.getElementById('gmpWChartModal').getContext('2d');

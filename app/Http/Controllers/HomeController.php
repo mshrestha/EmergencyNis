@@ -266,47 +266,53 @@ class HomeController extends Controller
     public function wfhCalculation(Request $request)
     {
         $input_weight = $request->childWeight;
-        if ($request->childSex == 'female')
-            $wfh = DB::table('wfh_girls_2_5_zscores')->where('Height', $request->childHeight)->first();
-        else
-            $wfh = DB::table('wfh_boys_2_5_zscores')->where('Height', $request->childHeight)->first();
+        $input_height = $request->childHeight;
 
-        if ($input_weight == $wfh->SD3n)
-            $result = '= - 3SD';
-        elseif ($input_weight < $wfh->SD3n)
-            $result = '< - 3SD';
-        else
-            if ($input_weight == $wfh->SD2n)
-                $result = '= - 2SD';
-            elseif ($input_weight < $wfh->SD2n)
-                $result = '< - 2SD';
+        if ($input_height < 65 || $input_height >120 )
+            $result = 'N/A';
+        else {
+            if ($request->childSex == 'female')
+                $wfh = DB::table('wfh_girls_2_5_zscores')->where('Height', $request->childHeight)->first();
             else
-                if ($input_weight == $wfh->SD1n)
-                    $result = '= - 1SD';
-                elseif ($input_weight < $wfh->SD1n)
-                    $result = '< - 1SD';
+                $wfh = DB::table('wfh_boys_2_5_zscores')->where('Height', $request->childHeight)->first();
+
+            if ($input_weight == $wfh->SD3n)
+                $result = '= - 3SD';
+            elseif ($input_weight < $wfh->SD3n)
+                $result = '< - 3SD';
+            else
+                if ($input_weight == $wfh->SD2n)
+                    $result = '= - 2SD';
+                elseif ($input_weight < $wfh->SD2n)
+                    $result = '< - 2SD';
                 else
-                    if ($input_weight == $wfh->SD0)
-                        $result = '= 0SD';
-                    elseif ($input_weight < $wfh->SD0)
-                        $result = '< 0SD';
+                    if ($input_weight == $wfh->SD1n)
+                        $result = '= - 1SD';
+                    elseif ($input_weight < $wfh->SD1n)
+                        $result = '< - 1SD';
                     else
-                        if ($input_weight == $wfh->SD1)
-                            $result = '= 1SD';
-                        elseif ($input_weight < $wfh->SD1)
-                            $result = '< 1SD';
+                        if ($input_weight == $wfh->SD0)
+                            $result = '= 0SD';
+                        elseif ($input_weight < $wfh->SD0)
+                            $result = '< 0SD';
                         else
-                            if ($input_weight == $wfh->SD2)
-                                $result = '= 2SD';
-                            elseif ($input_weight < $wfh->SD2)
-                                $result = '< 2SD';
+                            if ($input_weight == $wfh->SD1)
+                                $result = '= 1SD';
+                            elseif ($input_weight < $wfh->SD1)
+                                $result = '< 1SD';
                             else
-                                if ($input_weight == $wfh->SD3)
-                                    $result = '= 3SD';
-                                elseif ($input_weight < $wfh->SD3)
-                                    $result = '< 3SD';
+                                if ($input_weight == $wfh->SD2)
+                                    $result = '= 2SD';
+                                elseif ($input_weight < $wfh->SD2)
+                                    $result = '< 2SD';
                                 else
-                                    $result = '> 3SD';
+                                    if ($input_weight == $wfh->SD3)
+                                        $result = '= 3SD';
+                                    elseif ($input_weight < $wfh->SD3)
+                                        $result = '< 3SD';
+                                    else
+                                        $result = '> 3SD';
+        }
         return response()->json(['zscore' => $result]);
     }
 
