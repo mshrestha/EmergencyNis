@@ -115,7 +115,7 @@
 
             </div><!-- END OF INNER ROW -->
         </div>
-        
+
         <div class="col-lg-3">
             @include('homepage.partials.sync')
         </div>
@@ -222,18 +222,6 @@
 
 <!-- Mapping Script starts here -->
 <script>
-//    mapboxgl.accessToken = 'pk.eyJ1Ijoia2F6aXN0dWRpb3MiLCJhIjoiY2luZnA2bjNhMTIyOXYwa3Z0djlhOXAwdiJ9.Vj88y39TP7LtFJ4uozO_bQ';
-//    var map = new mapboxgl.Map({
-//        container: 'map',
-//        style: 'mapbox://styles/kazistudios/cjl5hbcc36in92sp9uzflvcsf',
-//        zoom: 10,
-//        center: [92.146278, 21.226305]
-//    });
-//    var nav = new mapboxgl.NavigationControl();
-//    map.addControl(nav, 'bottom-left');
-//
-//    map.on('load', function () {
-//    });
 
     setTimeout(function () {
         toastr.options = {
@@ -246,30 +234,8 @@
 
     }, 1300);
 
-    var muac = JSON.parse('<?php echo json_encode($report_month_dashboard['otp_admit_muac']); ?>');
-    var whz = JSON.parse('<?php echo json_encode($report_month_dashboard['otp_admit_whz']); ?>');
-    var both = JSON.parse('<?php echo json_encode($report_month_dashboard['otp_admit_both']); ?>');
 
-    var doughnutData = {
-        labels: ["MUAC", "Z-Score", "Both"],
-        datasets: [{
-            data: [muac, whz, both],
-            backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
-        }]
-    };
 
-    var doughnutOptions = {
-        responsive: true,
-        legend: {
-            display: true,
-
-            labels: {
-                boxWidth: 10
-            }
-        }
-    };
-    var ctx4 = document.getElementById("doughnutChart").getContext("2d");
-    new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
 </script>
 <!-- Mapping script ends here -->
 
