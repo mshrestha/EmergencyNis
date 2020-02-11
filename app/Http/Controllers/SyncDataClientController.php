@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class SyncDataClientController extends Controller
 {
 	// private $sync_url = 'http://localhost:8000';
-	private $sync_url = 'http://ens.kazi270.com';
+	private $sync_url = 'https://ens.kazi270.com';
 
 	public function syncChildrenClient() {
 		return $this->sendDataToServer('App\Models\Child', '/api/sync/save-children');
