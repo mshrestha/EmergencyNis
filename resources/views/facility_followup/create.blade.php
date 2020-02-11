@@ -91,35 +91,51 @@
                 _token: $("input[name='_token']").val()
             };
             $.get(url, sendData, function (data) {
+//                console.log(data)
                 $("#zscore").val(data.zscore);
             }, 'json')
         }
     });
     {{--Autometic Nutrition Status calculation--}}
-    {{--$(document).ready(function() {--}}
-        {{--$('#child_weight').keyup(function() {--}}
-            {{--recalc();--}}
-        {{--});--}}
-        {{--$('#child_height').keyup(function() {--}}
-            {{--recalc();--}}
-        {{--});--}}
-        {{--function recalc() {--}}
-            {{--var child_weight = $("#child_weight").val();--}}
-            {{--var child_height = $("#child_height").val();--}}
-{{--//            console.log(child_weight)--}}
-            {{--var abase_url = '{{url('/')}}';--}}
-            {{--var url = abase_url + '/wfh_calculation';--}}
-            {{--var sendData = {--}}
-                {{--childHeight: child_height,--}}
-                {{--childWeight: child_weight,--}}
-                {{--childSex: child_sex,--}}
-                {{--_token: $("input[name='_token']").val()--}}
-            {{--};--}}
-            {{--$.get(url, sendData, function (data) {--}}
-                {{--$("#zscore").val(data.zscore);--}}
-            {{--}, 'json')--}}
-        {{--}--}}
-    {{--});--}}
+    $(document).ready(function() {
+        $('#child_weight').keyup(function() {
+            re_calc();
+        });
+        $('#child_height').keyup(function() {
+            re_calc();
+        });
+        $('#oedema').change(function() {
+            re_calc();
+        });
+        $('#child_muac').keyup(function() {
+            re_calc();
+        });
+        function re_calc() {
+            var child_weight = $("#child_weight").val();
+            var child_height = $("#child_height").val();
+            var child_oedema = $("#oedema").val();
+            var child_muac = $("#child_muac").val();
+//            console.log(child_muac)
+//            console.log(child_zscore)
+//            console.log(child_oedema)
+            var abase_url = '{{url('/')}}';
+            var url = abase_url + '/nutritionStatusCalculation';
+            var sendData = {
+                childHeight: child_height,
+                childWeight: child_weight,
+                childOedema: child_oedema,
+                childMuac: child_muac,
+                childSex: child_sex,
+                _token: $("input[name='_token']").val()
+            };
+            $.get(url, sendData, function (data) {
+                console.log(data)
+                $("#nutritionstatus").val(data.nutritionstatus)
+//                    .style.backgroundColor = "data.nutritionstatusColor"
+                ;
+            }, 'json')
+        }
+    });
 
 
 

@@ -58,7 +58,8 @@
 						<div class="form-group row">
 							<div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
-                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
+                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" id="child_muac"
+									   value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
                             </div>
 							<div class="col-md-3">
 								<label for="">Weight (kg)</label>
@@ -75,7 +76,7 @@
 							<div class="col-md-5">
 								<label for="">WFH Z Score (SD)</label>
 								<input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" id="zscore"
-									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
+									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" disabled>
 							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
@@ -91,7 +92,7 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control">
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus">
                                     <option value="" >Nutrition Status</option>
 									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
 									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
