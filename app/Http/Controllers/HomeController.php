@@ -70,7 +70,37 @@ class HomeController extends Controller
             $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
+            $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
+            ->where('facility_id', Auth::user()->facility_id)->first();
 
+        if ($previous_month_dashboard == null) {
+            $previous_month_dashboard['otp_admit_23m'] = 0;
+            $previous_month_dashboard['otp_admit_23f'] = 0;
+            $previous_month_dashboard['otp_admit_24m'] = 0;
+            $previous_month_dashboard['otp_admit_24f'] = 0;
+            $previous_month_dashboard['otp_admit_60m'] = 0;
+            $previous_month_dashboard['otp_admit_60f'] = 0;
+            $previous_month_dashboard['otp_admit_male'] = 0;
+            $previous_month_dashboard['otp_admit_female'] = 0;
+            $previous_month_dashboard['otp_admit_others'] = 0;
+            $previous_month_dashboard['otp_admit_muac'] = 0;
+            $previous_month_dashboard['otp_admit_whz'] = 0;
+            $previous_month_dashboard['otp_admit_both'] = 0;
+            $previous_month_dashboard['total_admit'] = 0;
+            $previous_month_dashboard['cure_rate'] = 0;
+            $previous_month_dashboard['death_rate'] = 0;
+            $previous_month_dashboard['default_rate'] = 0;
+            $previous_month_dashboard['nonrespondent_rate'] = 0;
+            $previous_month_dashboard['avg_weight_gain'] = 0;
+            $previous_month_dashboard['avg_length_stay'] = 0;
+            $previous_month_dashboard['otp_mnthend_23m'] = 0;
+            $previous_month_dashboard['otp_mnthend_23f'] = 0;
+            $previous_month_dashboard['otp_mnthend_24m'] = 0;
+            $previous_month_dashboard['otp_mnthend_24f'] = 0;
+            $previous_month_dashboard['otp_mnthend_60m'] = 0;
+            $previous_month_dashboard['otp_mnthend_60f'] = 0;
+
+        }
 
             return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
             ));
