@@ -92,36 +92,37 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control" id="nutritionstatus">
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus" disabled>
                                     <option value="" >Nutrition Status</option>
 									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
 									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
 									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
 
-
 							     </select>
                             </div>
                             <div class="col-md-5">
                                 <label for="">Identification Outcome</label>
-                                <select name="outcome" class="form-control" id="identification-outcome">
-                                    <optgroup label="SAM">
+
+								<select name="outcome" class="form-control" id="identification-outcome">
+                                    <optgroup label="SAM" id="outcome_sam">
                                         <option value="New case" >New case</option>
                                         <option value="Followup visit at OTP" >Followup visit at OTP</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to OTP" >Referred to OTP</option>
 
                                     </optgroup>
-                                    <optgroup label="MAM">
+                                    <optgroup label="MAM" id="outcome_mam">
+										<option value="New Case" >New Case</option>
                                         <option value="OTP follow up visit" >OTP follow up visit</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to TSFP" >Referred to TSFP</option>
-
-                                        <option value="New Case" >New Case</option>
-                                        <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
-                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
-                                        <option value="Referred to TSFP" >Referred to TSFP</option>
+										{{--<optgroup label="New Case">--}}
+                                        {{--<option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>--}}
+                                        {{--<option value="Already admitted at TSFP" >Already admitted at TSFP</option>--}}
+                                        {{--<option value="Referred to TSFP" >Referred to TSFP</option>--}}
                                     </optgroup>
-                                    <optgroup label="normal">
+                                    <optgroup label="NORMAL" id="outcome_normal">
+										<option value="New Case" >New Case</option>
                                         <option value="Already in Program" >Already in program</option>
                                         <option value="" >Referred to BSFP</option>
                                         <option value="" >Follow up visit</option>

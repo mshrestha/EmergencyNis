@@ -26,6 +26,7 @@
             </div> <!-- col -->
         </div> <!-- row -->
     </div> <!-- wrapper -->
+
 @endsection
 
 @push('scripts')
@@ -130,9 +131,31 @@
             };
             $.get(url, sendData, function (data) {
 //                console.log(data)
-                var inputColor = document.getElementById("nutritionstatus");
-                $("#nutritionstatus").val(data.nutritionstatus)
-                    .css('background-color', data.nutritionstatusColor);
+                var ns = data.nutritionstatus;
+//                console.log(ns)
+                    $("#nutritionstatus").val(data.nutritionstatus)
+                        .css('background-color', data.nutritionstatusColor);
+                if(ns=='SAM') {
+                    $("#outcome_mam").hide();
+                    $("#outcome_normal").hide();
+                    $("#outcome_sam").show();
+                }
+                else if(ns=='MAM') {
+                    $("#outcome_mam").show();
+                    $("#outcome_sam").hide();
+                    $("#outcome_normal").hide();
+                }else if(ns=='Normal') {
+                    $("#outcome_normal").show();
+                    $("#outcome_sam").hide();
+                    $("#outcome_mam").hide();
+                }
+                else {
+                    $("#outcome_normal").show();
+                    $("#outcome_sam").show();
+                    $("#outcome_mam").show();
+
+                }
+
             }, 'json')
         }
     });
