@@ -1,5 +1,15 @@
 @extends('layouts.app')
-
+@push('styles')
+<style>
+    .modal {
+        border: 1px solid black;
+        background-color: rgba(255, 255, 255, 1.0);
+        height: 95%;
+        width: 95%;
+        margin:0 auto;
+    }
+</style>
+@endpush
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">

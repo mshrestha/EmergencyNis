@@ -347,7 +347,7 @@
                 bezierCurve: false,
                 title: {
                     display: true,
-                    text: child_info
+                    text: 'GMP Weight: '+child_info
                 },
                 scales: {
                     yAxes: [{
@@ -473,7 +473,7 @@
                 bezierCurve: false,
                 title: {
                     display: true,
-                    text: child_info
+                    text: 'GMP Height: '+child_info
                 },
                 scales: {
                     yAxes: [{
@@ -599,7 +599,7 @@
                 bezierCurve: false,
                 title: {
                     display: true,
-                    text: child_info
+                    text: 'GMP Weight: '+child_info
                 },
 
                 scales: {
@@ -725,7 +725,7 @@
                 bezierCurve: false,
                 title: {
                     display: true,
-                    text: child_info
+                    text: 'GMP Height: '+child_info
                 },
 
                 scales: {
