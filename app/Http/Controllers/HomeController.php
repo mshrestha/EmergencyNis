@@ -373,15 +373,15 @@ class HomeController extends Controller
 
         if ($input_oedema == '+' || $input_oedema == '++' || $input_oedema == '+++' || $result== '< - 3SD' || $input_muac < 11.5){
             $nStatus = 'SAM';
-            $nStatusColor = 'red';
+            $nStatusColor = '#FF0099';
         }
         elseif ($result== '< - 2SD' || $result== '> - 3SD' || $result== '= - 3SD' || $input_muac >= 11.5 && $input_muac <= 12.4) {
             $nStatus = 'MAM';
-            $nStatusColor = 'yellow';
+            $nStatusColor = 'orange';
         }
     else {
         $nStatus = 'Normal';
-        $nStatusColor = '#00ff00';
+        $nStatusColor = '#21b9bb';
     }
 
         return response()->json(['nutritionstatus' => $nStatus,'nutritionstatusColor' => $nStatusColor]);

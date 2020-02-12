@@ -92,7 +92,7 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control" id="nutritionstatus" disabled>
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus" disabled style="color: white">
                                     <option value="" >Nutrition Status</option>
 									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
 									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
