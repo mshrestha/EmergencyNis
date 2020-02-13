@@ -35,8 +35,8 @@ class IycfGroupSessionController extends Controller
             'end_time' => 'required',
             'name.*' => 'required',
             'sex.*' => 'required',
-            'type.*' => 'required',
-            'beneficiary_type.*' => 'required',
+            'target_group.*' => 'required',
+//            'beneficiary_type.*' => 'required',
         ]);
 
         $igs=new IycfGroupSession();
@@ -57,16 +57,16 @@ class IycfGroupSessionController extends Controller
         foreach ($request['sex'] as $sx) {
             $seid[] = $sx;
         }
-        foreach ($request['type'] as $tid) {
+        foreach ($request['target_group'] as $tid) {
             $tyid[] = $tid;
         }
-        foreach ($request['beneficiary_type'] as $btid) {
-            $beid[] = $btid;
-        }
+//        foreach ($request['beneficiary_type'] as $btid) {
+//            $beid[] = $btid;
+//        }
         $ne = $naid;
         $se = $seid;
         $te = $tyid;
-        $be = $beid;
+//        $be = $beid;
 
         $count_te = count($te);
         if (count($se) != $count_te) throw new \Exception("Bad Request Input Array lengths");
@@ -77,8 +77,8 @@ class IycfGroupSessionController extends Controller
             $igsb->iycf_group_session_id= $igs->id;
             $igsb->name= $ne[$i];
             $igsb->sex= $se[$i];
-            $igsb->type= $te[$i];
-            $igsb->beneficiary_type= $be[$i];
+            $igsb->target_group= $te[$i];
+//            $igsb->beneficiary_type= $be[$i];
             $igsb->save();
         }
         return redirect('iycfGroupSession');

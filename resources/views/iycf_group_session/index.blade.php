@@ -6,7 +6,7 @@
             <div class="col-sm-12 tab-content">
                     <div class="ibox-title">
                         <h2>
-                            IYCF Group Session
+                            Group Education Session
                         </h2>
                         <div class="ibox-content">
                             <div class="clients-list">
@@ -18,8 +18,8 @@
                                                 <th>Session Date</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
-                                                <th>session Type</th>
-                                                <th>session Topic</th>
+                                                <th>Session Type</th>
+                                                <th>Session Topic</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -28,7 +28,7 @@
                                                     <td>{{Carbon\Carbon::parse($data->session_date)->format('d-M-Y')}}</td>
                                                     <td>{{Carbon\Carbon::parse($data->start_time)->format('h:ia')}}</td>
                                                     <td>{{Carbon\Carbon::parse($data->end_time)->format('h:ia')}}</td>
-                                                    <td>{{ $data->session_type}}</td>
+                                                    <td>{{ ($data->session_type=='option2'?'MIYCN':'General')}}</td>
                                                     <td>{{ $data->session_topic}}</td>
                                                 </tr>
                                             @endforeach
@@ -48,5 +48,35 @@
     </div>
 </div> <!-- row -->
 @endsection
+@push('scripts')
+<script src="{{ asset('js/plugins/dataTables/datatables.min.js')}}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.dataTables').DataTable({
+            "aaSorting": [],
+            pageLength: 10,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgtip',
+            buttons: [
+                {extend: 'copy'},
+                {extend: 'csv'},
+                {extend: 'excel', title: 'RegisteredChildren'},
+                {extend: 'pdf', title: 'RegisteredChildren'},
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+    });
+</script>
+@endpush
 
 

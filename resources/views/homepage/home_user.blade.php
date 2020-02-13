@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-xs-8 text-right">
 
-                                    <h2 class="font-bold">IYCF</h2>
+                                    <h2 class="font-bold">MIYCN</h2>
                                 </div>
                             </div>
                         </div>
