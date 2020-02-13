@@ -56,8 +56,8 @@
 
 				<div class="hr-line-dashed"></div>
 
-				<div class="form-group"><label class="col-sm-3 control-label">Name of P and L Woman</label>
-					<div class="col-sm-9"><input type="text" class="form-control" name="pregnant_women_name" placeholder="Name of P and L Woman" 
+				<div class="form-group"><label class="col-sm-3 control-label">Name of PLW</label>
+					<div class="col-sm-9"><input type="text" class="form-control" name="pregnant_women_name" placeholder="Name of PLW"
 						value="{{ isset($pregnant_women) ? $pregnant_women->pregnant_women_name : '' }}" required>
 					</div>
 				</div>

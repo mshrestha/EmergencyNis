@@ -45,11 +45,19 @@ class PregnantWomenController extends Controller
      */
     public function create()
     {
-        $camps = Camp::orderBy('id', 'asc')->get();
-        $facility_id= Auth::user()->facility_id;
-        $facility = Facility::findOrFail($facility_id);
-
-        return view('pregnant_women.create', compact('camps', 'facility'));
+        if (Auth::user()->facility_id) {
+            $camps = Camp::orderBy('id', 'asc')->get();
+            $facility_id = Auth::user()->facility_id;
+//        dd($facility_id);
+            $facility = Facility::findOrFail($facility_id);
+            return view('pregnant_women.create', compact('camps', 'facility'));
+        }
+        else {
+//            dd('Only Facility Based user can Add');
+            \Session::flash('notify_message', 'Only Facility Based user can Register');
+            \Session::flash('notify_type','danger');
+            return \Redirect::back();
+        }
     }
 
     public function store(Request $request) {
