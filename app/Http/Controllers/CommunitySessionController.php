@@ -57,6 +57,7 @@ class CommunitySessionController extends Controller
                 //Create sync id
                 $latest_community_session = CommunitySession::orderBy('id', 'desc')->first();
                 $app_id = $latest_community_session ? $latest_community_session->id + 1 : 1;
+                $data['id'] = $app_id;
                 $data['sync_id'] = env('SERVER_CODE') . $app_id;
                 $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
                 

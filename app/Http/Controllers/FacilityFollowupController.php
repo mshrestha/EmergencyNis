@@ -59,7 +59,6 @@ class FacilityFollowupController extends Controller
         $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
         $chart_date = array_column($facility_followups, 'date');
         $chart_weight = array_column($facility_followups, 'weight');
-//dd($chart_date);
         $child_sex=$children->sex;
 
 
@@ -78,6 +77,7 @@ class FacilityFollowupController extends Controller
             //Create sync id
             $latest_followup = FacilityFollowup::orderBy('id', 'desc')->first();
             $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
+            $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 

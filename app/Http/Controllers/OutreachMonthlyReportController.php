@@ -65,6 +65,7 @@ class OutreachMonthlyReportController extends Controller
             //Create sync id
             $latest_outreach_monthly_report = OutreachMonthlyReport::orderBy('id', 'desc')->first();
             $app_id = $latest_outreach_monthly_report ? $latest_outreach_monthly_report->id + 1 : 1;
+            $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
             $data['camp_id'] = request()->user()->facility->camp->id;
