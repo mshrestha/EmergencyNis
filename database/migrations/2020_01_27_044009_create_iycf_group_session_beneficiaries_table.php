@@ -18,9 +18,11 @@ class CreateIycfGroupSessionBeneficiariesTable extends Migration
             $table->bigInteger('iycf_group_session_id')->unsigned();
             $table->foreign('iycf_group_session_id')->references('id')->on('iycf_group_sessions')->onDelete('cascade');
             $table->text('name');
-            $table->enum('type', ['6-23Months Children', '24-59Months Children', 'Pregnant Women', 'Lactating Women'])->nullable();
+            $table->enum('target_group', ['Pregnant Women', 'CaregiversWith<6Children','CaregiversWith6-23Children','Grandmothers','Adolescents Girls','Father/Male','Others'])->nullable();
             $table->enum('sex', ['Male', 'Female'])->default('Male')->nullable();
-            $table->enum('beneficiary_type', ['Beneficiary','Guardian', 'Guardian & Beneficiary'])->nullable();
+
+//            $table->enum('type', ['6-23Months Children', '24-59Months Children', 'Pregnant Women', 'Lactating Women'])->nullable();
+//            $table->enum('beneficiary_type', ['Beneficiary','Guardian', 'Guardian & Beneficiary'])->nullable();
             $table->timestamps();
         });
     }

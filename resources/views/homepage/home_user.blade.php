@@ -22,7 +22,7 @@
                     </a>
                 </div>
                 <div class="col-lg-3">
-                    <a href="/pregnant-women">
+                    <a href="{{ url('pregnant-women') }}">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
                                 <div class="col-xs-4">
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="col-xs-8 text-right">
 
-                                    <h2 class="font-bold">IYCF</h2>
+                                    <h2 class="font-bold">MIYCN</h2>
                                 </div>
                             </div>
                         </div>

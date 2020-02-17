@@ -15,7 +15,7 @@
         <div class="col-lg-12">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>Add IYCF Group Session</h5>
+                    <h5>Add Group Education Session</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -76,9 +76,9 @@
                                 <div class="col-md-6">
                                     <select name="session_type" class="form-control">
                                         <option value="">Select Session Type</option>
-                                        <option value="option1">Type1</option>
-                                        <option value="option2">Type2</option>
-                                        <option value="option3">Type3</option>
+                                        <option value="option1">General</option>
+                                        <option value="option2">MIYCN</option>
+                                        {{--<option value="option3">Type3</option>--}}
                                     </select>
                                 </div>
                             </div>
@@ -100,9 +100,9 @@
                                     <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th class="col-md-2">Select Type</th>
+                                        <th class="col-md-2">Target Group</th>
                                         <th class="col-md-2">Select Sex</th>
-                                        <th class="col-md-2">Select Type</th>
+                                        {{--<th class="col-md-2">Select Type</th>--}}
                                         <th>Add / Remove</th>
                                     </tr>
                                     </thead>
@@ -112,14 +112,24 @@
                                             <input type="text" name="name[]" class="form-control" required>
                                         </td>
                                         <td>
-                                            <select name="type[]" class="form-control">
-                                                {{--<option value="">Type</option>--}}
-                                                <option value="6-23Months Children">6-23Months Children</option>
-                                                <option value="24-59Months Children">24-59Months Children</option>
+                                            <select name="target_group[]" class="form-control">
                                                 <option value="Pregnant Women">Pregnant Women</option>
-                                                <option value="Lactating Women">Lactating Women</option>
+                                                <option value="CaregiversWith<6Children">Mother/Caregivers with infants <6 Months</option>
+                                                <option value="CaregiversWith6-23Children">Mother/Caregivers with children 6-23 Months</option>
+                                                <option value="Grandmothers">Grandmothers</option>
+                                                <option value="Adolescents Girls">Adolescents Girls</option>
+                                                <option value="Father/Male">Father/Male</option>
+                                                <option value="Others">Others</option>
                                             </select>
                                         </td>
+                                        {{--<td>--}}
+                                            {{--<select name="type[]" class="form-control">--}}
+                                                {{--<option value="6-23Months Children">6-23Months Children</option>--}}
+                                                {{--<option value="24-59Months Children">24-59Months Children</option>--}}
+                                                {{--<option value="Pregnant Women">Pregnant Women</option>--}}
+                                                {{--<option value="Lactating Women">Lactating Women</option>--}}
+                                            {{--</select>--}}
+                                        {{--</td>--}}
                                         <td>
                                             <select name="sex[]" class="form-control">
                                                 {{--<option value="">Sex</option>--}}
@@ -127,14 +137,13 @@
                                                 <option value="Female">Female</option>
                                             </select>
                                         </td>
-                                        <td>
-                                            <select name="beneficiary_type[]" class="form-control">
-                                                {{--<option value="">Beneficiary Type</option>--}}
-                                                <option value="Beneficiary">Beneficiary</option>
-                                                <option value="Guardian">Guardian</option>
-                                                <option value="Guardian & Beneficiary">Guardian & Beneficiary</option>
-                                            </select>
-                                        </td>
+                                        {{--<td>--}}
+                                            {{--<select name="beneficiary_type[]" class="form-control">--}}
+                                                {{--<option value="Beneficiary">Beneficiary</option>--}}
+                                                {{--<option value="Guardian">Guardian</option>--}}
+                                                {{--<option value="Guardian & Beneficiary">Guardian & Beneficiary</option>--}}
+                                            {{--</select>--}}
+                                        {{--</td>--}}
                                         <td><a id="addnew" href=""><i class="fa fa-plus-circle"></i> Add More</a></td>
                                     </tr>
                                     </tbody>
