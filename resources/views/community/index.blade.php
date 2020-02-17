@@ -85,6 +85,7 @@
                                       <th>Block - Subblock</th>
                                       <th>Date</th>
                                       <th>Screened</th>
+                                      <th>MUAC</th>
                                       <th>SAM</th>
                                       <th>MAM</th>
                                       <th>At Risk</th>
@@ -116,6 +117,9 @@
                                           ->required() }}
                                       </td>
                                       
+                                      <td>
+                                        {{ html()->number('muac', $volunteer->todaysCommunitySession($selected_date)['muac'])->style(['width' => '100px'])->placeholder('MUAC')->required() }}
+                                      </td>
                                       <td>
                                         {{ html()->number('sam', $volunteer->todaysCommunitySession($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
                                       </td>
