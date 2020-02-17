@@ -59,7 +59,7 @@
           <div class="col-lg-12">
               <div class="ibox">
                   <div class="ibox-title">
-                      <h2>Outreach Monthly Report
+                      <h2>IYCF Mother to Mother Support Group Report
                         <a href="{{ route('outreach-supervisor.create') }}" class="pull-right">
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Supervisor</button>
                         </a>

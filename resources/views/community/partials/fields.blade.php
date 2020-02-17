@@ -1,4 +1,4 @@
-<div class="form-group"><label class="col-sm-3 control-label">Name</label>
+<div class="form-group"><label class="col-sm-3 control-label">Volunteer Name</label>
 	<div class="col-sm-9"><input type="text" name="name" class="form-control" placeholder="Name of Volunteer" required value="{{ isset($volunteer) ? $volunteer->name : '' }}"></div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Settlement</label>
