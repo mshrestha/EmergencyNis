@@ -1,3 +1,24 @@
+<style>
+    .dark-timeline .colorSam {
+        background: rgba(255, 0, 153, .2);
+        /*color: black;*/
+        !important;
+    }
+    .dark-timeline .colorMam {
+        background: rgba(255, 217, 0, .2);
+        /*color: black;*/
+        !important;
+    }
+    .dark-timeline .colorNormal {
+        background: rgba(33, 185, 187, .2);
+        /*color: black;*/
+        !important;
+    }
+    /*.dark-timeline .vertical-timeline-content {*/
+        /*background: rgba(255, 0, 153, .2);*/
+        /*!important;*/
+    /*}*/
+</style>
 <div class="row m-b-lg">
     <div class="col-lg-4 text-center">
         <div>
@@ -113,7 +134,7 @@
                                 <i class="fa fa-briefcase"></i>
                             </div>
                             @if(array_key_exists('nutritionstatus', $followup))
-                            <div class="vertical-timeline-content">
+                            <div class="{{(($followup['nutritionstatus']=='SAM') ? 'vertical-timeline-content colorSam' : (($followup['nutritionstatus']=='MAM') ? 'vertical-timeline-content colorMam' :'vertical-timeline-content colorNormal'))}}" >
                                 <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span><br />
                                 <p>Visited {{ $followup['facility']['facility_id'] }}</p>
 
