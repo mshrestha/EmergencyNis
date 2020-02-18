@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="wrapper wrapper-content animated fadeIn">
               <h1>
-                <strong>IYCF Session</strong>
+                <strong>MIYCN Session</strong>
               </h1>
               <div class="row">
                 <div class="col-lg-12">
@@ -19,7 +19,7 @@
                                     </div>
                                     <div class="col-xs-8 text-right">
 
-                                        <h2 class="font-bold">Group Session</h2>
+                                        <h2 class="font-bold">Group Education Session</h2>
                                     </div>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-xs-8 text-right">
 
-                                        <h2 class="font-bold">Individual Session</h2>
+                                        <h2 class="font-bold">Individual Counseling</h2>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
               <div class="col-sm-12 tab-content">
                       <div class="ibox-title">
                           <h2>
-                              Group Sessions
+                              Group Education Sessions
                           </h2>
                           <div class="ibox-content">
                               <div class="clients-list">
@@ -63,10 +63,10 @@
                                           <table class="table dataTables table-striped table-bordered table-hover">
                                               <thead>
                                               <tr>
-                                                  <th>Topic</th>
-                                                  <th>Type</th>
+                                                  <th>Session Topic</th>
+                                                  <th>Session Type</th>
                                                   <th>Date</th>
-                                                  <th>Time</th>
+                                                  <th>Time Duration</th>
 
 
 
@@ -76,7 +76,7 @@
                                               @foreach($iycfGroupSessions as $key=>$data)
                                                   <tr>
                                                       <td>{{ $data->session_topic}}</td>
-                                                      <td>{{ $data->session_type}}</td>
+                                                      <td>{{ ($data->session_type=='option2'?'MIYCN':'General')}}</td>
                                                       <td>{{Carbon\Carbon::parse($data->session_date)->format('d-M-Y')}}</td>
                                                       <td>{{Carbon\Carbon::parse($data->start_time)->format('h:ia')}} to {{Carbon\Carbon::parse($data->end_time)->format('h:ia')}}</td>
 

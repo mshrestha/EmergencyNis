@@ -9,7 +9,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/public/uploads
+/public/uploads/children
+/public/uploads/mysqldump
 /*/.DS_Store
 .DS_Store
 /.phpintel

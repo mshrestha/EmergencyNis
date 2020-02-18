@@ -45,11 +45,19 @@ class PregnantWomenController extends Controller
      */
     public function create()
     {
-        $camps = Camp::orderBy('id', 'asc')->get();
-        $facility_id= Auth::user()->facility_id;
-        $facility = Facility::findOrFail($facility_id);
-
-        return view('pregnant_women.create', compact('camps', 'facility'));
+        if (Auth::user()->facility_id) {
+            $camps = Camp::orderBy('id', 'asc')->get();
+            $facility_id = Auth::user()->facility_id;
+//        dd($facility_id);
+            $facility = Facility::findOrFail($facility_id);
+            return view('pregnant_women.create', compact('camps', 'facility'));
+        }
+        else {
+//            dd('Only Facility Based user can Add');
+            \Session::flash('notify_message', 'Only Facility Based user can Register');
+            \Session::flash('notify_type','danger');
+            return \Redirect::back();
+        }
     }
 
     public function store(Request $request) {
@@ -64,6 +72,7 @@ class PregnantWomenController extends Controller
             //Create sync id
             $latest_pregnant_women = PregnantWomen::orderBy('id', 'desc')->first();
             $app_id = $latest_pregnant_women ? $latest_pregnant_women->id + 1 : 1;
+            $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 

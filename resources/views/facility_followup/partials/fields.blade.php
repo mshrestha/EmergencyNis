@@ -58,28 +58,29 @@
 						<div class="form-group row">
 							<div class="col-md-3">
                                 <label for="">MUAC (cm)</label>
-                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
+                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" id="child_muac"
+									   value="{{ isset($facility_followup) ? $facility_followup->muac : '' }}" min="0" step="0.01">
                             </div>
 							<div class="col-md-3">
 								<label for="">Weight (kg)</label>
-								<input type="number" name="weight" class="form-control child_weight" placeholder="Weight (kg)" id="child_weight"
+								<input type="number" name="weight" class="form-control" placeholder="Weight (kg)" id="child_weight"
 									   value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0" step="0.1">
 							</div>
 							<div class="col-md-3">
 								<label for="">Height (cm)</label>
-								<input type="number" name="height" class="form-control child_height" placeholder="Height (cm)" id="child_height"
+								<input type="number" name="height" class="form-control" placeholder="Height (cm)" id="child_height"
 									   value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0" step="0.5">
 							</div>
 						</div>
 						<div class="form-group row">
 							<div class="col-md-5">
 								<label for="">WFH Z Score (SD)</label>
-								<input type="text" name="wfh_z_score" class="form-control zscore" placeholder="WFH Z Score" id="zscore"
-									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" min="0">
+								<input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" id="zscore"
+									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" disabled>
 							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
-                                <select name="oedema" class="form-control">
+                                <select name="oedema" class="form-control" id="oedema">
                                     <option value="0" {{ (isset($facility_followup) && $facility_followup->oedema == '0') ? ' selected' : '' }}>0</option>
                                     <option value="+" {{ (isset($facility_followup) && $facility_followup->oedema == '+') ? ' selected' : '' }}>+</option>
                                     <option value="++" {{ (isset($facility_followup) && $facility_followup->oedema == '++') ? ' selected' : '' }}>++</option>
@@ -91,36 +92,37 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control">
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus" disabled style="color: white">
                                     <option value="" >Nutrition Status</option>
 									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
 									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
 									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
 
-
 							     </select>
                             </div>
                             <div class="col-md-5">
                                 <label for="">Identification Outcome</label>
-                                <select name="outcome" class="form-control" id="identification-outcome">
-                                    <optgroup label="SAM">
+
+								<select name="outcome" class="form-control" id="identification-outcome">
+                                    <optgroup label="SAM" id="outcome_sam">
                                         <option value="New case" >New case</option>
                                         <option value="Followup visit at OTP" >Followup visit at OTP</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to OTP" >Referred to OTP</option>
 
                                     </optgroup>
-                                    <optgroup label="MAM">
+                                    <optgroup label="MAM" id="outcome_mam">
+										<option value="New Case" >New Case</option>
                                         <option value="OTP follow up visit" >OTP follow up visit</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to TSFP" >Referred to TSFP</option>
-
-                                        <option value="New Case" >New Case</option>
-                                        <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
-                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
-                                        <option value="Referred to TSFP" >Referred to TSFP</option>
+										{{--<optgroup label="New Case">--}}
+                                        {{--<option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>--}}
+                                        {{--<option value="Already admitted at TSFP" >Already admitted at TSFP</option>--}}
+                                        {{--<option value="Referred to TSFP" >Referred to TSFP</option>--}}
                                     </optgroup>
-                                    <optgroup label="normal">
+                                    <optgroup label="NORMAL" id="outcome_normal">
+										<option value="New Case" >New Case</option>
                                         <option value="Already in Program" >Already in program</option>
                                         <option value="" >Referred to BSFP</option>
                                         <option value="" >Follow up visit</option>

@@ -72,6 +72,7 @@ class IycfFollowupController extends Controller
             //Create sync id
             $latest_followup = IycfFollowup::orderBy('id', 'desc')->first();
             $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
+            $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 

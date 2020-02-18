@@ -53,6 +53,7 @@ class PregnantWomenFollowupController extends Controller
             //Create sync id
             $latest_pregnant_women_followup = PregnantWomenFollowup::orderBy('id', 'desc')->first();
             $app_id = $latest_pregnant_women_followup ? $latest_pregnant_women_followup->id + 1 : 1;
+            $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 

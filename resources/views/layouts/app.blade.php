@@ -58,12 +58,12 @@
                                   class="nav-label">Child</span></a>
                   </li>
                   <li class="{{ (request()->segment(1) == 'pregnant-women') ? 'active' : '' }}">
-                      <a href="/pregnant-women" ><i class="fa fa-id-badge"></i> <span
+                      <a href="{{ url('pregnant-women') }}" ><i class="fa fa-id-badge"></i> <span
                                   class="nav-label">Women</span></a>
                   </li>
                   <li class="{{ (request()->segment(1) == 'iycf-session') ? 'active' : '' }}">
                       <a href="{{ route('iycf_session_home') }}" ><i class="fa fa-id-badge"></i> <span
-                                  class="nav-label">IYCF</span></a>
+                                  class="nav-label">MIYCN</span></a>
                   </li>
                   <li class="{{ request()->segment(1) == 'reports' ? 'active' : '' }}">
                       <a href="{{ route('reports') }}" ><i class="fa fa-laptop"></i> <span

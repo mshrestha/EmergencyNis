@@ -71,6 +71,7 @@ class OutreachSupervisorController extends Controller
             //Create sync id
             $latest_outreach_supervisor = OutreachSupervisor::orderBy('id', 'desc')->first();
             $app_id = $latest_outreach_supervisor ? $latest_outreach_supervisor->id + 1 : 1;
+            $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 

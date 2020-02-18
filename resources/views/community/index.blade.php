@@ -56,7 +56,7 @@
           <div class="col-lg-12">
               <div class="ibox">
                   <div class="ibox-title">
-                      <h2>Community Sessions Children
+                      <h2>Community Screening Children
                         <a href="{{ route('community.create') }}" class="pull-right">
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Volunteer</button>
                         </a>
@@ -81,10 +81,11 @@
                           <table class="table dataTables table-striped table-bordered table-hover">
                               <thead>
                                   <tr>
-                                      <th>Name</th>
+                                      <th>Volunteer Name</th>
                                       <th>Block - Subblock</th>
                                       <th>Date</th>
                                       <th>Screened</th>
+                                      <th>MUAC</th>
                                       <th>SAM</th>
                                       <th>MAM</th>
                                       <th>At Risk</th>
@@ -116,6 +117,9 @@
                                           ->required() }}
                                       </td>
                                       
+                                      <td>
+                                        {{ html()->number('muac', $volunteer->todaysCommunitySession($selected_date)['muac'])->style(['width' => '100px'])->placeholder('MUAC')->required() }}
+                                      </td>
                                       <td>
                                         {{ html()->number('sam', $volunteer->todaysCommunitySession($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
                                       </td>
