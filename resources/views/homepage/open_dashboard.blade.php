@@ -277,6 +277,82 @@
 
         </div>
     </div>
+    <div class="row border-bottom">
+        <h2>TSFP New Admission
+            <small> for {{$month_year}}</small>
+        </h2>
+        <div class="col-md-4">
+            <div class="statistic-box">
+                <h3>
+                    By Age
+                </h3>
+                {{--<p>--}}
+                {{--for {{$month_year}} by age.--}}
+                {{--</p>--}}
+                <div class="row text-center">
+
+                    <div class="col-lg-9">
+                        <canvas id="doughnutChartTsfp" width="280" height="270"
+                                style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                        <h5>Age</h5>
+                    </div>
+                </div>
+                <div class="m-t">
+                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Age</small>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="statistic-box">
+                <h3>
+                    By Gender
+                </h3>
+                {{--<p>--}}
+                {{--for {{$month_year}} by Gender.--}}
+                {{--</p>--}}
+                <div class="row text-center">
+                    <div class="col-lg-9">
+                        <canvas id="doughnutChart2Tsfp" width="280" height="270"
+                                style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                        <h5>Gender</h5>
+                    </div>
+                </div>
+                <div class="m-t">
+                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Gender
+                    </small>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="statistic-box">
+                <h3>
+                    By Anthropometry
+                </h3>
+                {{--<p>--}}
+                {{--for {{$month_year}} Anthropometry.--}}
+                {{--</p>--}}
+                <div class="row text-center">
+                    <div class="col-lg-9">
+                        <canvas id="doughnutChart3Tsfp" width="280" height="270"
+                                style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                        <h5>Anthropometry</h5>
+                    </div>
+                </div>
+                <div class="m-t">
+                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by
+                        Anthropometry
+                    </small>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-6">
+
+
+        </div>
+    </div>
 
 @endsection
 
@@ -490,7 +566,7 @@
 
 
 //End of Line chart Admission trend
-        //Doughnut charts starts here
+// Doughnut charts starts here
         var child23 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_23']); ?>');
         var child24 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_24']); ?>');
         var child60 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_60']); ?>');
@@ -541,6 +617,58 @@
         };
 
         var ctx4 = document.getElementById("doughnutChart3").getContext("2d");
+        new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
+
+
+// Doughnut charts starts here Tsfp
+        var child23Tsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_23']); ?>');
+        var child59Tsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_59']); ?>');
+        var doughnutData = {
+            labels: ["6-23m", "24-59m"],
+            datasets: [{
+                data: [child23Tsfp, child59Tsfp],
+                backgroundColor: ["#a3e1d4", "#dedede"]
+            }]
+        };
+        var doughnutOptions = {
+            responsive: false,
+            legend: {
+                display: true
+            }
+        };
+
+        var ctx4 = document.getElementById("doughnutChartTsfp").getContext("2d");
+        new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
+
+        var maleTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_male']); ?>');
+        var femaleTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_female']); ?>');
+        var doughnutData = {
+            labels: ["Male", "Female"],
+            datasets: [{
+
+                data: [maleTsfp, femaleTsfp],
+                backgroundColor: ["#9CC3DA", "#a3e1d4"]
+
+            }]
+        };
+
+        var ctx4 = document.getElementById("doughnutChart2Tsfp").getContext("2d");
+        new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
+
+        var muacTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_muac']); ?>');
+        var whzTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_wfh']); ?>');
+        var readmissionTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_readmission']); ?>');
+        var returnFromSamTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_returnFromSam']); ?>');
+
+        var doughnutData = {
+            labels: ["MUAC", "WHZ", "Readmission","Return From SAM"],
+            datasets: [{
+                data: [muacTsfp, whzTsfp,readmissionTsfp,returnFromSamTsfp],
+                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA","#fedede"]
+            }]
+        };
+
+        var ctx4 = document.getElementById("doughnutChart3Tsfp").getContext("2d");
         new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
 
 

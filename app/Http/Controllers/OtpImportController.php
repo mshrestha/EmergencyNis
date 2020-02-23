@@ -97,8 +97,9 @@ class OtpImportController extends Controller
         $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
+        $doughnut_chartTsfp = $this->open_dashboard_doughnut_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
 
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart','doughnut_chartTsfp', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
     }
 
     public function open_dashboard()
@@ -149,9 +150,10 @@ class OtpImportController extends Controller
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $line_chart = $this->open_dashboard_linechart($months);
         $doughnut_chart = $this->open_dashboard_doughnutchart($report_year, $report_month);
+        $doughnut_chartTsfp = $this->open_dashboard_doughnutchart_tsfp($report_year, $report_month);
         $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
         $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp($report_year, $report_month);
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart','doughnut_chartTsfp', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
     }
 
     private function open_dashboard_linechart($months)
@@ -826,6 +828,251 @@ class OtpImportController extends Controller
         $doughnut_chart['otp_admit_both'] = 0;
 //        dd($doughnut_chart);
         return $doughnut_chart;
+    }
+
+    private function open_dashboard_doughnut_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp)
+    {
+        if ($programPartner != null && $partner == null && $camp == null) {
+
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } elseif ($programPartner == null && $partner != null && $camp == null) {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } elseif ($programPartner != null && $partner != null && $camp == null) {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } elseif ($programPartner != null && $partner != null && $camp != null) {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } elseif ($programPartner != null && $partner == null && $camp != null) {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('programPartner', $programPartner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } elseif ($programPartner == null && $partner != null && $camp != null) {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('partner', $partner)->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } elseif ($programPartner == null && $partner == null && $camp != null) {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')->where('campSettlement', $camp)
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+        } else {
+            $tsfp_admit_6to23M = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+            $tsfp_admit_6to23F = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+            $tsfp_admit_24to59M = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+            $tsfp_admit_24to59F = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+            $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+            $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+            $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+            $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+            $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+            $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+            $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+            $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')
+                ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+        }
+        return $doughnut_chartTsfp;
+    }
+
+    private function open_dashboard_doughnutchart_tsfp($report_year, $report_month)
+    {
+        $tsfp_admit_6to23M = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23M');
+        $tsfp_admit_6to23F = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission23F');
+        $tsfp_admit_24to59M = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59M');
+        $tsfp_admit_24to59F = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmission59F');
+        $doughnut_chartTsfp['tsfp_admit_23'] =$tsfp_admit_6to23M+$tsfp_admit_6to23F;
+        $doughnut_chartTsfp['tsfp_admit_59'] =$tsfp_admit_24to59M+$tsfp_admit_24to59F;
+
+        $doughnut_chartTsfp['tsfp_admit_male'] = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionM');
+        $doughnut_chartTsfp['tsfp_admit_female'] = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('tsfpChildNewAdmissionF');
+
+        $doughnut_chartTsfp['tsfp_admit_muac'] = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentMuacTotal');
+        $doughnut_chartTsfp['tsfp_admit_wfh'] = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('newEnrolmentWfhTotal');
+        $doughnut_chartTsfp['tsfp_readmission'] = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('readmissionAfterRecoveryTotal');
+        $doughnut_chartTsfp['tsfp_returnFromSam'] = DB::table('tsfp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('returnFromSamTotal');
+
+//        dd($doughnut_chartTsfp);
+        return $doughnut_chartTsfp;
     }
 
     private function open_dashboard_barchart($report_year, $report_month)
