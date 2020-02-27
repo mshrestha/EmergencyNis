@@ -21,8 +21,8 @@ class FacilityFollowupController extends Controller
     public function index()
     {
         //
-        
-        
+
+
     }
 
     /**
@@ -70,10 +70,10 @@ class FacilityFollowupController extends Controller
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');
             }
-            
+
             $data = $request->all();
             $data['referal_slip_no'] = time(). rand(1000,9999);
-            
+
             //Create sync id
             $latest_followup = FacilityFollowup::orderBy('id', 'desc')->first();
             $app_id = $latest_followup ? $latest_followup->id + 1 : 1;
@@ -103,10 +103,14 @@ class FacilityFollowupController extends Controller
     {
         $facility_followup = FacilityFollowup::findOrFail($id);
         $children = Child::findOrFail($facility_followup->children_id);
-        
-        $facilities = Facility::where('id', $facility_followup->facility_id)->get();
 
-        return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities'));
+        $facilities = Facility::where('id', $facility_followup->facility_id)->get();
+        $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
+        $chart_date = array_column($facility_followups, 'date');
+        $chart_weight = array_column($facility_followups, 'weight');
+        $child_sex=$children->sex;
+
+        return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities','chart_date','chart_weight','child_sex'));
     }
 
     /**

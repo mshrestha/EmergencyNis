@@ -53,14 +53,16 @@
             }
         });
         load_child({{$children->sync_id}})
-        $("#discharge-criteria-tab").hide();
+        $(".discharge-criteria-tabs").hide();
         $( "#identification-outcome" ).change(function() {
             if($("#identification-outcome").val() == 'New case'){
               $("#admission-criteria-tab").show();
-              $("#discharge-criteria-tab").hide();
+              $(".discharge-criteria-tabs").hide();
+              $("#admission-discharge-tab-heading").text("Admission Criteria")
             }else{
               $("#admission-criteria-tab").hide();
-              $("#discharge-criteria-tab").show();
+              $(".discharge-criteria-tabs").show();
+              $('#admission-discharge-tab-heading').text("Discharge Criteria")
             }
     });
     })

@@ -1,7 +1,7 @@
 <div class="row">
 
 	<div class="col-md-12" id="wizard">
-        <h1>Anthropometric Measurement</h1>
+        <h1>Anthro Measurement</h1>
 		<div class="row step-content">
 
 
@@ -112,17 +112,17 @@
 
                                     </optgroup>
                                     <optgroup label="MAM" id="outcome_mam">
-										<option value="New Case" >New Case</option>
+										<option value="New case" >New Case</option>
                                         <option value="OTP follow up visit" >OTP follow up visit</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to TSFP" >Referred to TSFP</option>
-										{{--<optgroup label="New Case">--}}
+										{{--<optgroup label="New case">--}}
                                         {{--<option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>--}}
                                         {{--<option value="Already admitted at TSFP" >Already admitted at TSFP</option>--}}
                                         {{--<option value="Referred to TSFP" >Referred to TSFP</option>--}}
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-										<option value="New Case" >New Case</option>
+										<option value="New case" >New Case</option>
                                         <option value="Already in Program" >Already in program</option>
                                         <option value="" >Referred to BSFP</option>
                                         <option value="" >Follow up visit</option>
@@ -138,7 +138,7 @@
 				</div>
 			</div>
 		</div>
-        <h1>Medical History and Physical Examinations</h1>
+        <h1>Medical and Physical</h1>
 
 		<div class="row step-content">
             <div class="col-lg-6">
@@ -251,28 +251,30 @@
 					</div>
 				</div>
 			</div>
-            <div class="col-lg-6">
-				<div class="ibox float-e-margins ">
-					<div class="ibox-title">
-						<h5>Appetite test</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">Presence of appetite</label>
-							<select name="presence_of_appetite" class="form-control">
-								<option value="">Select presence of appetite</option>
-								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'Yes') ? ' selected' : '' }}>Yes</option>
-								<option value="No" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'No') ? ' selected' : '' }}>No</option>
-							</select>
-						</div>
-					</div>
-				</div>
+
+			<div class="col-lg-6">
+	<div class="ibox float-e-margins ">
+		<div class="ibox-title">
+			<h5>Appetite test</h5>
+			<div class="ibox-tools">
+				<a class="collapse-link">
+					<i class="fa fa-chevron-up"></i>
+				</a>
 			</div>
+		</div>
+		<div class="ibox-content">
+			<div class="form-group">
+				<label for="">Presence of appetite</label>
+				<select name="presence_of_appetite" class="form-control">
+					<option value="">Select presence of appetite</option>
+					<option value="Yes" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'Yes') ? ' selected' : '' }}>Yes</option>
+					<option value="No" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'No') ? ' selected' : '' }}>No</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 
 
@@ -320,10 +322,10 @@
 				</div>
 			</div>
             </div>
-            <h1>Admission and Discharge Criteria</h1>
+            <h1><span id="admission-discharge-tab-heading">Admission Criteria</span></h1>
 
             <div class="row step-content">
-            <div class="col-lg-6 admission-criteria-tab" id="admission-criteria-tab">
+            <div class="col-lg-12 admission-criteria-tab" id="admission-criteria-tab">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Admission criteria</h5>
@@ -383,46 +385,9 @@
 					</div>
 				</div>
 			</div>
-            <div class="col-lg-6">
-				<div class="ibox float-e-margins ">
-					<div class="ibox-title">
-						<h5>Therapeutic food</h5>
-						<div class="ibox-tools">
-							<a class="collapse-link">
-								<i class="fa fa-chevron-up"></i>
-							</a>
-						</div>
-					</div>
-					<div class="ibox-content">
-						<div class="form-group">
-							<label for="">No of RUTF</label>
-							<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">No of RUSF</label>
-							<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">WSB++ (kg)</label>
-							<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">WSB+ (kg)</label>
-							<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">Oil (kg)</label>
-							<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
-						</div>
-						<div class="form-group">
-							<label for="">Others</label>
-							<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
-						</div>
-					</div>
-				</div>
-			</div>
 
-                <div class="col-lg-6 discharge-criteria-tab" id="discharge-criteria-tab">
+
+			<div class="col-lg-6 discharge-criteria-tab discharge-criteria-tabs" id="discharge-criteria-tab">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Discharge Critera</h5>
@@ -470,7 +435,7 @@
 			</div>
 
 
-			<div class="col-lg-6">
+			<div class="col-lg-6 discharge-criteria-tabs">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Anthropometric Measurement during discharge</h5>
@@ -505,6 +470,53 @@
 				</div>
 			</div>
 		</div><!-- End of Second Row -->
+		<h1>Distribution</h1>
+		<div class="row step-content">
+
+		<div class="col-lg-12">
+<div class="ibox float-e-margins ">
+	<div class="ibox-title">
+		<h5>Therapeutic food</h5>
+		<div class="ibox-tools">
+			<a class="collapse-link">
+				<i class="fa fa-chevron-up"></i>
+			</a>
+		</div>
+	</div>
+	<div class="ibox-content">
+		<div class="form-group">
+			<label for="">No of RUTF</label>
+			<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
+		</div>
+		<div class="form-group">
+			<label for="">No of RUSF</label>
+			<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
+		</div>
+		<div class="form-group">
+			<label for="">WSB++ (kg)</label>
+			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
+		</div>
+		<div class="form-group">
+			<label for="">WSB+ (kg)</label>
+			<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
+		</div>
+		<div class="form-group">
+			<label for="">Oil (kg)</label>
+			<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
+		</div>
+		<div class="form-group">
+			<label for="">Others</label>
+			<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+
+
+</div><!-- End of Second Row -->
 
 	</div>
 
