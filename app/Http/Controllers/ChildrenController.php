@@ -110,10 +110,20 @@ class ChildrenController extends Controller
     {
         $children = Child::with('facility_followup')->findOrFail($id);
         $facility_followup = $children->facility_followup->last();
+        $todays_followup = false;
+
+        if($facility_followup && $facility_followup->date == date('Y-m-d')) {
+            $todays_followup = true;
+        }
 
         // Followups
         $community_followups = CommunityFollowup::where('children_id', $children->sync_id)->orderBy('created_at', 'desc')->get()->toArray();
-        $facility_followups = FacilityFollowup::with('facility')->where('children_id', $children->sync_id)->where('sync_id', '!=', $facility_followup->sync_id)->orderBy('created_at', 'desc')->get()->toArray();
+        $facility_followups_query = FacilityFollowup::with('facility');
+        $facility_followups_query->where('children_id', $children->sync_id);
+        if($todays_followup) {
+            $facility_followups_query->where('sync_id', '!=', $facility_followup->sync_id);
+        }
+        $facility_followups = $facility_followups_query->orderBy('created_at', 'desc')->get()->toArray();
 
         $followups_facility = array_merge($community_followups, $facility_followups);
         usort($followups_facility, function ($a, $b) {
@@ -127,7 +137,9 @@ class ChildrenController extends Controller
             return $b['date'] <=> $a['date'];
         });
 
-        return view('children.show', compact('children', 'facility_followup', 'followups'));
+        // dd($followups);
+
+        return view('children.show', compact('children', 'facility_followup', 'followups', 'todays_followup'));
     }
 
     /**

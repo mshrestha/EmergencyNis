@@ -60,6 +60,10 @@
                         <a href="{{ route('community.create') }}" class="pull-right">
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Volunteer</button>
                         </a>
+
+                        <a href="{{ route('community-session-women.create') }}" class="pull-right" style="margin-right: 10px;">
+                            <button type="button" class="btn btn-primary btn-sm btn-block">Add Pregnant & Lactating</button>
+                        </a>
                       </h2>
                   </div>
                   <div class="ibox-content">
@@ -78,61 +82,40 @@
                       <hr>
 
                       <div class="table-responsive">
-                          <table class="table dataTables table-striped table-bordered table-hover">
+                          <table class="table table-striped table-bordered table-hover">
                               <thead>
                                   <tr>
-                                      <th>Volunteer Name</th>
-                                      <th>Block - Subblock</th>
                                       <th>Date</th>
-                                      <th>Screened</th>
-                                      <th>Referred</th>
-                                      <th>In Program</th>
-                                      <th>SAM</th>
-                                      <th>MAM</th>
-                                      <th width="220">Action</th>
+                                      <th>Volunteer Name</th>
+                                      <th>Household no</th>
+                                      <th colspan="2">MAM in progress</th>
+                                      <th colspan="2">MAM referred</th>
+                                      <th colspan="2">Normal</th>
+                                  </tr>
+                                  <tr>
+                                    <th colspan="3"></th>
+                                    <th>Preg</th>
+                                    <th>Lac</th>
+                                    <th>Preg</th>
+                                    <th>Lac</th>
+                                    <th>Preg</th>
+                                    <th>Lac</th>
                                   </tr>
                               </thead>
                               <tbody>
-                                  @foreach($volunteers as $volunteer)
-                                  <tr class="volunteer" data-volunteer-id={{ $volunteer->id }}>
-                                      {{ html()->form('POST', route('community-session-women.store'))->open() }}
-                                      <td>
-                                        <a class="client-link">{{ $volunteer->name }}</a>
-                                        {{ html()->hidden('volunteer_id', $volunteer->sync_id) }}
-                                      </td>
-                                      <td><i class="fa fa-flag"></i> {{ $volunteer->block }} - {{ $volunteer->subblock }}</td>
-                                      <td>
-                                        {{ $selected_date }}
-                                        {{ html()->hidden('date', $selected_date) }}
-                                      </td>
-                                      <td>
-                                        {{ html()
-                                          ->number('screened',
-                                            $volunteer->todaysCommunitySessionWomen($selected_date)['screened']
-                                          )
-                                          ->style(['width' => '100px'])
-                                          ->placeholder('Screened')
-                                          ->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('referred', $volunteer->todaysCommunitySessionWomen($selected_date)['referred'])->style(['width' => '100px'])->placeholder('Referred')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySessionWomen($selected_date)['inprogram'])->style(['width' => '100px'])->placeholder('In Program')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('sam', $volunteer->todaysCommunitySessionWomen($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('mam', $volunteer->todaysCommunitySessionWomen($selected_date)['mam'])->style(['width' => '100px'])->placeholder('MAM')->required() }}
-                                      </td>
-                                      <td>
-                                        <button class="btn btn-default btn-sm" type="submit" ><i class="fa fa-plus"></i> Submit</button>
-                                        <a href="{{ route('community.edit', $volunteer->sync_id) }}" class="btn btn-default btn-sm"><i class="fa fa-info"></i> Edit Volunteer</a>
-                                      </td>
-                                      {{ html()->form()->close() }}
-                                  </tr>
-                                  @endforeach
+                                @foreach($community_session_womens as $community_session_women)
+                                <tr>
+                                  <td>{{ $community_session_women->date }}</td>
+                                  <td>{{ $community_session_women->volunteer->name }}</td>
+                                  <td>{{ $community_session_women->household_no }}</td>
+                                  <td>{{ $community_session_women->mam_inprogress_preg }}</td>
+                                  <td>{{ $community_session_women->mam_inprogress_lac }}</td>
+                                  <td>{{ $community_session_women->mam_referred_preg }}</td>
+                                  <td>{{ $community_session_women->mam_referred_lac }}</td>
+                                  <td>{{ $community_session_women->normal_preg }}</td>
+                                  <td>{{ $community_session_women->normal_lac }}</td>
+                                </tr>
+                                @endforeach
                               </tbody>
                           </table>
                       </div>

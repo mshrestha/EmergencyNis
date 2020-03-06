@@ -18,6 +18,13 @@
         /*background: rgba(255, 0, 153, .2);*/
         /*!important;*/
     /*}*/
+    .modal {
+        border: 1px solid black;
+        background-color: #ffffff;
+        height: 95%;
+        width: 95%;
+        margin:0 auto;
+    }
 </style>
 <div class="row m-b-lg">
     <div class="col-lg-3 text-center">
@@ -209,7 +216,6 @@
         <canvas id="gmpHChartModal"></canvas>
     </div>
 </div>
-
 
 <script>
     var ctx = document.getElementById('childWeight').getContext('2d');

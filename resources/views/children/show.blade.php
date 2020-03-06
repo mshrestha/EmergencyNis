@@ -11,12 +11,31 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('facility-followup.update', $facility_followup->sync_id) }}" method="post" id="followupform">
-						@csrf
-						@method('PATCH')
-						@include('facility_followup.partials.fields')
-						<button tyle="submit" class="btn btn-primary pull-right" style="margin-right: 5px; margin-bottom: 20px;">Save</button>
-					</form>
+					@if($todays_followup) 
+                    <form action="{{ route('facility-followup.update', $facility_followup->sync_id) }}" method="post" id="followupform">
+                        @csrf
+                        @method('PATCH')
+                        @include('facility_followup.partials.fields')
+                        <button tyle="submit" class="btn btn-primary pull-right" style="margin-right: 5px; margin-bottom: 20px;">Save</button>
+                    </form>
+                    @else
+                        <div class="col-lg-5">
+                            <a href="{{ route('facility-followup.show', $children->sync_id) }}">
+                                <div class="widget style1 lazur-bg">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <i class="fa fa-plus fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-10">
+                                            <h2 class="font-bold" style="margin-top: 15px;">Add new followup</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+
+                    
 					<div class="clearfix"></div>
                     <h3 style="margin-left: 10px;">Old followups</h3>
 					<div id="vertical-timeline" class="vertical-container dark-timeline" style="height: auto;overflow-y:auto;">
