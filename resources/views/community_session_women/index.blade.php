@@ -62,7 +62,7 @@
                         </a>
 
                         <a href="{{ route('community-session-women.create') }}" class="pull-right" style="margin-right: 10px;">
-                            <button type="button" class="btn btn-primary btn-sm btn-block">Add Pregnant & Lactating</button>
+                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Pregnant & Lactating</button>
                         </a>
                       </h2>
                   </div>
@@ -122,8 +122,6 @@
                   </div>
               </div>
           </div>
-
-
         </div>
     </div>
 </div> <!-- row -->

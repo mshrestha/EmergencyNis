@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Camp;
 use App\Models\Facility;
 use App\Models\Volunteer;
+use App\Models\CommunitySession;
+
 use Illuminate\Http\Request;
 
 class CommunityController extends Controller
@@ -35,8 +37,9 @@ class CommunityController extends Controller
             ->orderBy('created_at', 'desc')->get();
 
         $selected_date = request()->get('date') ?: date('Y-m-d');
+        $community_sessions = CommunitySession::orderBy('created_at', 'desc')->where('date', $selected_date)->get();
 
-        return view('community.index', compact('volunteers', 'selected_date'));
+        return view('community.index', compact('volunteers', 'selected_date', 'community_sessions'));
     }
 
     public function create()
@@ -150,12 +153,6 @@ class CommunityController extends Controller
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
-    }
-
-    public function ageAndGender()
-    {
-        $volunteers = Volunteer::pluck('name', 'sync_id');
-        return view('community.age-gender', compact('volunteers', 'selected_date'));
     }
 
 }

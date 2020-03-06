@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Volunteer;
 use App\Models\CommunitySession;
 
 use Illuminate\Http\Request;
@@ -34,7 +35,9 @@ class CommunitySessionController extends Controller
      */
     public function create()
     {
-        //
+        $volunteers = Volunteer::pluck('name', 'sync_id');
+
+        return view('community_session.create', compact('volunteers'));
     }
 
     /**

@@ -70,7 +70,6 @@ Route::group(['middleware' => ['auth']], function() {
 
     //Community Volunteer
 	Route::resource('community', 'CommunityController');
-	Route::get('community-age-gender', 'CommunityController@ageAndGender')->name('community-age-gender');
 	Route::resource('community-session', 'CommunitySessionController');
 	Route::resource('community-session-women', 'CommunitySessionWomenController');
 	

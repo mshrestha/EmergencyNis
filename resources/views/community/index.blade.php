@@ -60,6 +60,9 @@
                         <a href="{{ route('community.create') }}" class="pull-right">
                             <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Volunteer</button>
                         </a>
+                        <a href="{{ route('community-session.create') }}" class="pull-right" style="margin-right: 10px;">
+                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Community Screening Children</button>
+                        </a>
                       </h2>
                   </div>
                   <div class="ibox-content">
@@ -81,65 +84,92 @@
                           <table class="table dataTables table-striped table-bordered table-hover">
                               <thead>
                                   <tr>
-                                      <th>Volunteer Name</th>
-                                      <th>Block - Subblock</th>
-                                      <th>Date</th>
-                                      <th>Screened</th>
-                                      <!--th>MUAC</th -->
-                                      <th>SAM</th>
-                                      <th>MAM</th>
-                                      <th>At Risk</th>
-                                      <th>Referred</th>
-                                      <th>In Program</th>
-                                      <th width="220">Action</th>
+                                      <th rowspan="3">Date</th>
+                                      <th rowspan="3">Volunteer</th>
+                                      <th colspan="4">Screening</th>
+                                      <th colspan="4">SAM in prog</th>
+                                      <th colspan="4">SAM Referred</th>
+                                      <th colspan="4">MAM Identified</th>
+                                      <th colspan="4">MAM Referred</th>
+                                      <th colspan="4">At Risk</th>
+                                      <th colspan="4" rowspan="2">No Referred</th>
+                                  </tr>
+                                  <tr>
+                                    <th colspan="2">6 - 23</th>
+                                    <th colspan="2">24 - 59</th>
+                                    <th colspan="2">6 - 23</th>
+                                    <th colspan="2">24 - 59</th>
+                                    <th colspan="2">6 - 23</th>
+                                    <th colspan="2">24 - 59</th>
+                                    <th colspan="2">6 - 23</th>
+                                    <th colspan="2">24 - 59</th>
+                                    <th colspan="2">6 - 23</th>
+                                    <th colspan="2">24 - 59</th>
+                                    <th colspan="2">6 - 23</th>
+                                    <th colspan="2">24 - 59</th>
+                                  </tr>
+                                  <tr>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
+                                    <th>M</th>
+                                    <th>F</th>
                                   </tr>
                               </thead>
                               <tbody>
-                                  @foreach($volunteers as $volunteer)
-                                  <tr class="volunteer" data-volunteer-id={{ $volunteer->id }}>
-                                      {{ html()->form('POST', route('community-session.store'))->open() }}
-                                      <td>
-                                        <a class="client-link">{{ $volunteer->name }}</a>
-                                        {{ html()->hidden('volunteer_id', $volunteer->sync_id) }}
-                                      </td>
-                                      <td><i class="fa fa-flag"></i> {{ $volunteer->block }} - {{ $volunteer->subblock }}</td>
-                                      <td>
-                                        {{ $selected_date }}
-                                        {{ html()->hidden('date', $selected_date) }}
-                                      </td>
-                                      <td>
-                                        {{ html()
-                                          ->number('screened',
-                                            $volunteer->todaysCommunitySession($selected_date)['screened']
-                                          )
-                                          ->style(['width' => '100px'])
-                                          ->placeholder('Screened')
-                                          ->required() }}
-                                      </td>
-
-                                      
-                                      <td>
-                                        {{ html()->number('sam', $volunteer->todaysCommunitySession($selected_date)['sam'])->style(['width' => '100px'])->placeholder('SAM')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('mam', $volunteer->todaysCommunitySession($selected_date)['mam'])->style(['width' => '100px'])->placeholder('MAM')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('atrisk', $volunteer->todaysCommunitySession($selected_date)['atrisk'])->style(['width' => '100px'])->placeholder('At Risk')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('referred', $volunteer->todaysCommunitySession($selected_date)['referred'])->style(['width' => '100px'])->placeholder('Referred')->required() }}
-                                      </td>
-                                      <td>
-                                        {{ html()->number('inprogram', $volunteer->todaysCommunitySession($selected_date)['inprogram'])->style(['width' => '100px'])->placeholder('In Program')->required() }}
-                                      </td>
-                                      <td>
-                                        <button class="btn btn-default btn-sm" type="submit" ><i class="fa fa-plus"></i> Submit</button>
-                                        <a href="{{ route('community.edit', $volunteer->sync_id) }}" class="btn btn-default btn-sm"><i class="fa fa-info"></i> Edit Volunteer</a>
-                                      </td>
-                                      {{ html()->form()->close() }}
+                                @foreach($community_sessions as $community_session)
+                                  <tr>
+                                    <td>{{ $community_session->date }}</td>
+                                    <td>{{ $community_session->volunteer->name }}</td>
+                                    <td>{{ $community_session->tot_scr_6_23_m }}</td>
+                                    <td>{{ $community_session->tot_scr_6_23_f }}</td>
+                                    <td>{{ $community_session->tot_scr_24_59_m }}</td>
+                                    <td>{{ $community_session->tot_scr_24_59_f }}</td>
+                                    <td>{{ $community_session->sam_ip_6_23_m }}</td>
+                                    <td>{{ $community_session->sam_ip_6_23_f }}</td>
+                                    <td>{{ $community_session->sam_ip_24_59_m }}</td>
+                                    <td>{{ $community_session->sam_ip_24_59_f }}</td>
+                                    <td>{{ $community_session->sam_ref_6_23_m }}</td>
+                                    <td>{{ $community_session->sam_ref_6_23_f }}</td>
+                                    <td>{{ $community_session->sam_ref_24_59_m }}</td>
+                                    <td>{{ $community_session->sam_ref_24_59_f }}</td>
+                                    <td>{{ $community_session->mam_ip_6_23_m }}</td>
+                                    <td>{{ $community_session->mam_ip_6_23_f }}</td>
+                                    <td>{{ $community_session->mam_ip_24_59_m }}</td>
+                                    <td>{{ $community_session->mam_ip_24_59_f }}</td>
+                                    <td>{{ $community_session->mam_ref_6_23_m }}</td>
+                                    <td>{{ $community_session->mam_ref_6_23_f }}</td>
+                                    <td>{{ $community_session->mam_ref_24_59_m }}</td>
+                                    <td>{{ $community_session->mam_ref_24_59_f }}</td>
+                                    <td>{{ $community_session->at_risk_6_23_m }}</td>
+                                    <td>{{ $community_session->at_risk_6_23_f }}</td>
+                                    <td>{{ $community_session->at_risk_24_59_m }}</td>
+                                    <td>{{ $community_session->at_risk_24_59_f }}</td>
+                                    <td>{{ $community_session->referred_m }}</td>
+                                    <td>{{ $community_session->referred_f }}</td>
                                   </tr>
-                                  @endforeach
+                                @endforeach
                               </tbody>
                           </table>
                       </div>
