@@ -1,10 +1,7 @@
 <div class="row">
-
 	<div class="col-md-12" id="wizard">
         <h1>Anthro Measurement</h1>
 		<div class="row step-content">
-
-
 			<div class="col-lg-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">

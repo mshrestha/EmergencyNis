@@ -20,7 +20,7 @@
     /*}*/
 </style>
 <div class="row m-b-lg">
-    <div class="col-lg-4 text-center">
+    <div class="col-lg-3 text-center">
         <div>
             <img alt="image" src="{{ $child->child_image() }}"
             style="width: 100%;height: 110px;object-fit:cover;">
@@ -127,7 +127,7 @@
                         @endif
                     </ul>
                     @endif
-                    <div id="vertical-timeline" class="vertical-container dark-timeline">
+                    {{-- <div id="vertical-timeline" class="vertical-container dark-timeline">
                         @foreach($followups as $followup)
                         <div class="vertical-timeline-block">
                             <div class="vertical-timeline-icon gray-bg">
@@ -183,7 +183,7 @@
                             @endif
                         </div>
                         @endforeach
-                    </div>
+                    </div> --}}
                 </div>
                 @endif
 

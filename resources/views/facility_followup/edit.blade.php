@@ -18,7 +18,6 @@
 				@csrf
 				@method('PATCH')
 				@include('facility_followup.partials.fields')
-
 			</form>
 		</div> <!-- col -->
 		<div class="col-lg-4">

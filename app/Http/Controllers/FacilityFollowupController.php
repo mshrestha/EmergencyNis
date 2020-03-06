@@ -132,7 +132,7 @@ class FacilityFollowupController extends Controller
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('register')->with([
+        return redirect()->back()->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);

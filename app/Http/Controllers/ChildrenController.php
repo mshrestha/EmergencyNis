@@ -6,9 +6,11 @@ use Auth;
 use App\Models\Child;
 use App\Models\Camp;
 use App\Models\Facility;
+use App\Models\CommunityFollowup;
+use App\Models\IycfFollowup;
+use App\Models\FacilityFollowup;
 
 use Illuminate\Http\Request;
-// use Intervention\Image\Facades\Image;
 
 class ChildrenController extends Controller
 {
@@ -106,7 +108,26 @@ class ChildrenController extends Controller
      */
     public function show($id)
     {
-        //
+        $children = Child::with('facility_followup')->findOrFail($id);
+        $facility_followup = $children->facility_followup->last();
+
+        // Followups
+        $community_followups = CommunityFollowup::where('children_id', $children->sync_id)->orderBy('created_at', 'desc')->get()->toArray();
+        $facility_followups = FacilityFollowup::with('facility')->where('children_id', $children->sync_id)->where('sync_id', '!=', $facility_followup->sync_id)->orderBy('created_at', 'desc')->get()->toArray();
+
+        $followups_facility = array_merge($community_followups, $facility_followups);
+        usort($followups_facility, function ($a, $b) {
+            return $b['date'] <=> $a['date'];
+        });
+
+        $iycf_followups = IycfFollowup::where('children_id', $children->sync_id)->orderBy('created_at', 'desc')->get()->toArray();
+
+        $followups = array_merge($followups_facility, $iycf_followups);
+        usort($followups, function ($a, $b) {
+            return $b['date'] <=> $a['date'];
+        });
+
+        return view('children.show', compact('children', 'facility_followup', 'followups'));
     }
 
     /**

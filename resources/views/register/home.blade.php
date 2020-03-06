@@ -1,22 +1,9 @@
 @extends('layouts.app')
-@push('styles')
-<style>
-    .modal {
-        border: 1px solid black;
-        background-color: rgba(255, 255, 255, 1.0);
-        height: 95%;
-        width: 95%;
-        margin:0 auto;
-    }
-</style>
-@endpush
-
 @section('content')
     <div class="row" style="margin-top: 20px;">
         <div class="col-md-12">
-
             <div class="row">
-                <div class="col-sm-8 tab-content">
+                <div class="col-sm-12 tab-content">
                     <div class="ibox tab-pane active" id="tab-1">
                         <div class="ibox-title">
                             <h2>
@@ -50,16 +37,17 @@
                                             </thead>
                                             <tbody>
                                             @foreach($children as $child)
-                                                <tr class="children-client" data-child-id="{{ $child->sync_id }}">
-                                                    <td>{{ $child->sync_id }}</td>
-                                                    <td>{{ $child->mnr_no }}</td>
-                                                    <td><a href="#child-{{ $child->sync_id }}"
-                                                           class="client-link">{{ $child->children_name }}</a></td>
-                                                    <td>{{ $child->mother_caregiver_name }}</td>
-                                                    <td>{{ $child->fathers_name }}</td>
-                                                    <td>{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
-                                                    <td>{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
-                                                    <td>
+                                                <tr class="children-client" data-child-href="{{ route('children.show', $child->sync_id) }}">
+                                                    <td class="children-show">{{ $child->sync_id }}</td>
+                                                    <td class="children-show">{{ $child->mnr_no }}</td>
+                                                    <td class="children-show">
+                                                        <a href="{{ route('children.show', $child->sync_id) }}" class="client-link">{{ $child->children_name }}</a>
+                                                    </td>
+                                                    <td class="children-show">{{ $child->mother_caregiver_name }}</td>
+                                                    <td class="children-show">{{ $child->fathers_name }}</td>
+                                                    <td class="children-show">{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
+                                                    <td class="children-show">{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
+                                                    <td class="children-show">
                                                         @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
                                                             <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
                                                         @endif
@@ -70,14 +58,9 @@
                                                         @endif
                                                         @if ($child->facility_followup->count()>=2)
                                                                 <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
-                                                            {{--{{$child->facility_followup->count()}}--}}
                                                         @endif
-                                                        {{--                                                    <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'' }}</small>--}}
-
-
                                                     </td>
-                                                    <td>
-
+                                                    <td class="children-show">
                                                         @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
                                                             <a href="{{ route('community-followup.show', $child->sync_id) }}"
                                                                title="Community followup">
@@ -95,8 +78,6 @@
                                                                             class="fa fa-plus"></i></button>
                                                             </a>
                                                         @endif
-
-
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -104,45 +85,34 @@
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-sm-4">
-                    <div class="ibox ">
-                        <div class="ibox-content">
-                            <div class="tab-content">
-                                <div id="contact-1" class="tab-pane active">
-                                    <div id="child-info">
-
-                                    </div>
-                                </div> <!-- tab-pane -->
-                            </div> <!-- tab-content -->
-                        </div> <!-- ibox-content -->
-                    </div> <!-- ibox -->
-                    <canvas id="myChart" width="400" height="400"></canvas>
-                </div> <!-- col -->
             </div>
         </div>
     </div> <!-- row -->
 @endsection
 
 
+@push('styles')
+<style>
+    .modal {
+        border: 1px solid black;
+        background-color: rgba(255, 255, 255, 1.0);
+        height: 95%;
+        width: 95%;
+        margin:0 auto;
+    }
+</style>
+@endpush
+
 @push('scripts')
 <script src="{{ asset('js/plugins/dataTables/datatables.min.js')}}"></script>
-<script src="{!! asset('js/plugins/moment.min.js')!!}" type="text/javascript"></script>
-<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
-
 <script>
-    $('#child-info').html('Loading ...');
     $(document).ready(function () {
-        var first_child = {{ isset($children[0]) ? $children[0]->sync_id : '' }}
-        load_child(first_child);
-
         $('.dataTables').DataTable({
-            "aaSorting": [],
+            aaSorting: [],
             pageLength: 10,
             responsive: true,
             dom: '<"html5buttons"B>lTfgtip',
@@ -164,43 +134,5 @@
             ]
         });
     });
-
-    var abase_url = '{{url('/')}}';
-
-    function load_child(child) {
-        $.ajax({
-            url: abase_url + '/child-info/' + child,
-            type: 'get',
-            success: function (res) {
-                $('#child-info').html(res);
-            }
-        });
-    }
-
-    $('.children-client').on('click', function () {
-        var child = $(this).data('child-id');
-        $('#child-info').html('Loading ...');
-        load_child(child);
-    });
-
-    // $(document).ready(function () {
-    //     $(function() {
-    //         var hash = window.location.hash;
-    //         url = hash; // do some validation on the hash here
-
-    //         switch (hash) {
-    //             case 'child':
-    //             url = 'tab-1';
-    //             break;
-    //             case 'pregnant-woman':
-    //             url = 'tab-2';
-    //             break;
-    //             default:
-    //             url = 'tab-1';
-    //         }
-
-    //         hash && $('ul.nav a[href="' + hash + '"]').tab('show');
-    //     });
-    // });
 </script>
 @endpush
