@@ -18,7 +18,8 @@
                     @csrf
                     @method('POST')
                     @include('facility_followup.partials.fields')
-
+                    
+                    <button tyle="submit" class="btn btn-primary pull-right" style="margin-right: 5px; margin-bottom: 20px;">Save</button>
                 </form>
             </div> <!-- col -->
             <div class="col-lg-4">
@@ -48,6 +49,8 @@
 <script>
     $(document).ready(function () {
         $("#wizard").steps({
+            enableAllSteps: true,
+            enablePagination: false,
             onFinished: function (event, currentIndex) {
                 $('#followupform').submit();
             }
