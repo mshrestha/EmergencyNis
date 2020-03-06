@@ -59,6 +59,7 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         if(!env('SERVER_CODE')) {
             dd('No server code found.');
         }
@@ -149,6 +150,12 @@ class CommunityController extends Controller
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
+    }
+
+    public function ageAndGender()
+    {
+        $volunteers = Volunteer::pluck('name', 'sync_id');
+        return view('community.age-gender', compact('volunteers', 'selected_date'));
     }
 
 }
