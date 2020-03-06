@@ -31,7 +31,9 @@
                                                 <th>Father</th>
                                                 <th>Block HH-no</th>
                                                 <th>Facility</th>
-                                                <th>Status</th>
+                                                <th>Nutrition Status</th>
+                                                <th>Date Status</th>
+                                                <th>Weight Status</th>
                                                 <th>Follow up</th>
                                             </tr>
                                             </thead>
@@ -51,11 +53,15 @@
                                                         @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
                                                             <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
                                                         @endif
+                                                    </td>
+                                                    <td class="children-show">
                                                         @if (isset($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']))
                                                             <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'Defaulter':'' }}</small>
                                                             @else
                                                                 <small class="label label-warning">Missing Date</small>
                                                         @endif
+                                                    </td>
+                                                    <td class="children-show">
                                                         @if ($child->facility_followup->count()>=2)
                                                                 <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
                                                         @endif
