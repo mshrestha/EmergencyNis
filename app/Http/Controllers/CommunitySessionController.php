@@ -45,12 +45,14 @@ class CommunitySessionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         try {
             $community_session = CommunitySession::where('volunteer_id', $request->volunteer_id)
                 ->where('date', $request->date)
                 ->first();
 
-            $data = $request->all();
+            $result = $request->all();
+            $data = array_filter($result);
 
             // IF NEW COMMUNITY SESSION
             if(!$community_session) {
