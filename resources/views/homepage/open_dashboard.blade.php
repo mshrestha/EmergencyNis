@@ -200,8 +200,19 @@
     </div>
 
 
-
+    {{--Doughnut Chart OTP New Admission--}}
     <div class="row border-bottom">
+        <ul class="nav nav-tabs">
+            <li class="active">
+                <a href="#tab_2_1" data-toggle="tab"> OTP </a>
+            </li>
+            <li>
+                <a href="#tab_2_2" data-toggle="tab" id="tsfp-tab2"> TSFP </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade active in" id="tab_2_1">
+            <div class="row border-bottom">
         <h2>OTP New Admission
             <small> for {{$month_year}}</small>
         </h2>
@@ -273,10 +284,11 @@
             </div>
         </div>
         <div class="col-lg-6">
-
-
         </div>
     </div>
+            </div>
+            <div class="tab-pane fade in" id="tab_2_2">
+            {{--Doughnut Chart Tsfp New Admission--}}
     <div class="row border-bottom">
         <h2>TSFP New Admission
             <small> for {{$month_year}}</small>
@@ -298,7 +310,7 @@
                     </div>
                 </div>
                 <div class="m-t">
-                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Age</small>
+                    <small>This chart is an accumulation of new admissions of all the TSFPs segregated by Age</small>
                 </div>
 
             </div>
@@ -319,7 +331,7 @@
                     </div>
                 </div>
                 <div class="m-t">
-                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by Gender
+                    <small>This chart is an accumulation of new admissions of all the TSFPs segregated by Gender
                     </small>
                 </div>
 
@@ -341,17 +353,16 @@
                     </div>
                 </div>
                 <div class="m-t">
-                    <small>This chart is an accumulation of new admissions of all the OTPs segregated by
+                    <small>This chart is an accumulation of new admissions of all the TSFPs segregated by
                         Anthropometry
                     </small>
                 </div>
 
             </div>
         </div>
-        <div class="col-lg-6">
-
-
-        </div>
+    </div>
+            </div>
+    </div>
     </div>
 
 @endsection
