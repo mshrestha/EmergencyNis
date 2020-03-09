@@ -564,7 +564,17 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('programPartner', $programPartner)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
         } elseif ($programPartner == null && $partner != null && $camp == null) {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age', '6-23 months')->where('partner', $partner)
@@ -588,7 +598,17 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('partner', $partner)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
         } elseif ($programPartner != null && $partner != null && $camp == null) {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age', '6-23 months')->where('programPartner', $programPartner)->where('partner', $partner)->sum('totalNewEnrolment');
@@ -611,7 +631,17 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
         } elseif ($programPartner != null && $partner != null && $camp != null) {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age', '6-23 months')->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)->sum('totalNewEnrolment');
@@ -634,7 +664,17 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
         } elseif ($programPartner != null && $partner == null && $camp != null) {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age', '6-23 months')->where('programPartner', $programPartner)->where('campSettlement', $camp)->sum('totalNewEnrolment');
@@ -657,7 +697,16 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('programPartner', $programPartner)->where('campSettlement', $camp)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('campSettlement', $camp)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('campSettlement', $camp)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('campSettlement', $camp)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('programPartner', $programPartner)->where('campSettlement', $camp)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
         } elseif ($programPartner == null && $partner != null && $camp != null) {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age', '6-23 months')->where('partner', $partner)->where('campSettlement', $camp)->sum('totalNewEnrolment');
@@ -680,7 +729,17 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
+                ->where('partner', $partner)->where('campSettlement', $camp)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
+//            $doughnut_chart['otp_admit_both'] = 0;
         } elseif ($programPartner == null && $partner == null && $camp != null) {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('age', '6-23 months')->where('campSettlement', $camp)->sum('totalNewEnrolment');
@@ -703,7 +762,14 @@ class OtpImportController extends Controller
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)
                 ->where('campSettlement', $camp)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('campSettlement', $camp)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('campSettlement', $camp)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('campSettlement', $camp)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('campSettlement', $camp)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
+
+            //            $doughnut_chart['otp_admit_both'] = 0;
         } else {
             $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('age', '6-23 months')->sum('totalNewEnrolment');
             $doughnut_chart['otp_admit_24'] = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->where('age', '24-59 months')->sum('totalNewEnrolment');
@@ -717,7 +783,13 @@ class OtpImportController extends Controller
             $otp_admit_wfhm = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_M');
             $otp_admit_wfhf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_F');
             $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-            $doughnut_chart['otp_admit_both'] = 0;
+//            $doughnut_chart['otp_admit_both'] = 0;
+            $otp_admit_edemam = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentEdema_M');
+            $otp_admit_edemaf = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentEdema_F');
+            $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+            $otp_admit_relapsem = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentRelapse_M');
+            $otp_admit_relapsef = DB::table('otp_imports')->where('month', $report_month)->where('year', $report_year)->sum('enrolmentRelapse_F');
+            $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
         }
         return $doughnut_chart;
     }
@@ -825,7 +897,17 @@ class OtpImportController extends Controller
         $otp_admit_wfhf = DB::table('otp_imports')
             ->where('month', $report_month)->where('year', $report_year)->sum('enrolmentWfh_F');
         $doughnut_chart['otp_admit_wfh'] = $otp_admit_wfhm + $otp_admit_wfhf;
-        $doughnut_chart['otp_admit_both'] = 0;
+        $otp_admit_edemam = DB::table('otp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('enrolmentEdema_M');
+        $otp_admit_edemaf = DB::table('otp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('enrolmentEdema_F');
+        $doughnut_chart['otp_admit_edema'] = $otp_admit_edemam + $otp_admit_edemaf;
+        $otp_admit_relapsem = DB::table('otp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('enrolmentRelapse_M');
+        $otp_admit_relapsef = DB::table('otp_imports')
+            ->where('month', $report_month)->where('year', $report_year)->sum('enrolmentRelapse_F');
+        $doughnut_chart['otp_admit_relapse'] = $otp_admit_relapsem + $otp_admit_relapsef;
+//        $doughnut_chart['otp_admit_both'] = 0;
 //        dd($doughnut_chart);
         return $doughnut_chart;
     }

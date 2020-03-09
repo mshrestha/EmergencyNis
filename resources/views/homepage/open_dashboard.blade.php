@@ -283,8 +283,6 @@
 
             </div>
         </div>
-        <div class="col-lg-6">
-        </div>
     </div>
             </div>
             <div class="tab-pane fade in" id="tab_2_2">
@@ -617,13 +615,14 @@
 
         var muac = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_muc']); ?>');
         var whz = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_wfh']); ?>');
-        var both = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_both']); ?>');
+        var edema = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_edema']); ?>');
+        var relapse = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_relapse']); ?>');
 
         var doughnutData = {
-            labels: ["MUAC", "WHZ", "Both"],
+            labels: ["MUAC", "WHZ", "Edema","Relapse"],
             datasets: [{
-                data: [muac, whz, both],
-                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
+                data: [muac, whz, edema, relapse],
+                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA", "#1CFFDA", "#5C00DA"]
             }]
         };
 
