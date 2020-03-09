@@ -1375,9 +1375,10 @@ class OtpImportController extends Controller
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $line_chart = $this->open_dashboard_linechart($months);
         $doughnut_chart = $this->open_dashboard_doughnutchart($report_year, $report_month);
+        $doughnut_chartTsfp = $this->open_dashboard_doughnutchart_tsfp($report_year, $report_month);
         $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
         $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp($report_year, $report_month);
-        return view('homepage.fourWdashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+        return view('homepage.fourWdashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message','doughnut_chartTsfp'));
     }
 
     public function fourW_ym(Request $request)
@@ -1437,8 +1438,9 @@ class OtpImportController extends Controller
         $bar_chart = $this->open_dashboard_barchart_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
+        $doughnut_chartTsfp = $this->open_dashboard_doughnut_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
 
-        return view('homepage.fourWdashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+        return view('homepage.fourWdashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message','doughnut_chartTsfp'));
     }
 
 

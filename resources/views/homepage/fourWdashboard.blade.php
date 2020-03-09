@@ -282,120 +282,206 @@
                 </div>
             </div>
 
-            <div class="container clearfix">
+            {{--<div class="container clearfix">--}}
+                {{--Doughnut Chart OTP New Admission--}}
                 <div class="row border-bottom">
-                    <h2>OTP New Admission
-                        <small> for {{$month_year}}</small>
-                    </h2>
-                    <div class="col-md-4">
-                        <div class="statistic-box">
-                            <h3>
-                                By Age
-                            </h3>
-                            {{--<p>--}}
-                            {{--for {{$month_year}} by age.--}}
-                            {{--</p>--}}
-                            <div class="row text-center">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#tab_2_1" data-toggle="tab"> OTP </a>
+                        </li>
+                        <li>
+                            <a href="#tab_2_2" data-toggle="tab" id="tsfp-tab2"> TSFP </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="tab_2_1">
+                            <div class="row border-bottom">
+                                <h2>OTP New Admission
+                                    <small> for {{$month_year}}</small>
+                                </h2>
+                                <div class="col-md-4">
+                                    <div class="statistic-box">
+                                        <h3>
+                                            By Age
+                                        </h3>
+                                        {{--<p>--}}
+                                        {{--for {{$month_year}} by age.--}}
+                                        {{--</p>--}}
+                                        <div class="row text-center">
 
-                                <div class="col-lg-9">
-                                    <canvas id="doughnutChart" width="280" height="270"
-                                            style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
-                                    <h5>Age</h5>
+                                            <div class="col-lg-9">
+                                                <canvas id="doughnutChart" width="280" height="270"
+                                                        style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                                                <h5>Age</h5>
+                                            </div>
+                                        </div>
+                                        <div class="m-t">
+                                            <small>This chart is an accumulation of new admissions of all the OTPs segregated by Age</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="statistic-box">
+                                        <h3>
+                                            By Gender
+                                        </h3>
+                                        {{--<p>--}}
+                                        {{--for {{$month_year}} by Gender.--}}
+                                        {{--</p>--}}
+                                        <div class="row text-center">
+                                            <div class="col-lg-9">
+                                                <canvas id="doughnutChart2" width="280" height="270"
+                                                        style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                                                <h5>Gender</h5>
+                                            </div>
+                                        </div>
+                                        <div class="m-t">
+                                            <small>This chart is an accumulation of new admissions of all the OTPs segregated by Gender
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="statistic-box">
+                                        <h3>
+                                            By Anthropometry
+                                        </h3>
+                                        {{--<p>--}}
+                                        {{--for {{$month_year}} Anthropometry.--}}
+                                        {{--</p>--}}
+                                        <div class="row text-center">
+                                            <div class="col-lg-9">
+                                                <canvas id="doughnutChart3" width="280" height="270"
+                                                        style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
+                                                <h5>Anthropometry</h5>
+                                            </div>
+                                        </div>
+                                        <div class="m-t">
+                                            <small>This chart is an accumulation of new admissions of all the OTPs segregated by
+                                                Anthropometry
+                                            </small>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="m-t">
-                                <small>This chart is an accumulation of new admissions of all the OTPs segregated by
-                                    Age
-                                </small>
-                            </div>
-
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="statistic-box">
-                            <h3>
-                                By Gender
-                            </h3>
-                            {{--<p>--}}
-                            {{--for {{$month_year}} by Gender.--}}
-                            {{--</p>--}}
-                            <div class="row text-center">
-                                <div class="col-lg-9">
-                                    <canvas id="doughnutChart2" width="280" height="270"
-                                            style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
-                                    <h5>Gender</h5>
+                        <div class="tab-pane fade in" id="tab_2_2">
+                            {{--Doughnut Chart Tsfp New Admission--}}
+                            <div class="row border-bottom">
+                                <h2>TSFP New Admission
+                                    <small> for {{$month_year}}</small>
+                                </h2>
+                                <div class="col-md-4">
+                                    <div class="statistic-box">
+                                        <h3>
+                                            By Age
+                                        </h3>
+                                        {{--<p>--}}
+                                        {{--for {{$month_year}} by age.--}}
+                                        {{--</p>--}}
+                                        <div class="row text-center">
+
+                                            <div class="col-lg-9">
+                                                <canvas id="doughnutChartTsfp" width="280" height="270"
+                                                        {{--style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"--}}
+                                                ></canvas>
+                                                <h5>Age</h5>
+                                            </div>
+                                        </div>
+                                        <div class="m-t">
+                                            <small>This chart is an accumulation of new admissions of all the TSFPs segregated by Age</small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="statistic-box">
+                                        <h3>
+                                            By Gender
+                                        </h3>
+                                        {{--<p>--}}
+                                        {{--for {{$month_year}} by Gender.--}}
+                                        {{--</p>--}}
+                                        <div class="row text-center">
+                                            <div class="col-lg-9">
+                                                <canvas id="doughnutChart2Tsfp" width="280" height="270"
+                                                        {{--style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"--}}
+                                                ></canvas>
+                                                <h5>Gender</h5>
+                                            </div>
+                                        </div>
+                                        <div class="m-t">
+                                            <small>This chart is an accumulation of new admissions of all the TSFPs segregated by Gender
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="statistic-box">
+                                        <h3>
+                                            By Anthropometry
+                                        </h3>
+                                        {{--<p>--}}
+                                        {{--for {{$month_year}} Anthropometry.--}}
+                                        {{--</p>--}}
+                                        <div class="row text-center">
+                                            <div class="col-lg-9">
+                                                <canvas id="doughnutChart3Tsfp" width="280" height="270"
+                                                        {{--style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"--}}
+                                                ></canvas>
+                                                <h5>Anthropometry</h5>
+                                            </div>
+                                        </div>
+                                        <div class="m-t">
+                                            <small>This chart is an accumulation of new admissions of all the TSFPs segregated by
+                                                Anthropometry
+                                            </small>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="m-t">
-                                <small>This chart is an accumulation of new admissions of all the OTPs segregated by
-                                    Gender
-                                </small>
-                            </div>
-
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="statistic-box">
-                            <h3>
-                                By Anthropometry
-                            </h3>
-                            {{--<p>--}}
-                            {{--for {{$month_year}} Anthropometry.--}}
-                            {{--</p>--}}
-                            <div class="row text-center">
-                                <div class="col-lg-9">
-                                    <canvas id="doughnutChart3" width="280" height="270"
-                                            style="margin: 18px auto 0px; display: block; width: 80px; height: 80px;"></canvas>
-                                    <h5>Anthropometry</h5>
-                                </div>
-                            </div>
-                            <div class="m-t">
-                                <small>This chart is an accumulation of new admissions of all the OTPs segregated by
-                                    Anthropometry
-                                </small>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-
-
                     </div>
                 </div>
-            </div>
+            {{--</div>--}}
         </div>
-        {{--<div class="row col-lg-1"></div>--}}
     </div>
+
 @endsection
 
 @push('scripts')
 <!-- Flot -->
-<script src="js/plugins/flot/jquery.flot.js"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="js/plugins/flot/jquery.flot.spline.js"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="js/plugins/flot/jquery.flot.pie.js"></script>
-<script src="js/plugins/flot/jquery.flot.symbol.js"></script>
-<script src="js/plugins/flot/jquery.flot.time.js"></script>
-<script src="js/plugins/flot/curvedLines.js"></script>
-<script src="js/plugins/dataTables/datatables.min.js"></script>
+{{--<script src="js/plugins/flot/jquery.flot.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.spline.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.resize.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.pie.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.symbol.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.time.js"></script>--}}
+{{--<script src="js/plugins/flot/curvedLines.js"></script>--}}
+{{--<script src="js/plugins/dataTables/datatables.min.js"></script>--}}
 
-<!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/demo/peity-demo.js"></script>
+{{--<!-- Peity -->--}}
+{{--<script src="js/plugins/peity/jquery.peity.min.js"></script>--}}
+{{--<script src="js/demo/peity-demo.js"></script>--}}
 
 <!-- Jvectormap -->
 {{--<script src="js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>--}}
 {{--<script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>--}}
 
 <!-- EayPIE -->
-<script src="js/plugins/easypiechart/jquery.easypiechart.js"></script>
+{{--<script src="js/plugins/easypiechart/jquery.easypiechart.js"></script>--}}
 
-<!-- Sparkline -->
-<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+{{--<!-- Sparkline -->--}}
+{{--<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>--}}
 
-<!-- Sparkline demo data  -->
-<script src="js/demo/sparkline-demo.js"></script>
+{{--<!-- Sparkline demo data  -->--}}
+{{--<script src="js/demo/sparkline-demo.js"></script>--}}
 
 <!-- ChartJS-->
 {{--<script src="js/plugins/chartJs/Chart.min.js"></script>--}}
@@ -617,21 +703,74 @@
 
         var muac = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_muc']); ?>');
         var whz = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_wfh']); ?>');
-        var both = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_both']); ?>');
+        var edema = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_edema']); ?>');
+        var relapse = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_relapse']); ?>');
 
         var doughnutData = {
-            labels: ["MUAC", "WHZ", "Both"],
+            labels: ["MUAC", "WHZ", "Edema","Relapse"],
             datasets: [{
-                data: [muac, whz, both],
-                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
+                data: [muac, whz, edema, relapse],
+                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA", "#1CFFDA", "#5C00DA"]
             }]
         };
 
         var ctx4 = document.getElementById("doughnutChart3").getContext("2d");
         new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
 
+    // Doughnut charts starts here Tsfp
+    var child23Tsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_23']); ?>');
+    var child59Tsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_59']); ?>');
+    var doughnutData = {
+        labels: ["6-23m", "24-59m"],
+        datasets: [{
+            data: [child23Tsfp, child59Tsfp],
+            backgroundColor: ["#a3e1d4", "#dedede"]
+        }]
+    };
+    var doughnutOptions = {
+        responsive: false,
+        legend: {
+            display: true
+        }
+    };
+
+    var ctx4 = document.getElementById("doughnutChartTsfp").getContext("2d");
+    new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
+
+    var maleTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_male']); ?>');
+    var femaleTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_female']); ?>');
+    var doughnutData = {
+        labels: ["Male", "Female"],
+        datasets: [{
+
+            data: [maleTsfp, femaleTsfp],
+            backgroundColor: ["#9CC3DA", "#a3e1d4"]
+
+        }]
+    };
+
+    var ctx4 = document.getElementById("doughnutChart2Tsfp").getContext("2d");
+    new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
+
+    var muacTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_muac']); ?>');
+    var whzTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_admit_wfh']); ?>');
+    var readmissionTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_readmission']); ?>');
+    var returnFromSamTsfp = JSON.parse('<?php echo json_encode($doughnut_chartTsfp['tsfp_returnFromSam']); ?>');
+
+    var doughnutData = {
+        labels: ["MUAC", "WHZ", "Readmission","Return From SAM"],
+        datasets: [{
+            data: [muacTsfp, whzTsfp,readmissionTsfp,returnFromSamTsfp],
+            backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA","#fedede"]
+        }]
+    };
+
+    var ctx4 = document.getElementById("doughnutChart3Tsfp").getContext("2d");
+    new Chart(ctx4, {type: 'doughnut', data: doughnutData, options: doughnutOptions});
+
 
     });
+
 
     var facility_name = JSON.parse('<?php echo json_encode($bar_chart['campSettlement']); ?>');
     var cure_rate = JSON.parse('<?php echo json_encode($bar_chart['curedRate']); ?>');
