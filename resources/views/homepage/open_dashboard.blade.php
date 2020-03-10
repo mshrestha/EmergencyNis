@@ -97,6 +97,25 @@
         </body>
     </div>
     <div class="row">
+        <div class="col-lg-12 border-bottom" style="padding-bottom: 40px">
+            <div class="col-lg-4 bottommargin center">
+                <canvas id="sam-reached"></canvas>
+                <div class="team-title"><h4>100.01% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 bottommargin center">
+                <canvas id="mam-reached"></canvas>
+                <div class="team-title"><h4>50.50% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
+                </div>
+            </div>
+            <div class="col-lg-4 bottommargin center">
+                <canvas id="iycf-reached"></canvas>
+                <div class="team-title "><h4>98.95% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
+                </div>
+            </div>
+        </div>
+
         <div class="col-lg-12 border-bottom">
             <div class="col-lg-6 bottommargin">
 
@@ -389,36 +408,39 @@
 
 @push('scripts')
 <!-- Flot -->
-<script src="js/plugins/flot/jquery.flot.js"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="js/plugins/flot/jquery.flot.spline.js"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="js/plugins/flot/jquery.flot.pie.js"></script>
-<script src="js/plugins/flot/jquery.flot.symbol.js"></script>
-<script src="js/plugins/flot/jquery.flot.time.js"></script>
-<script src="js/plugins/flot/curvedLines.js"></script>
-<script src="js/plugins/dataTables/datatables.min.js"></script>
+{{--<script src="js/plugins/flot/jquery.flot.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.spline.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.resize.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.pie.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.symbol.js"></script>--}}
+{{--<script src="js/plugins/flot/jquery.flot.time.js"></script>--}}
+{{--<script src="js/plugins/flot/curvedLines.js"></script>--}}
+{{--<script src="js/plugins/dataTables/datatables.min.js"></script>--}}
 
 <!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/demo/peity-demo.js"></script>
+{{--<script src="js/plugins/peity/jquery.peity.min.js"></script>--}}
+{{--<script src="js/demo/peity-demo.js"></script>--}}
 
 <!-- Jvectormap -->
 {{--<script src="js/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>--}}
 {{--<script src="js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>--}}
 
 <!-- EayPIE -->
-<script src="js/plugins/easypiechart/jquery.easypiechart.js"></script>
+{{--<script src="js/plugins/easypiechart/jquery.easypiechart.js"></script>--}}
 
 <!-- Sparkline -->
-<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+{{--<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>--}}
 
 <!-- Sparkline demo data  -->
-<script src="js/demo/sparkline-demo.js"></script>
+{{--<script src="js/demo/sparkline-demo.js"></script>--}}
 
 <!-- ChartJS-->
 {{--<script src="js/plugins/chartJs/Chart.min.js"></script>--}}
 <script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.min.js"></script>--}}
+{{--<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>--}}
+
 
 <script>
     $('#btn-sync-now').on('click', function () {
@@ -939,6 +961,55 @@
         }
     };
 
+    var ctx = document.getElementById('sam-reached').getContext('2d');
+    data = {
+        datasets: [{
+            data: [24831, 24855],
+            backgroundColor: [
+                window.chartColors.red,
+                window.chartColors.orange,
+                window.chartColors.yellow,
+                window.chartColors.green,
+                window.chartColors.blue,
+            ],
+            label: 'Dataset 1'
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ["Target", "Reached"]
+    };
+    var ctx2 = document.getElementById('mam-reached').getContext('2d');
+    data2 = {
+        datasets: [{
+            data: [80981, 40892],
+            backgroundColor: [
+                window.chartColors.red,
+                window.chartColors.orange,
+            ],
+            label: 'Dataset 1'
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ["Target", "Reached"]
+    };
+    var ctx3 = document.getElementById('iycf-reached').getContext('2d');
+    data3 = {
+        datasets: [{
+            data: [55544, 54962],
+            backgroundColor: [
+                window.chartColors.red,
+                window.chartColors.orange,
+            ],
+            label: 'Dataset 1'
+        }],
+
+        // These labels appear in the legend and in the tooltips when hovering different arcs
+        labels: ["Target", "Reached"
+
+        ]
+    };
+
+
     var months = JSON.parse('<?php echo json_encode($months); ?>');
     var sam_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
     var mam_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
@@ -993,6 +1064,44 @@
         }]
 
     };
+    // For a pie chart
+    var samChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: {
+            plugins: {
+                // Change options for ALL labels of THIS CHART
+                datalabels: {
+                    color: '#36A2EB'
+                }
+            }
+        }
+    });
+    var mamChart = new Chart(ctx2, {
+        type: 'pie',
+        data: data2,
+        options: {
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(0, 0, 0)'
+                }
+            }
+        }
+    });
+    var iycfChart = new Chart(ctx3, {
+        type: 'pie',
+        data: data3,
+        options: {
+            legend: {
+                display: true,
+                labels: {
+                    fontColor: 'rgb(0, 0, 0)'
+                }
+            }
+        }
+    });
+
     var samCumulative = new Chart(ctx4, {
         type: 'bar',
         data: data4,
