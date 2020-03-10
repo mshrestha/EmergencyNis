@@ -96,6 +96,28 @@
         </div>
         </body>
     </div>
+    <div class="row">
+        <div class="col-lg-12 border-bottom">
+            <div class="col-lg-6 bottommargin">
+
+                <div class="team team-list clearfix">
+                    <h4>SAM Reached Cumulative</h4>
+                    <canvas id="sam-cumulative"></canvas>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 bottommargin">
+
+                <div class="team team-list clearfix">
+                    <h4>MAM Reached Cumulative</h4>
+                    <canvas id="mam-cumulative"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
     {{--Tab test--}}
     <div class="row border-bottom">
@@ -863,6 +885,127 @@
 
 </script>
 <!-- Mapping script ends here -->
+<script>
+    var options2 = {
+        responsive: true,
+        legend: {
+            display: false,
+            labels: {
+                display: false
+            }
+        }
+    };
+    var options3 = {
+        responsive: true,
+        legend: {
+            display: false,
+            labels: {
+                display: false
+            }
+        },
+
+        scales: {
+            pointLabels: {
+                fontStyle: "bold",
+            },
+            yAxes: [{
+                ticks: {
+                    min: 0,
+                    max: 100,
+                    stepSize: 20,
+                    fontColor: "#ccc",
+                    fontSize: 8,
+
+                },
+                gridLines: {
+                    color: "#E5E5E5",
+                    lineWidth: 1,
+                    zeroLineColor: "#ccc",
+                    zeroLineWidth: 0
+                }
+            }],
+            xAxes: [{
+                ticks: {
+                    fontColor: "#ccc",
+                    fontSize: 8,
+
+                },
+                gridLines: {
+                    color: "rgba(255, 255, 255, 0)",
+                    lineWidth: 1,
+                    drawBorder: true
+                }
+            }]
+        }
+    };
+
+    var months = JSON.parse('<?php echo json_encode($months); ?>');
+    var sam_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
+    var mam_tsfp = JSON.parse('<?php echo json_encode($line_chart['tsfp']); ?>');
+    //console.log(sam_otp[1]);
+    var ctx4 = document.getElementById('sam-cumulative').getContext('2d');
+    data4 = {
+//        labels: ['March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],
+        labels: months.reverse(),
+
+        datasets: [{
+            backgroundColor: window.chartColors.blue,
+            borderColor: window.chartColors.blue,
+            borderWidth: 1,
+            data: [sam_otp[11],
+                +sam_otp[11] + +sam_otp[10],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3] + +sam_otp[2],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3] + +sam_otp[2] + +sam_otp[1],
+                +sam_otp[11] + +sam_otp[10] + +sam_otp[9] + +sam_otp[8] + +sam_otp[7] + +sam_otp[6] + +sam_otp[5] + +sam_otp[4] + +sam_otp[3] + +sam_otp[2] + +(sam_otp[1]) + +sam_otp[0]]
+//            data: sam_otp.reverse()
+        }]
+
+    };
+
+    var ctx5 = document.getElementById('mam-cumulative').getContext('2d');
+    data5 = {
+        labels: months,
+        datasets: [{
+
+            backgroundColor: window.chartColors.yellow,
+            borderColor: window.chartColors.yellow,
+            borderWidth: 1,
+            data: [mam_tsfp[11],
+                +mam_tsfp[11] + +mam_tsfp[10],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3] + +mam_tsfp[2],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3] + +mam_tsfp[2] + +mam_tsfp[1],
+                +mam_tsfp[11] + +mam_tsfp[10] + +mam_tsfp[9] + +mam_tsfp[8] + +mam_tsfp[7] + +mam_tsfp[6] + +mam_tsfp[5] + +mam_tsfp[4] + +mam_tsfp[3] + +mam_tsfp[2] + +(mam_tsfp[1]) + +mam_tsfp[0]]
+//            data: mam_tsfp.reverse()
+        }]
+
+    };
+    var samCumulative = new Chart(ctx4, {
+        type: 'bar',
+        data: data4,
+        options: options2
+    });
+
+    var mamCumulative = new Chart(ctx5, {
+        type: 'bar',
+        data: data5,
+        options: options2
+    });
+
+</script>
 
 @endpush
 
