@@ -4,9 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Artisan;
 
 class ApiController extends Controller
 {
+    public function migrate() {
+        $migrate = Artisan::call('migrate', [ '--force' => true ]);
+        // `echo '1' | php composer install --no-interaction`
+        dd($migrate);
+    }
+
     public function otpApi($report_year, $report_month)
     {
 //        dd($report_year);

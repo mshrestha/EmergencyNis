@@ -59,15 +59,19 @@ Route::post('/sync/save-outreach-monthly-reports', [
 	'as' => 'sync.outreach-monthly-reports.server'
 ]);
 
-
-
 // Dump sql
 Route::get('/sync/generate/mysqldump', [
 	'uses' => 'SyncDataServerController@generateMysqldump',
 	'as' => 'sync.generate.mysqldump'
 ]);
 
-//API for mobile Application
+// Migrate script
+Route::get('/smserver/artisan/migrate', [
+	'uses' => 'ApiController@migrate',
+	'as' => 'script.migrate'
+]);
+
+// API for mobile Application
 Route::get('otpApi/{report_year}/{report_month}', [
 	'uses' => 'ApiController@otpApi',
 	'as' => 'otpApi'
@@ -80,3 +84,4 @@ Route::get('bsfpApi/{report_year}/{report_month}', [
 	'uses' => 'ApiController@bsfpApi',
 	'as' => 'bsfpApi'
 ]);
+
