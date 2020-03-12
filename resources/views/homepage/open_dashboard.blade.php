@@ -71,6 +71,80 @@
 
 
     </div>
+
+    <div class="row ">
+        <div class="col-lg-12" style="padding-bottom: 40px">
+            <div class="col-lg-4 bottommargin center">
+                <canvas id="sam-reached"></canvas>
+                <div class="team-title"><h4>100.01% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
+                </div>
+            </div>
+
+            <div class="col-lg-4 bottommargin center">
+                <canvas id="mam-reached"></canvas>
+                <div class="team-title"><h4>50.50% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
+                </div>
+            </div>
+            <div class="col-lg-4 bottommargin center">
+                <canvas id="iycf-reached"></canvas>
+                <div class="team-title "><h4>98.95% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
+                </div>
+            </div>
+        </div>
+            <div class="col-lg-12 border-bottom">
+                <div class="col-lg-6 bottommargin">
+
+                    <div class="team team-list clearfix">
+                        <h4>SAM Reached Cumulative</h4>
+                        <canvas id="sam-cumulative"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-6 bottommargin">
+
+                    <div class="team team-list clearfix">
+                        <h4>MAM Reached Cumulative</h4>
+                        <canvas id="mam-cumulative"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        
+        <div class="col-lg-12 border-bottom" style="padding-top: 20px; padding-bottom: 20px">
+            <div class="col-lg-6 bottommargin">
+                <div class="panel panel-default">
+                    <div class="panel-heading">BSFP Child</div>
+                    <div class="panel-body">
+                        <h4>
+                            BSFP 6-59 Months Target - 161413</h4>
+                        <h4>BSFP 6-59 Months Reached - 165589</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                 aria-valuenow="102" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:102%">
+                                102.59%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 bottommargin">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Vitamin A Supplementation</div>
+                    <div class="panel-body">
+                        <h4>Vitamin A (6-59) Target - 191074</h4>
+                        <h4>Vitamin A (6-59) Reached- 194966</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active " role="progressbar"
+                                 aria-valuenow="102" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:100%">
+                                102.04%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row ">
         <div class="col-lg-12  border-bottom dashboard-header">
             {{--<h2>Welcome to Emergency Nutrition System Dashboard </h2>--}}
@@ -95,47 +169,6 @@
             </div>
         </div>
         </body>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 border-bottom" style="padding-bottom: 40px">
-            <div class="col-lg-4 bottommargin center">
-                <canvas id="sam-reached"></canvas>
-                <div class="team-title"><h4>100.01% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
-                </div>
-            </div>
-
-            <div class="col-lg-4 bottommargin center">
-                <canvas id="mam-reached"></canvas>
-                <div class="team-title"><h4>50.50% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
-                </div>
-            </div>
-            <div class="col-lg-4 bottommargin center">
-                <canvas id="iycf-reached"></canvas>
-                <div class="team-title "><h4>98.95% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-12 border-bottom">
-            <div class="col-lg-6 bottommargin">
-
-                <div class="team team-list clearfix">
-                    <h4>SAM Reached Cumulative</h4>
-                    <canvas id="sam-cumulative"></canvas>
-                </div>
-
-            </div>
-
-            <div class="col-lg-6 bottommargin">
-
-                <div class="team team-list clearfix">
-                    <h4>MAM Reached Cumulative</h4>
-                    <canvas id="mam-cumulative"></canvas>
-                </div>
-
-            </div>
-        </div>
-
     </div>
 
     {{--Tab test--}}
