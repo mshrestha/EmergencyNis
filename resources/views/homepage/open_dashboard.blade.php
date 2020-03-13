@@ -190,6 +190,9 @@
             <li>
                 <a class="btn" href="#modalOtpPer" data-toggle="modal">OTP Zoom</a>
             </li>
+            <li>
+                <a class="btn" href="#modalTsfpPer" data-toggle="modal">TSFP Zoom</a>
+            </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane fade active in" id="tab_1_1">
@@ -286,6 +289,21 @@
                             {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
                             <div class="modal-body">
                                 <canvas id="otpPerModal"></canvas>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade " id="modalTsfpPer" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                            <div class="modal-body">
+                                <canvas id="tsfpPerModal"></canvas>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -754,6 +772,52 @@
                     title: {
                         display: false,
                         text: 'OTP Performance'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
+
+        });
+        $("#modalTsfpPer").on('shown.bs.modal', function () {
+            var tsfpfacility_name = JSON.parse('<?php echo json_encode($bar_chart_tsfp['campSettlement']); ?>');
+            var tsfpcure_rate = JSON.parse('<?php echo json_encode($bar_chart_tsfp['curedRate']); ?>');
+            var tsfpdeath_rate = JSON.parse('<?php echo json_encode($bar_chart_tsfp['deathRate']); ?>');
+            var tsfpdefault_rate = JSON.parse('<?php echo json_encode($bar_chart_tsfp['defaultRate']); ?>');
+            var tsfpnon_respondent_rate = JSON.parse('<?php echo json_encode($bar_chart_tsfp['nonRecoveredRate']); ?>');
+            var tsfpbarChartData = {
+                labels: tsfpfacility_name,
+                datasets: [
+                    {
+                        label: 'Non Respondant Rate',
+                        backgroundColor: 'rgb(0, 48, 143, 0.9)',
+                        data: tsfpnon_respondent_rate
+                    },
+                    {
+                        label: 'Death Rate',
+                        backgroundColor: 'rgb(255, 0, 0, 0.9)',
+                        data: tsfpdeath_rate
+                    },
+                    {
+                        label: 'Default Rate',
+                        backgroundColor: 'rgb(233, 214, 107, 0.9)',
+                        data: tsfpdefault_rate
+                    },
+                    {
+                        label: 'Cure Rate',
+                        backgroundColor: 'rgb(0, 106, 78, 0.9)',
+                        data: tsfpcure_rate
+                    }
+                ]
+            };
+            var ctx_tsfp_per_modal = $("#tsfpPerModal").get(0).getContext("2d");
+            var my_tsfp_per_chart = new Chart(ctx_tsfp_per_modal, {
+                type: 'bar',
+                data: tsfpbarChartData,
+                options: {
+                    title: {
+                        display: false,
+                        text: 'TSFP Performance'
                     },
                     responsive: true,
                     maintainAspectRatio: true
