@@ -10,7 +10,7 @@
     .modal-content {
         height: auto;
         min-height: 90%;
-        border-radius: 3;
+        border-radius: 0;
     }
 
 </style>
@@ -154,19 +154,19 @@
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
             </div>
-            <a class="btn btn-info pull-right" id="popup1link" href="#modal" data-toggle="modal">ZoomView</a>
+            <a class="btn btn-info pull-right" id="popup1link" href="#modalChildAdmission" data-toggle="modal">ZoomView</a>
             <div class="flot-chart-content">
                 <canvas id="childAdmission"></canvas>
             </div>
         </div>
 
-        <div class="modal fade " id="modal" role="dialog">
+        <div class="modal fade " id="modalChildAdmission" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
                         <div class="modal-body">
-                            <canvas id="canvas"></canvas>
+                            <canvas id="childAdmissionModal"></canvas>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -541,7 +541,7 @@
             }
         });
 //Modal zoom view of Admission Trend Line Chart
-        $("#modal").on('shown.bs.modal', function () {
+        $("#modalChildAdmission").on('shown.bs.modal', function () {
             var months = JSON.parse('<?php echo json_encode($months); ?>');
             var obj_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
             var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
@@ -549,7 +549,7 @@
             var obj_tsfp_plw = JSON.parse('<?php echo json_encode($line_chart['tsfp_plw']); ?>');
             var obj_sc = JSON.parse('<?php echo json_encode($line_chart['sc']); ?>');
 
-            var ctx_lc_modal = $("#canvas").get(0).getContext("2d");
+            var ctx_lc_modal = $("#childAdmissionModal").get(0).getContext("2d");
             var myLineChart = new Chart(ctx_lc_modal, {
                 type: 'line',
                 data: {
