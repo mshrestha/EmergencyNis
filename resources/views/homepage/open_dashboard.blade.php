@@ -154,7 +154,7 @@
             <div class="small pull-left col-md-3 m-l-lg m-t-md">
                 <strong>ADMISSION TREND </strong>
             </div>
-            <a class="btn btn-info pull-right" id="popup1link" href="#modalChildAdmission" data-toggle="modal">ZoomView</a>
+            <a class="btn btn-info pull-right" href="#modalChildAdmission" data-toggle="modal">ZoomView</a>
             <div class="flot-chart-content">
                 <canvas id="childAdmission"></canvas>
             </div>
@@ -186,6 +186,9 @@
             </li>
             <li>
                 <a href="#tab_1_2" data-toggle="tab" id="bs-tab2"> TSFP </a>
+            </li>
+            <li>
+                <a class="btn" href="#modalOtpPer" data-toggle="modal">OTP Zoom</a>
             </li>
         </ul>
         <div class="tab-content">
@@ -275,6 +278,23 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade " id="modalOtpPer" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {{--<button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                            <div class="modal-body">
+                                <canvas id="otpPerModal"></canvas>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         {{--</div>--}}
     </div>
@@ -694,7 +714,55 @@
 //                }
             }
         });
-        //Stacked Bar data for OTP Performance end
+
+        $("#modalOtpPer").on('shown.bs.modal', function () {
+            var facility_name = JSON.parse('<?php echo json_encode($bar_chart['campSettlement']); ?>');
+            var cure_rate = JSON.parse('<?php echo json_encode($bar_chart['curedRate']); ?>');
+            var death_rate = JSON.parse('<?php echo json_encode($bar_chart['deathRate']); ?>');
+            var default_rate = JSON.parse('<?php echo json_encode($bar_chart['defaultRate']); ?>');
+            var non_respondent_rate = JSON.parse('<?php echo json_encode($bar_chart['nonRecoveredRate']); ?>');
+            var barChartData = {
+                labels: facility_name,
+                datasets: [
+                    {
+                        label: 'Non Respondant Rate',
+                        backgroundColor: 'rgb(0, 48, 143, 0.9)',
+                        data: non_respondent_rate,
+                    },
+                    {
+                        label: 'Death Rate',
+                        backgroundColor: 'rgb(255, 0, 0, 0.9)',
+                        data: death_rate
+                    },
+                    {
+                        label: 'Default Rate',
+                        backgroundColor: 'rgb(233, 214, 107, 0.9)',
+                        data: default_rate
+                    },
+                    {
+                        label: 'Cure Rate',
+                        backgroundColor: 'rgb(0, 106, 78, 0.9)',
+                        data: cure_rate
+                    }
+                ]
+            };
+            var ctx_otp_per_modal = $("#otpPerModal").get(0).getContext("2d");
+            var my_otp_per_chart = new Chart(ctx_otp_per_modal, {
+                type: 'bar',
+                data: barChartData,
+                options: {
+                    title: {
+                        display: false,
+                        text: 'OTP Performance'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: true
+                }
+            });
+
+        });
+
+            //Stacked Bar data for OTP Performance end
         //Bar chart for TSFP Performance Start
         function ct1() {
             var tsfpfacility_name = JSON.parse('<?php echo json_encode($bar_chart_tsfp['campSettlement']); ?>');
