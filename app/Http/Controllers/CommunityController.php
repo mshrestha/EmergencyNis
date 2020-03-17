@@ -62,7 +62,7 @@ class CommunityController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+//        dd($request->all());
         if(!env('SERVER_CODE')) {
             dd('No server code found.');
         }

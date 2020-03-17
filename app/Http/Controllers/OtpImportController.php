@@ -134,7 +134,8 @@ class OtpImportController extends Controller
             $report_month = $cache_data[0]->month;
             $report_year = $cache_data[0]->year;
         }
-//
+//dd($report_month);
+        //
 //        $months = array();
 //        for ($i = 0; $i < 12; $i++) {
 //            $months[] = date("M-y", strtotime(date('Y-m-01') . " -$i months"));

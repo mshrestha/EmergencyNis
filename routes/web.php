@@ -90,6 +90,10 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('supply', 'SupplyController');
 	Route::get('dashboard', 'HomeController@dashboard')->name('dashboard');
+
+    Route::resource('indicator', 'IndicatorController');
+    Route::resource('targetReached', 'TargetReachedController');
+
 });
 
 Route::get('/sync/get-live-data', [
