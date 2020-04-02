@@ -80,18 +80,18 @@
         <div class="col-lg-12" style="padding-bottom: 40px">
             <div class="col-lg-4 bottommargin center">
                 <canvas id="sam-reached"></canvas>
-                <div class="team-title"><h4>100.01% <br/>Severe Acute Malnutrition</h4><span>children reached of the target population</span>
+                <div class="team-title"><h4>{{$target_reached['sam_per']}}% <br/>Severe Acute Malnutrition - {{$report_year}}</h4><span>children reached of the target population</span>
                 </div>
             </div>
 
             <div class="col-lg-4 bottommargin center">
                 <canvas id="mam-reached"></canvas>
-                <div class="team-title"><h4>50.50% <br/>Moderate acute malnutrition</h4><span>children reached of the target population</span>
+                <div class="team-title"><h4>{{$target_reached['mam_per']}}% <br/>Moderate acute malnutrition - {{$report_year}}</h4><span>children reached of the target population</span>
                 </div>
             </div>
             <div class="col-lg-4 bottommargin center">
                 <canvas id="iycf-reached"></canvas>
-                <div class="team-title "><h4>98.95% <br/>IYCF Counseling</h4><span>children reached of the target population</span>
+                <div class="team-title "><h4>{{$target_reached['iycf_per']}}% <br/>IYCF Counseling - {{$report_year}}</h4><span>children reached of the target population</span>
                 </div>
             </div>
         </div>
@@ -116,16 +116,16 @@
         <div class="col-lg-12 border-bottom" style="padding-top: 20px; padding-bottom: 20px">
             <div class="col-lg-6 bottommargin">
                 <div class="panel panel-default">
-                    <div class="panel-heading">BSFP Child</div>
+                    <div class="panel-heading">BSFP Child  - {{$report_year}}</div>
                     <div class="panel-body">
                         <h4>
-                            BSFP 6-59 Months Target - 161413</h4>
-                        <h4>BSFP 6-59 Months Reached - 165589</h4>
+                            BSFP 6-59 Months Target - {{$target_reached['bsfp_target']}}</h4>
+                        <h4>BSFP 6-59 Months Reached - {{$target_reached['bsfp_reached']}}</h4>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped active" role="progressbar"
-                                 aria-valuenow="102" aria-valuemin="0" aria-valuemax="100"
-                                 style="width:102%">
-                                102.59%
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:{{$target_reached['bsfp_per']}}%">
+                                {{$target_reached['bsfp_per']}}%
                             </div>
                         </div>
                     </div>
@@ -133,15 +133,15 @@
             </div>
             <div class="col-lg-6 bottommargin">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Vitamin A Supplementation</div>
+                    <div class="panel-heading">Vitamin A Supplementation - {{$report_year}}</div>
                     <div class="panel-body">
-                        <h4>Vitamin A (6-59) Target - 191074</h4>
-                        <h4>Vitamin A (6-59) Reached- 194966</h4>
+                        <h4>Vitamin A (6-59) Target - {{$target_reached['vitamina_target']}}</h4>
+                        <h4>Vitamin A (6-59) Reached- {{$target_reached['vitamina_reached']}}</h4>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped active " role="progressbar"
-                                 aria-valuenow="102" aria-valuemin="0" aria-valuemax="100"
-                                 style="width:100%">
-                                102.04%
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:{{$target_reached['vitamina_per']}}%">
+                                {{$target_reached['vitamina_per']}}%
                             </div>
                         </div>
                     </div>
@@ -970,9 +970,12 @@
         }
     };
     var ctx = document.getElementById('sam-reached').getContext('2d');
+    var sam_target = JSON.parse('<?php echo json_encode($target_reached['sam_target']); ?>');
+    var sam_reached = JSON.parse('<?php echo json_encode($target_reached['sam_reached']); ?>');
+
     data = {
         datasets: [{
-            data: [24831, 24855],
+            data: [sam_target, sam_reached],
             backgroundColor: [
                 window.chartColors.red,
                 window.chartColors.orange,
@@ -986,9 +989,11 @@
         labels: ["Target", "Reached"]
     };
     var ctx2 = document.getElementById('mam-reached').getContext('2d');
+    var mam_target = JSON.parse('<?php echo json_encode($target_reached['mam_target']); ?>');
+    var mam_reached = JSON.parse('<?php echo json_encode($target_reached['mam_reached']); ?>');
     data2 = {
         datasets: [{
-            data: [80981, 40892],
+            data: [mam_target, mam_reached],
             backgroundColor: [
                 window.chartColors.red,
                 window.chartColors.orange,
@@ -999,9 +1004,12 @@
         labels: ["Target", "Reached"]
     };
     var ctx3 = document.getElementById('iycf-reached').getContext('2d');
+    var iycf_target = JSON.parse('<?php echo json_encode($target_reached['iycf_target']); ?>');
+    var iycf_reached = JSON.parse('<?php echo json_encode($target_reached['iycf_reached']); ?>');
+
     data3 = {
         datasets: [{
-            data: [55544, 54962],
+            data: [iycf_target, iycf_reached],
             backgroundColor: [
                 window.chartColors.red,
                 window.chartColors.orange,

@@ -98,8 +98,11 @@ class OtpImportController extends Controller
         $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chart = $this->open_dashboard_doughnut_ym($report_month, $report_year, $programPartner, $partner, $camp);
         $doughnut_chartTsfp = $this->open_dashboard_doughnut_tsfp_ym($report_month, $report_year, $programPartner, $partner, $camp);
-
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart','doughnut_chartTsfp', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+        $target_reached = $this->target_reached($report_year);
+//        dd($target_reached);
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods',
+            'cache_data', 'month_year', 'doughnut_chart','doughnut_chartTsfp', 'bar_chart','bar_chart_tsfp', 'line_chart',
+            'months','filter_message','target_reached','report_year'));
     }
 
     public function open_dashboard()
@@ -134,7 +137,9 @@ class OtpImportController extends Controller
             $report_month = $cache_data[0]->month;
             $report_year = $cache_data[0]->year;
         }
-//dd($report_month);
+//dd($report_year);
+
+
         //
 //        $months = array();
 //        for ($i = 0; $i < 12; $i++) {
@@ -154,9 +159,103 @@ class OtpImportController extends Controller
         $doughnut_chartTsfp = $this->open_dashboard_doughnutchart_tsfp($report_year, $report_month);
         $bar_chart = $this->open_dashboard_barchart($report_year, $report_month);
         $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp($report_year, $report_month);
-        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods', 'cache_data', 'month_year', 'doughnut_chart','doughnut_chartTsfp', 'bar_chart','bar_chart_tsfp', 'line_chart', 'months','filter_message'));
+        $target_reached = $this->target_reached($report_year);
+//        dd($target_reached);
+        return view('homepage.open_dashboard', compact('program_partners', 'partners', 'camps', 'periods',
+            'cache_data', 'month_year', 'doughnut_chart','doughnut_chartTsfp', 'bar_chart','bar_chart_tsfp', 'line_chart',
+            'months','filter_message','target_reached','report_year'));
     }
 
+    private function target_reached($report_year){
+//        dd($report_year);
+        $sam_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',1)->first();
+//        dd($sam_target_reached);
+        if ($sam_target_reached == null) {
+            $tr['sam_target']=0;
+            $tr['sam_reached']=0;
+            $tr['sam_per']=0;
+        }
+        else {
+            $tr['sam_target'] = $sam_target_reached->target;
+            if($sam_target_reached->use_this=='Use system generated reached data'){
+                $tr['sam_reached'] = DB::table('otp_imports')
+                    ->where('year', $report_year)
+                    ->sum('totalNewEnrolment');
+            }else {
+                $tr['sam_reached'] = $sam_target_reached->reached;
+            }
+            $tr['sam_per']=round(($tr['sam_reached']/$tr['sam_target'])*100,1);
+
+        }
+        $mam_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',2)->first();
+        if ($mam_target_reached == null) {
+            $tr['mam_target']=0;
+            $tr['mam_reached']=0;
+            $tr['mam_per']=0;
+        }
+        else {
+            $tr['mam_target'] = $mam_target_reached->target;
+            if($mam_target_reached->use_this=='Use system generated reached data'){
+                $tr['mam_reached'] = DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->sum('newAdmissionTotal');
+            }else {
+                $tr['mam_reached'] = $mam_target_reached->reached;
+            }
+            $tr['mam_per']=round(($tr['mam_reached']/$tr['mam_target'])*100,1);
+
+        }
+        $bsfp_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',3)->first();
+        if ($bsfp_target_reached == null) {
+            $tr['bsfp_target']=0;
+            $tr['bsfp_reached']=0;
+            $tr['bsfp_per']=0;
+        }
+        else {
+            $tr['bsfp_target'] = $bsfp_target_reached->target;
+            if($bsfp_target_reached->use_this=='Use system generated reached data'){
+                $tr['bsfp_reached'] = DB::table('bsfp_imports')
+                    ->where('year', $report_year)
+                    ->sum('newEnrolmentTotal');
+            }else{
+                $tr['bsfp_reached'] =$bsfp_target_reached->reached;
+            }
+            $tr['bsfp_per']=round(($tr['bsfp_reached']/$tr['bsfp_target'])*100,1);
+        }
+        $vitamina_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',5)->first();
+        if ($vitamina_target_reached == null) {
+            $tr['vitamina_target']=0;
+            $tr['vitamina_reached']=0;
+            $tr['vitamina_per']=0;
+        }
+        else {
+            $tr['vitamina_target'] = $vitamina_target_reached->target;
+            if($vitamina_target_reached->use_this=='Use system generated reached data'){
+                $tr['vitamina_reached'] = 0;
+            }else {
+                $tr['vitamina_reached'] = $vitamina_target_reached->reached;
+            }
+            $tr['vitamina_per']=round(($tr['vitamina_reached']/$tr['vitamina_target'])*100,1);
+        }
+        $iycf_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',4)->first();
+        if ($iycf_target_reached == null) {
+            $tr['iycf_target']=0;
+            $tr['iycf_reached']=0;
+            $tr['iycf_per']=0;
+        }
+        else {
+            $tr['iycf_target'] = $iycf_target_reached->target;
+            if($iycf_target_reached->use_this=='Use system generated reached data'){
+                $tr['iycf_reached'] = 0;
+            }else{
+                $tr['iycf_reached'] =$iycf_target_reached->reached;
+            }
+            $tr['iycf_per']=round(($tr['iycf_reached']/$tr['iycf_target'])*100,1);
+        }
+//        dd($tr);
+        return $tr;
+
+    }
     private function open_dashboard_linechart($months)
     {
 //        $total_tsfp=DB::table('tsfp_imports')
