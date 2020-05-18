@@ -256,7 +256,7 @@ class OtpImportController extends Controller
         return $tr;
 
     }
-    private function open_dashboard_linechart($months)
+    static function open_dashboard_linechart($months)
     {
 //        $total_tsfp=DB::table('tsfp_imports')
 //            ->select(DB::raw('sum(newAdmissionTotal) as TotalAdmission'))->get();
@@ -973,7 +973,7 @@ class OtpImportController extends Controller
         return $bar_chart;
     }
 
-    private function open_dashboard_doughnutchart($report_year, $report_month)
+    static function open_dashboard_doughnutchart($report_year, $report_month)
     {
 //        dd($report_month);
         $doughnut_chart['otp_admit_23'] = DB::table('otp_imports')
@@ -1257,7 +1257,7 @@ class OtpImportController extends Controller
         return $doughnut_chartTsfp;
     }
 
-    private function open_dashboard_barchart($report_year, $report_month)
+    static function open_dashboard_barchart($report_year, $report_month)
     {
         $bar_chart2 = DB::table('otp_imports')
             ->select(DB::raw('year'), DB::raw('month'), DB::raw('period'), DB::raw('campSettlement'),

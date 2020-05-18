@@ -25,6 +25,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('fourW', 'OtpImportController@fourW')->name('fourW');
     Route::get('fourW_ym', 'OtpImportController@fourW_ym')->name('fourW_ym');
 
+    Route::get('preview', 'MonthlyMailController@preview');
+    Route::get('generate-pdf', 'MonthlyMailController@generatePDF');
+    Route::get('/sendmail','MonthlyMailController@sendmail')->name('sendmail');
+
+
     Route::get('/program-manager', 'HomeController@programManagerDashboard')->name('program-manager');
     Route::get('/admin_ym/{year}/{month}', 'HomeController@adminDashboard_ym')->name('admin_ym');
     Route::get('/program-manager_ym/{year}/{month}', 'HomeController@programManagerDashboard_ym')->name('program-manager_ym');
