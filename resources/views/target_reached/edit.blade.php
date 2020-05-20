@@ -10,7 +10,7 @@
         <div class="col-lg-4">
             <div class="ibox ">
                 <div class="ibox-title">
-                    <h5>Add Target Reached Information</h5>
+                    <h5>Update Target Reached Information</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -21,11 +21,12 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form action="{{ route('targetReached.store') }}" class="form-horizontal" method="POST">
-                        @csrf
+                    {{--<form action="{{ route('.store') }}" class="form-horizontal" method="POST">--}}
+                        <form action="{{ route('targetReached.update', $targetReached->id) }}" method="post" class="form-horizontal">
+                            @csrf
+                            @method('PATCH')
 
                         <div class="row ">
-
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Indicator</label>
@@ -34,16 +35,18 @@
                                             data-live-search="true" required>
                                         <option value="">Select Indicator</option>
                                         @foreach($indicators as $indicator)
-                                            <option value="{{ $indicator->id }}">{{ $indicator->indicator_short_title.'-'.$indicator->indicator }}</option>
+                                            {{--<option value="{{ $indicator->id }}">{{ $indicator->indicator_short_title.'-'.$indicator->indicator }}</option>--}}
+                                            <option value="{{ $indicator->id }}"
+                                                     {{ (isset($targetReached) && $targetReached->indicator_id == $indicator->id) ? ' selected' : '' }}  >{{ $indicator->indicator_short_title.'-'.$indicator->indicator }} </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Select Year </label>
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <input class="yearpicker form-control" style="width: 240px;" type="text" name="data_year"
-                                           value="<?php echo date('Y') ?>">
+                                           value="{{$targetReached->data_year}}">
                                 </div>
                             </div>
 
@@ -51,14 +54,14 @@
                                     <label class="col-md-3 control-label">Target </label>
                                     <div class="col-md-7">
                                         <input type="text" name="target" class="form-control"
-                                               placeholder="Target">
+                                               placeholder="Target" value="{{$targetReached->target}}">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Reached </label>
                                     <div class="col-md-7">
                                         <input type="text" name="reached" class="form-control"
-                                               placeholder="Reached">
+                                               placeholder="Reached" value="{{$targetReached->reached}}">
                                     </div>
                                 </div>
 
@@ -66,7 +69,7 @@
                                     <label class="control-label col-md-3">Comments</label>
                                     <div class=" col-md-7">
                                 <textarea type="text" class="form-control " name="comments"
-                                          placeholder="Comments"></textarea>
+                                          placeholder="Comments">{{$targetReached->comments}}</textarea>
                                     </div>
                                 </div>
                             <div class="form-group">
@@ -74,8 +77,8 @@
                                 <div class="col-md-7">
                                     <select name="use_this" class="form-control">
                                         {{--<option value="">Select supply Item</option>--}}
-                                        <option value="Use this reached data">Use this reached data</option>
-                                        <option value="Use system generated reached data">Use system generated reached data</option>
+                                        <option value="Use this reached data" {{ (isset($targetReached) && $targetReached->use_this == 'Use this reached data') ? ' selected' : '' }}>Use this reached data</option>
+                                        <option value="Use system generated reached data" {{ (isset($targetReached) && $targetReached->use_this == 'Use system generated reached data') ? ' selected' : '' }}>Use system generated reached data</option>
 
                                     </select>
                                 </div>
@@ -89,7 +92,7 @@
                                     <a href="{{ url()->previous() }}" class="btn btn-info"><i
                                                 class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
                                     <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>
-                                        Submit
+                                        Update
                                     </button>
 
                                 </div>
@@ -100,77 +103,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="ibox-content">
-                <div class="clients-list">
-                    <div class="full-height-scroll">
-                        <div class="table-responsive">
-                            <table class="table dataTables table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>S/N</th>
-                                    <th>Indicator</th>
-                                    <th>Year</th>
-                                    <th>Target</th>
-                                    <th>Reached</th>
-                                    <th>Use This</th>
-                                    <td>Action</td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($targetReached as $key=>$data)
-                                    <tr>
-                                        <td>{{$key+1}}</td>
-                                        <td>{{$data->indicator->indicator}}</td>
-                                        <td>{{$data->data_year}}</td>
-                                        <td>{{$data->target}}</td>
-                                        <td>{{$data->reached}}</td>
-                                        <td>{{$data->use_this}}</td>
-                                        <td><a href="{{ url('targetReached/' . $data->id . '/edit') }}"
-                                               class="btn btn-primary btn-xs btn-detail open-modal" title="Edit">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 @push('scripts')
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
 
-<script src="{{ asset('js/plugins/dataTables/datatables.min.js')}}"></script>
 <script src="{{ asset('custom/jquery-year-picker/js/yearpicker.js')}}"></script>
-<script>
-    $('.dataTables').DataTable({
-        pageLength: 12,
-        responsive: true,
-        ordering: false,
-        dom: '<"html5buttons"B>lTfgitp',
-        buttons: [
-//            {extend: 'copy'},
-//            {extend: 'csv'},
-//            {extend: 'excel', title: 'RegisteredChildren'},
-//            {extend: 'pdf', title: 'RegisteredChildren'},
-            {
-                extend: 'print',
-                customize: function (win) {
-                    $(win.document.body).addClass('white-bg');
-                    $(win.document.body).css('font-size', '10px');
-                    $(win.document.body).find('table')
-                        .addClass('compact')
-                        .css('font-size', 'inherit');
-                }
-            }
-        ]
-    });
-
-</script>
 
 <script>
     $(document).ready(function() {
