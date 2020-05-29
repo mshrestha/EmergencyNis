@@ -33,5 +33,15 @@ class ScImportController extends Controller
         Excel::import(new ScexcelImport(), $path);
         return redirect('importExportSc');
     }
+    public function destroy($period)
+    {
+        $ym=explode("_", $period);
+        DB::table('sc_imports')->where('year',$ym[0])->where('month',$ym[1])->delete();
+        return redirect()->route('importExportSc')->with([
+            'notify_message' => 'Successfully Deleted',
+            'notify_type' => 'success'
+        ]);
+    }
+
 
 }

@@ -40,6 +40,17 @@ class OtpImportController extends Controller
         return redirect('importExportOtp');
     }
 
+    public function destroy($period)
+    {
+        $ym=explode("_", $period);
+        DB::table('otp_imports')->where('year',$ym[0])->where('month',$ym[1])->delete();
+        return redirect()->route('importExportOtp')->with([
+            'notify_message' => 'Successfully Deleted',
+            'notify_type' => 'success'
+        ]);
+    }
+
+
     public function open_dashboard_ym(Request $request)
     {
         if (Input::get('program_partner') != null)

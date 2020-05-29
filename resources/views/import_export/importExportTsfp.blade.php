@@ -44,7 +44,7 @@
                                     <th>Month</th>
                                     <th>camp count</th>
                                     <th>Status</th>
-                                    {{--<td>Action</td>--}}
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -54,7 +54,16 @@
                                         <td>{{ date('F', mktime(0, 0, 0, $data->month, 10))}}</td>
                                         <td>{{$data->camp_count}}</td>
                                         <td>Imported</td>
-                                        {{--<td>Action</td>--}}
+                                        <td>
+                                            <form action="{{ route('importExportTsfp.destroy',$data->year.'_'.$data->month) }}" method="POST" >
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-xs" type="submit" onclick="return confirm('Confirm delete?')" title="Delete">
+                                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                                                </button>
+                                            </form>
+
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

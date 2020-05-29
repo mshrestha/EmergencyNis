@@ -9,6 +9,9 @@ use DB;
 
 class BsfpImportController extends Controller
 {
+    private $_notify_message = " saved.";
+    private $_notify_type = "success";
+
     public function importExportBsfp()
     {
         $generated_data = DB::table('bsfp_imports')
@@ -32,5 +35,15 @@ class BsfpImportController extends Controller
         Excel::import(new BsfpexcelImport(), $path);
         return redirect('importExportBsfp');
     }
+    public function destroy($period)
+    {
+        $ym=explode("_", $period);
+        DB::table('bsfp_imports')->where('year',$ym[0])->where('month',$ym[1])->delete();
+        return redirect()->route('importExportBsfp')->with([
+            'notify_message' => 'Successfully Deleted',
+            'notify_type' => $this->_notify_type
+        ]);
+    }
+
 
 }

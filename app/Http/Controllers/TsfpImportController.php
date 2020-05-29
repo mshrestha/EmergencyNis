@@ -31,5 +31,15 @@ class TsfpImportController extends Controller
         Excel::import(new TsfpexcelImport(), $path);
         return redirect('importExportTsfp');
     }
+    public function destroy($period)
+    {
+        $ym=explode("_", $period);
+        DB::table('tsfp_imports')->where('year',$ym[0])->where('month',$ym[1])->delete();
+        return redirect()->route('importExportTsfp')->with([
+            'notify_message' => 'Successfully Deleted',
+            'notify_type' => 'success'
+        ]);
+    }
+
 
 }

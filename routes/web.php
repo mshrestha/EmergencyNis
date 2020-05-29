@@ -88,6 +88,11 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('importOtp', 'OtpImportController@importOtp');
     Route::get('importExportBsfp', 'BsfpImportController@importExportBsfp')->name('importExportBsfp');
     Route::post('importBsfp', 'BsfpImportController@importBsfp');
+    Route::delete('importExportOtp/{period}', ['as' => 'importExportOtp.destroy', 'uses' => 'OtpImportController@destroy']);
+    Route::delete('importExportBsfp/{period}', ['as' => 'importExportBsfp.destroy', 'uses' => 'BsfpImportController@destroy']);
+    Route::delete('importExportTsfp/{period}', ['as' => 'importExportTsfp.destroy', 'uses' => 'TsfpImportController@destroy']);
+    Route::delete('importExportSc/{period}', ['as' => 'importExportSc.destroy', 'uses' => 'ScImportController@destroy']);
+
     Route::get('importExportTsfp', 'TsfpImportController@importExportTsfp')->name('importExportTsfp');
     Route::post('importTsfp', 'TsfpImportController@importTsfp');
     Route::get('importExportSc', 'ScImportController@importExportSc')->name('importExportSc');
