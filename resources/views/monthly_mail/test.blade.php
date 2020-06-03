@@ -163,8 +163,64 @@
             }
         });
 
+// Doughnut charts starts here
+//        var child23 = JSON.parse('["30"]');
+//        var child24 = JSON.parse('["24"]');
+//        var child60 = JSON.parse('["34"]');
+        var child23 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_23']); ?>');
+        var child24 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_24']); ?>');
+        var child60 = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_60']); ?>');
+        var doughnutData1 = {
+            labels: ["6-23m", "24-59m", ">59m"],
+            datasets: [{
+                data: [child23, child24, child60],
+                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA"]
+            }]
+        };
+        var ctxd1 = document.getElementById("doughnutChart").getContext("2d");
+        new Chart(ctxd1, {type: 'doughnut', data: doughnutData1, options: doughnutOptions});
 
+//        var male = JSON.parse('["14"]');
+//        var female = JSON.parse('["20"]');
+//        var others = JSON.parse('["10"]');
+        var male = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_male']); ?>');
+        var female = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_female']); ?>');
+        var others = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_others']); ?>');
+        var doughnutData2 = {
+            labels: ["Male", "Female"],
+            datasets: [{
 
+                data: [male, female],
+                backgroundColor: ["#9CC3DA", "#a3e1d4"]
+
+            }]
+        };
+        var ctxd2 = document.getElementById("doughnutChart2").getContext("2d");
+        new Chart(ctxd2, {type: 'doughnut', data: doughnutData2, options: doughnutOptions});
+
+//        var muac = JSON.parse('["29"]');
+//        var whz = JSON.parse('["24"]');
+//        var both = JSON.parse('["10"]');
+        var muac = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_muc']); ?>');
+        var whz = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_wfh']); ?>');
+        var edema = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_edema']); ?>');
+        var relapse = JSON.parse('<?php echo json_encode($doughnut_chart['otp_admit_relapse']); ?>');
+        var doughnutData3 = {
+            labels: ["MUAC", "WHZ", "Edema", "Relapse"],
+            datasets: [{
+                data: [muac, whz, edema, relapse],
+                backgroundColor: ["#a3e1d4", "#dedede", "#9CC3DA", "#1CFFDA", "#5C00DA"]
+            }]
+        };
+        var ctxd3 = document.getElementById("doughnutChart3").getContext("2d");
+        new Chart(ctxd3, {type: 'doughnut', data: doughnutData3, options: doughnutOptions});
+
+        var doughnutOptions = {
+            responsive: false,
+            legend: {
+                display: true
+            }
+        };
     });
 //End of Line chart Admission trend
 </script>

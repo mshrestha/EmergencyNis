@@ -35,6 +35,7 @@ class MonthlyMailController extends Controller
 //        $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
         $line_chart = \App\Http\Controllers\OtpImportController::open_dashboard_linechart($months);
         $doughnut_chart = \App\Http\Controllers\OtpImportController::open_dashboard_doughnutchart($report_year, $report_month);
+        dd($doughnut_chart);
 //        $doughnut_chartTsfp = $this->open_dashboard_doughnutchart_tsfp($report_year, $report_month);
         $bar_chart = \App\Http\Controllers\OtpImportController::open_dashboard_barchart($report_year, $report_month);
 //        $bar_chart_tsfp = $this->open_dashboard_barchart_tsfp($report_year, $report_month);
