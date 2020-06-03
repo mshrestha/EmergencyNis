@@ -70,7 +70,8 @@ class MonthlyMailController extends Controller
             $months[] = date("M-y", strtotime(date($report_year . '-' . $report_month . '-01') . " -$i months"));
         }
         $line_chart = \App\Http\Controllers\OtpImportController::open_dashboard_linechart($months);
-        $pdf = \PDF::loadView('monthly_mail.test',compact('months','line_chart'));
+        $doughnut_chart = \App\Http\Controllers\OtpImportController::open_dashboard_doughnutchart($report_year, $report_month);
+        $pdf = \PDF::loadView('monthly_mail.test',compact('months','line_chart','doughnut_chart'));
         $pdf->setOption('enable-javascript', true);
         $pdf->setOption('javascript-delay', 5000);
         $pdf->setOption('enable-smart-shrinking', true);
