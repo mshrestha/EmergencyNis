@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\ContactList;
+use App\Notifications\MonthlyMail;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Notification;
+
 
 class MonthlyMailController extends Controller
 {
@@ -184,5 +188,18 @@ class MonthlyMailController extends Controller
         }
         return response()->json(compact('this'));
     }
+
+    public function monthly_mail()
+    {
+            $members = ContactList::get();
+//            dd($members);
+            foreach ($members as $member)
+            {
+                $employee_info = ContactList::where('email', $member->email)->first();
+                Notification::route('mail', $member->email)
+                    ->notify(new MonthlyMail( $employee_info));
+            }
+        }
+
 
 }

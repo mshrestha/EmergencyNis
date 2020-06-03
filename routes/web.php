@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('preview', 'MonthlyMailController@preview');
     Route::get('generate-pdf', 'MonthlyMailController@generatePDF');
     Route::get('/sendmail','MonthlyMailController@sendmail')->name('sendmail');
+    Route::get('/monthly_mail','MonthlyMailController@monthly_mail')->name('monthly_mail');
 
 
     Route::get('/program-manager', 'HomeController@programManagerDashboard')->name('program-manager');
@@ -59,6 +60,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');
 	Route::resource('user', 'UserController');
+	Route::resource('contact_list', 'ContactListController');
 
     Route::get('/pregnant-women/{women}/info', 'PregnantWomenController@info')->name('pregnant-women.info');
     Route::resource('/pregnant-women', 'PregnantWomenController');

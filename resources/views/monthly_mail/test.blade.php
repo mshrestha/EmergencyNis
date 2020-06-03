@@ -39,37 +39,9 @@
         <h2>OTP New Admission
 {{--            <small> for {{'January-2020'}}</small>--}}
         </h2>
-        <table class="col-md-12">
-            <tr>
-                <td class="col-md-4"><h3>By Age</h3></td>
-                <td class="col-md-4"><h3>By Gender</h3></td>
-                <td class="col-md-4"><h3>By Anthropometry</h3></td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
-                    <canvas id="doughnutChart" ></canvas>
-                    </div>
-                </td>
-                <td>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
-                        <canvas id="doughnutChart2" ></canvas>
-                    </div>
-
-                </td>
-                <td>
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
-                        <canvas id="doughnutChart3" ></canvas>
-                    </div>
-
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: center">Age</td>
-                <td style="text-align: center">Gender</td>
-                <td style="text-align: center">Anthropometry</td>
-            </tr>
-        </table>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
+            <canvas id="doughnutChart" ></canvas>
+        </div>
     </div>
 
 
@@ -85,12 +57,6 @@
 
     $(document).ready(function () {
 //Line chart Admission trend start
-//        var months = JSON.parse('["Dec-19","Nov-19","Oct-19","Sep-19","Aug-19","Jul-19","Jun-19","May-19","Apr-19","Mar-19","Feb-19","Jan-19"]');
-//        var obj_otp = JSON.parse('["927","1625","2757","2466","1544","2373","2406","2593","2179","1715","1742","2528"]');
-//        var obj_bsfp = JSON.parse('["7096","8612","12731","10541","8554","13620","5195","3111","4299","2997","3598","6482"]');
-//        var obj_tsfp = JSON.parse('["2476","3833","4428","4621","3081","4984","3537","3478","3092","2264","2039","3059"]');
-//        var obj_tsfp_plw = JSON.parse('["78","176","264","241","175","199","115","398","404","60","97","124"]');
-//        var obj_sc = JSON.parse('["14","30","29","44","16","34","23","37","54","42","31","48"]');
         var months = JSON.parse('<?php echo json_encode($months); ?>');
         var obj_otp = JSON.parse('<?php echo json_encode($line_chart['otp']); ?>');
         var obj_bsfp = JSON.parse('<?php echo json_encode($line_chart['bsfp']); ?>');
