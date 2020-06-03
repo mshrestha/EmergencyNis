@@ -47,6 +47,17 @@ class MonthlyMailController extends Controller
     // function to generate PDF
     public function generatePDF()
     {
+        $pdf = \PDF::loadView('monthly_mail.test');
+        $pdf->setOption('enable-javascript', true);
+        $pdf->setOption('javascript-delay', 5000);
+        $pdf->setOption('enable-smart-shrinking', true);
+        $pdf->setOption('no-stop-slow-scripts', true);
+        return $pdf->download('open_dashboard.pdf');
+
+    }
+
+    public function generatePDF1()
+    {
         $cache_data = DB::table('otp_imports')
             ->select('year', 'month')
             ->groupBy('year', 'month')
