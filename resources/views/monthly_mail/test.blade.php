@@ -47,17 +47,20 @@
             </tr>
             <tr>
                 <td>
-                    <canvas id="doughnutChart" width="400" height="400"
-                    ></canvas>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
+                    <canvas id="doughnutChart" ></canvas>
+                    </div>
                 </td>
                 <td>
-                    <canvas id="doughnutChart2" width="400" height="400"
-                    ></canvas>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
+                        <canvas id="doughnutChart2" ></canvas>
+                    </div>
 
                 </td>
                 <td>
-                    <canvas id="doughnutChart3" width="400" height="400"
-                    ></canvas>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xl-4" style="width:300px;height:300px;">
+                        <canvas id="doughnutChart3" ></canvas>
+                    </div>
 
                 </td>
             </tr>
