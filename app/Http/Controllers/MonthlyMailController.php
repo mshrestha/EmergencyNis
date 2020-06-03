@@ -47,7 +47,30 @@ class MonthlyMailController extends Controller
     // function to generate PDF
     public function generatePDF()
     {
-        $pdf = \PDF::loadView('monthly_mail.test');
+        $cache_data = DB::table('otp_imports')
+            ->select('year', 'month')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
+        if (empty($cache_data)) {
+            if (date('n') == 1) {
+                $report_month = 12;
+                $report_year = date('Y') - 1;
+            } else {
+                $report_month = date('n') - 1;
+                $report_year = date('Y');
+            }
+        } else {
+            $report_month = $cache_data[0]->month;
+            $report_year = $cache_data[0]->year;
+        }
+        $months = array();
+        for ($i = 0; $i < 12; $i++) {
+            $months[] = date("M-y", strtotime(date($report_year . '-' . $report_month . '-01') . " -$i months"));
+        }
+        $line_chart = \App\Http\Controllers\OtpImportController::open_dashboard_linechart($months);
+        $pdf = \PDF::loadView('monthly_mail.test',compact('months','line_chart'));
         $pdf->setOption('enable-javascript', true);
         $pdf->setOption('javascript-delay', 5000);
         $pdf->setOption('enable-smart-shrinking', true);
