@@ -35,6 +35,41 @@
         </div>
     </div>
 
+    <div class="row border-bottom">
+        <h2>OTP New Admission
+{{--            <small> for {{'January-2020'}}</small>--}}
+        </h2>
+        <table class="col-md-12">
+            <tr>
+                <td class="col-md-4"><h3>By Age</h3></td>
+                <td class="col-md-4"><h3>By Gender</h3></td>
+                <td class="col-md-4"><h3>By Anthropometry</h3></td>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="doughnutChart" width="400" height="400"
+                    ></canvas>
+                </td>
+                <td>
+                    <canvas id="doughnutChart2" width="400" height="400"
+                    ></canvas>
+
+                </td>
+                <td>
+                    <canvas id="doughnutChart3" width="400" height="400"
+                    ></canvas>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center">Age</td>
+                <td style="text-align: center">Gender</td>
+                <td style="text-align: center">Anthropometry</td>
+            </tr>
+        </table>
+    </div>
+
+
 
 @endsection
 
@@ -127,6 +162,8 @@
                 }
             }
         });
+
+
 
     });
 //End of Line chart Admission trend
