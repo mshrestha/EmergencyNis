@@ -44,7 +44,8 @@
 {{ $salutation }}
 @else
 @lang('Thank You'),<br>
-{{ config('app.tu_name') }}
+{{--{{ config('app.name') }}--}}
+@lang('Nutrition Sector Coordination Team')
 
 @endif
 
