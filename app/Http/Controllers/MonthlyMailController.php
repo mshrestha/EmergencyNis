@@ -193,13 +193,23 @@ class MonthlyMailController extends Controller
     {
             $members = ContactList::get();
 //            dd($members);
+        $success=[];
             foreach ($members as $member)
             {
                 $employee_info = ContactList::where('email', $member->email)->first();
                 Notification::route('mail', $member->email)
                     ->notify(new MonthlyMail( $employee_info));
+                $success[]=$member->email;
             }
-        }
+            $su=implode("\n",$success);
+//            dd($success);
+
+        return redirect()->route('contact_list.index')->with([
+            'notify_message' => 'Successfully send to '.$su,
+            'notify_type' => 'success'
+        ]);
+
+    }
 
 
 }
