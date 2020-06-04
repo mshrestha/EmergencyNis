@@ -50,7 +50,7 @@ class MonthlyMailController extends Controller
     }
 
     // function to generate PDF
-    public function generatePDF()
+    public function generatePDF1()
     {
         $cache_data = DB::table('otp_imports')
             ->select('year', 'month')
@@ -85,7 +85,7 @@ class MonthlyMailController extends Controller
 
     }
 
-    public function generatePDF1()
+    public function generatePDF()
     {
         $cache_data = DB::table('otp_imports')
             ->select('year', 'month')

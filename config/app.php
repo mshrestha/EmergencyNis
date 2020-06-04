@@ -14,6 +14,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'tu_name' => env('TU_NAME', 'Nutrition Sector Coordination Team'),
 
     /*
     |--------------------------------------------------------------------------
