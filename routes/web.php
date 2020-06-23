@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('preview', 'MonthlyMailController@preview');
     Route::get('generate-pdf', 'MonthlyMailController@generatePDF');
     Route::get('/sendmail','MonthlyMailController@sendmail')->name('sendmail');
+    Route::get('/monthly_mail_home','MonthlyMailController@monthly_mail_home')->name('monthly_mail_home');
     Route::get('/monthly_mail','MonthlyMailController@monthly_mail')->name('monthly_mail');
 
 
