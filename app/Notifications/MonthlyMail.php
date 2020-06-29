@@ -60,8 +60,8 @@ class MonthlyMail extends Notification
             participated in the IYCF group sessions. In May, additional 8,584 children women were reached compared 12,577 women in April.')
             ->line('For further information, please contact with info@nutritionsector.org ')
 
-            ->attach(public_path('pdf/ENIMDashboardSnaoshotMay2020-EmergencyNutritionSectorCoxsBazar.pdf'), [
-                'as' => 'ENIMDashboardSnaoshotMay2020-EmergencyNutritionSectorCoxsBazar.pdf',
+            ->attach(public_path('pdf/ENIMDashboardMay2020-EmergencyNutritionSectorCoxsBazar.pdf'), [
+                'as' => 'ENIMDashboardMay2020-EmergencyNutritionSectorCoxsBazar.pdf',
                 'mime' => 'text/pdf',
             ]);
     }
