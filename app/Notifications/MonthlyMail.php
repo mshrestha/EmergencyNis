@@ -45,13 +45,13 @@ class MonthlyMail extends Notification
     {
         return (new MailMessage)
             ->greeting('Dear '.$this->employee_info->full_name)
-            ->subject('[Auto Generated] Monthly Nutrition Sector Report, MAY 2020')
+            ->subject('[Auto Generated] Monthly Nutrition Sector Report, June 2020')
             ->line('Under the dynamic leadership of Civil Surgeon, Cox’s Bazar, the Nutrition Sector is pleased to share 
-            Monthly Online Emergency Nutrition Report (ENR) for May 2020. This report is automatically generated from online 
+            Monthly Online Emergency Nutrition Report (ENR) for June 2020. This report is automatically generated from online 
             nutrition sector portal https://emergencynutrition.org/ with data shared by all nutrition sector partners using 
             Emergency Nutrition Information Module (ENIM) and other data systems. For detailed report and status by each 
             implementing partner or facility, please visit the above website.')
-            ->line('<img src="http://beta.emergencynutrition.org/img/may_2020.jpg">')
+            ->line('<img src="http://beta.emergencynutrition.org/img/june_2020.jpg">')
             ->line('• Overall, 18,898 for malnourished boys and girls under five, pregnant and lactating women were 
             admitted to the nutrition treatment and preventive services since January 2020.')
             ->line('• In May 872 SAM children were admitted and in April 447 SAM children were reached,  therefore the admission rate has doubled.')
@@ -60,8 +60,8 @@ class MonthlyMail extends Notification
             participated in the IYCF group sessions. In May, additional 8,584 children women were reached compared 12,577 women in April.')
             ->line('For further information, please contact with info@nutritionsector.org ')
 
-            ->attach(public_path('pdf/ENIMDashboardMay2020-EmergencyNutritionSectorCoxsBazar.pdf'), [
-                'as' => 'ENIMDashboardMay2020-EmergencyNutritionSectorCoxsBazar.pdf',
+            ->attach(public_path('pdf/ENIMDashboardJune2020-EmergencyNutritionSectorCoxsBazar.pdf'), [
+                'as' => 'ENIMDashboardJune2020-EmergencyNutritionSectorCoxsBazar.pdf',
                 'mime' => 'text/pdf',
             ]);
     }
