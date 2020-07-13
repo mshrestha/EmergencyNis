@@ -263,6 +263,41 @@ class OtpImportController extends Controller
             }
             $tr['iycf_per']=round(($tr['iycf_reached']/$tr['iycf_target'])*100,1);
         }
+        $bsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',6)->first();
+        if ($bsfpplw_target_reached == null) {
+            $tr['bsfpplw_target']=0;
+            $tr['bsfpplw_reached']=0;
+            $tr['bsfpplw_per']=0;
+        }
+        else {
+            $tr['bsfpplw_target'] = $bsfpplw_target_reached->target;
+            if($bsfpplw_target_reached->use_this=='Use system generated reached data'){
+                $tr['bsfpplw_reached'] = DB::table('bsfp_imports')
+                    ->where('year', $report_year)
+                    ->sum('newAdmissionPlw');
+            }else{
+                $tr['bsfpplw_reached'] =$bsfpplw_target_reached->reached;
+            }
+            $tr['bsfpplw_per']=round(($tr['bsfpplw_reached']/$tr['bsfpplw_target'])*100,1);
+        }
+        $tsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',7)->first();
+        if ($tsfpplw_target_reached == null) {
+            $tr['tsfpplw_target']=0;
+            $tr['tsfpplw_reached']=0;
+            $tr['tsfpplw_per']=0;
+        }
+        else {
+            $tr['tsfpplw_target'] = $tsfpplw_target_reached->target;
+            if($tsfpplw_target_reached->use_this=='Use system generated reached data'){
+                $tr['tsfpplw_reached'] = DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->sum('newAdmissionPlw');
+            }else{
+                $tr['tsfpplw_reached'] =$tsfpplw_target_reached->reached;
+            }
+            $tr['tsfpplw_per']=round(($tr['tsfpplw_reached']/$tr['tsfpplw_target'])*100,1);
+        }
+
 //        dd($tr);
         return $tr;
 

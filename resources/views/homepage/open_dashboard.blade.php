@@ -135,13 +135,59 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Vitamin A Supplementation - {{$report_year}}</div>
                     <div class="panel-body">
-                        <h4>Vitamin A (6-59) Target - {{$target_reached['vitamina_target']}}</h4>
-                        <h4>Vitamin A (6-59) Reached- {{$target_reached['vitamina_reached']}}</h4>
+                    <div class="col-md-6">
+                        <h4 style="color: red">Vitamin A (RED) Target - {{$target_reached['vitamina_target']}}</h4>
+                        <h4 style="color: red">Vitamin A (RED) Reached- {{$target_reached['vitamina_reached']}}</h4>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped active " role="progressbar"
                                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
                                  style="width:{{$target_reached['vitamina_per']}}%">
                                 {{$target_reached['vitamina_per']}}%
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 style="color: green">Vitamin A (Green) Target - {{$target_reached['vitamina_target']}}</h4>
+                        <h4 style="color: green">Vitamin A (Green) Reached- {{$target_reached['vitamina_reached']}}</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active " role="progressbar"
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:{{$target_reached['vitamina_per']}}%">
+                                {{$target_reached['vitamina_per']}}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 border-bottom" style="padding-top: 20px; padding-bottom: 20px">
+            <div class="col-lg-6 bottommargin">
+                <div class="panel panel-default">
+                    <div class="panel-heading">BSFP PLWs  - {{$report_year}}</div>
+                    <div class="panel-body">
+                        <h4>BSFP PLWs Target - {{$target_reached['bsfpplw_target']}}</h4>
+                        <h4>BSFP PLWs Reached - {{$target_reached['bsfpplw_reached']}}</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:{{$target_reached['bsfpplw_per']}}%">
+                                {{$target_reached['bsfpplw_per']}}%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 bottommargin">
+                <div class="panel panel-default">
+                    <div class="panel-heading">TSFP PLWs - {{$report_year}}</div>
+                    <div class="panel-body">
+                        <h4>TSFP PLWs Target - {{$target_reached['tsfpplw_target']}}</h4>
+                        <h4>TSFP PLWs Reached- {{$target_reached['tsfpplw_reached']}}</h4>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active " role="progressbar"
+                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                                 style="width:{{$target_reached['tsfpplw_per']}}%">
+                                {{$target_reached['tsfpplw_per']}}%
                             </div>
                         </div>
                     </div>
