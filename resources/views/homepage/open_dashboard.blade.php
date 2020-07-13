@@ -136,8 +136,8 @@
                     <div class="panel-heading">Vitamin A Supplementation - {{$report_year}}</div>
                     <div class="panel-body">
                     <div class="col-md-6">
-                        <h4 style="color: red">Vitamin A (RED) Target - {{$target_reached['vitamina_target']}}</h4>
-                        <h4 style="color: red">Vitamin A (RED) Reached- {{$target_reached['vitamina_reached']}}</h4>
+                        <h4 >Vitamin A (<span style="color: red">RED</span>) Target - {{$target_reached['vitamina_target']}}</h4>
+                        <h4 >Vitamin A (<span style="color: red">RED</span>) Reached- {{$target_reached['vitamina_reached']}}</h4>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped active " role="progressbar"
                                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
@@ -147,13 +147,13 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h4 style="color: green">Vitamin A (Green) Target - {{$target_reached['vitamina_target']}}</h4>
-                        <h4 style="color: green">Vitamin A (Green) Reached- {{$target_reached['vitamina_reached']}}</h4>
+                        <h4 >Vitamin A (<span style="color: green">Green</span>) Target - {{$target_reached['vitamina_green_target']}}</h4>
+                        <h4 >Vitamin A (<span style="color: green">Green</span>) Reached- {{$target_reached['vitamina_green_reached']}}</h4>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped active " role="progressbar"
                                  aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
-                                 style="width:{{$target_reached['vitamina_per']}}%">
-                                {{$target_reached['vitamina_per']}}%
+                                 style="width:{{$target_reached['vitamina_green_per']}}%">
+                                {{$target_reached['vitamina_green_per']}}%
                             </div>
                         </div>
                     </div>

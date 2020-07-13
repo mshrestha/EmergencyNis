@@ -233,21 +233,6 @@ class OtpImportController extends Controller
             }
             $tr['bsfp_per']=round(($tr['bsfp_reached']/$tr['bsfp_target'])*100,1);
         }
-        $vitamina_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',5)->first();
-        if ($vitamina_target_reached == null) {
-            $tr['vitamina_target']=0;
-            $tr['vitamina_reached']=0;
-            $tr['vitamina_per']=0;
-        }
-        else {
-            $tr['vitamina_target'] = $vitamina_target_reached->target;
-            if($vitamina_target_reached->use_this=='Use system generated reached data'){
-                $tr['vitamina_reached'] = 0;
-            }else {
-                $tr['vitamina_reached'] = $vitamina_target_reached->reached;
-            }
-            $tr['vitamina_per']=round(($tr['vitamina_reached']/$tr['vitamina_target'])*100,1);
-        }
         $iycf_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',4)->first();
         if ($iycf_target_reached == null) {
             $tr['iycf_target']=0;
@@ -263,7 +248,37 @@ class OtpImportController extends Controller
             }
             $tr['iycf_per']=round(($tr['iycf_reached']/$tr['iycf_target'])*100,1);
         }
-        $bsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',6)->first();
+        $vitamina_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',5)->first();
+        if ($vitamina_target_reached == null) {
+            $tr['vitamina_target']=0;
+            $tr['vitamina_reached']=0;
+            $tr['vitamina_per']=0;
+        }
+        else {
+            $tr['vitamina_target'] = $vitamina_target_reached->target;
+            if($vitamina_target_reached->use_this=='Use system generated reached data'){
+                $tr['vitamina_reached'] = 0;
+            }else {
+                $tr['vitamina_reached'] = $vitamina_target_reached->reached;
+            }
+            $tr['vitamina_per']=round(($tr['vitamina_reached']/$tr['vitamina_target'])*100,1);
+        }
+        $vitamina_green_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',6)->first();
+        if ($vitamina_green_target_reached == null) {
+            $tr['vitamina_green_target']=0;
+            $tr['vitamina_green_reached']=0;
+            $tr['vitamina_green_per']=0;
+        }
+        else {
+            $tr['vitamina_green_target'] = $vitamina_green_target_reached->target;
+            if($vitamina_green_target_reached->use_this=='Use system generated reached data'){
+                $tr['vitamina_green_reached'] = 0;
+            }else {
+                $tr['vitamina_green_reached'] = $vitamina_green_target_reached->reached;
+            }
+            $tr['vitamina_green_per']=round(($tr['vitamina_green_reached']/$tr['vitamina_green_target'])*100,1);
+        }
+        $bsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',7)->first();
         if ($bsfpplw_target_reached == null) {
             $tr['bsfpplw_target']=0;
             $tr['bsfpplw_reached']=0;
@@ -280,7 +295,7 @@ class OtpImportController extends Controller
             }
             $tr['bsfpplw_per']=round(($tr['bsfpplw_reached']/$tr['bsfpplw_target'])*100,1);
         }
-        $tsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',7)->first();
+        $tsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',8)->first();
         if ($tsfpplw_target_reached == null) {
             $tr['tsfpplw_target']=0;
             $tr['tsfpplw_reached']=0;
