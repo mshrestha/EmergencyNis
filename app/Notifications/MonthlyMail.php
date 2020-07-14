@@ -52,12 +52,21 @@ class MonthlyMail extends Notification
             Emergency Nutrition Information Module (ENIM) and other data systems. For detailed report and status by each 
             implementing partner or facility, please visit the above website.')
             ->line('<img src="http://beta.emergencynutrition.org/img/june_2020.jpg">')
-            ->line('• Overall, 18,898 for malnourished boys and girls under five, pregnant and lactating women were 
+
+            ->line('• Overall, 29,886 for malnourished boys and girls under five, pregnant and lactating women were 
             admitted to the nutrition treatment and preventive services since January 2020.')
-            ->line('• In May 872 SAM children were admitted and in April 447 SAM children were reached,  therefore the admission rate has doubled.')
-            ->line('• Also 5,693 MAM children received targeted supplementary feeding compared to 1,862 children in April-which almost 3 fold increase.')
-            ->line('• 21,161 new pregnant and lactating women and caregivers of children reached by IYCF counselling and 
-            participated in the IYCF group sessions. In May, additional 8,584 children women were reached compared 12,577 women in April.')
+            ->line('• In June 1,597 SAM children were admitted and in May 872 SAM children were reached, therefore 
+            the admission rate has doubled.')
+            ->line('• Also 9,689 MAM children received targeted supplementary feeding compared to 5,693 children in 
+            May-which almost 2 fold increase.')
+            ->line('• 31,716 new pregnant and lactating women and caregivers of children reached by IYCF counselling 
+            and participated in the IYCF group sessions. In May, additional 10,555 children women were reached.')
+            ->line('• In addition Vitamin A supplementation activities reached over 92,000 children under five. 
+            Within the Vitamin A community intervention, close to 4,000 new SAM and MAM cases were identified and enrolled 
+            in the respective nutrition treatment programme.')
+            ->line('• In last 3 months only 5 children admitted in Stabilization Centre, whereas there are 33 children 
+            admitted on March 2020')
+
             ->line('For further information, please contact with info@nutritionsector.org ')
 
             ->attach(public_path('pdf/ENIMDashboardJune2020-EmergencyNutritionSectorCoxsBazar.pdf'), [
