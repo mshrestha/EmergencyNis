@@ -207,9 +207,17 @@ class OtpImportController extends Controller
         else {
             $tr['mam_target'] = $mam_target_reached->target;
             if($mam_target_reached->use_this=='Use system generated reached data'){
-                $tr['mam_reached'] = DB::table('tsfp_imports')
+                $readmissionAfterRecoveryTotal=DB::table('tsfp_imports')
                     ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('readmissionAfterRecoveryTotal');
+                $newAdmissionTotal= DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
                     ->sum('newAdmissionTotal');
+                $tr['mam_reached'] = $readmissionAfterRecoveryTotal+$newAdmissionTotal;
             }else {
                 $tr['mam_reached'] = $mam_target_reached->reached;
             }
@@ -225,9 +233,14 @@ class OtpImportController extends Controller
         else {
             $tr['bsfp_target'] = $bsfp_target_reached->target;
             if($bsfp_target_reached->use_this=='Use system generated reached data'){
-                $tr['bsfp_reached'] = DB::table('bsfp_imports')
+                $beginningMonthTotal=DB::table('bsfp_imports')
                     ->where('year', $report_year)
-                    ->sum('newEnrolmentTotal');
+                    ->sum('beginningMonthTotal');
+                 $newEnrolmentTotal=DB::table('bsfp_imports')
+                    ->where('year', $report_year)
+                    ->sum('totalAdmission');
+//                    ->sum('newEnrolmentTotal');
+                $tr['bsfp_reached'] =$beginningMonthTotal+$newEnrolmentTotal;
             }else{
                 $tr['bsfp_reached'] =$bsfp_target_reached->reached;
             }
@@ -287,9 +300,14 @@ class OtpImportController extends Controller
         else {
             $tr['bsfpplw_target'] = $bsfpplw_target_reached->target;
             if($bsfpplw_target_reached->use_this=='Use system generated reached data'){
-                $tr['bsfpplw_reached'] = DB::table('bsfp_imports')
+                $atTheBeginningOfTheMonthPlw=DB::table('bsfp_imports')
                     ->where('year', $report_year)
-                    ->sum('newAdmissionPlw');
+                    ->sum('atTheBeginningOfTheMonthPlw');
+                $totalAdmissionPlw= DB::table('bsfp_imports')
+                    ->where('year', $report_year)
+//                    ->sum('newAdmissionPlw');
+                    ->sum('totalAdmissionPlw');
+                $tr['bsfpplw_reached']=$atTheBeginningOfTheMonthPlw+$totalAdmissionPlw;
             }else{
                 $tr['bsfpplw_reached'] =$bsfpplw_target_reached->reached;
             }
@@ -304,9 +322,17 @@ class OtpImportController extends Controller
         else {
             $tr['tsfpplw_target'] = $tsfpplw_target_reached->target;
             if($tsfpplw_target_reached->use_this=='Use system generated reached data'){
-                $tr['tsfpplw_reached'] = DB::table('tsfp_imports')
+                $newAdmissionPlw = DB::table('tsfp_imports')
                     ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
                     ->sum('newAdmissionPlw');
+                $referFromBsfpPlw = DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('referFromBsfpPlw');
+                $tr['tsfpplw_reached']=$newAdmissionPlw+$referFromBsfpPlw;
             }else{
                 $tr['tsfpplw_reached'] =$tsfpplw_target_reached->reached;
             }
