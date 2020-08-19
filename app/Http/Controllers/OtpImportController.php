@@ -234,13 +234,22 @@ class OtpImportController extends Controller
             $tr['bsfp_target'] = $bsfp_target_reached->target;
             if($bsfp_target_reached->use_this=='Use system generated reached data'){
                 $beginningMonthTotal=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(beginningMonthTotal) as bmtotal'))
                     ->where('year', $report_year)
-                    ->sum('beginningMonthTotal');
-                 $newEnrolmentTotal=DB::table('bsfp_imports')
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+//                dd($beginningMonthTotal1);
+                $newEnrolmentTotal=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(newEnrolmentTotal) as netotal'))
                     ->where('year', $report_year)
-                    ->sum('totalAdmission');
-//                    ->sum('newEnrolmentTotal');
-                $tr['bsfp_reached'] =$beginningMonthTotal+$newEnrolmentTotal;
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+                $bsfp_reached_bymonth=[];
+                for ($i=0;$i<count($beginningMonthTotal);$i++){
+                    $bsfp_reached_bymonth[]=$beginningMonthTotal[$i]->bmtotal+$newEnrolmentTotal[$i]->netotal;
+                }
+//                dd($bsfp_reached_bymonth);
+                $tr['bsfp_reached'] =max($bsfp_reached_bymonth);
             }else{
                 $tr['bsfp_reached'] =$bsfp_target_reached->reached;
             }
@@ -301,13 +310,20 @@ class OtpImportController extends Controller
             $tr['bsfpplw_target'] = $bsfpplw_target_reached->target;
             if($bsfpplw_target_reached->use_this=='Use system generated reached data'){
                 $atTheBeginningOfTheMonthPlw=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(atTheBeginningOfTheMonthPlw) as bmtotalPlw'))
                     ->where('year', $report_year)
-                    ->sum('atTheBeginningOfTheMonthPlw');
+                    ->groupBy(DB::raw('month') )
+                    ->get();
                 $totalAdmissionPlw= DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(totalAdmissionPlw) as atotalPlw'))
                     ->where('year', $report_year)
-//                    ->sum('newAdmissionPlw');
-                    ->sum('totalAdmissionPlw');
-                $tr['bsfpplw_reached']=$atTheBeginningOfTheMonthPlw+$totalAdmissionPlw;
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+                $bsfpPlw_reached_bymonth=[];
+                for ($i=0;$i<count($atTheBeginningOfTheMonthPlw);$i++){
+                    $bsfpPlw_reached_bymonth[]=$atTheBeginningOfTheMonthPlw[$i]->bmtotalPlw+$totalAdmissionPlw[$i]->atotalPlw;
+                }
+                $tr['bsfpplw_reached']=max($bsfpPlw_reached_bymonth);
             }else{
                 $tr['bsfpplw_reached'] =$bsfpplw_target_reached->reached;
             }
