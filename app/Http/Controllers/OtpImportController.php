@@ -207,17 +207,25 @@ class OtpImportController extends Controller
         else {
             $tr['mam_target'] = $mam_target_reached->target;
             if($mam_target_reached->use_this=='Use system generated reached data'){
+                $newEnrolmentMuacTotal=DB::table('tsfp_imports')
+//                    ->where('year', 2020)
+//                    ->where('month', 1)
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('newEnrolmentMuacTotal');
+//                dd($newEnrolmentMuacTotal);
+                $newEnrolmentWfhTotal=DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('newEnrolmentWfhTotal');
                 $readmissionAfterRecoveryTotal=DB::table('tsfp_imports')
                     ->where('year', $report_year)
                     ->where('campSettlement','!=', 'TEK')
                     ->where('campSettlement','!=', 'UKH')
                     ->sum('readmissionAfterRecoveryTotal');
-                $newAdmissionTotal= DB::table('tsfp_imports')
-                    ->where('year', $report_year)
-                    ->where('campSettlement','!=', 'TEK')
-                    ->where('campSettlement','!=', 'UKH')
-                    ->sum('newAdmissionTotal');
-                $tr['mam_reached'] = $readmissionAfterRecoveryTotal+$newAdmissionTotal;
+                $tr['mam_reached'] = $newEnrolmentMuacTotal+$newEnrolmentWfhTotal+$readmissionAfterRecoveryTotal;
             }else {
                 $tr['mam_reached'] = $mam_target_reached->reached;
             }
@@ -236,17 +244,21 @@ class OtpImportController extends Controller
                 $beginningMonthTotal=DB::table('bsfp_imports')
                     ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(beginningMonthTotal) as bmtotal'))
                     ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
                     ->groupBy(DB::raw('month') )
                     ->get();
 //                dd($beginningMonthTotal1);
-                $newEnrolmentTotal=DB::table('bsfp_imports')
-                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(newEnrolmentTotal) as netotal'))
+                $totalAdmission=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(totalAdmission) as netotal'))
                     ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
                     ->groupBy(DB::raw('month') )
                     ->get();
                 $bsfp_reached_bymonth=[];
                 for ($i=0;$i<count($beginningMonthTotal);$i++){
-                    $bsfp_reached_bymonth[]=$beginningMonthTotal[$i]->bmtotal+$newEnrolmentTotal[$i]->netotal;
+                    $bsfp_reached_bymonth[]=$beginningMonthTotal[$i]->bmtotal+$totalAdmission[$i]->netotal;
                 }
 //                dd($bsfp_reached_bymonth);
                 $tr['bsfp_reached'] =max($bsfp_reached_bymonth);
@@ -312,11 +324,15 @@ class OtpImportController extends Controller
                 $atTheBeginningOfTheMonthPlw=DB::table('bsfp_imports')
                     ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(atTheBeginningOfTheMonthPlw) as bmtotalPlw'))
                     ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
                     ->groupBy(DB::raw('month') )
                     ->get();
                 $totalAdmissionPlw= DB::table('bsfp_imports')
                     ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(totalAdmissionPlw) as atotalPlw'))
                     ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
                     ->groupBy(DB::raw('month') )
                     ->get();
                 $bsfpPlw_reached_bymonth=[];
