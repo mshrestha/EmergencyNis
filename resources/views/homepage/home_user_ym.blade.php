@@ -1,25 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <h1><strong>DASHBOARD - {{ Auth::user()->facility->facility_id }}</strong> </h1>
     <div class="row">
         <div class="col-lg-8">
             <div class="row">
-                <div class="col-lg-4">
-                    <a href="{{ route('register') }}">
-                        <div class="widget style1 lazur-bg">
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <i class="fa fa-plus fa-5x"></i>
-                                </div>
-                                <div class="col-xs-8 text-right">
+                {{--<div class="col-lg-4">--}}
+                    {{--<a href="{{ route('register') }}">--}}
+                        {{--<div class="widget style1 lazur-bg">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-xs-4">--}}
+                                    {{--<i class="fa fa-plus fa-5x"></i>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-xs-8 text-right">--}}
 
-                                    <h2 class="font-bold">REGISTER</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                                    {{--<h2 class="font-bold">REGISTER</h2>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</a>--}}
+                {{--</div>--}}
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
