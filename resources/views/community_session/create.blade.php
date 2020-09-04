@@ -65,7 +65,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td>SAM in progres</td>
+                                  <td>SAM in Program</td>
                                   <td>
                                     M {{ html()->number('sam_ip_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
                                     F {{ html()->number('sam_ip_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
@@ -87,7 +87,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td>MAM in progress</td>
+                                  <td>MAM in Program</td>
                                   <td>
                                     M {{ html()->number('mam_ip_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
                                     F {{ html()->number('mam_ip_6_23_f')->placeholder('0')->style(['width' => '100px']) }}

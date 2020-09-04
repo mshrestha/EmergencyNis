@@ -2,7 +2,7 @@
 	<div class="col-lg-6">
 		<div class="ibox ">
 			<div class="ibox-title">
-				<h5>Pregnant Woman registration</h5>
+				<h5>Woman registration</h5>
 				<div class="ibox-tools">
 					<a class="collapse-link">
 						<i class="fa fa-chevron-up"></i>
