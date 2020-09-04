@@ -53,6 +53,10 @@
   									<img alt="image" src="{{ asset('img/logo-nutrition.png')}}" width="100">
   								</a>
                   </li>
+                  <li class="{{ (request()->segment(1) == 'dashboard' || request()->segment(1) ==  'dashboard') ? 'active' : '' }}">
+                      <a href="{{ route('dashboard') }}" ><i class="fa fa-id-badge"></i> <span
+                                  class="nav-label">Dashboard</span></a>
+                  </li>
                   <li class="{{ (request()->segment(1) == 'register' || request()->segment(1) ==  'children') ? 'active' : '' }}">
                       <a href="{{ route('register') }}" ><i class="fa fa-id-badge"></i> <span
                                   class="nav-label">Child</span></a>

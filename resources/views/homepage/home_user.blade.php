@@ -66,7 +66,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <a href="{{ route('dashboard') }}">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
@@ -81,7 +81,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <a href="{{ route('reports') }}">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
@@ -96,7 +96,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <a href="{{ route('community.index') }}">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
