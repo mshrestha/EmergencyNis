@@ -39,6 +39,7 @@
         <p>
             ID: {{ $child->sync_id}}<br />
             MNR: {{ $child->mnr_no}}<br />
+            Sex: {{ $child->sex}}<br />
             {{ $child->age }} months old<br />
             {{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }}<br/>
             Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
@@ -47,13 +48,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <a href="{{ route('children.edit', $child->sync_id) }}" class="edit-btn">
-                    <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-info btn-circle" type="button" title="Edit"><i class="fa fa-pencil"></i></button>
+                </a>
+                <a href="{{ route('children.show', $child->sync_id) }}" class="edit-btn">
+                    <button class="btn btn-success btn-circle" type="button" title="Facility Followup"><i class="fa fa-plus"></i></button>
                 </a>
                 <form action="{{ route('children.destroy', $child->sync_id) }}" method="post" class="delete-form">
                     @csrf
                     @method('DELETE')
 
-                    <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
+                    <button  class="btn btn-danger btn-circle" type="submit" title="Delete" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
                 </form>
             </div>
 

@@ -110,8 +110,8 @@
                                     </optgroup>
                                     <optgroup label="MAM" id="outcome_mam">
 										<option value="New case" >New Case</option>
-                                        <option value="OTP follow up visit" >OTP follow up visit</option>
-                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
+                                        <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
+                                        <option value="Already admitted at OTP" >Already admitted at OTP</option>
                                         <option value="Referred to TSFP" >Referred to TSFP</option>
 										{{--<optgroup label="New case">--}}
                                         {{--<option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>--}}
@@ -121,8 +121,8 @@
                                     <optgroup label="NORMAL" id="outcome_normal">
 										<option value="New case" >New Case</option>
                                         <option value="Already in Program" >Already in program</option>
-                                        <option value="" >Referred to BSFP</option>
-                                        <option value="" >Follow up visit</option>
+                                        <option value="Referred to BSFP" >Referred to BSFP</option>
+                                        <option value="Follow up visit at BSFP" >Follow up visit at BSFP</option>
                                     </optgroup>
 
 

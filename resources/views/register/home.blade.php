@@ -77,7 +77,8 @@
                                                             </a>
                                                         @endif
                                                         @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
-                                                            <a href="{{ route('facility-followup.show', $child->sync_id) }}"
+                                                            {{--<a href="{{ route('facility-followup.show', $child->sync_id) }}"--}}
+                                                                <a href="{{ route('children.show', $child->sync_id) }}"
                                                                class="edit-btn" title="Facility Followup">
                                                                 <button class="btn btn-default btn-circle btn-registered"
                                                                         type="button"><i
