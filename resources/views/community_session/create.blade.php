@@ -119,6 +119,17 @@
                                     F {{ html()->number('at_risk_24_59_f')->placeholder('0')->style(['width' => '100px']) }}
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td>Normal</td>
+                                  <td>
+                                    M {{ html()->number('normal_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
+                                    F {{ html()->number('normal_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
+                                  </td>
+                                  <td>
+                                    M {{ html()->number('normal_24_59_m')->placeholder('0')->style(['width' => '100px']) }}
+                                    F {{ html()->number('normal_24_59_f')->placeholder('0')->style(['width' => '100px']) }}
+                                  </td>
+                                </tr>
                               </tbody>
                           </table>
                       </div>
