@@ -32,11 +32,12 @@
 						<select name="camp_id" class="form-control" required>
 							<option value="">Select Camp</option>
 							@foreach($camps as $camp)
-
-							<option value="{{ $camp->id }}" {{ (isset($pregnant_women) && $pregnant_women->camp_id == $camp->id) ? ' selected' : '' }}>
-								{{ $camp->name }}
-							</option>
+								<option value="{{ $camp->id }}"
+										@if ( $camp->id === $facility->camp->id )
+										selected
+										@endif {{ (isset($pregnant_women) && $pregnant_women->camp_id == $camp->id) ? ' selected' : '' }}  >{{ $camp->name }} </option>
 							@endforeach
+
 						</select>
 					</div>
 				</div>

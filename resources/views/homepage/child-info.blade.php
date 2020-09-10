@@ -644,7 +644,15 @@
                     point: {
                         radius: 0
                     }
-                }
+                },
+//                tooltips: {
+//                    mode: 'index',
+//                    intersect: false
+//                },
+//                hover: {
+//                    mode: 'index',
+//                    intersect: false
+//                }
             }
         });
         var gmpHModal = new Chart(ctx_gmpH, {
@@ -675,7 +683,8 @@
                         borderColor: [
                             'rgba(55, 59, 64, .2)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        tooltip:false
                     },
                     {
                         label: '-2Z',
@@ -747,13 +756,14 @@
                         borderColor: [
                             'rgba(55, 59, 64, .2)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 0
                     }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
                 bezierCurve: false,
+                datasetFill: true,
                 title: {
                     display: true,
                     text: 'Girl\'s GMP Height: '+child_info
@@ -768,7 +778,7 @@
                 },
                 elements: {
                     point: {
-                        radius: 0
+                        radius: 1
                     }
                 }
             }

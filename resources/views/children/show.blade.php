@@ -116,7 +116,8 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{{--<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>--}}
 <script src="{{ asset('js/plugins/steps/jquery.steps.min.js')}}"></script>
 <script>
 	$(document).ready(function () {
