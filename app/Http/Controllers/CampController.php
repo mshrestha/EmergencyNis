@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Ip;
-use App\Pp;
+use App\Models\Camp;
 use Illuminate\Http\Request;
 
-class IpController extends Controller
+class CampController extends Controller
 {
-    private $_notify_message = 'Implementing Partner saved.';
+    private $_notify_message = 'camp saved.';
     private $_notify_type = 'success';
 
     /**
@@ -19,9 +19,9 @@ class IpController extends Controller
     public function index()
     {
 
-        $ips = Ip::orderBy('created_at', 'desc')->get();
+        $camps = Camp::orderBy('created_at', 'desc')->get();
 
-        return view('implementingPartner.home', compact('ips'));
+        return view('camp.home', compact('camps'));
     }
 
     /**
@@ -31,8 +31,8 @@ class IpController extends Controller
      */
     public function create()
     {
-        $pps=Pp::all();
-        return view('implementingPartner.create',compact('pps'));
+        $ips=Ip::all();
+        return view('camp.create',compact('ips'));
     }
 
     /**
@@ -43,19 +43,18 @@ class IpController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request);
         try {
-            $ip=Ip::create($request->all());
+            $camp=Camp::create($request->all());
 
-            $pp_ids = $request->input('pp');
-            $ip->pps()->attach($pp_ids);
+            $ip_ids = $request->input('ip');
+            $camp->ips()->attach($ip_ids);
 
         } catch (\Exception $e) {
-            $this->_notify_message = "Failed to save implementing partner, Try again.";
+            $this->_notify_message = "Failed to save camp, Try again.";
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('implementingPartner.index')->with([
+        return redirect()->route('camp.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -80,8 +79,15 @@ class IpController extends Controller
      */
     public function edit($id)
     {
-        $ip = Ip::findOrFail($id);
-        return view('implementingPartner.edit', compact('ip'));
+
+        $camp = Camp::findOrFail($id);
+
+//        $ips = Ip::pluck('name', 'id')->toArray();
+        $ips=Ip::all();
+        $selected_ip = $camp->ips->pluck('id')->toArray();
+//        dd($selected_ip);
+
+        return view('camp.edit', compact('camp','ips','selected_ip'));
     }
 
     /**
@@ -93,14 +99,19 @@ class IpController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         try {
-            Ip::findOrFail($id)->update($request->all());
+            Camp::findOrFail($id)->update($request->all());
+            $camp1 = Camp::findOrFail($id);
+            $ip_ids = $request->input('ip');
+            $camp1->ips()->sync($ip_ids);
+
         } catch (\Exception $e) {
-            $this->_notify_message = "Failed to save implementing partner, Try again.";
+            $this->_notify_message = "Failed to save camp, Try again.";
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('implementingPartner.index')->with([
+        return redirect()->route('camp.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -115,11 +126,11 @@ class IpController extends Controller
 //    public function destroy($id)
 //    {
 //        try {
-//            Ip::destroy($id);
+//            Camp::destroy($id);
 //
-//            $this->_notify_message = "Implementing Partner deleted.";
+//            $this->_notify_message = "camp deleted.";
 //        } catch (\Exception $e) {
-//            $this->_notify_message = "Failed to delete implementing partner, Try again.";
+//            $this->_notify_message = "Failed to delete camp, Try again.";
 //            $this->_notify_type = "danger";
 //        }
 //

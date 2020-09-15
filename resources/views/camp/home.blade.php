@@ -5,9 +5,9 @@
     <div class="col-lg-8">
         <div class="ibox">
             <div class="ibox-title">
-                <h2>List of Program Partner
-                <a href="{{ route('programPartner.create') }}" class="pull-right">
-                    <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Program Partner</button>
+                <h2>List of Camp
+                <a href="{{ route('camp.create') }}" class="pull-right">
+                    <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i> Add Camp</button>
                 </a> 
                 </h2>
             </div>
@@ -21,22 +21,24 @@
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Program Partner Name</th>
+                                <th>Camp Name</th>
+                                <th>Block</th>
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($pps as $key=>$pp)
+                            @foreach($camps as $key=>$camp)
                             <tr >
                                 <td><a class="client-link">{{ $key+1 }}</a></td>
-                                <td>{{ $pp->name }}</td>
+                                <td>{{ $camp->name }}</td>
+                                <td>{{ $camp->block_letter }}</td>
                                 <td>
-                                    <a href="{{ route('programPartner.edit', $pp->id) }}" class="edit-btn">
+                                    <a href="{{ route('camp.edit', $camp->id) }}" class="edit-btn">
 
                                     <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
                                     </a>
 
-                                    {{--<form action="{{ route('programPartner.destroy', $pp->id) }}" method="post" class="delete-form">--}}
+                                    {{--<form action="{{ route('camp.destroy', $camp->id) }}" method="post" class="delete-form">--}}
                                         {{--@csrf--}}
                                         {{--@method('DELETE')--}}
                                         {{--<button  class="btn btn-danger btn-circle" type="submit"--}}

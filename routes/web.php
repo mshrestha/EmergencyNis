@@ -25,6 +25,10 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('fourW', 'OtpImportController@fourW')->name('fourW');
     Route::get('fourW_ym', 'OtpImportController@fourW_ym')->name('fourW_ym');
 
+    Route::get('/ou', function () {
+        return view('facility.ou');
+    });
+
     Route::get('preview', 'MonthlyMailController@preview');
     Route::get('generate-pdf', 'MonthlyMailController@generatePDF');
     Route::get('/sendmail','MonthlyMailController@sendmail')->name('sendmail');
@@ -59,6 +63,7 @@ Route::group(['middleware' => ['auth']], function() {
 
 	Route::resource('programPartner', 'PpController');
 	Route::resource('implementingPartner', 'IpController');
+	Route::resource('camp', 'CampController');
 	Route::resource('facility', 'FacilityController');
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');

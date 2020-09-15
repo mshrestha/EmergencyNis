@@ -9,7 +9,7 @@
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Program Partner</h5>
+					<h5>Camp</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -20,14 +20,19 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('programPartner.update', $pp->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('camp.update', $camp->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
 						@method('PATCH')
 
-						<div class="form-group"><label class="col-sm-4 control-label">Program Partner Name</label>
-							<div class="col-sm-8"><input type="text" name="name" class="form-control" placeholder="Program partner Name" required
-														 value="{{ isset($pp) ? $pp->name : '' }}"></div>
+						<div class="form-group"><label class="col-sm-4 control-label">Camp Name</label>
+							<div class="col-sm-8"><input type="text" name="name" class="form-control" placeholder="Camp Name" required
+														 value="{{ isset($camp) ? $camp->name : '' }}"></div>
 						</div>
+						<div class="form-group"><label class="col-sm-4 control-label">Block</label>
+							<div class="col-sm-8"><input type="text" name="block_letter" class="form-control" placeholder="Camp Block" required
+														 value="{{ isset($camp) ? $camp->block_letter : '' }}"></div>
+						</div>
+
 
 						<div class="form-group ">
 							<label for="ip" class="col-md-4 control-label">Select Implementing Partner</label>

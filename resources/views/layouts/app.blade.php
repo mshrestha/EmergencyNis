@@ -79,33 +79,13 @@
                           <a href="{{ route('user.index') }}" ><i class="fa fa-users"></i> <span
                                       class="nav-label">Manage Users</span></a>
                       </li>
-                      <li class="{{ request()->segment(1) == 'facility' ? 'active' : '' }}">
-                          <a href="{{ route('facility.index') }}" ><i class="fa fa-home"></i> <span
-                                      class="nav-label">Manage Facilities</span></a>
+                      <li class="{{ request()->segment(1) == 'ou' ? 'active' : '' }}">
+                          <a href="{{ url('ou') }}" ><i class="fa fa-home"></i> <span
+                                      class="nav-label">Manage OU</span></a>
                       </li>
                       <li class="{{ request()->segment(1) == 'monthly-dashboard' ? 'active' : '' }}">
                           <a href="{{ route('monthly-dashboard.create')}}" ><i class="fa fa-home"></i>
                               <span class="nav-label">Generate Cache</span></a>
-                      </li>
-                      {{--<li class="{{ request()->segment(1) == 'importExportOtp' ? 'active' : '' }}">--}}
-                          {{--<a href="{{ route('importExportOtp') }}" ><i class="fa fa-laptop"></i> <span--}}
-                                      {{--class="nav-label">Import OTP</span></a>--}}
-                      {{--</li>--}}
-                      {{--<li class="{{ request()->segment(1) == 'importExportBsfp' ? 'active' : '' }}">--}}
-                          {{--<a href="{{ route('importExportBsfp') }}" ><i class="fa fa-laptop"></i> <span--}}
-                                      {{--class="nav-label">Import BSFP</span></a>--}}
-                      {{--</li>--}}
-                      {{--<li class="{{ request()->segment(1) == 'importExportTsfp' ? 'active' : '' }}">--}}
-                          {{--<a href="{{ route('importExportTsfp') }}" ><i class="fa fa-laptop"></i> <span--}}
-                                      {{--class="nav-label">Import TSFP</span></a>--}}
-                      {{--</li>--}}
-                      {{--<li class="{{ request()->segment(1) == 'importExportSc' ? 'active' : '' }}">--}}
-                          {{--<a href="{{ route('importExportSc') }}" ><i class="fa fa-laptop"></i> <span--}}
-                                      {{--class="nav-label">Import SC</span></a>--}}
-                      {{--</li>--}}
-                      <li class="{{ request()->segment(1) == 'importHome' ? 'active' : '' }}">
-                          <a href="{{ route('importHome') }}" ><i class="fa fa-upload"></i> <span
-                                      class="nav-label">Import Report</span></a>
                       </li>
                       <li class="{{ request()->segment(1) == 'FourW' ? 'active' : '' }}">
                           <a href="{{ route('fourW') }}" ><i class="fa fa-upload"></i> <span
