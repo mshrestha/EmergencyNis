@@ -23,6 +23,8 @@
                                 <th>S/N</th>
                                 <th>Camp Name</th>
                                 <th>Block</th>
+                                <th>Implementing Partner</th>
+                                <th>Facility</th>
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
@@ -33,8 +35,17 @@
                                 <td>{{ $camp->name }}</td>
                                 <td>{{ $camp->block_letter }}</td>
                                 <td>
+                                    @foreach($camp->ips as $campip)
+                                    {{ $campip->name }}
+                                        @endforeach
+                                </td>
+                                <td>
+                                    @foreach($camp->facilities as $campf)
+                                    {{ $campf->name }}
+                                        @endforeach
+                                </td>
+                                <td>
                                     <a href="{{ route('camp.edit', $camp->id) }}" class="edit-btn">
-
                                     <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
                                     </a>
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Ip;
 use App\Models\Facility;
 use App\Models\Camp;
 
+use App\Pp;
 use Illuminate\Http\Request;
 
 class FacilityController extends Controller
@@ -33,8 +35,10 @@ class FacilityController extends Controller
     public function create()
     {
         $camps = Camp::orderBy('created_at', 'asc')->get();
+        $pps = Pp::all();
+        $ips = Ip::all();
 
-        return view('facility.create', compact('camps'));
+        return view('facility.create', compact('camps','pps','ips'));
     }
 
     /**
@@ -45,6 +49,7 @@ class FacilityController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         try {
             Facility::create($request->all());
         } catch (Exception $e) {
@@ -78,9 +83,11 @@ class FacilityController extends Controller
     public function edit($id)
     {
         $camps = Camp::orderBy('created_at', 'asc')->get();
+        $pps = Pp::all();
+        $ips = Ip::all();
         $facility = Facility::findOrFail($id);
 
-        return view('facility.edit', compact('camps', 'facility'));
+        return view('facility.edit', compact('camps', 'facility','ips','pps'));
     }
 
     /**
@@ -99,7 +106,7 @@ class FacilityController extends Controller
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('facility.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);

@@ -13,4 +13,9 @@ class Pp extends Model
         return $this->belongsToMany(Ip::class, 'ip_pps');
     }
 
+    public function facilities()
+    {
+        return $this->hasMany('App\Models\Facility');
+    }
+
 }

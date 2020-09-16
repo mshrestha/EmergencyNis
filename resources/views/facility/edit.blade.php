@@ -18,6 +18,7 @@
 				<div class="ibox-content">
 					<form action="{{ route('facility.update', $facility->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
+						@method('PATCH')
 						@include('facility.partials.fields')
 
 						<button class="btn btn-success">Save</button>

@@ -21,7 +21,8 @@
                         <thead>
                             <tr>
                                 <th>S/N</th>
-                                <th>Program Partner Name</th>
+                                <th>Name</th>
+                                <th>Implementing Partner</th>
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
@@ -30,6 +31,11 @@
                             <tr >
                                 <td><a class="client-link">{{ $key+1 }}</a></td>
                                 <td>{{ $pp->name }}</td>
+                                <td>
+                                    @foreach($pp->ips as $ppip)
+                                    {{ $ppip->name.', ' }}
+                                        @endforeach
+                                </td>
                                 <td>
                                     <a href="{{ route('programPartner.edit', $pp->id) }}" class="edit-btn">
 

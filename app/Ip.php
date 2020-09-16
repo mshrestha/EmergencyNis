@@ -17,5 +17,9 @@ class Ip extends Model
     {
         return $this->belongsToMany(Camp::class, 'camp_ips');
     }
+    public function facilities()
+    {
+        return $this->hasMany('App\Models\Facility');
+    }
 
 }
