@@ -910,7 +910,16 @@ class HomeController extends Controller
     }
 
     public function test(){
-        return view('test');
+        $categoris = \App\Pp::all();
+
+//        $ips=DB::table('ips')->select('ips.id','ips.name')
+////            ->join('product_types', 'product_types.id', '=', 'products.product_type_id')
+//            ->join('ip_pps','ip_pps.ip_id','=','ips.id')
+//            ->where('ip_pps.pp_id',1)->get();
+//
+//        dd($ips);
+
+        return view('test',compact('categoris'));
     }
 
 

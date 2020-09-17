@@ -8,6 +8,7 @@ use App\Models\Camp;
 
 use App\Pp;
 use Illuminate\Http\Request;
+use DB;
 
 class FacilityController extends Controller
 {
@@ -35,10 +36,11 @@ class FacilityController extends Controller
     public function create()
     {
         $camps = Camp::orderBy('created_at', 'asc')->get();
+        $categoris = Pp::all();
         $pps = Pp::all();
         $ips = Ip::all();
 
-        return view('facility.create', compact('camps','pps','ips'));
+        return view('facility.create', compact('camps','pps','ips','categoris'));
     }
 
     /**
@@ -57,7 +59,7 @@ class FacilityController extends Controller
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('homepage')->with([
+        return redirect()->route('facility.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -120,18 +122,40 @@ class FacilityController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            Facility::destroy($id);
-
-            $this->_notify_message = "Facility deleted.";
-        } catch (Exception $e) {
-            $this->_notify_message = "Failed to delete facility, Try again.";
-            $this->_notify_type = "danger";    
-        }
-
-        return redirect()->back()->with([
-            'notify_message' => $this->_notify_message,
-            'notify_type' => $this->_notify_type
-        ]);
+//        try {
+//            Facility::destroy($id);
+//
+//            $this->_notify_message = "Facility deleted.";
+//        } catch (Exception $e) {
+//            $this->_notify_message = "Failed to delete facility, Try again.";
+//            $this->_notify_type = "danger";
+//        }
+//
+//        return redirect()->back()->with([
+//            'notify_message' => $this->_notify_message,
+//            'notify_type' => $this->_notify_type
+//        ]);
     }
+
+    public function selectIp(Request $request)
+    {
+        if ($request->ajax()) {
+            $ips=DB::table('ips')->select('ips.id','ips.name')
+                ->join('ip_pps','ip_pps.ip_id','=','ips.id')
+                ->where('ip_pps.pp_id',$request->pp_id)->get();
+            $data = view('facility.partials.select_ip', compact('ips'))->render();
+            return response()->json(['options' => $data]);
+        }
+    }
+    public function selectCamp(Request $request)
+    {
+        if ($request->ajax()) {
+            $camps=DB::table('camps')->select('camps.id','camps.name')
+                ->join('camp_ips','camp_ips.camp_id','=','camps.id')
+                ->where('camp_ips.ip_id',$request->ip_id)->get();
+            $data = view('facility.partials.select_camp', compact('camps'))->render();
+            return response()->json(['options' => $data]);
+        }
+    }
+
 }

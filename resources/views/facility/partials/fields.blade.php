@@ -25,7 +25,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">Program Partner</label>
     <div class="col-sm-9">
-        <select name="pp_id" class="form-control">
+        <select name="pp_id" class="form-control" id="pp_id">
             <option value="">Select Program Partner</option>
             @foreach($pps as $pp)
                 <option value="{{ $pp->id }}" {{ (isset($facility) && $facility->pp_id == $pp->id) ? ' selected' : '' }}>{{ $pp->name }}</option>
@@ -36,7 +36,7 @@
 <div class="form-group">
     <label class="col-sm-3 control-label">Implementing Partner</label>
     <div class="col-sm-9">
-        <select name="ip_id" class="form-control">
+        <select name="ip_id" class="form-control" id="implementing_partner">
             <option value="">Select Implementing Partner</option>
             @foreach($ips as $ip)
                 <option value="{{ $ip->id }}" {{ (isset($facility) && $facility->ip_id == $ip->id) ? ' selected' : '' }}>{{ $ip->name }}</option>
@@ -47,7 +47,7 @@
 
 <div class="form-group"><label class="col-sm-3 control-label">Settlement</label>
     <div class="col-sm-9">
-        <select name="camp_id" class="form-control" required>
+        <select name="camp_id" class="form-control" id="camp" required >
             <option value="">Select camp</option>
             @foreach($camps as $camp)
                 <option value="{{ $camp->id }}" {{ (isset($facility) && $facility->camp_id == $camp->id) ? ' selected' : '' }}>{{ $camp->name }}</option>

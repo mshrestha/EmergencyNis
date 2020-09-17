@@ -38,6 +38,7 @@
 
     </style>
     @stack('styles')
+
 </head>
 <body class="pace-done top-navigation">
 <div id="wrapper">

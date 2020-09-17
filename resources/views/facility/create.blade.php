@@ -18,7 +18,113 @@
 				<div class="ibox-content">
 					<form action="{{ route('facility.store') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
-						@include('facility.partials.fields')
+						{{--@include('facility.partials.fields')--}}
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Facility Name</label>
+							<div class="col-sm-9"><input type="text" name="name" class="form-control"
+														 placeholder="Facility Name"
+														 value="{{ isset($facility) ? $facility->name : '' }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Facility ID</label>
+							<div class="col-sm-9"><input type="text" name="facility_id" class="form-control"
+														 placeholder="Example - NS-C1E-XXXX/XXX-XXXX" required
+														 value="{{ isset($facility) ? $facility->facility_id : '' }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">SSID</label>
+							<div class="col-sm-9"><input type="text" name="ssid" class="form-control"
+														 placeholder="SSID"
+														 value="{{ isset($facility) ? $facility->ssid : '' }}">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Program Partner</label>
+							<div class="col-sm-9">
+								<select name="pp_id" class="form-control" id="pp_id">
+									<option value="">Select Program Partner</option>
+									@foreach($pps as $pp)
+										<option value="{{ $pp->id }}" >{{ $pp->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Implementing Partner</label>
+							<div class="col-sm-9">
+								<select name="ip_id" class="form-control" id="implementing_partner" required>
+									{{--<option value="">Select Implementing Partner</option>--}}
+									{{--@foreach($ips as $ip)--}}
+										{{--<option value="{{ $ip->id }}" >{{ $ip->name }}</option>--}}
+									{{--@endforeach--}}
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group"><label class="col-sm-3 control-label">Settlement</label>
+							<div class="col-sm-9">
+								<select name="camp_id" class="form-control" id="camp" required >
+									{{--<option value="">Select Camp</option>--}}
+									{{--@foreach($camps as $camp)--}}
+										{{--<option value="{{ $camp->id }}" >{{ $camp->name }}</option>--}}
+									{{--@endforeach--}}
+								</select>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">status</label>
+							<div class="col-sm-9">
+								<select name="status" class="form-control" required>
+									<option value="Closed" {{ (isset($facility) && $facility->status == 'Closed') ? ' selected' : '' }}>Closed
+									</option>
+									<option value="Ongoing" {{ (isset($facility) && $facility->status == 'Ongoing') ? ' selected' : '' }}>
+										Ongoing
+									</option>
+									<option value="Planned" {{ (isset($facility) && $facility->status == 'Planned') ? ' selected' : '' }}>
+										Planned
+									</option>
+									<option value="Removed" {{ (isset($facility) && $facility->status == 'Removed') ? ' selected' : '' }}>
+										Removed
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">Latitude</label>
+							<div class="col-sm-9"><input type="text" name="latitude" class="form-control" placeholder="Latitude" required
+														 value="{{ isset($facility) ? $facility->latitude : '' }}"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">Longitude</label>
+							<div class="col-sm-9"><input type="text" name="longitude" class="form-control" placeholder="Longitude" required
+														 value="{{ isset($facility) ? $facility->longitude : '' }}"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">Service type</label>
+							<div class="col-sm-9">
+								<select name="service_type" class="form-control" required>
+									<option value="OTP" {{ (isset($facility) && $facility->service_type == 'OTP') ? ' selected' : '' }}>OTP
+									</option>
+									<option value="SC" {{ (isset($facility) && $facility->service_type == 'SC') ? ' selected' : '' }}>SC
+									</option>
+									<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'BSFP') ? ' selected' : '' }}>
+										BSFP
+									</option>
+									<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'TSFP') ? ' selected' : '' }}>
+										TSFP
+									</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">Facility reg</label>
+							<div class="col-sm-9"><input type="text" name="facility_reg" class="form-control" placeholder="Facility reg"
+														 required value="{{ isset($facility) ? $facility->facility_reg : '' }}"></div>
+						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">Community reg</label>
+							<div class="col-sm-9"><input type="text" name="community_reg" class="form-control" placeholder="Community reg"
+														 required value="{{ isset($facility) ? $facility->community_reg : '' }}"></div>
+						</div>
 
 						<button class="btn btn-success">Save</button>
 					</form>
@@ -29,7 +135,45 @@
 </div> <!-- wrapper -->
 @endsection
 
-@section('scripts')
-<script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>
-<script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>
-@endsection
+@push('scripts')
+	{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
+	{{--<script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>--}}
+{{--<script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>--}}
+
+	{{--<script>--}}
+
+<script>
+        $("select[name='pp_id']").change(function () {
+
+            var pp_id = $(this).val();
+            var token = $("input[name='_token']").val();
+//            console.log(pp_id);
+            $.ajax({
+                url: "<?php echo route('select-ip') ?>",
+                method: 'POST',
+                data: {pp_id: pp_id, _token: token},
+                success: function (data) {
+//                    console.log(data);
+                    $("select[name='ip_id']").html('');
+                    $("select[name='ip_id']").html(data.options);
+                }
+            });
+        });
+        $("select[name='ip_id']").change(function () {
+
+            var ip_id = $(this).val();
+            var token = $("input[name='_token']").val();
+            console.log(ip_id);
+            $.ajax({
+                url: "<?php echo route('select-camp') ?>",
+                method: 'POST',
+                data: {ip_id: ip_id, _token: token},
+                success: function (data) {
+                    console.log(data);
+                    $("select[name='camp_id']").html('');
+                    $("select[name='camp_id']").html(data.options);
+                }
+            });
+        });
+ 	</script>
+@endpush
