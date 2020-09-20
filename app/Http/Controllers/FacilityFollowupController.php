@@ -66,6 +66,7 @@ class FacilityFollowupController extends Controller
     }
 
     public function save($id, Request $request) {
+//        dd($request);
         try {
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');

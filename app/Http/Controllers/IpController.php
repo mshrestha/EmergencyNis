@@ -81,7 +81,11 @@ class IpController extends Controller
     public function edit($id)
     {
         $ip = Ip::findOrFail($id);
-        return view('implementingPartner.edit', compact('ip'));
+        $pps=Pp::all();
+
+        $selected_pp = $ip->pps->pluck('id')->toArray();
+
+        return view('implementingPartner.edit', compact('ip','selected_pp','pps'));
     }
 
     /**
@@ -93,8 +97,14 @@ class IpController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($request);
         try {
             Ip::findOrFail($id)->update($request->all());
+
+            $ip1 = Ip::findOrFail($id);
+            $pp_ids = $request->input('pp');
+            $ip1->pps()->sync($pp_ids);
+
         } catch (\Exception $e) {
             $this->_notify_message = "Failed to save implementing partner, Try again.";
             $this->_notify_type = "danger";

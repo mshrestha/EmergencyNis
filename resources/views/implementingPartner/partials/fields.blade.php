@@ -10,7 +10,9 @@
 			<select name="pp[]" id="pp" class="form-control input-circle show-tick selectpicker"
 					data-live-search="true" multiple>
 				@foreach($pps as $pp)
-					<option value="{{ $pp->id }}">{{ $pp->name }}</option>
+{{--					<option value="{{ $pp->id }}">{{ $pp->name }}</option>--}}
+					<option value="{{ $pp->id }}" {{ (in_array($pp->id,$selected_pp) ) ? ' selected' : '' }}>{{ $pp->name }}</option>
+
 				@endforeach
 			</select>
 		</div>
