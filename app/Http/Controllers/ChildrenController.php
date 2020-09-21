@@ -71,7 +71,7 @@ class ChildrenController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $id = Child::create($data)->sync_id;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
             $this->_notify_type = 'danger';
         }
@@ -174,7 +174,7 @@ class ChildrenController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
             
             Child::findOrFail($id)->update($data);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
             $this->_notify_type = 'danger';
         }
@@ -196,7 +196,7 @@ class ChildrenController extends Controller
         try {
             Child::destroy($id);
             $this->_notify_message = 'Deleted child.';
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to delete child, Try again.';
             $this->_notify_type = 'danger';
         }

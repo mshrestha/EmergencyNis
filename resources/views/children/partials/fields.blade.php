@@ -1,6 +1,16 @@
-<div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>
-	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="Registration ID" 
-		value="{{ isset($child) ? $child->mnr_no : '' }}">
+<div class="form-group"><label class="col-sm-3 control-label">MOHA ID</label>
+	<div class="col-sm-9"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
+		value="{{ isset($child) ? $child->moha_id : '' }}">
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Progress ID</label>
+	<div class="col-sm-9"><input type="text" name="progress_id" class="form-control" placeholder="Progress ID"
+		value="{{ isset($child) ? $child->progress_id : '' }}">
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Family Count Number (FCN)</label>
+	<div class="col-sm-9"><input type="text" name="family_count_no" class="form-control" placeholder="Family Count Number"
+								 value="{{ isset($child) ? $child->family_count_no : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Camp</label>
@@ -20,15 +30,20 @@
 <div class="hr-line-dashed"></div>
 
 
-<div class="form-group"><label class="col-sm-3 control-label">Block Number</label>
-	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Block Number"
-		value="{{ isset($child) ? $child->sub_block_no : '' }}" required>
+
+<div class="form-group"><label class="col-sm-3 control-label">Household Number</label>
+	<div class="col-sm-9"><input type="text" name="hh_no" class="form-control" placeholder="Household Number"
+		value="{{ isset($child) ? $child->hh_no : '' }}" >
 	</div>
 </div>
-
-<div class="form-group"><label class="col-sm-3 control-label">Household Number/FCN</label>
-	<div class="col-sm-9"><input type="text" name="hh_no" class="form-control" placeholder="Household Number" 
-		value="{{ isset($child) ? $child->hh_no : '' }}" >
+<div class="form-group"><label class="col-sm-3 control-label">Block</label>
+	<div class="col-sm-9"><input type="text" name="block" class="form-control" placeholder="block"
+		value="{{ isset($child) ? $child->block : '' }}" >
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Sub Block</label>
+	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Sub Block"
+		value="{{ isset($child) ? $child->sub_block_no : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
@@ -39,11 +54,7 @@
 	</div>
 </div>
 <div class="hr-line-dashed"></div>
-<!-- div class="form-group"><label class="col-sm-3 control-label">Family Count</label>
-	<div class="col-sm-9"><input type="number" class="form-control" name="family_count_no" placeholder="Family Count" 
-		value="{{ isset($child) ? $child->family_count_no : '' }}" >
-	</div>
-</div -->
+
 <div class="form-group"><label class="col-sm-3 control-label">Mother's Name / Caregiver Name</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="mother_caregiver_name" placeholder="Mother's Name" 
 		value="{{ isset($child) ? $child->mother_caregiver_name : '' }}" required>
@@ -73,6 +84,14 @@
 <div class="form-group"><label class="col-sm-3 control-label">Age</label>
 	<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age" 
 		value="{{ isset($child) ? $child->age : '' }}" ><span class="small">(months)</span>
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Age Group</label>
+	<div class="col-sm-9">
+		<input type="radio" name="age_group" value="0to6m" {{ (isset($child) && $child->age_group == '0to6m') ? ' checked' : '' }}> 0 to 6 Month
+		<input type="radio" name="age_group" value="6to23m" {{ (isset($child) && $child->age_group == '6to23m') ? ' checked' : '' }}> 6 to 23 Month
+		<input type="radio" name="age_group" value="24to59m" {{ (isset($child) && $child->age_group == '24to59m') ? ' checked' : '' }}> 24 to 59 Month
+		<input type="radio" name="age_group" value="others" {{ (isset($child) && $child->age_group == 'others') ? ' checked' : '' }}> Others
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Sex</label>
