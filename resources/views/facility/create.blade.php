@@ -44,13 +44,24 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-sm-3 control-label">Sector</label>
+							<div class="col-sm-9">
+								<select name="sector_id" class="form-control" id="sector_id">
+									<option value="">Select Sector</option>
+									@foreach($sectors as $sector)
+										<option value="{{ $sector->id }}" >{{ $sector->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
 							<label class="col-sm-3 control-label">Program Partner</label>
 							<div class="col-sm-9">
 								<select name="pp_id" class="form-control" id="pp_id">
-									<option value="">Select Program Partner</option>
-									@foreach($pps as $pp)
-										<option value="{{ $pp->id }}" >{{ $pp->name }}</option>
-									@endforeach
+									{{--<option value="">Select Program Partner</option>--}}
+									{{--@foreach($pps as $pp)--}}
+										{{--<option value="{{ $pp->id }}" >{{ $pp->name }}</option>--}}
+									{{--@endforeach--}}
 								</select>
 							</div>
 						</div>
@@ -143,6 +154,22 @@
 	{{--<script>--}}
 
 <script>
+        $("select[name='sector_id']").change(function () {
+
+            var sector_id = $(this).val();
+            var token = $("input[name='_token']").val();
+//            console.log(pp_id);
+            $.ajax({
+                url: "<?php echo route('select-pp') ?>",
+                method: 'POST',
+                data: {sector_id: sector_id, _token: token},
+                success: function (data) {
+//                    console.log(data);
+                    $("select[name='pp_id']").html('');
+                    $("select[name='pp_id']").html(data.options);
+                }
+            });
+        });
         $("select[name='pp_id']").change(function () {
 
             var pp_id = $(this).val();

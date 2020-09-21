@@ -43,6 +43,17 @@
 														 value="{{ isset($facility) ? $facility->ssid : '' }}">
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">Sector</label>
+							<div class="col-sm-9">
+								<select name="sector_id" class="form-control" id="sector_id">
+									<option value="">Select Sector</option>
+									@foreach($sectors as $sector)
+										<option value="{{ $sector->id }}" {{ (isset($facility) && $facility->sector_id == $sector->id) ? ' selected' : '' }}>{{ $sector->name }}</option>
+									@endforeach
+								</select>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Program Partner</label>
@@ -141,6 +152,23 @@
 {{--<script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>--}}
 {{--<script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>--}}
 <script>
+    $("select[name='sector_id']").change(function () {
+
+        var sector_id = $(this).val();
+        var token = $("input[name='_token']").val();
+//            console.log(pp_id);
+        $.ajax({
+            url: "<?php echo route('select-pp') ?>",
+            method: 'POST',
+            data: {sector_id: sector_id, _token: token},
+            success: function (data) {
+//                    console.log(data);
+                $("select[name='pp_id']").html('');
+                $("select[name='pp_id']").html(data.options);
+            }
+        });
+    });
+
     $("select[name='pp_id']").change(function () {
 
         var pp_id = $(this).val();

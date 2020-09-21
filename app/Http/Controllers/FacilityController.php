@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\Camp;
 
 use App\Pp;
+use App\Sector;
 use Illuminate\Http\Request;
 use DB;
 
@@ -39,11 +40,11 @@ class FacilityController extends Controller
     public function create()
     {
         $camps = Camp::orderBy('created_at', 'asc')->get();
-        $categoris = Pp::all();
+        $sectors = Sector::all();
         $pps = Pp::all();
         $ips = Ip::all();
 
-        return view('facility.create', compact('camps','pps','ips','categoris'));
+        return view('facility.create', compact('camps','pps','ips','sectors'));
     }
 
     /**
@@ -87,12 +88,14 @@ class FacilityController extends Controller
      */
     public function edit($id)
     {
+        $facility = Facility::findOrFail($id);
+//        dd($facility);
         $camps = Camp::orderBy('created_at', 'asc')->get();
+        $sectors = Sector::all();
         $pps = Pp::all();
         $ips = Ip::all();
-        $facility = Facility::findOrFail($id);
 
-        return view('facility.edit', compact('camps', 'facility','ips','pps'));
+        return view('facility.edit', compact('camps', 'facility','ips','pps','sectors'));
     }
 
     /**
@@ -140,6 +143,16 @@ class FacilityController extends Controller
 //        ]);
     }
 
+    public function selectPp(Request $request)
+    {
+        if ($request->ajax()) {
+            $pps=DB::table('pps')->select('pps.id','pps.name')
+                ->join('pp_sectors','pp_sectors.pp_id','=','pps.id')
+                ->where('pp_sectors.sector_id',$request->sector_id)->get();
+            $data = view('facility.partials.select_pp', compact('pps'))->render();
+            return response()->json(['options' => $data]);
+        }
+    }
     public function selectIp(Request $request)
     {
         if ($request->ajax()) {

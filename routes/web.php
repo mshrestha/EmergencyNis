@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function() {
         return view('facility.ou');
     });
 
+    Route::post('select-pp', ['as' => 'select-pp', 'uses' => 'FacilityController@selectPp']);
     Route::post('select-ip', ['as' => 'select-ip', 'uses' => 'FacilityController@selectIp']);
     Route::post('select-camp', ['as' => 'select-camp', 'uses' => 'FacilityController@selectCamp']);
 
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('community-followup/{child}/save', 'CommunityFollowupController@save')->name('community-followup.save');
 
 
+    Route::resource('service', 'ServiceController');
     Route::resource('sector', 'SectorController');
     Route::resource('programPartner', 'PpController');
 	Route::resource('implementingPartner', 'IpController');
