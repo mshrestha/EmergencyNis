@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Service;
 use Illuminate\Database\Eloquent\Model;
 
 class Facility extends Model
@@ -20,4 +21,10 @@ class Facility extends Model
     public function pp() {
     	return $this->belongsTo('App\Pp', 'pp_id');
     }
+
+        public function services()
+    {
+        return $this->belongsToMany(Service::class, 'facility_services');
+    }
+
 }

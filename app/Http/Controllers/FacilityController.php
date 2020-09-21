@@ -8,6 +8,7 @@ use App\Models\Camp;
 
 use App\Pp;
 use App\Sector;
+use App\Service;
 use Illuminate\Http\Request;
 use DB;
 
@@ -40,11 +41,12 @@ class FacilityController extends Controller
     public function create()
     {
         $camps = Camp::orderBy('created_at', 'asc')->get();
+        $services = Service::all();
         $sectors = Sector::all();
         $pps = Pp::all();
         $ips = Ip::all();
 
-        return view('facility.create', compact('camps','pps','ips','sectors'));
+        return view('facility.create', compact('camps','pps','ips','sectors','services'));
     }
 
     /**
@@ -57,7 +59,11 @@ class FacilityController extends Controller
     {
 //        dd($request);
         try {
-            Facility::create($request->all());
+            $facility=Facility::create($request->all());
+
+            $service_ids = $request->input('service');
+            $facility->services()->attach($service_ids);
+
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save facility, Try again.";
             $this->_notify_type = "danger";
@@ -95,7 +101,11 @@ class FacilityController extends Controller
         $pps = Pp::all();
         $ips = Ip::all();
 
-        return view('facility.edit', compact('camps', 'facility','ips','pps','sectors'));
+        $services=Service::all();
+        $selected_service = $facility->services->pluck('id')->toArray();
+
+
+        return view('facility.edit', compact('camps', 'facility','ips','pps','sectors','services','selected_service'));
     }
 
     /**
@@ -109,6 +119,11 @@ class FacilityController extends Controller
     {
         try {
             Facility::findOrFail($id)->update($request->all());
+
+            $facility1 = Facility::findOrFail($id);
+            $service_ids = $request->input('service');
+            $facility1->services()->sync($service_ids);
+
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save facility, Try again.";
             $this->_notify_type = "danger";

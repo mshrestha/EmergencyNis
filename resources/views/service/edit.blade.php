@@ -10,7 +10,7 @@
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Sector</h5>
+					<h5>Service</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -21,10 +21,10 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('sector.update', $sector->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('service.update', $service->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
 						@method('PATCH')
-						@include('sector.partials.fields')
+						@include('service.partials.fields')
 
 						<button class="btn btn-success">Save</button>
 					</form>

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@push('styles')
+<link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
+@endpush
 @section('content')
 <div class="wrapper wrapper-content  animated fadeInRight">
 	<div class="row">
@@ -116,17 +119,23 @@
 						</div>
 						<div class="form-group"><label class="col-sm-3 control-label">Service type</label>
 							<div class="col-sm-9">
-								<select name="service_type" class="form-control" required>
-									<option value="OTP" {{ (isset($facility) && $facility->service_type == 'OTP') ? ' selected' : '' }}>OTP
-									</option>
-									<option value="SC" {{ (isset($facility) && $facility->service_type == 'SC') ? ' selected' : '' }}>SC
-									</option>
-									<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'BSFP') ? ' selected' : '' }}>
-										BSFP
-									</option>
-									<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'TSFP') ? ' selected' : '' }}>
-										TSFP
-									</option>
+								{{--<select name="service_type" class="form-control" required>--}}
+									{{--<option value="OTP" {{ (isset($facility) && $facility->service_type == 'OTP') ? ' selected' : '' }}>OTP--}}
+									{{--</option>--}}
+									{{--<option value="SC" {{ (isset($facility) && $facility->service_type == 'SC') ? ' selected' : '' }}>SC--}}
+									{{--</option>--}}
+									{{--<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'BSFP') ? ' selected' : '' }}>--}}
+										{{--BSFP--}}
+									{{--</option>--}}
+									{{--<option value="TSFP/BSFP" {{ (isset($facility) && $facility->service_type == 'TSFP') ? ' selected' : '' }}>--}}
+										{{--TSFP--}}
+									{{--</option>--}}
+								{{--</select>--}}
+								<select name="service[]" id="service" class="form-control input-circle show-tick selectpicker"
+										data-live-search="true" multiple required>
+									@foreach($services as $service)
+										<option value="{{ $service->id }}" {{ (in_array($service->id,$selected_service) ) ? ' selected' : '' }}>{{ $service->name }}</option>
+									@endforeach
 								</select>
 							</div>
 						</div>
@@ -149,6 +158,8 @@
 @endsection
 
 @push('scripts')
+<script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
+
 {{--<script src="{{ asset('js/plugins/switchery/switchery.js')}}"></script>--}}
 {{--<script src="{{ asset('js/plugins/ionRangeSlider/ion.rangeSlider.min.js')}}"></script>--}}
 <script>

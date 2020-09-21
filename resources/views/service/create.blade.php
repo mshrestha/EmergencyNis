@@ -2,15 +2,13 @@
 @push('styles')
 <link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" />
 @endpush
-
 @section('content')
-
 <div class="wrapper wrapper-content  animated fadeInRight">
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="ibox ">
 				<div class="ibox-title">
-					<h5>Sector</h5>
+					<h5>Service Registration</h5>
 					<div class="ibox-tools">
 						<a class="collapse-link">
 							<i class="fa fa-chevron-up"></i>
@@ -21,10 +19,9 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('sector.update', $sector->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('service.store') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
-						@method('PATCH')
-						@include('sector.partials.fields')
+						@include('service.partials.fields')
 
 						<button class="btn btn-success">Save</button>
 					</form>
@@ -41,4 +38,3 @@
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
 
 @endpush
-
