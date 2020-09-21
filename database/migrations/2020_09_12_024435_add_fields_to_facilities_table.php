@@ -17,6 +17,15 @@ class AddFieldsToFacilitiesTable extends Migration
             $table->string('ssid')->nullable();
             $table->string('name')->nullable();
 
+            $table->BigInteger('pp_id')->nullable()->unsigned();
+            $table->foreign('pp_id')->references('id')->on('pps')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->BigInteger('ip_id')->nullable()->unsigned();
+            $table->foreign('ip_id')->references('id')->on('ips')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+
         });
     }
 
@@ -30,6 +39,9 @@ class AddFieldsToFacilitiesTable extends Migration
         Schema::table('facilities', function (Blueprint $table) {
             $table->dropColumn('ssid');
             $table->dropColumn('name');
+            $table->dropColumn('pp_id');
+            $table->dropColumn('ip_id');
+
         });
     }
 }

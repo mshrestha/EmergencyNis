@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddFieldsToFacilitiesTable extends Migration
+class CreatePpSectorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class AddFieldsToFacilitiesTable extends Migration
      */
     public function up()
     {
-        Schema::table('facilities', function (Blueprint $table) {
-            $table->BigInteger('pp_id')->nullable()->unsigned();
+        Schema::create('pp_sectors', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->BigInteger('pp_id')->unsigned();
             $table->foreign('pp_id')->references('id')->on('pps')
                 ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->BigInteger('ip_id')->nullable()->unsigned();
-            $table->foreign('ip_id')->references('id')->on('ips')
+            $table->BigInteger('sector_id')->unsigned();
+            $table->foreign('sector_id')->references('id')->on('sectors')
                 ->onUpdate('cascade')->onDelete('cascade');
 
+//            $table->timestamps();
         });
     }
 
@@ -32,10 +33,6 @@ class AddFieldsToFacilitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('facilities', function (Blueprint $table) {
-            $table->dropColumn('pp_id');
-            $table->dropColumn('ip_id');
-
-        });
+        Schema::dropIfExists('pp_sectors');
     }
 }

@@ -17,6 +17,8 @@ class FacilityFollowup extends Model
         'wsb_plus_plus_kg', 'wsb_plus_kg', 'oil_kg', 'others', 'discharge_criteria_exit', 'discharge_criteria_transfer_out',
         'discharge_criteria_others', 'discharge_weight_kg', 'lowest_weight_kg', 'duration_between_lowest_weight_and_discharged_weight_days',
         'gain_of_weight', 'duration_between_discharged_and_admission_days', 'measles','nutritionstatus'
+
+
     ];
 
     public function child() {

@@ -190,44 +190,47 @@ class HomeController extends Controller
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
             return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count',
+                'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count',
+                'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
         } else {
-            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
-                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
-            if (empty($cache_data)) {
-                if (date('n') == 1) {
-                    $report_month = 12;
-                    $report_year = date('Y') - 1;
-                } else {
-                    $report_month = date('n') - 1;
-                    $report_year = date('Y');
-                }
-            } else {
-                $report_month = $cache_data[0]->month;
-                $report_year = $cache_data[0]->year;
-            }
-
-            $dashboard_data = $this->admin_dashboard_data($report_year, $report_month);
-            $chart_doughnut_value = $this->admin_dashboard_doughnutchart();
-            $admin_barchart = $this->admin_dashboard_barchart($report_month);
-
-            $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
-            $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
-
-            //Sync data count
-            $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
-            $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-            $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-            $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
-            $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-            $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
-            $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
-            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
-            $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
-            $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
-
-            return view('homepage.dashboard', compact('cache_data', 'dashboard', 'dashboard_data',
-                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count','outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+//            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
+//                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
+//            if (empty($cache_data)) {
+//                if (date('n') == 1) {
+//                    $report_month = 12;
+//                    $report_year = date('Y') - 1;
+//                } else {
+//                    $report_month = date('n') - 1;
+//                    $report_year = date('Y');
+//                }
+//            } else {
+//                $report_month = $cache_data[0]->month;
+//                $report_year = $cache_data[0]->year;
+//            }
+//
+//            $dashboard_data = $this->admin_dashboard_data($report_year, $report_month);
+//            $chart_doughnut_value = $this->admin_dashboard_doughnutchart();
+//            $admin_barchart = $this->admin_dashboard_barchart($report_month);
+//
+//            $facilityFollowup = FacilityFollowup::orderBy('id', 'desc')->get();
+//            $dashboard = $this->findDataFromFacilityFollowup($facilityFollowup);
+//
+//            //Sync data count
+//            $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
+//            $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+//            $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+//            $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
+//            $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
+//            $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
+//            $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
+//            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
+//            $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
+//            $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
+//
+//            return view('homepage.dashboard', compact('cache_data', 'dashboard', 'dashboard_data',
+//                'chart_doughnut_value', 'admin_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count','outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+            return redirect('homepage');
         }
     }
 

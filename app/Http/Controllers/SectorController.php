@@ -2,26 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Ip;
 use App\Pp;
+use App\Sector;
 use Illuminate\Http\Request;
 
-class IpController extends Controller
+class SectorController extends Controller
 {
-    private $_notify_message = 'Implementing Partner saved.';
+    private $_notify_message = 'Sector saved.';
     private $_notify_type = 'success';
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
 
-        $ips = Ip::orderBy('created_at', 'desc')->get();
-
-        return view('implementingPartner.home', compact('ips'));
+        $sectors = Sector::orderBy('created_at', 'desc')->get();
+        return view('sector.home', compact('sectors'));
     }
 
     /**
@@ -33,31 +27,24 @@ class IpController extends Controller
     {
         $pps=Pp::all();
         $selected_pp = [];
-
-        return view('implementingPartner.create',compact('pps','selected_pp'));
+        return view('sector.create',compact('pps','selected_pp'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 //        dd($request);
         try {
-            $ip=Ip::create($request->all());
+            $sector=Sector::create($request->all());
 
             $pp_ids = $request->input('pp');
-            $ip->pps()->attach($pp_ids);
+            $sector->pps()->attach($pp_ids);
 
         } catch (\Exception $e) {
-            $this->_notify_message = "Failed to save implementing partner, Try again.";
+            $this->_notify_message = "Failed to save Sector, Try again.";
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('implementingPartner.index')->with([
+        return redirect()->route('sector.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -82,12 +69,15 @@ class IpController extends Controller
      */
     public function edit($id)
     {
-        $ip = Ip::findOrFail($id);
-        $pps=Pp::all();
 
-        $selected_pp = $ip->pps->pluck('id')->toArray();
+        $sector = Pp::findOrFail($id);
 
-        return view('implementingPartner.edit', compact('ip','selected_pp','pps'));
+//        $ips = Ip::pluck('name', 'id')->toArray();
+        $ips=Ip::all();
+        $selected_ip = $sector->ips->pluck('id')->toArray();
+//        dd($selected_ip);
+
+        return view('sector.edit', compact('sector','ips','selected_ip'));
     }
 
     /**
@@ -101,18 +91,17 @@ class IpController extends Controller
     {
 //        dd($request);
         try {
-            Ip::findOrFail($id)->update($request->all());
-
-            $ip1 = Ip::findOrFail($id);
-            $pp_ids = $request->input('pp');
-            $ip1->pps()->sync($pp_ids);
+            Pp::findOrFail($id)->update($request->all());
+            $sector1 = Pp::findOrFail($id);
+            $ip_ids = $request->input('ip');
+            $sector1->ips()->sync($ip_ids);
 
         } catch (\Exception $e) {
-            $this->_notify_message = "Failed to save implementing partner, Try again.";
+            $this->_notify_message = "Failed to save Sector, Try again.";
             $this->_notify_type = "danger";
         }
 
-        return redirect()->route('implementingPartner.index')->with([
+        return redirect()->route('sector.index')->with([
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
@@ -127,11 +116,11 @@ class IpController extends Controller
 //    public function destroy($id)
 //    {
 //        try {
-//            Ip::destroy($id);
+//            Pp::destroy($id);
 //
-//            $this->_notify_message = "Implementing Partner deleted.";
+//            $this->_notify_message = "Sector deleted.";
 //        } catch (\Exception $e) {
-//            $this->_notify_message = "Failed to delete implementing partner, Try again.";
+//            $this->_notify_message = "Failed to delete Sector, Try again.";
 //            $this->_notify_type = "danger";
 //        }
 //
@@ -140,4 +129,6 @@ class IpController extends Controller
 //            'notify_type' => $this->_notify_type
 //        ]);
 //    }
+
+
 }

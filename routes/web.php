@@ -65,6 +65,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::post('community-followup/{child}/save', 'CommunityFollowupController@save')->name('community-followup.save');
 
 
+    Route::resource('sector', 'SectorController');
     Route::resource('programPartner', 'PpController');
 	Route::resource('implementingPartner', 'IpController');
 	Route::resource('camp', 'CampController');
