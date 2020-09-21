@@ -28,6 +28,12 @@
 							<div class="col-sm-8"><input type="text" name="name" class="form-control" placeholder="Camp Name" required
 														 value="{{ isset($camp) ? $camp->name : '' }}"></div>
 						</div>
+						<div class="form-group"><label class="col-sm-4 control-label">Upazila</label>
+							<div class="col-sm-8">
+								<input type="radio" name="upazila" value="Teknaf" required {{ (isset($camp) && $camp->upazila == 'Teknaf') ? ' checked' : '' }}> Teknaf
+								<input type="radio" name="upazila" value="Ukhia" {{ (isset($camp) && $camp->upazila == 'Ukhia') ? ' checked' : '' }}> Ukhia
+							</div>
+						</div>
 						<div class="form-group"><label class="col-sm-4 control-label">Block</label>
 							<div class="col-sm-8"><input type="text" name="block_letter" class="form-control" placeholder="Camp Block" required
 														 value="{{ isset($camp) ? $camp->block_letter : '' }}"></div>

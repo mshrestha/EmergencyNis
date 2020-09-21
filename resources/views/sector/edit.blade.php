@@ -21,10 +21,10 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					<form action="{{ route('implementingPartner.update', $ip->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					<form action="{{ route('sector.update', $sector->id) }}" class="form-horizontal" method="post" enctype="multipart/form-data">
 						@csrf
 						@method('PATCH')
-						@include('implementingPartner.partials.fields')
+						@include('sector.partials.fields')
 
 						<button class="btn btn-success">Save</button>
 					</form>

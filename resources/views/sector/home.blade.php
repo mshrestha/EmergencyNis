@@ -40,14 +40,14 @@
                                             @endforeach
                                     </td>
                                     <td>
-                                        <a href="{{ route('implementingPartner.edit', $sector->id) }}" class="edit-btn">
+                                        <a href="{{ route('sector.edit', $sector->id) }}" class="edit-btn">
 
                                             <button class="btn btn-info btn-circle" type="button"><i
                                                         class="fa fa-pencil"></i></button>
                                         </a>
 
                                         {{--<form--}}
-                                                {{--action="{{ route('implementingPartner.destroy', $sector->id) }}"--}}
+                                                {{--action="{{ route('sector.destroy', $sector->id) }}"--}}
                                                 {{--method="post"--}}
                                                 {{--class="delete-form" id="delete-form{{$sector->id}}">--}}
                                             {{--@csrf--}}

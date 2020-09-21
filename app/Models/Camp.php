@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Camp extends Model
 {
-    protected $fillable = ['name','block_letter'];
+    protected $fillable = ['name','block_letter','upazila'];
 
     public function ips()
     {

@@ -70,14 +70,13 @@ class SectorController extends Controller
     public function edit($id)
     {
 
-        $sector = Pp::findOrFail($id);
+        $sector = Sector::findOrFail($id);
 
-//        $ips = Ip::pluck('name', 'id')->toArray();
-        $ips=Ip::all();
-        $selected_ip = $sector->ips->pluck('id')->toArray();
-//        dd($selected_ip);
+        $pps=Pp::all();
+        $selected_pp = $sector->pps->pluck('id')->toArray();
 
-        return view('sector.edit', compact('sector','ips','selected_ip'));
+
+        return view('sector.edit', compact('sector','pps','selected_pp'));
     }
 
     /**
@@ -91,10 +90,11 @@ class SectorController extends Controller
     {
 //        dd($request);
         try {
-            Pp::findOrFail($id)->update($request->all());
-            $sector1 = Pp::findOrFail($id);
-            $ip_ids = $request->input('ip');
-            $sector1->ips()->sync($ip_ids);
+            Sector::findOrFail($id)->update($request->all());
+
+            $sector1 = Sector::findOrFail($id);
+            $pp_ids = $request->input('pp');
+            $sector1->pps()->sync($pp_ids);
 
         } catch (\Exception $e) {
             $this->_notify_message = "Failed to save Sector, Try again.";

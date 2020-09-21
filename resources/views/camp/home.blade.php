@@ -22,6 +22,7 @@
                             <tr>
                                 <th>S/N</th>
                                 <th>Camp Name</th>
+                                <th>Upazila</th>
                                 <th>Block</th>
                                 <th>Implementing Partner</th>
                                 <th>Facility</th>
@@ -33,6 +34,7 @@
                             <tr >
                                 <td><a class="client-link">{{ $key+1 }}</a></td>
                                 <td>{{ $camp->name }}</td>
+                                <td>{{ $camp->upazila }}</td>
                                 <td>{{ $camp->block_letter }}</td>
                                 <td>
                                     @foreach($camp->ips as $campip)

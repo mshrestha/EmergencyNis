@@ -11,6 +11,21 @@
                 <div class="col-lg-12">
                   <div class="row">
                     <div class="col-lg-3">
+                        <a href="{{ route('sector.index') }}">
+                            <div class="widget style1 lazur-bg">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <i class="fa fa-cloud-upload fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-8 text-right">
+
+                                        <h2 class="font-bold">Sector</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3">
                         <a href="{{ route('programPartner.index') }}">
                             <div class="widget style1 lazur-bg">
                                 <div class="row">
