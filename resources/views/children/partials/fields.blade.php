@@ -13,6 +13,11 @@
 								 value="{{ isset($child) ? $child->family_count_no : '' }}" >
 	</div>
 </div>
+<div class="form-group"><label class="col-sm-3 control-label">Scope No</label>
+	<div class="col-sm-9"><input type="text" name="scope_no" class="form-control" placeholder="Scope Number"
+								 value="{{ isset($child) ? $child->scope_no : '' }}" >
+	</div>
+</div>
 <div class="form-group"><label class="col-sm-3 control-label">Camp</label>
 	<div class="col-sm-9">
 		<select name="camp_id" class="form-control" required>

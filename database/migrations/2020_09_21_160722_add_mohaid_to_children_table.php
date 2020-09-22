@@ -16,6 +16,7 @@ class AddMohaidToChildrenTable extends Migration
         Schema::table('children', function (Blueprint $table) {
             $table->string('moha_id')->nullable();
             $table->string('progress_id')->nullable();
+            $table->string('scope_no')->nullable();
             $table->string('block')->nullable();
             $table->enum('age_group', ['0to6m', '6to23m','24to59m','others'])->nullable();
 
@@ -32,6 +33,7 @@ class AddMohaidToChildrenTable extends Migration
         Schema::table('children', function (Blueprint $table) {
             $table->dropColumn('moha_id');
             $table->dropColumn('progress_id');
+            $table->dropColumn('scope_no');
             $table->dropColumn('block');
             $table->dropColumn('age_group');
 

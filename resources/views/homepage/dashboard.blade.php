@@ -3,7 +3,7 @@
 @section('content')
 <div class="wrapper wrapper-content  animated fadeInRight">
   <h1><strong>DASHBOARD -
-          {{--{{ Auth::user()->facility->facility_id }}--}}
+          {{ Auth::user()->facility->facility_id }}
       </strong> </h1>
     <div class="row">
         <div class="col-lg-8">
