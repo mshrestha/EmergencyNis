@@ -138,6 +138,43 @@
         <h1>Medical and Physical</h1>
 
 		<div class="row step-content">
+			<div class="row">
+				<div class="col-lg-6">
+				<div class="ibox float-e-margins ">
+					<div class="ibox-title">
+						<h5>General Information</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+
+						<div class="form-group">
+							<label for="">Continued Breastfeeding</label>
+							<select name="continued_breastfeeding" class="form-control">
+								<option value="">Select Continued Breastfeeding</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'Yes') ? ' selected' : '' }}>Yes</option>
+								<option value="No" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'No') ? ' selected' : '' }}>No</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Complementary Feeding</label>
+							<input type="number" name="complementary_feeding_frequency" class="form-control" placeholder="Frequency (How many times)"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_frequency : '' }}" min="0">
+							<br/>
+							<input type="number" name="complementary_feeding_introduction_time" class="form-control" placeholder="Introduction Time (Age of child in month)"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_introduction_time : '' }}" min="0">
+							<br/>
+							<input type="text" name="complementary_feeding_foodtype" class="form-control" placeholder="Type of Food"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_foodtype : '' }}">
+						</div>
+
+
+					</div>
+				</div>
+			</div>
             <div class="col-lg-6">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
@@ -183,7 +220,10 @@
 					</div>
 				</div>
 			</div>
-            <div class="col-lg-6">
+			</div>
+			<div class="row">
+
+			<div class="col-lg-6">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Physical Examination</h5>
@@ -272,9 +312,6 @@
 	</div>
 </div>
 
-
-
-
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
@@ -305,7 +342,16 @@
                                 <option value="Not applicable" {{ (isset($facility_followup) && $facility_followup->albendazole == 'Not applicable') ? ' selected' : '' }}>Not Applicable</option>
 							</select>
 						</div>
-                        <div class="form-group">
+						<div class="form-group">
+							<label for="">Received all EPI vaccinations as per schedule</label>
+							<select name="received_all_epi_vaccination" class="form-control">
+								<option value="">Select EPI vaccinations</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == 'Yes') ? ' selected' : '' }}>Yes</option>
+								<option value="No" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == 'No') ? ' selected' : '' }}>No</option>
+							</select>
+						</div>
+
+						<div class="form-group">
 							<label for="measles">Received Measles Vaccination</label>
 							<select name="measles" class="form-control">
 								<option value="" >Select Measles</option>
@@ -318,6 +364,7 @@
 					</div>
 				</div>
 			</div>
+            </div>
             </div>
             <h1><span id="admission-discharge-tab-heading">Admission Criteria</span></h1>
 
