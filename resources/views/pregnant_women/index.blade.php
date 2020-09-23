@@ -40,7 +40,7 @@
                                                 <td>{{ $pregnant_women->facility->facility_id }}</td>
                                                 <td>
                                                     <a href="{{ route('pregnant-women-followup.show', $pregnant_women->sync_id) }}"class="edit-btn">
-                                                     <button class="btn btn-default btn-circle" type="button"><i
+                                                     <button class="btn btn-default btn-circle" type="button" title="Followup"><i
                                                         class="fa fa-plus"></i></button>
                                                     </a>
                                                 </td>
@@ -114,8 +114,9 @@
     });
 
     function load_pregnant_women(pregnant_women) {
+        var abase_url = '{{url('/')}}';
         $.ajax({
-            url: '/pregnant-women/'+pregnant_women+'/info',
+            url: abase_url+'/pregnant-women/'+pregnant_women+'/info',
             type: 'get',
             success: function (res) {
                 $('#pregnant-women-info').html(res);

@@ -73,7 +73,7 @@
 							<div class="col-md-5">
 								<label for="">WFH Z Score (SD)</label>
 								<input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" id="zscore"
-									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" disabled>
+									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" readonly>
 							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
@@ -89,9 +89,9 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control" id="nutritionstatus" disabled style="color: white">
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus"  style="color: white">
                                     <option value="" >Nutrition Status</option>
-									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
+									<option value="SAM" {{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
 									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
 									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
 
@@ -235,8 +235,8 @@
 					</div>
 					<div class="ibox-content">
 						<div class="form-group">
-							<label for="">Temperature (oC)</label>
-							<input type="number" name="temperature" class="form-control" placeholder="Temperature (oC)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0" step="0.01">
+							<label for="">Temperature (oF)</label>
+							<input type="number" name="temperature" class="form-control" placeholder="Temperature (oF)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0" step="0.01">
 						</div>
 						<div class="form-group">
 							<label for="">Respiratory rate (breaths/min)</label>
@@ -528,27 +528,27 @@
 		</div>
 	</div>
 	<div class="ibox-content">
-		<div class="form-group">
+		<div class="form-group rutf" id="rutf">
 			<label for="">No of RUTF</label>
 			<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
 		</div>
-		<div class="form-group">
+		<div class="form-group rusf" id="rusf">
 			<label for="">No of RUSF</label>
 			<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
 		</div>
-		<div class="form-group">
+		<div class="form-group wsbpp" id="wsbpp">
 			<label for="">WSB++ (kg)</label>
 			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
 		</div>
-		<div class="form-group">
+		<div class="form-group wsbp" id="wsbp">
 			<label for="">WSB+ (kg)</label>
 			<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
 		</div>
-		<div class="form-group">
-			<label for="">Oil (kg)</label>
-			<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
-		</div>
-		<div class="form-group">
+		{{--<div class="form-group">--}}
+			{{--<label for="">Oil (kg)</label>--}}
+			{{--<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">--}}
+		{{--</div>--}}
+		<div class="form-group others" id="others">
 			<label for="">Others</label>
 			<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
 		</div>

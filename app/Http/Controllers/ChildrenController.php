@@ -109,6 +109,7 @@ class ChildrenController extends Controller
     public function show($id)
     {
         $children = Child::with('facility_followup')->findOrFail($id);
+
         $facility_followup = $children->facility_followup->last();
         $todays_followup = false;
 

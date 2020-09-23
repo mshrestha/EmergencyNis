@@ -1,17 +1,17 @@
 <style>
     .dark-timeline .colorSam {
-        background: rgba(255, 0, 153, .2);
-        /*color: black;*/
+        background: rgba(255, 0, 0, .8);
+        color: white;
         !important;
     }
     .dark-timeline .colorMam {
-        background: rgba(255, 217, 0, .2);
-        /*color: black;*/
+        background: rgba(255, 255, 0, .8);
+        color: black;
         !important;
     }
     .dark-timeline .colorNormal {
-        background: rgba(33, 185, 187, .2);
-        /*color: black;*/
+        background: rgba(0, 128, 0, .8);
+        color: white;
         !important;
     }
     /*.dark-timeline .vertical-timeline-content {*/

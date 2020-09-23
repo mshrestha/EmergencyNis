@@ -72,7 +72,7 @@
                                                                title="Community followup">
                                                                 <button type="button"
                                                                         class="btn btn-default btn-registered">
-                                                                    <i class="fa fa-plus"></i> Follow up
+                                                                    <i class="fa fa-plus"></i>
                                                                 </button>
                                                             </a>
                                                         @endif
@@ -80,7 +80,7 @@
                                                             {{--<a href="{{ route('facility-followup.show', $child->sync_id) }}"--}}
                                                                 <a href="{{ route('children.show', $child->sync_id) }}"
                                                                class="edit-btn" title="Facility Followup">
-                                                                <button class="btn btn-default btn-circle btn-registered"
+                                                                <button class="btn btn-success btn-circle btn-registered"
                                                                         type="button"><i
                                                                             class="fa fa-plus"></i></button>
                                                             </a>

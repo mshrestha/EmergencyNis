@@ -46,7 +46,7 @@
                             </div>
                             @if(array_key_exists('nutritionstatus', $followup))
                             <div class="{{(($followup['nutritionstatus']=='SAM') ? 'vertical-timeline-content colorSam' : (($followup['nutritionstatus']=='MAM') ? 'vertical-timeline-content colorMam' :'vertical-timeline-content colorNormal'))}}" >
-                                <span class="vertical-date small text-muted"> {{ \Carbon\Carbon::parse($followup['date'])->format(' d-M-Y') }} </span><br />
+                                <span class="vertical-date small "> {{ \Carbon\Carbon::parse($followup['date'])->format(' d-M-Y') }} </span><br />
                                 <p>Visited {{ $followup['facility']['facility_id'] }}</p>
 
                                 @if(isset($followup['muac']))

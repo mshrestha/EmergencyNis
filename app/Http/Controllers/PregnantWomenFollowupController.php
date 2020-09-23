@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Camp;
 use App\Models\Facility;
+use App\Models\PregnantWomen;
 use App\Models\PregnantWomenFollowup;
 
 use Auth;
@@ -81,8 +82,9 @@ class PregnantWomenFollowupController extends Controller
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
         $pregnant_women_id = $id;
+        $pregnant_women = PregnantWomen::findOrFail($id);
 
-        return view('pregnant_women.followup', compact('camps', 'facility', 'pregnant_women_id'));
+        return view('pregnant_women.followup', compact('camps', 'facility', 'pregnant_women_id','pregnant_women'));
     }
 
     /**

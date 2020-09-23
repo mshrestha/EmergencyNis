@@ -59,15 +59,48 @@
         $(".discharge-criteria-tabs").hide();
         $( "#identification-outcome" ).change(function() {
             if($("#identification-outcome").val() == 'New case'){
+                alert("NewCase")
               $("#admission-criteria-tab").show();
               $(".discharge-criteria-tabs").hide();
               $("#admission-discharge-tab-heading").text("Admission Criteria")
             }else{
+                alert("Test")
               $("#admission-criteria-tab").hide();
               $(".discharge-criteria-tabs").show();
               $('#admission-discharge-tab-heading').text("Discharge Criteria")
             }
+
     });
+////        $(".rutf").hide();
+////        $(".rusf").hide();
+////        $(".wsbpp").hide();
+////        $(".wsbp").hide();
+////        $(".others").hide();
+//        $( "#nutritionstatus" ).change(function() {
+////            console.log($("#nutritionstatus").val())
+//            if($("#nutritionstatus").val() == 'SAM'){
+//                alert("SAM");
+////                $("#rutf").show();
+////                $(".rusf").hide();
+////                $(".wsbpp").hide();
+////                $(".wsbp").hide();
+////                $(".others").hide();
+//            } else if($("#nutritionstatus").val() == 'MAM'){
+//                alert("MAM");
+////                $("#rusf").show();
+////                $(".rutf").hide();
+////                $(".wsbpp").hide();
+////                $(".wsbp").hide();
+////                $(".others").hide();
+//            }
+//            else{
+//                $("#wsbpp").show();
+//                $("#wsbp").show();
+//                $(".rutf").hide();
+//                $(".rusf").hide();
+//                $(".others").hide();
+//            }
+//    });
     })
 
     var abase_url = '{{url('/')}}';
@@ -154,20 +187,47 @@
                     $("#outcome_mam").hide();
                     $("#outcome_normal").hide();
                     $("#outcome_sam").show();
+
+                    $("#wsbp").hide();
+                    $("#wsbpp").hide();
+                    $("#rusf").hide();
+                    $("#rutf").show();
+                    $("#others").show();
+
                 }
                 else if(ns=='MAM') {
                     $("#outcome_mam").show();
                     $("#outcome_sam").hide();
                     $("#outcome_normal").hide();
+
+                    $("#wsbp").hide();
+                    $("#wsbpp").hide();
+                    $("#rutf").hide();
+                    $("#rusf").show();
+                    $("#others").show();
+
                 }else if(ns=='Normal') {
                     $("#outcome_normal").show();
                     $("#outcome_sam").hide();
                     $("#outcome_mam").hide();
+
+                    $("#rutf").hide();
+                    $("#rusf").hide();
+                    $("#wsbp").show();
+                    $("#wsbpp").show();
+                    $("#others").show();
                 }
                 else {
                     $("#outcome_normal").show();
                     $("#outcome_sam").show();
                     $("#outcome_mam").show();
+
+                    $("#rutf").show();
+                    $("#rusf").show();
+                    $("#wsbp").show();
+                    $("#wsbpp").show();
+                    $("#others").show();
+
 
                 }
 
