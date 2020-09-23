@@ -479,6 +479,7 @@
 			</div>
 
 
+
 			<div class="col-lg-6 discharge-criteria-tabs">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
@@ -537,13 +538,13 @@
 			<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
 		</div>
 		<div class="form-group wsbpp" id="wsbpp">
-			<label for="">WSB++ (kg)</label>
-			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
+			<label for="">Super Cerial Plus (WSB++)(kg)</label>
+			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="Super Cerial Plus (WSB++)(kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
 		</div>
-		<div class="form-group wsbp" id="wsbp">
-			<label for="">WSB+ (kg)</label>
-			<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
-		</div>
+		{{--<div class="form-group wsbp" id="wsbp">--}}
+			{{--<label for="">WSB+ (kg)</label>--}}
+			{{--<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">--}}
+		{{--</div>--}}
 		{{--<div class="form-group">--}}
 			{{--<label for="">Oil (kg)</label>--}}
 			{{--<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">--}}

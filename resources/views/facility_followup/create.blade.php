@@ -189,7 +189,7 @@
                     $("#outcome_sam").show();
 
                     $("#wsbp").hide();
-                    $("#wsbpp").hide();
+//                    $("#wsbpp").hide();
                     $("#rusf").hide();
                     $("#rutf").show();
                     $("#others").show();
@@ -201,7 +201,7 @@
                     $("#outcome_normal").hide();
 
                     $("#wsbp").hide();
-                    $("#wsbpp").hide();
+//                    $("#wsbpp").hide();
                     $("#rutf").hide();
                     $("#rusf").show();
                     $("#others").show();
@@ -214,7 +214,7 @@
                     $("#rutf").hide();
                     $("#rusf").hide();
                     $("#wsbp").show();
-                    $("#wsbpp").show();
+//                    $("#wsbpp").show();
                     $("#others").show();
                 }
                 else {
@@ -225,7 +225,7 @@
                     $("#rutf").show();
                     $("#rusf").show();
                     $("#wsbp").show();
-                    $("#wsbpp").show();
+//                    $("#wsbpp").show();
                     $("#others").show();
 
 
