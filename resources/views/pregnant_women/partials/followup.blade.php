@@ -244,35 +244,31 @@
                             <label for="">Transfer out</label>
                             <select name="discharge_criteria_transfer_out" class="form-control">
                                 <option value="">Select transfer out</option>
-                                <option value="Transfer to SAM treatment" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_transfer_out == 'Transfer to SAM treatment') ? ' selected' : '' }}>
-                                    Transfer to SAM treatment
-                                </option>
-                                <option value="Transfer to MAM treatment" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_transfer_out == 'Transfer to MAM treatment') ? ' selected' : '' }}>
-                                    Transfer to MAM treatment
-                                </option>
-                                <option value="Transfer to SC" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_transfer_out == 'Transfer to SC') ? ' selected' : '' }}>
-                                    Transfer to SC
-                                </option>
-                                <option value="Transfer to other OTP" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_transfer_out == 'Transfer to other OTP') ? ' selected' : '' }}>
-                                    Transfer to other OTP
-                                </option>
+
                                 <option value="Transfer to other TSFP" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_transfer_out == 'Transfer to other TSFP') ? ' selected' : '' }}>
                                     Transfer to other TSFP
                                 </option>
                                 <option value="Transfer to other BSFP" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_transfer_out == 'Transfer to other BSFP') ? ' selected' : '' }}>
                                     Transfer to other BSFP
                                 </option>
+
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="">Others</label>
                             <select name="discharge_criteria_others" class="form-control">
                                 <option value="">Select others</option>
-                                <option value="Medical transfer" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_others == 'Medical transfer') ? ' selected' : '' }}>
-                                    Medical transfer
+                                <option value="Unexpected discontinuation of pregnancy" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_others == 'Unexpected discontinuation of pregnancy') ? ' selected' : '' }}>
+                                    Unexpected discontinuation of pregnancy
+                                </option>
+                                <option value="Fake/Duplication" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_others == 'Fake/Duplication') ? ' selected' : '' }}>
+                                    Fake/Duplication
                                 </option>
                                 <option value="Unkown" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_others == 'Unkown') ? ' selected' : '' }}>
                                     Unkown
+                                </option>
+                                <option value="Others" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_others == 'Others') ? ' selected' : '' }}>
+                                    Others
                                 </option>
                             </select>
                         </div>
