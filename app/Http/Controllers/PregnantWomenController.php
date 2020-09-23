@@ -50,7 +50,9 @@ class PregnantWomenController extends Controller
             $facility_id = Auth::user()->facility_id;
 //        dd($facility_id);
             $facility = Facility::findOrFail($facility_id);
-            return view('pregnant_women.create', compact('camps', 'facility'));
+            $children=Child::where('camp_id',$facility->camp->id)->get();
+            $selected_children= [];
+            return view('pregnant_women.create', compact('camps', 'facility','children','selected_children'));
         }
         else {
 //            dd('Only Facility Based user can Add');
@@ -61,14 +63,14 @@ class PregnantWomenController extends Controller
     }
 
     public function store(Request $request) {
+//        dd($request);
         try {
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');
             }
             
-            $data = $request->all();
+            $data = $request->except(['children_moha_id']);
             $data['facility_id'] = Auth::user()->facility_id;
-
             //Create sync id
             $latest_pregnant_women = PregnantWomen::orderBy('id', 'desc')->first();
             $app_id = $latest_pregnant_women ? $latest_pregnant_women->id + 1 : 1;
@@ -77,6 +79,10 @@ class PregnantWomenController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $pregnant_women = PregnantWomen::create($data);
+
+            $child_moha_id = $request->input('children_moha_id');
+            $pregnant_women->childrens()->attach($child_moha_id);
+
         } catch (Exception $e) {
             $this->_notify_message = "Failed to save pregmant women, Try again.";
             $this->_notify_type = "danger";
@@ -93,17 +99,26 @@ class PregnantWomenController extends Controller
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
         $pregnant_women = PregnantWomen::findOrFail($id);
-        
-        return view('pregnant_women.edit', compact('pregnant_women', 'camps', 'facility'));
+
+        $children=Child::where('camp_id',$facility->camp->id)->get();
+        $selected_children= $pregnant_women->childrens->pluck('sync_id')->toArray();
+
+        return view('pregnant_women.edit', compact('pregnant_women', 'camps', 'facility','children','selected_children'));
     }
 
     public function update($id, Request $request) {
         try {
-            $data = $request->all();
+//            $data = $request->all();
+            $data = $request->except(['children_moha_id']);
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
 
             PregnantWomen::findOrFail($id)->update($data);
-        } catch (Exception $e) {
+
+            $pregnant_women=PregnantWomen::findOrFail($id);
+            $child_moha_id = $request->input('children_moha_id');
+            $pregnant_women->childrens()->sync($child_moha_id);
+
+        } catch (\Exception $e) {
             $this->_notify_message = "Failed to save pregnant women, Try again.";
             $this->_notify_type = "danger";
         }

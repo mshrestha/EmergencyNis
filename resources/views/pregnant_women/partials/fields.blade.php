@@ -80,6 +80,19 @@
 				</div>
 				<div class="hr-line-dashed"></div>
 
+				<div class="form-group" >
+					<label class="col-sm-3 control-label">Children's MOHA ID</label>
+					<div class="col-sm-9">
+						<select name="children_moha_id[]" class="form-control show-tick selectpicker"
+								data-live-search="true" multiple>
+							<option value="">Select Children's MOHA ID</option>
+							@foreach($children as $child)
+								<option value="{{ $child->sync_id }}" {{ (in_array($child->sync_id, $selected_children)) ? ' selected' : '' }}>{{ $child->moha_id.' '.$child->children_name  }}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+
 				<div class="form-group"><label class="col-sm-3 control-label">Name of PLW</label>
 					<div class="col-sm-9"><input type="text" class="form-control" name="pregnant_women_name" placeholder="Name of PLW"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->pregnant_women_name : '' }}" required>

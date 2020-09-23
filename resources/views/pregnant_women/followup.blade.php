@@ -9,6 +9,8 @@
         margin:0 auto;
     }
 </style>
+
+<link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet"/>
 @endpush
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -44,7 +46,7 @@
 
 <script src="{{ asset('js/plugins/steps/jquery.steps.min.js')}}"></script>
 <script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
-
+<script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
 
 <script>
     $(document).ready(function () {
