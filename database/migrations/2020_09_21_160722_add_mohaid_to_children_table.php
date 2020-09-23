@@ -18,7 +18,7 @@ class AddMohaidToChildrenTable extends Migration
             $table->string('progress_id')->nullable();
             $table->string('scope_no')->nullable();
             $table->string('block')->nullable();
-            $table->enum('age_group', ['0to6m', '6to23m','24to59m','others'])->nullable();
+            $table->enum('age_group', ['0to5m', '6to11m','11to23m','24to59m','others'])->nullable();
 
         });
     }

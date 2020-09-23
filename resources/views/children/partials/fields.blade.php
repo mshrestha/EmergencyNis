@@ -60,6 +60,19 @@
 </div>
 <div class="hr-line-dashed"></div>
 
+<div class="form-group" >
+	<label class="col-sm-3 control-label">Mother's MOHA ID</label>
+	<div class="col-sm-9">
+		<select name="mother_moha_id" class="form-control show-tick selectpicker"
+				data-live-search="true">
+			<option value="">Select Mother's MOHA ID</option>
+			@foreach($mothers as $mother)
+				<option value="{{ $mother->sync_id }}" {{ (in_array($mother->sync_id, $selected_mother)) ? ' selected' : '' }}>{{ $mother->moha_id }}</option>
+			@endforeach
+		</select>
+	</div>
+</div>
+
 <div class="form-group"><label class="col-sm-3 control-label">Mother's Name / Caregiver Name</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="mother_caregiver_name" placeholder="Mother's Name" 
 		value="{{ isset($child) ? $child->mother_caregiver_name : '' }}" required>
@@ -88,7 +101,7 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Age</label>
 	<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age" 
-		value="{{ isset($child) ? $child->age : '' }}" ><span class="small">(months)</span>
+		value="{{ isset($child) ? $child->age : '' }}" required><span class="small">(months)</span>
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Age Group (Months)</label>

@@ -18,4 +18,9 @@ class PregnantWomen extends Model
     	return $this->hasMany('App\Models\PregnantWomenFollowup', 'pregnant_women_id');
     }
 
+    public function childrens()
+    {
+        return $this->belongsToMany('App\Models\Child', 'children_pregnant_womens');
+    }
+
 }

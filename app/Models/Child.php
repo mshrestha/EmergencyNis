@@ -12,7 +12,7 @@ class Child extends Model
     protected $fillable = [
         'sync_id', 'sync_status', 'mnr_no', 'mrc_no','date','sub_block_no','hh_no','gps_coordinates_lat','gps_coordinates_lng',
         'family_count_no','mother_caregiver_name','fathers_name','block_leader_name','children_name','date_of_birth','age','sex',
-        'phone','picture','barcode','camp_id', 'facility_id','moha_id','progress_id','block','age_group'
+        'phone','picture','barcode','camp_id', 'facility_id','moha_id','progress_id','scope_no','block','age_group'
     ];
 
     public function child_image() {
@@ -33,6 +33,11 @@ class Child extends Model
 
     public function facility_followup() {
         return $this->hasMany('App\Models\FacilityFollowup', 'children_id');
+    }
+
+    public function pregnant_womens()
+    {
+        return $this->belongsToMany('App\Models\PregnantWomen', 'children_pregnant_womens');
     }
 
 }
