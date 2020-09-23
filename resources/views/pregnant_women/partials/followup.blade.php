@@ -223,17 +223,20 @@
                             <label for="">Exit</label>
                             <select name="discharge_criteria_exit" class="form-control">
                                 <option value="">Select exit</option>
-                                <option value="discharge_cure" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'discharge') ? ' selected' : '' }}>
-                                    Recovered
+                                <option value="Cured PLW to BSFP" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Cured PLW to BSFP') ? ' selected' : '' }}>
+                                    Cured PLW to BSFP
+                                </option>
+                                <option value="Cured Other" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Cured Other') ? ' selected' : '' }}>
+                                    Cured Other
+                                </option>
+                                <option value="Child become 6 Month Old" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Child become 6 Month Old') ? ' selected' : '' }}>
+                                    Child become 6 Month Old
                                 </option>
                                 <option value="Death" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Death') ? ' selected' : '' }}>
                                     Death
                                 </option>
                                 <option value="Defaulted" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Defaulted') ? ' selected' : '' }}>
                                     Defaulted
-                                </option>
-                                <option value="Non responder" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Non responder') ? ' selected' : '' }}>
-                                    Non responder
                                 </option>
                             </select>
                         </div>

@@ -27,7 +27,7 @@ class AddAdmissionToPregnantWomenFollowupsTable extends Migration
             $table->boolean('nutrition_counseling')->default(0);
             $table->text('discussion')->nullable();
             $table->boolean('receive_iron_folic')->default(0);
-            $table->enum('discharge_criteria_exit', ['Cure', 'Death', 'Defaulted', 'Child become 6 Month Old'])->nullable();
+            $table->enum('discharge_criteria_exit', ['Cured PLW to BSFP','Cured Other', 'Death', 'Defaulted', 'Child become 6 Month Old'])->nullable();
             $table->enum('discharge_criteria_transfer_out', [ 'Transfer to other TSFP'])->nullable();
             $table->enum('discharge_criteria_others', ['Unexpected discontinuation of pregnancy','Others', 'Unknown'])->nullable();
 
