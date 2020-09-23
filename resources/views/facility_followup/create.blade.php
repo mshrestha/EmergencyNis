@@ -6,7 +6,7 @@
         background-color: rgba(255, 255, 255, 1.0);
         height: 95%;
         width: 95%;
-        margin:0 auto;
+        margin: 0 auto;
     }
 </style>
 @endpush
@@ -18,8 +18,10 @@
                     @csrf
                     @method('POST')
                     @include('facility_followup.partials.fields')
-                    
-                    <button tyle="submit" class="btn btn-primary pull-right" style="margin-right: 5px; margin-bottom: 20px;">Save</button>
+
+                    <button tyle="submit" class="btn btn-primary pull-right"
+                            style="margin-right: 5px; margin-bottom: 20px;">Save
+                    </button>
                 </form>
             </div> <!-- col -->
             <div class="col-lg-4">
@@ -57,51 +59,27 @@
         });
         load_child({{$children->sync_id}})
         $(".discharge-criteria-tabs").hide();
-        $( "#identification-outcome" ).change(function() {
-            if($("#identification-outcome").val() == 'New case'){
-                alert("NewCase")
-              $("#admission-criteria-tab").show();
-              $(".discharge-criteria-tabs").hide();
-              $("#admission-discharge-tab-heading").text("Admission Criteria")
-            }else{
-                alert("Test")
-              $("#admission-criteria-tab").hide();
-              $(".discharge-criteria-tabs").show();
-              $('#admission-discharge-tab-heading').text("Discharge Criteria")
+        $("#identification-outcome").change(function () {
+            if ($("#identification-outcome").val() == 'SAM New case') {
+                $("#admission-criteria-tab").show();
+                $(".discharge-criteria-tabs").hide();
+                $("#admission-discharge-tab-heading").text("Admission Criteria")
+            } else if ($("#identification-outcome").val() == 'MAM New case') {
+                $("#admission-criteria-tab").show();
+                $(".discharge-criteria-tabs").hide();
+                $("#admission-discharge-tab-heading").text("Admission Criteria")
+            } else if ($("#identification-outcome").val() == 'Normal New case') {
+                $("#admission-criteria-tab").show();
+                $(".discharge-criteria-tabs").hide();
+                $("#admission-discharge-tab-heading").text("Admission Criteria")
+            } else {
+                $("#admission-criteria-tab").hide();
+                $(".discharge-criteria-tabs").show();
+                $('#admission-discharge-tab-heading').text("Discharge Criteria")
             }
 
+        });
     });
-////        $(".rutf").hide();
-////        $(".rusf").hide();
-////        $(".wsbpp").hide();
-////        $(".wsbp").hide();
-////        $(".others").hide();
-//        $( "#nutritionstatus" ).change(function() {
-////            console.log($("#nutritionstatus").val())
-//            if($("#nutritionstatus").val() == 'SAM'){
-//                alert("SAM");
-////                $("#rutf").show();
-////                $(".rusf").hide();
-////                $(".wsbpp").hide();
-////                $(".wsbp").hide();
-////                $(".others").hide();
-//            } else if($("#nutritionstatus").val() == 'MAM'){
-//                alert("MAM");
-////                $("#rusf").show();
-////                $(".rutf").hide();
-////                $(".wsbpp").hide();
-////                $(".wsbp").hide();
-////                $(".others").hide();
-//            }
-//            else{
-//                $("#wsbpp").show();
-//                $("#wsbp").show();
-//                $(".rutf").hide();
-//                $(".rusf").hide();
-//                $(".others").hide();
-//            }
-//    });
-    })
 
     var abase_url = '{{url('/')}}';
     function load_child(child) {
@@ -114,17 +92,16 @@
         });
     }
 
-    </script>
-
+</script>
 
 
 <script>
     {{--Autometic Z-Score calculation--}}
-    $(document).ready(function() {
-        $('#child_weight').keyup(function() {
+    $(document).ready(function () {
+        $('#child_weight').keyup(function () {
             recalc();
         });
-        $('#child_height').keyup(function() {
+        $('#child_height').keyup(function () {
             recalc();
         });
         function recalc() {
@@ -146,17 +123,17 @@
         }
     });
     {{--Autometic Nutrition Status calculation--}}
-    $(document).ready(function() {
-        $('#child_weight').keyup(function() {
+    $(document).ready(function () {
+        $('#child_weight').keyup(function () {
             re_calc();
         });
-        $('#child_height').keyup(function() {
+        $('#child_height').keyup(function () {
             re_calc();
         });
-        $('#oedema').change(function() {
+        $('#oedema').change(function () {
             re_calc();
         });
-        $('#child_muac').keyup(function() {
+        $('#child_muac').keyup(function () {
             re_calc();
         });
         function re_calc() {
@@ -181,9 +158,9 @@
 //                console.log(data)
                 var ns = data.nutritionstatus;
 //                console.log(ns)
-                    $("#nutritionstatus").val(data.nutritionstatus)
-                        .css('background-color', data.nutritionstatusColor);
-                if(ns=='SAM') {
+                $("#nutritionstatus").val(data.nutritionstatus)
+                    .css('background-color', data.nutritionstatusColor);
+                if (ns == 'SAM') {
                     $("#outcome_mam").hide();
                     $("#outcome_normal").hide();
                     $("#outcome_sam").show();
@@ -195,7 +172,7 @@
                     $("#others").show();
 
                 }
-                else if(ns=='MAM') {
+                else if (ns == 'MAM') {
                     $("#outcome_mam").show();
                     $("#outcome_sam").hide();
                     $("#outcome_normal").hide();
@@ -206,7 +183,7 @@
                     $("#rusf").show();
                     $("#others").show();
 
-                }else if(ns=='Normal') {
+                } else if (ns == 'Normal') {
                     $("#outcome_normal").show();
                     $("#outcome_sam").hide();
                     $("#outcome_mam").hide();
@@ -234,8 +211,6 @@
             }, 'json')
         }
     });
-
-
 
 
 </script>

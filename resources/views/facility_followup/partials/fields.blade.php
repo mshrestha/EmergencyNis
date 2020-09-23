@@ -102,14 +102,14 @@
 
 								<select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="SAM" id="outcome_sam">
-                                        <option value="New case" >New case</option>
+                                        <option value="SAM New case" >New case</option>
                                         <option value="Followup visit at OTP" >Followup visit at OTP</option>
                                         <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
                                         <option value="Referred to OTP" >Referred to OTP</option>
 
                                     </optgroup>
                                     <optgroup label="MAM" id="outcome_mam">
-										<option value="New case" >New Case</option>
+										<option value="MAM New case" >New Case</option>
                                         <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
                                         <option value="Already admitted at OTP" >Already admitted at OTP</option>
                                         <option value="Referred to TSFP" >Referred to TSFP</option>
@@ -119,7 +119,7 @@
                                         {{--<option value="Referred to TSFP" >Referred to TSFP</option>--}}
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-										<option value="New case" >New Case</option>
+										<option value="Normal New case" >New Case</option>
                                         <option value="Already in Program" >Already in program</option>
                                         <option value="Referred to BSFP" >Referred to BSFP</option>
                                         <option value="Follow up visit at BSFP" >Follow up visit at BSFP</option>
@@ -155,8 +155,8 @@
 							<label for="">Continued Breastfeeding</label>
 							<select name="continued_breastfeeding" class="form-control">
 								<option value="">Select Continued Breastfeeding</option>
-								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'Yes') ? ' selected' : '' }}>Yes</option>
-								<option value="No" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'No') ? ' selected' : '' }}>No</option>
+								<option value="1" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == '1') ? ' selected' : '' }}>Yes</option>
+								<option value="0" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == '0') ? ' selected' : '' }}>No</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -346,8 +346,8 @@
 							<label for="">Received all EPI vaccinations as per schedule</label>
 							<select name="received_all_epi_vaccination" class="form-control">
 								<option value="">Select EPI vaccinations</option>
-								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == 'Yes') ? ' selected' : '' }}>Yes</option>
-								<option value="No" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == 'No') ? ' selected' : '' }}>No</option>
+								<option value="1" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '1') ? ' selected' : '' }}>Yes</option>
+								<option value="0" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '0') ? ' selected' : '' }}>No</option>
 							</select>
 						</div>
 

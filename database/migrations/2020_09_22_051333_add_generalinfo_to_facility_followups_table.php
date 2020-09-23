@@ -19,6 +19,7 @@ class AddGeneralinfoToFacilityFollowupsTable extends Migration
             $table->integer('complementary_feeding_frequency')->nullable();
             $table->integer('complementary_feeding_introduction_time')->nullable();
             $table->string('complementary_feeding_foodtype')->nullable();
+            $table->string('outcome')->nullable();
 
         });
     }
