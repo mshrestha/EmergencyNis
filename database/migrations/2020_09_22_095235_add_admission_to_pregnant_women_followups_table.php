@@ -14,10 +14,11 @@ class AddAdmissionToPregnantWomenFollowupsTable extends Migration
     public function up()
     {
         Schema::table('pregnant_women_followups', function (Blueprint $table) {
-            $table->string('new_admission')->nullable();
-            $table->string('readmission')->nullable();
-            $table->string('transfer_in_from')->nullable();
-            $table->string('referred_from')->nullable();
+            $table->enum('new_admission', ['MUAC'])->nullable();
+            $table->enum('readmission', ['Readmission after default', 'Readmission after recovery'])->nullable();
+            $table->enum('transfer_in', ['Transfer in from other TSFP', 'Transfer in from other BSFP'])->nullable();
+            $table->enum('referred_from', ['Referred from BSFP', 'Referred from TSFP'])->nullable();
+
             $table->string('outcome')->nullable();
             $table->date('next_visit_date')->nullable();
             $table->date('planed_date')->nullable();
@@ -27,7 +28,7 @@ class AddAdmissionToPregnantWomenFollowupsTable extends Migration
             $table->boolean('nutrition_counseling')->default(0);
             $table->text('discussion')->nullable();
             $table->boolean('receive_iron_folic')->default(0);
-            $table->enum('discharge_criteria_exit', ['Cured PLW to BSFP','Cured Other', 'Death', 'Defaulted', 'Child become 6 Month Old'])->nullable();
+            $table->enum('discharge_criteria_exit', ['Cured PLW to BSFP','Cured Other', 'Death', 'Defaulted', 'Nonrespondent','Child become 6 Month Old'])->nullable();
             $table->enum('discharge_criteria_transfer_out', [ 'Transfer to other TSFP','Transfer to other BSFP'])->nullable();
             $table->enum('discharge_criteria_others', ['Unexpected discontinuation of pregnancy','Fake/Duplication','Others', 'Unknown'])->nullable();
 

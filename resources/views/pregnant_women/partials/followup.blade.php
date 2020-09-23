@@ -108,21 +108,6 @@
                                     <option value="MUAC" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'MUAC') ? ' selected' : '' }}>
                                         MUAC
                                     </option>
-                                    <option value="WFH Zscore" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'WFH Zscore') ? ' selected' : '' }}>
-                                        WFH Z score
-                                    </option>
-                                    <option value="MUAC and WFH Zscore" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'MUAC and WFH Zscore') ? ' selected' : '' }}>
-                                        MUAC and WFH Zscore
-                                    </option>
-                                    <option value="Oedema" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'Oedema') ? ' selected' : '' }}>
-                                        Oedema
-                                    </option>
-                                    <option value="Age 6 to 59m" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'Age 6 to 59m') ? ' selected' : '' }}>
-                                        Age 6 to 59m
-                                    </option>
-                                    <option value="Relapse" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'Relapse') ? ' selected' : '' }}>
-                                        Relapse
-                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -135,8 +120,8 @@
                                     <option value="Readmission after default" {{ (isset($pregnant_women) && $pregnant_women->readmission == 'Readmission after default') ? ' selected' : '' }}>
                                         Readmission after default
                                     </option>
-                                    <option value="Readmission after non recovery" {{ (isset($pregnant_women) && $pregnant_women->readmission == 'Readmission after non recovery') ? ' selected' : '' }}>
-                                        Readmission after non recovery
+                                    <option value="Readmission after recovery" {{ (isset($pregnant_women) && $pregnant_women->readmission == 'Readmission after recovery') ? ' selected' : '' }}>
+                                        Readmission after recovery
                                     </option>
                                 </select>
                             </div>
@@ -146,20 +131,11 @@
                             <div class="col-sm-9">
                                 <select name="transfer_in_from" class="form-control">
                                     <option value="">Select transfer in</option>
-                                    <option value="Transfer in from TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from TSFP') ? ' selected' : '' }}>
-                                        Transfer in from TSFP
+                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from other TSFP') ? ' selected' : '' }}>
+                                        Transfer in from other TSFP
                                     </option>
-                                    <option value="Transfer in from SC" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from SC') ? ' selected' : '' }}>
-                                        Transfer in from SC
-                                    </option>
-                                    <option value="Transfer in from OTP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from OTP') ? ' selected' : '' }}>
-                                        Transfer in from OTP
-                                    </option>
-                                    <option value="Transfer in from BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from BSFP') ? ' selected' : '' }}>
-                                        Transfer in from BSFP
-                                    </option>
-                                    <option value="Transfer in from Medical Center" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from Medical Center') ? ' selected' : '' }}>
-                                        Transfer in from Medical Center
+                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from other BSFP') ? ' selected' : '' }}>
+                                        Transfer in from other BSFP
                                     </option>
                                 </select>
                             </div>
@@ -169,29 +145,11 @@
                             <div class="col-sm-9">
                                 <select name="referred_from" class="form-control">
                                     <option value="">Please Select Referral</option>
-                                    <option value="MUAC Assessed at Community" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'MUAC Assessed at Community') ? ' selected' : '' }}>
-                                        MUAC Assessed at Community
+                                    <option value="Referred from BSFP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Referred from BSFP') ? ' selected' : '' }}>
+                                        Referred from BSFP
                                     </option>
-                                    <option value="Other Service centre" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Other Service centre') ? ' selected' : '' }}>
-                                        Other Service centre
-                                    </option>
-                                    <option value="Inpatient (SC)" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Inpatient (SC)') ? ' selected' : '' }}>
-                                        Inpatient (SC)
-                                    </option>
-                                    <option value="Self" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Self') ? ' selected' : '' }}>
-                                        Self
-                                    </option>
-                                    <option value="OTP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'OTP') ? ' selected' : '' }}>
-                                        OTP
-                                    </option>
-                                    <option value="TSFP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'TSFP') ? ' selected' : '' }}>
-                                        TSFP
-                                    </option>
-                                    <option value="BSFP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'BSFP') ? ' selected' : '' }}>
-                                        BSFP
-                                    </option>
-                                    <option value="Health Facility" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Health Facility') ? ' selected' : '' }}>
-                                        Health Facility
+                                    <option value="Referred from TSFP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Referred from TSFP') ? ' selected' : '' }}>
+                                        Referred from TSFP
                                     </option>
                                 </select>
                             </div>
@@ -237,6 +195,9 @@
                                 </option>
                                 <option value="Defaulted" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Defaulted') ? ' selected' : '' }}>
                                     Defaulted
+                                </option>
+                                <option value="Nonrespondent" {{ (isset($pregnant_followup) && $pregnant_followup->discharge_criteria_exit == 'Nonrespondent') ? ' selected' : '' }}>
+                                    Nonrespondent
                                 </option>
                             </select>
                         </div>
