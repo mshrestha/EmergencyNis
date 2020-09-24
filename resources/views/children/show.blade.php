@@ -35,7 +35,7 @@
                         </div>
                     @endif
 
-                    
+
 					<div class="clearfix"></div>
                     <h3 style="margin-left: 10px;">Old followups</h3>
 					<div id="vertical-timeline" class="vertical-container dark-timeline" style="height: auto;overflow-y:auto;">
@@ -71,7 +71,7 @@
 
 	                                    <button type="submit" onclick="return confirm('Are you sure?')" style="background: none;border: none;color: #a94442;outline: none;padding: 0;">Delete</button>
 	                                </form>
-                                
+
                                     <a href="{{ route('facility-followup.edit', $followup['sync_id']) }}" style="margin-left: 10px;">Edit</a>
                                 </span>
                             </div>
@@ -122,6 +122,7 @@
 <script>
 	$(document).ready(function () {
         $("#wizard").steps({
+
         	enableAllSteps: true,
         	enablePagination: false,
             onFinished: function (event, currentIndex) {
@@ -154,7 +155,123 @@
             }
         });
     }
+		{{--Autometic Z-Score calculation--}}
+		$(document).ready(function () {
+				$('#child_weight').keyup(function () {
+						recalc();
+				});
+				$('#child_height').keyup(function () {
+						recalc();
+				});
+				function recalc() {
+						var child_weight = $("#child_weight").val();
+						var child_height = $("#child_height").val();
+		//            console.log(child_weight)
+						var abase_url = '{{url('/')}}';
+						var url = abase_url + '/wfh_calculation';
+						var sendData = {
+								childHeight: child_height,
+								childWeight: child_weight,
+								childSex: child_sex,
+								_token: $("input[name='_token']").val()
+						};
+						$.get(url, sendData, function (data) {
+		//                console.log(data)
+								$("#zscore").val(data.zscore);
+						}, 'json')
+				}
+		});
+		{{--Autometic Nutrition Status calculation--}}
+    $(document).ready(function () {
+        $('#child_weight').keyup(function () {
+            re_calc();
+        });
+        $('#child_height').keyup(function () {
+            re_calc();
+        });
+        $('#oedema').change(function () {
+            re_calc();
+        });
+        $('#child_muac').keyup(function () {
+            re_calc();
+        });
+        function re_calc() {
+            var child_weight = $("#child_weight").val();
+            var child_height = $("#child_height").val();
+            var child_oedema = $("#oedema").val();
+            var child_muac = $("#child_muac").val();
+//            console.log(child_muac)
+//            console.log(child_zscore)
+//            console.log(child_oedema)
+            var abase_url = '{{url('/')}}';
+            var url = abase_url + '/nutritionStatusCalculation';
+            var sendData = {
+                childHeight: child_height,
+                childWeight: child_weight,
+                childOedema: child_oedema,
+                childMuac: child_muac,
+                childSex: child_sex,
+                _token: $("input[name='_token']").val()
+            };
+            var ns = 'Normal';
+            var nsColor = '#21b9bb';
+            if (child_muac < 13){ns='MAM'; nsColor = 'Orange'; }
+            if (child_muac < 12){ns='SAM'; nsColor = 'Red'; }
+            //$.get(url, sendData, function (data) {
+//                console.log(data)
+                //var ns = data.nutritionstatus;
+//                console.log(ns)
 
+                    $("#nutritionstatus").val(ns)
+                        .css('background-color', nsColor);
+                if(ns=='SAM') {                    $("#outcome_mam").hide();
+                    $("#outcome_normal").hide();
+                    $("#outcome_sam").show();
+
+                    $("#wsbp").hide();
+//                    $("#wsbpp").hide();
+                    $("#rusf").hide();
+                    $("#rutf").show();
+                    $("#others").show();
+
+                }
+                else if (ns == 'MAM') {
+                    $("#outcome_mam").show();
+                    $("#outcome_sam").hide();
+                    $("#outcome_normal").hide();
+
+                    $("#wsbp").hide();
+//                    $("#wsbpp").hide();
+                    $("#rutf").hide();
+                    $("#rusf").show();
+                    $("#others").show();
+
+                } else if (ns == 'Normal') {
+                    $("#outcome_normal").show();
+                    $("#outcome_sam").hide();
+                    $("#outcome_mam").hide();
+
+                    $("#rutf").hide();
+                    $("#rusf").hide();
+                    $("#wsbp").show();
+//                    $("#wsbpp").show();
+                    $("#others").show();
+                }
+                else {
+                    $("#outcome_normal").show();
+                    $("#outcome_sam").show();
+                    $("#outcome_mam").show();
+
+                    $("#rutf").show();
+                    $("#rusf").show();
+                    $("#wsbp").show();
+//                    $("#wsbpp").show();
+                    $("#others").show();
+                }
+
+            //}, 'json')
+        }
+    });
 	load_child({{$children->sync_id}})
 </script>
 @endpush

@@ -69,7 +69,7 @@ class FacilityFollowupController extends Controller
 
     public function save($id, Request $request) {
 //        dd($request);
-        try {
+          try {
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');
             }
@@ -85,7 +85,10 @@ class FacilityFollowupController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $facility_followup = FacilityFollowup::create($data);
+
+
         } catch (\Exception $e) {
+
             $this->_notify_message = "Failed to save followup, Try again";
             $this->_notify_type = "danger";
         }

@@ -158,7 +158,7 @@
             var nsColor = '#21b9bb';
             if (child_muac < 13){ns='MAM'; nsColor = 'Orange'; }
             if (child_muac < 12){ns='SAM'; nsColor = 'Red'; }
-            //$.get(url, sendData, function (data) {
+            $.get(url, sendData, function (data) {
 //                console.log(data)
                 //var ns = data.nutritionstatus;
 //                console.log(ns)
@@ -210,7 +210,7 @@
                     $("#others").show();
                 }
 
-            //}, 'json')
+            }, 'json')
         }
     });
 

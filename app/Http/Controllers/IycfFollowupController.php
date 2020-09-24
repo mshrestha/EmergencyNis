@@ -23,7 +23,7 @@ class IycfFollowupController extends Controller
         //
         return view('iycf_followup.index');
 
-        
+
     }
 
     /**
@@ -66,7 +66,7 @@ class IycfFollowupController extends Controller
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');
             }
-            
+
             $data = $request->all();
 
             //Create sync id
