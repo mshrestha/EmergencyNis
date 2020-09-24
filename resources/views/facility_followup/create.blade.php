@@ -18,7 +18,7 @@
                     @csrf
                     @method('POST')
                     @include('facility_followup.partials.fields')
-                    
+
                     <button tyle="submit" class="btn btn-primary pull-right" style="margin-right: 5px; margin-bottom: 20px;">Save</button>
                 </form>
             </div> <!-- col -->
@@ -144,12 +144,16 @@
                 childSex: child_sex,
                 _token: $("input[name='_token']").val()
             };
-            $.get(url, sendData, function (data) {
+            var ns = 'Normal';
+            var nsColor = '#21b9bb';
+            if (child_muac < 13){ns='MAM'; nsColor = 'Orange'; }
+            if (child_muac < 12){ns='SAM'; nsColor = 'Red'; }
+            //$.get(url, sendData, function (data) {
 //                console.log(data)
-                var ns = data.nutritionstatus;
+                //var ns = data.nutritionstatus;
 //                console.log(ns)
-                    $("#nutritionstatus").val(data.nutritionstatus)
-                        .css('background-color', data.nutritionstatusColor);
+                    $("#nutritionstatus").val(ns)
+                        .css('background-color', nsColor);
                 if(ns=='SAM') {
                     $("#outcome_mam").hide();
                     $("#outcome_normal").hide();
@@ -171,7 +175,7 @@
 
                 }
 
-            }, 'json')
+            //}, 'json')
         }
     });
 
