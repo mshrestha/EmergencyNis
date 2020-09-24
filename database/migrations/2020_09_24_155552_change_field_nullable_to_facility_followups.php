@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\DB;
 
 class ChangeFieldNullableToFacilityFollowups extends Migration
 {
@@ -14,7 +15,7 @@ class ChangeFieldNullableToFacilityFollowups extends Migration
     public function up()
     {
         Schema::table('facility_followups', function (Blueprint $table) {
-            $table->boolean('received_all_epi_vaccination')->default(0)->nullable()->change();
+            DB::statement("ALTER TABLE facility_followups CHANGE received_all_epi_vaccination received_all_epi_vaccination TINYINT(1) NULL DEFAULT '0'");
         });
     }
 
@@ -26,7 +27,7 @@ class ChangeFieldNullableToFacilityFollowups extends Migration
     public function down()
     {
         Schema::table('facility_followups', function (Blueprint $table) {
-            //
+            DB::statement("ALTER TABLE facility_followups CHANGE received_all_epi_vaccination received_all_epi_vaccination TINYINT(1) DEFAULT '0'");
         });
     }
 }
