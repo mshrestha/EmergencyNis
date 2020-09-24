@@ -150,14 +150,15 @@
 							<label for="">Continued Breastfeeding</label>
 							<select name="continued_breastfeeding" class="form-control">
 								<option value="">Select Continued Breastfeeding</option>
-								<option value="1" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == '1') ? ' selected' : '' }}>Yes</option>
-								<option value="0" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == '0') ? ' selected' : '' }}>No</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'Yes') ? ' selected' : '' }}>Yes</option>
+								<option value="No" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'No') ? ' selected' : '' }}>No</option>
+								<option value="N/A" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'N/A') ? ' selected' : '' }}>N/A</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="">Complementary Feeding</label>
-							<input type="number" name="complementary_feeding_frequency" class="form-control" placeholder="Frequency (How many times)"
-								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_frequency : '' }}" min="0">
+							<input type="text" name="complementary_feeding_frequency" class="form-control" placeholder="Frequency (How many times)"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_frequency : '' }}">
 							<br/>
 							<input type="number" name="complementary_feeding_introduction_time" class="form-control" placeholder="Introduction Time (Age of child in month)"
 								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_introduction_time : '' }}" min="0">

@@ -2,26 +2,34 @@
 
 @section('content')
     <div class="wrapper wrapper-content  animated fadeInRight">
-        <h1><strong>DASHBOARD - {{ Auth::user()->facility->facility_id }}</strong> </h1>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="row">
-                {{--<div class="col-lg-4">--}}
-                    {{--<a href="{{ route('register') }}">--}}
-                        {{--<div class="widget style1 lazur-bg">--}}
-                            {{--<div class="row">--}}
-                                {{--<div class="col-xs-4">--}}
-                                    {{--<i class="fa fa-plus fa-5x"></i>--}}
-                                {{--</div>--}}
-                                {{--<div class="col-xs-8 text-right">--}}
 
-                                    {{--<h2 class="font-bold">REGISTER</h2>--}}
-                                {{--</div>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</a>--}}
-                {{--</div>--}}
-                <div class="col-lg-4">
+
+        <div class="row">
+            <div class="col-md-8">
+                <h1><strong>DASHBOARD - {{ Auth::user()->facility->facility_id.' ('.Auth::user()->facility->name.')' }}</strong> </h1>
+            </div>
+            <div class="btn-group pull-right" style="padding-bottom: 15px" >
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    {{$month_year}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right" role="menu">
+                    @foreach($cache_data as $month_list)
+                        <li>
+                            <a href="{{ url('/program-user_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
+                        </li>
+                    @endforeach
+                    <li class="divider"></li>
+                    <li><a href="{{ url('/homepage') }}">Dashboard</a></li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <span class="label label-info pull-right">Children</span>
@@ -34,7 +42,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             {{--<span class="label label-success pull-right">Normal</span>--}}
@@ -48,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             {{--<span class="label label-success pull-right">Normal</span>--}}
@@ -63,7 +71,7 @@
                 </div>
                 <!--Second Line -->
 
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             {{--<span class="label label-success pull-right">Normal</span>--}}
@@ -76,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             {{--<span class="label label-success pull-right">Normal</span>--}}
@@ -89,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             {{--<span class="label label-success pull-right">Normal</span>--}}
@@ -102,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             {{--<span class="label label-success pull-right">Normal</span>--}}
@@ -115,7 +123,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-2">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
 
@@ -184,27 +192,7 @@
                 </div>
             </div><!-- END OF INNER ROW -->
         </div>
-        <div class="col-lg-4">
-            <div class="btn-group pull-right" style="padding-bottom: 15px" >
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    {{$month_year}}
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right" role="menu">
-                    @foreach($cache_data as $month_list)
-                    <li>
-                        <a href="{{ url('/program-user_ym/'.$month_list->year.'/'.$month_list->month) }}">{{date('F', mktime(0, 0, 0, $month_list->month, 10)).'-'.$month_list->year}}</a>
-                    </li>
-                    @endforeach
-                    <li class="divider"></li>
-                    <li><a href="{{ url('/homepage') }}">Dashboard</a></li>
-                </ul>
-            </div>
 
-            @include('homepage.partials.sync')
-
-            {{--<div id="map" style="width:100%; height:750px;"></div>--}}
-        </div>
     </div><!-- End of First Row -->
 
     <div class="row"></div>
