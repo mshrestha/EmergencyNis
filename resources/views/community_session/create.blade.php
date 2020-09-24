@@ -65,7 +65,7 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td>SAM in progres</td>
+                                  <td>SAM in Program</td>
                                   <td>
                                     M {{ html()->number('sam_ip_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
                                     F {{ html()->number('sam_ip_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
@@ -78,16 +78,16 @@
                                 <tr>
                                   <td>SAM Referred</td>
                                   <td>
-                                    M {{ html()->number('sam_ref_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
-                                    F {{ html()->number('sam_ref_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
+                                    M {{ html()->number('sam_ref_6_23_m')->placeholder('0')->style(['width' => '100px'])->class('input sm1') }}
+                                    F {{ html()->number('sam_ref_6_23_f')->placeholder('0')->style(['width' => '100px'])->class('input sf1') }}
                                   </td>
                                   <td>
-                                    M {{ html()->number('sam_ref_24_59_m')->placeholder('0')->style(['width' => '100px']) }}
-                                    F {{ html()->number('sam_ref_24_59_f')->placeholder('0')->style(['width' => '100px']) }}
+                                    M {{ html()->number('sam_ref_24_59_m')->placeholder('0')->style(['width' => '100px'])->class('input sm2') }}
+                                    F {{ html()->number('sam_ref_24_59_f')->placeholder('0')->style(['width' => '100px'])->class('input sf2') }}
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td>MAM in progress</td>
+                                  <td>MAM in Program</td>
                                   <td>
                                     M {{ html()->number('mam_ip_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
                                     F {{ html()->number('mam_ip_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
@@ -100,12 +100,12 @@
                                 <tr>
                                   <td>MAM Referred</td>
                                   <td>
-                                    M {{ html()->number('mam_ref_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
-                                    F {{ html()->number('mam_ref_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
+                                    M {{ html()->number('mam_ref_6_23_m')->placeholder('0')->style(['width' => '100px'])->class('input mm1') }}
+                                    F {{ html()->number('mam_ref_6_23_f')->placeholder('0')->style(['width' => '100px'])->class('input mf1') }}
                                   </td>
                                   <td>
-                                    M {{ html()->number('mam_ref_24_59_m')->placeholder('0')->style(['width' => '100px']) }}
-                                    F {{ html()->number('mam_ref_24_59_f')->placeholder('0')->style(['width' => '100px']) }}
+                                    M {{ html()->number('mam_ref_24_59_m')->placeholder('0')->style(['width' => '100px'])->class('input mm2') }}
+                                    F {{ html()->number('mam_ref_24_59_f')->placeholder('0')->style(['width' => '100px'])->class('input mf2') }}
                                   </td>
                                 </tr>
                                 <tr>
@@ -119,6 +119,17 @@
                                     F {{ html()->number('at_risk_24_59_f')->placeholder('0')->style(['width' => '100px']) }}
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td>Normal</td>
+                                  <td>
+                                    M {{ html()->number('normal_6_23_m')->placeholder('0')->style(['width' => '100px']) }}
+                                    F {{ html()->number('normal_6_23_f')->placeholder('0')->style(['width' => '100px']) }}
+                                  </td>
+                                  <td>
+                                    M {{ html()->number('normal_24_59_m')->placeholder('0')->style(['width' => '100px']) }}
+                                    F {{ html()->number('normal_24_59_f')->placeholder('0')->style(['width' => '100px']) }}
+                                  </td>
+                                </tr>
                               </tbody>
                           </table>
                       </div>
@@ -128,8 +139,8 @@
                             <div class="row">
                               <label class="col-sm-2 control-label">Referred</label>
                               <div class="col-sm-10">
-                                M {{ html()->number('referred_m')->placeholder('0')->style(['width' => '100px']) }}
-                                F {{ html()->number('referred_f')->placeholder('0')->style(['width' => '100px']) }}
+                                M {{ html()->number('referred_m')->placeholder('0')->style(['width' => '100px'])->id('rm') }}
+                                F {{ html()->number('referred_f')->placeholder('0')->style(['width' => '100px'])->id('rf') }}
                               </div>
                             </div>
                           </div>
@@ -147,3 +158,20 @@
     </div>
 </div> <!-- row -->
 @endsection
+@push('scripts')
+<script>
+    $(document).on('change keyup blur', function(){
+        var sm1 = +$(".sm1").val();
+        var sf1 = +$(".sf1").val();
+        var mm1 = +$(".mm1").val();
+        var mf1 = +$(".mf1").val();
+        var sm2 = +$(".sm2").val();
+        var sf2 = +$(".sf2").val();
+        var mm2 = +$(".mm2").val();
+        var mf2 = +$(".mf2").val();
+        $("#rm").val(sm1+sm2+mm1+mm2);
+        $("#rf").val(sf1+sf2+mf1+mf2);
+    });
+
+</script>
+@endpush

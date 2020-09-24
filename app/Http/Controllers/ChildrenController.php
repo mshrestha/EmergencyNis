@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PregnantWomen;
 use Auth;
 use App\Models\Child;
 use App\Models\Camp;
@@ -39,9 +40,11 @@ class ChildrenController extends Controller
         $camps = Camp::orderBy('id', 'asc')->get();
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
+        $mothers = PregnantWomen::all();
+        $selected_mother=[];
         
 
-        return view('children.create', compact('camps', 'facility'));
+        return view('children.create', compact('camps', 'facility','mothers','selected_mother'));
     }
 
     /**
@@ -52,6 +55,7 @@ class ChildrenController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
         try {
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');
@@ -71,7 +75,14 @@ class ChildrenController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
             $id = Child::create($data)->sync_id;
-        } catch (Exception $e) {
+//            $id=only sync_id 9996964
+//            dd($id);
+            $childId = Child::where('sync_id',$id)->first();
+//            dd($childId);
+            $mother_moha_id = $request->input('mother_moha_id');
+            $childId->pregnant_womens()->attach($mother_moha_id);
+
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
             $this->_notify_type = 'danger';
         }
@@ -109,6 +120,7 @@ class ChildrenController extends Controller
     public function show($id)
     {
         $children = Child::with('facility_followup')->findOrFail($id);
+
         $facility_followup = $children->facility_followup->last();
         $todays_followup = false;
 
@@ -155,7 +167,10 @@ class ChildrenController extends Controller
         $facility = Facility::findOrFail($facility_id);
         $camps = Camp::orderBy('id', 'asc')->get();
 
-        return view('children.edit', compact('child', 'camps', 'facility'));
+        $mothers = PregnantWomen::all();
+        $selected_mother= $child->pregnant_womens->pluck('sync_id')->toArray();
+
+        return view('children.edit', compact('child', 'camps', 'facility','mothers','selected_mother'));
     }
 
     /**
@@ -174,7 +189,16 @@ class ChildrenController extends Controller
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
             
             Child::findOrFail($id)->update($data);
-        } catch (Exception $e) {
+
+//            $childId = Child::where('sync_id',$id)->first();
+//            $mother_moha_id = $request->input('mother_moha_id');
+//            $childId->pregnant_womens()->attach($mother_moha_id);
+
+            $ip1 = Child::findOrFail($id);
+            $pp_ids = $request->input('mother_moha_id');
+            $ip1->pregnant_womens()->sync($pp_ids);
+
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to save child, Try again.';
             $this->_notify_type = 'danger';
         }
@@ -196,7 +220,7 @@ class ChildrenController extends Controller
         try {
             Child::destroy($id);
             $this->_notify_message = 'Deleted child.';
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = 'Failed to delete child, Try again.';
             $this->_notify_type = 'danger';
         }

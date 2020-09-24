@@ -79,8 +79,8 @@
                 buttons: [
                     { extend: 'copy'},
                     {extend: 'csv'},
-                    {extend: 'excel', title: 'RegisteredChildren'},
-                    {extend: 'pdf', title: 'RegisteredChildren'},
+                    {extend: 'excel', title: 'facility'},
+                    {extend: 'pdf', title: 'facility'},
                     {extend: 'print',
                          customize: function (win){
                                 $(win.document.body).addClass('white-bg');

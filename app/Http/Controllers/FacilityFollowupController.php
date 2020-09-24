@@ -54,7 +54,9 @@ class FacilityFollowupController extends Controller
      */
     public function show($id)
     {
+
         $children = Child::findOrFail($id);
+//        dd($children);
         $facilities = Facility::orderBy('created_at', 'desc')->get();
         $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
         $chart_date = array_column($facility_followups, 'date');
@@ -66,6 +68,7 @@ class FacilityFollowupController extends Controller
     }
 
     public function save($id, Request $request) {
+//        dd($request);
         try {
             if(!env('SERVER_CODE')) {
                 dd('No server code found.');
@@ -102,6 +105,7 @@ class FacilityFollowupController extends Controller
     public function edit($id)
     {
         $facility_followup = FacilityFollowup::findOrFail($id);
+//        dd($facility_followup);
         $children = Child::findOrFail($facility_followup->children_id);
 
         $facilities = Facility::where('id', $facility_followup->facility_id)->get();
@@ -122,15 +126,18 @@ class FacilityFollowupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try {
+//        dd($id);
+//        try {
             $data = $request->all();
+
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+//            dd($data);
 
             FacilityFollowup::findOrFail($id)->update($data);
-        } catch (\Exception $e) {
-            $this->_notify_message = "Failed to save followup, Try again";
-            $this->_notify_type = "danger";
-        }
+//        } catch (\Exception $e) {
+//            $this->_notify_message = "Failed to save followup, Try again";
+//            $this->_notify_type = "danger";
+//        }
 
         return redirect()->back()->with([
             'notify_message' => $this->_notify_message,

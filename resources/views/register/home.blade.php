@@ -25,7 +25,7 @@
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>MNR</th>
+                                                <th>MOHAID</th>
                                                 <th>Child name</th>
                                                 <th>Mother</th>
                                                 <th>Father</th>
@@ -41,14 +41,14 @@
                                             @foreach($children as $child)
                                                 <tr class="children-client" data-child-href="{{ route('children.show', $child->sync_id) }}">
                                                     <td class="children-show">{{ $child->sync_id }}</td>
-                                                    <td class="children-show">{{ $child->mnr_no }}</td>
+                                                    <td class="children-show">{{ $child->moha_id }}</td>
                                                     <td class="children-show">
                                                         <a href="{{ route('children.show', $child->sync_id) }}" class="client-link">{{ $child->children_name }}</a>
                                                     </td>
                                                     <td class="children-show">{{ $child->mother_caregiver_name }}</td>
                                                     <td class="children-show">{{ $child->fathers_name }}</td>
-                                                    <td class="children-show">{{ $child->sub_block_no }} {{ $child->hh_no }}</td>
-                                                    <td class="children-show">{{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }} </td>
+                                                    <td class="children-show">{{ $child->block.' '.$child->sub_block_no.' '.$child->hh_no }} </td>
+                                                    <td class="children-show">{{ $child->facility->name }} </td>
                                                     <td class="children-show">
                                                         @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
                                                             <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
@@ -72,14 +72,15 @@
                                                                title="Community followup">
                                                                 <button type="button"
                                                                         class="btn btn-default btn-registered">
-                                                                    <i class="fa fa-plus"></i> Follow up
+                                                                    <i class="fa fa-plus"></i>
                                                                 </button>
                                                             </a>
                                                         @endif
                                                         @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
-                                                            <a href="{{ route('facility-followup.show', $child->sync_id) }}"
+                                                            {{--<a href="{{ route('facility-followup.show', $child->sync_id) }}"--}}
+                                                                <a href="{{ route('children.show', $child->sync_id) }}"
                                                                class="edit-btn" title="Facility Followup">
-                                                                <button class="btn btn-default btn-circle btn-registered"
+                                                                <button class="btn btn-success btn-circle btn-registered"
                                                                         type="button"><i
                                                                             class="fa fa-plus"></i></button>
                                                             </a>

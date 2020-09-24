@@ -207,9 +207,25 @@ class OtpImportController extends Controller
         else {
             $tr['mam_target'] = $mam_target_reached->target;
             if($mam_target_reached->use_this=='Use system generated reached data'){
-                $tr['mam_reached'] = DB::table('tsfp_imports')
+                $newEnrolmentMuacTotal=DB::table('tsfp_imports')
+//                    ->where('year', 2020)
+//                    ->where('month', 1)
                     ->where('year', $report_year)
-                    ->sum('newAdmissionTotal');
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('newEnrolmentMuacTotal');
+//                dd($newEnrolmentMuacTotal);
+                $newEnrolmentWfhTotal=DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('newEnrolmentWfhTotal');
+                $readmissionAfterRecoveryTotal=DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('readmissionAfterRecoveryTotal');
+                $tr['mam_reached'] = $newEnrolmentMuacTotal+$newEnrolmentWfhTotal+$readmissionAfterRecoveryTotal;
             }else {
                 $tr['mam_reached'] = $mam_target_reached->reached;
             }
@@ -225,28 +241,31 @@ class OtpImportController extends Controller
         else {
             $tr['bsfp_target'] = $bsfp_target_reached->target;
             if($bsfp_target_reached->use_this=='Use system generated reached data'){
-                $tr['bsfp_reached'] = DB::table('bsfp_imports')
+                $beginningMonthTotal=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(beginningMonthTotal) as bmtotal'))
                     ->where('year', $report_year)
-                    ->sum('newEnrolmentTotal');
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+//                dd($beginningMonthTotal1);
+                $totalAdmission=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(totalAdmission) as netotal'))
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+                $bsfp_reached_bymonth=[];
+                for ($i=0;$i<count($beginningMonthTotal);$i++){
+                    $bsfp_reached_bymonth[]=$beginningMonthTotal[$i]->bmtotal+$totalAdmission[$i]->netotal;
+                }
+//                dd($bsfp_reached_bymonth);
+                $tr['bsfp_reached'] =max($bsfp_reached_bymonth);
             }else{
                 $tr['bsfp_reached'] =$bsfp_target_reached->reached;
             }
             $tr['bsfp_per']=round(($tr['bsfp_reached']/$tr['bsfp_target'])*100,1);
-        }
-        $vitamina_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',5)->first();
-        if ($vitamina_target_reached == null) {
-            $tr['vitamina_target']=0;
-            $tr['vitamina_reached']=0;
-            $tr['vitamina_per']=0;
-        }
-        else {
-            $tr['vitamina_target'] = $vitamina_target_reached->target;
-            if($vitamina_target_reached->use_this=='Use system generated reached data'){
-                $tr['vitamina_reached'] = 0;
-            }else {
-                $tr['vitamina_reached'] = $vitamina_target_reached->reached;
-            }
-            $tr['vitamina_per']=round(($tr['vitamina_reached']/$tr['vitamina_target'])*100,1);
         }
         $iycf_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',4)->first();
         if ($iycf_target_reached == null) {
@@ -263,6 +282,95 @@ class OtpImportController extends Controller
             }
             $tr['iycf_per']=round(($tr['iycf_reached']/$tr['iycf_target'])*100,1);
         }
+        $vitamina_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',5)->first();
+        if ($vitamina_target_reached == null) {
+            $tr['vitamina_target']=0;
+            $tr['vitamina_reached']=0;
+            $tr['vitamina_per']=0;
+        }
+        else {
+            $tr['vitamina_target'] = $vitamina_target_reached->target;
+            if($vitamina_target_reached->use_this=='Use system generated reached data'){
+                $tr['vitamina_reached'] = 0;
+            }else {
+                $tr['vitamina_reached'] = $vitamina_target_reached->reached;
+            }
+            $tr['vitamina_per']=round(($tr['vitamina_reached']/$tr['vitamina_target'])*100,1);
+        }
+        $vitamina_green_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',6)->first();
+        if ($vitamina_green_target_reached == null) {
+            $tr['vitamina_green_target']=0;
+            $tr['vitamina_green_reached']=0;
+            $tr['vitamina_green_per']=0;
+        }
+        else {
+            $tr['vitamina_green_target'] = $vitamina_green_target_reached->target;
+            if($vitamina_green_target_reached->use_this=='Use system generated reached data'){
+                $tr['vitamina_green_reached'] = 0;
+            }else {
+                $tr['vitamina_green_reached'] = $vitamina_green_target_reached->reached;
+            }
+            $tr['vitamina_green_per']=round(($tr['vitamina_green_reached']/$tr['vitamina_green_target'])*100,1);
+        }
+        $bsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',7)->first();
+        if ($bsfpplw_target_reached == null) {
+            $tr['bsfpplw_target']=0;
+            $tr['bsfpplw_reached']=0;
+            $tr['bsfpplw_per']=0;
+        }
+        else {
+            $tr['bsfpplw_target'] = $bsfpplw_target_reached->target;
+            if($bsfpplw_target_reached->use_this=='Use system generated reached data'){
+                $atTheBeginningOfTheMonthPlw=DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(atTheBeginningOfTheMonthPlw) as bmtotalPlw'))
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+                $totalAdmissionPlw= DB::table('bsfp_imports')
+                    ->select(DB::raw('year'),DB::raw('month'), DB::raw('sum(totalAdmissionPlw) as atotalPlw'))
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->groupBy(DB::raw('month') )
+                    ->get();
+                $bsfpPlw_reached_bymonth=[];
+                for ($i=0;$i<count($atTheBeginningOfTheMonthPlw);$i++){
+                    $bsfpPlw_reached_bymonth[]=$atTheBeginningOfTheMonthPlw[$i]->bmtotalPlw+$totalAdmissionPlw[$i]->atotalPlw;
+                }
+                $tr['bsfpplw_reached']=max($bsfpPlw_reached_bymonth);
+            }else{
+                $tr['bsfpplw_reached'] =$bsfpplw_target_reached->reached;
+            }
+            $tr['bsfpplw_per']=round(($tr['bsfpplw_reached']/$tr['bsfpplw_target'])*100,1);
+        }
+        $tsfpplw_target_reached=DB::table('target_reacheds')->where('data_year',$report_year)->where('indicator_id',8)->first();
+        if ($tsfpplw_target_reached == null) {
+            $tr['tsfpplw_target']=0;
+            $tr['tsfpplw_reached']=0;
+            $tr['tsfpplw_per']=0;
+        }
+        else {
+            $tr['tsfpplw_target'] = $tsfpplw_target_reached->target;
+            if($tsfpplw_target_reached->use_this=='Use system generated reached data'){
+                $newAdmissionPlw = DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('newAdmissionPlw');
+                $referFromBsfpPlw = DB::table('tsfp_imports')
+                    ->where('year', $report_year)
+                    ->where('campSettlement','!=', 'TEK')
+                    ->where('campSettlement','!=', 'UKH')
+                    ->sum('referFromBsfpPlw');
+                $tr['tsfpplw_reached']=$newAdmissionPlw+$referFromBsfpPlw;
+            }else{
+                $tr['tsfpplw_reached'] =$tsfpplw_target_reached->reached;
+            }
+            $tr['tsfpplw_per']=round(($tr['tsfpplw_reached']/$tr['tsfpplw_target'])*100,1);
+        }
+
 //        dd($tr);
         return $tr;
 

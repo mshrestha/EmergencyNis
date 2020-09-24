@@ -43,27 +43,38 @@ class MonthlyMail extends Notification
      */
     public function toMail($notifiable)
     {
-//        return (new MailMessage)
-//                    ->line('The introduction to the notification.')
-//                    ->action('Notification Action', url('/'))
-//                    ->line('Thank you for using our application!');
         return (new MailMessage)
             ->greeting('Dear '.$this->employee_info->full_name)
-            ->subject('[Auto Generated] Monthly Nutrition Sector Report, APRIL 2020')
-            ->line('Under the dynamic leadership and guidance of our honorable Minister, respectable Secretary sir, HSD, Ministry of Health and Family welfare and respectable DG sir of DGHS Prof. Abul Kalam Azad, National Nutrition Services (NNS), Institute of Public Health Nutrition (IPHN) and Civil Surgeon, Cox’s Bazar, the Nutrition Sector is pleased to share Monthly Online Emergency Nutrition Report (ENR) for April 2020.')
-            ->line('This report is automatically generated from online nutrition sector portal https://emergencynutrition.org/ with  data shared by all nutrition sector partners using Emergency Nutrition Information Module (ENIM) and other data systems. For detailed report and status by each implementing partner or facility, please visit the above website.')
-            ->line('<img src="http://beta.emergencynutrition.org/img/april2020.jpg">')
-            ->line('•	12,493 for malnourished boys and girls under five, pregnant and lactating women were admitted to the nutrition treatment and preventive services during April 2020. It includes 447 SAM children;1,585 MAM children and 27 MAM pregnant and lactating women.')
-            ->line('•	178,989 boys and girls aged 6-59 months and PLW reached with Blanket Supplementary Feeding Programme.')
-            ->line('•	12,577 new pregnant and lactating women and caregivers of children reached by IYCF counselling and participated in the IYCF group sessions.')
+            ->subject('[Auto Generated] Monthly Nutrition Sector Report, July 2020')
+            ->line('Under the dynamic leadership of Civil Surgeon, Cox’s Bazar, the Nutrition Sector is pleased to 
+            share Monthly Online Emergency Nutrition Report (ENR) for July 2020. This report is automatically generated 
+            from online nutrition sector portal https://emergencynutrition.org/ with data shared by all nutrition sector 
+            partners using Emergency Nutrition Information Module (ENIM) and other data systems. For detailed report and 
+            status by each implementing partner or facility, please visit the above website.')
+            ->line('<img src="http://beta.emergencynutrition.org/img/july_2020.jpg">')
+
+            ->line('• Overall, 38,352 for malnourished boys and girls under five, pregnant and lactating women were 
+            admitted to the nutrition treatment and preventive services since January 2020.')
+            ->line('• In July 1,019 SAM children were admitted and in June 1,597 SAM children were reached, therefore 
+            the admission rate falls to one third. As of July, 1,5667 number of SAM children have been admitted, which is 41%  of the overall target')
+            ->line('• Also, 7,236 MAM children received targeted supplementary feeding compared to 9,347 children in 
+            June-which almost 29% decrease.')
+            ->line('• 3,737  new pregnant and lactating women and caregivers of children reached by IYCF counseling 
+            and participated in the IYCF group sessions. In June, 3,111 PLW reached by IYCF counselling, besides 31,716 
+            children women were reached by IYCF messaging through VAS campaign.')
+            ->line('• The Vitamin A supplementation event, held between 21 June 2020  to 20 July 2020 reached over 
+            81,462 boys and 78,564 girls under five-so the overall coverage was  97 %. During the event, fom a totally of 
+            155,217 screened for malnutrition children under five, 745 were new SAM and 6,520 new MAM children. Besides that,  
+            All children were referred to the respective nutrition (OTP, TSFP) and disability caring services.')
+            ->line('• In the last 4 months, only 15 children admitted in Stabilization Centre, whereas 33 children 
+            alone were admitted in March 2020')
+
             ->line('For further information, please contact with info@nutritionsector.org ')
 
-
-            ->attach(public_path('pdf/april_2020.pdf'), [
-                'as' => 'april_2020.pdf',
+            ->attach(public_path('pdf/ENIMDashboardJuly2020-EmergencyNutritionSectorCoxsBazar.pdf'), [
+                'as' => 'ENIMDashboardJuly2020-EmergencyNutritionSectorCoxsBazar.pdf',
                 'mime' => 'text/pdf',
             ]);
-
     }
 
     /**

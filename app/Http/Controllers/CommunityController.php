@@ -8,11 +8,14 @@ use App\Models\Volunteer;
 use App\Models\CommunitySession;
 
 use Illuminate\Http\Request;
+use DB;
 
 class CommunityController extends Controller
 {
     private $_notify_message = 'Volunteer information saved successfully.';
     private $_notify_type = 'success';
+    private $_volunteer_image_location = 'uploads/volunteer';
+
 
     public function __construct() {
         if(!env('SERVER_CODE')) {
@@ -69,12 +72,16 @@ class CommunityController extends Controller
 
         try {
             $data = $request->all();
+            $image = $this->uploadImage($request);
+            $image ? $data['picture'] = $image : false ;
 
             //Create sync id
             $latest_volunteer = Volunteer::orderBy('id', 'desc')->first();
             $app_id = $latest_volunteer ? $latest_volunteer->id + 1 : 1;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
+
+            $data['auto_id_no'] =$request->camp_id.$request->block.$request->subblock.$app_id;
 
             Volunteer::create($data);
         } catch (Exception $e) {
@@ -99,7 +106,6 @@ class CommunityController extends Controller
         if(!request()->user()->facility_id) {
             dd('No facility associated to user.');
         }
-
         $auth_user_camp_id = request()->user()->facility->camp->id;
         $camps = Camp::orderBy('id', 'asc')->where('id', $auth_user_camp_id)->pluck('name', 'id');
         $volunteer = Volunteer::findOrFail($id);
@@ -118,6 +124,8 @@ class CommunityController extends Controller
     {
         try {
             $data = $request->all();
+            $image = $this->uploadImage($request);
+            $image ? $data['picture'] = $image : false ;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
 
             Volunteer::findOrFail($id)->update($data);
@@ -138,6 +146,11 @@ class CommunityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function show($id)
+    {
+        $volunteer = Volunteer::findOrFail($id);
+        dd($volunteer);
+    }
     public function destroy($id)
     {
         try {
@@ -153,6 +166,24 @@ class CommunityController extends Controller
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
+    }
+
+    public function uploadImage($request) {
+        if($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $fileName = time() ."-". $file->getClientOriginalName();
+            $fileName = str_replace(' ', '-', $fileName);
+
+            $image = $this->_volunteer_image_location. '/' .$fileName;
+            $upload_success= $file->move($this->_volunteer_image_location, $fileName);
+
+            // $upload = Image::make($image);
+            // $upload->fit(380, 408)->save($this->_children_image_location .'/'. $fileName, 100);
+
+            return $fileName;
+        }
+
+        return false;
     }
 
 }

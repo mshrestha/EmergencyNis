@@ -27,7 +27,8 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Woman name</th>
+                                                <th>Name</th>
+                                                <th>Block HH-no</th>
                                                 <th>Facility</th>
                                                 <th>Follow up</th>
                                             </tr>
@@ -35,12 +36,14 @@
                                         <tbody>
                                             @foreach($pregnant_womens as $pregnant_women)
                                             <tr class="pregnant-women-client" data-pregnant-women-id="{{ $pregnant_women->sync_id }}">
-                                                <td>{{ $pregnant_women->id }}</td>
+                                                <td>{{ $pregnant_women->sync_id }}</td>
                                                 <td>{{ $pregnant_women->pregnant_women_name }}</td>
-                                                <td>{{ $pregnant_women->facility->facility_id }}</td>
+                                                <td>{{ $pregnant_women->block.' '.$pregnant_women->sub_block_no.' '.$pregnant_women->hh_no }} </td>
+
+                                                <td>{{ $pregnant_women->facility->name }}</td>
                                                 <td>
                                                     <a href="{{ route('pregnant-women-followup.show', $pregnant_women->sync_id) }}"class="edit-btn">
-                                                     <button class="btn btn-default btn-circle" type="button"><i
+                                                     <button class="btn btn-default btn-circle" type="button" title="Followup"><i
                                                         class="fa fa-plus"></i></button>
                                                     </a>
                                                 </td>
@@ -114,8 +117,9 @@
     });
 
     function load_pregnant_women(pregnant_women) {
+        var abase_url = '{{url('/')}}';
         $.ajax({
-            url: '/pregnant-women/'+pregnant_women+'/info',
+            url: abase_url+'/pregnant-women/'+pregnant_women+'/info',
             type: 'get',
             success: function (res) {
                 $('#pregnant-women-info').html(res);

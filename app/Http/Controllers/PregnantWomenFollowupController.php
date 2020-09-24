@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Camp;
 use App\Models\Facility;
+use App\Models\PregnantWomen;
 use App\Models\PregnantWomenFollowup;
 
 use Auth;
 use Illuminate\Http\Request;
+use DB;
 
 class PregnantWomenFollowupController extends Controller
 {
@@ -81,8 +83,9 @@ class PregnantWomenFollowupController extends Controller
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
         $pregnant_women_id = $id;
+        $pregnant_women = PregnantWomen::findOrFail($id);
 
-        return view('pregnant_women.followup', compact('camps', 'facility', 'pregnant_women_id'));
+        return view('pregnant_women.followup', compact('camps', 'facility', 'pregnant_women_id','pregnant_women'));
     }
 
     /**
@@ -93,13 +96,18 @@ class PregnantWomenFollowupController extends Controller
      */
     public function edit($id)
     {
+//        dd($id);
         $camps = Camp::orderBy('id', 'asc')->get();
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
         $pregnant_women_id = $id;
-        $pregnant_followup = PregnantWomenFollowup::findOrFail($id);
 
-        return view('pregnant_women.followup-edit', compact('camps', 'facility', 'pregnant_women_id', 'pregnant_followup'));
+        $pregnant_followup = PregnantWomenFollowup::findOrFail($id);
+//        dd($pregnant_followup);
+        $pregnant_women = DB::table('pregnant_womens')->where('sync_id',$pregnant_followup->pregnant_women_id)->first();
+//        dd($pregnant_women->id);
+
+        return view('pregnant_women.followup-edit', compact('camps', 'facility', 'pregnant_women_id', 'pregnant_followup','pregnant_women'));
     }
 
     /**

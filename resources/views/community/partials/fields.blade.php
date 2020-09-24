@@ -14,3 +14,11 @@
 	<div class="col-sm-9"><input type="text" name="subblock" class="form-control" placeholder="Sub Block" required
 		value="{{ isset($volunteer) ? $volunteer->subblock : '' }}"></div>
 </div>
+<div class="form-group"><label class="col-sm-3 control-label">Picture</label>
+	<div class="col-sm-9">
+		<button type="button" style="display:block; height:30px;" onclick="document.getElementById('getPicture').click()">
+			{{ (isset($child) && $child->picture) ? $child->picture : 'Select image' }}
+		</button>
+		<input type="file" class="form-control" name="picture" id="getPicture" style="display: none;">
+	</div>
+</div>

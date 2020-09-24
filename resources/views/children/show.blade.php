@@ -11,7 +11,7 @@
 					</div>
 				</div>
 				<div class="ibox-content">
-					@if($todays_followup) 
+					@if($todays_followup)
                     <form action="{{ route('facility-followup.update', $facility_followup->sync_id) }}" method="post" id="followupform">
                         @csrf
                         @method('PATCH')
@@ -46,7 +46,7 @@
                             </div>
                             @if(array_key_exists('nutritionstatus', $followup))
                             <div class="{{(($followup['nutritionstatus']=='SAM') ? 'vertical-timeline-content colorSam' : (($followup['nutritionstatus']=='MAM') ? 'vertical-timeline-content colorMam' :'vertical-timeline-content colorNormal'))}}" >
-                                <span class="vertical-date small text-muted"> {{ $followup['date'] }} </span><br />
+                                <span class="vertical-date small "> {{ \Carbon\Carbon::parse($followup['date'])->format(' d-M-Y') }} </span><br />
                                 <p>Visited {{ $followup['facility']['facility_id'] }}</p>
 
                                 @if(isset($followup['muac']))
@@ -116,7 +116,8 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+{{--<script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>--}}
 <script src="{{ asset('js/plugins/steps/jquery.steps.min.js')}}"></script>
 <script>
 	$(document).ready(function () {

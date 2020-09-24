@@ -15,9 +15,15 @@
 					<div class="ibox-content">
 						<div class="form-group row" >
                             <div class="col-md-5">
-                                <label for="">Date</label>
+                                <label for="">Planed Date</label>
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}" />
                                 <input type="hidden" name="children_id" value="{{ $children->sync_id }}" />
+                                <input type="date" name="planed_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->planed_date : '' }}">
+                            </div>
+						{{--</div>--}}
+						{{--<div class="form-group row" >--}}
+                            <div class="col-md-5">
+                                <label for="">Actual Date</label>
                                 <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
                             </div>
 						</div>
@@ -73,7 +79,7 @@
 							<div class="col-md-5">
 								<label for="">WFH Z Score (SD)</label>
 								<input type="text" name="wfh_z_score" class="form-control" placeholder="WFH Z Score" id="zscore"
-									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" disabled>
+									   value="{{ isset($facility_followup) ? $facility_followup->wfh_z_score : '' }}" readonly>
 							</div>
                             <div class="col-md-5">
                                 <label for="">Oedema</label>
@@ -89,11 +95,11 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control" id="nutritionstatus" disabled style="color: white">
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus"  >
                                     <option value="" >Nutrition Status</option>
-									<option value="SAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
-									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
-									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
+									<option value="SAM" {{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? 'selected' : '' }}>SAM</option>
+									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? 'selected' : '' }}>MAM</option>
+									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? 'selected' : '' }}>Normal</option>
 
 							     </select>
                             </div>
@@ -102,27 +108,22 @@
 
 								<select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="SAM" id="outcome_sam">
-                                        <option value="New case" >New case</option>
-                                        <option value="Followup visit at OTP" >Followup visit at OTP</option>
-                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
-                                        <option value="Referred to OTP" >Referred to OTP</option>
-
+										<option value="SAM new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'SAM new case') ? 'selected' : '' }}>SAM new case</option>
+										<option value="Followup visit at OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Followup visit at OTP') ? 'selected' : '' }}>Followup visit at OTP</option>
+										<option value="Already admitted at TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already admitted at TSFP') ? 'selected' : '' }}>Already admitted at TSFP</option>
+										<option value="Referred to OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to OTP') ? 'selected' : '' }}>Referred to OTP</option>
                                     </optgroup>
                                     <optgroup label="MAM" id="outcome_mam">
-										<option value="New case" >New Case</option>
-                                        <option value="OTP follow up visit" >OTP follow up visit</option>
-                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
-                                        <option value="Referred to TSFP" >Referred to TSFP</option>
-										{{--<optgroup label="New case">--}}
-                                        {{--<option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>--}}
-                                        {{--<option value="Already admitted at TSFP" >Already admitted at TSFP</option>--}}
-                                        {{--<option value="Referred to TSFP" >Referred to TSFP</option>--}}
+										<option value="MAM new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'MAM new case') ? 'selected' : '' }}>MAM new case</option>
+										<option value="Follow up visit at TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Follow up visit at TSFP') ? 'selected' : '' }}>Follow up visit at TSFP</option>
+										<option value="Already admitted at OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already admitted at OTP') ? 'selected' : '' }}>Already admitted at OTP</option>
+										<option value="Referred to TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to TSFP') ? 'selected' : '' }}>Referred to TSFP</option>
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-										<option value="New case" >New Case</option>
-                                        <option value="Already in Program" >Already in program</option>
-                                        <option value="" >Referred to BSFP</option>
-                                        <option value="" >Follow up visit</option>
+										<option value="Normal new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'Normal new case') ? 'selected' : '' }}>Normal new case</option>
+										<option value="Already in Program" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already in Program') ? 'selected' : '' }}>Already in Program</option>
+										<option value="Referred to BSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to BSFP') ? 'selected' : '' }}>Referred to BSFP</option>
+										<option value="Follow up visit at BSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Follow up visit at BSFP') ? 'selected' : '' }}>Follow up visit at BSFP</option>
                                     </optgroup>
 
 
@@ -138,6 +139,44 @@
         <h1>Medical and Physical</h1>
 
 		<div class="row step-content">
+			<div class="row">
+				<div class="col-lg-6">
+				<div class="ibox float-e-margins ">
+					<div class="ibox-title">
+						<h5>General Information</h5>
+						<div class="ibox-tools">
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
+					</div>
+					<div class="ibox-content">
+
+						<div class="form-group">
+							<label for="">Continued Breastfeeding</label>
+							<select name="continued_breastfeeding" class="form-control">
+								<option value="">Select Continued Breastfeeding</option>
+								<option value="Yes" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'Yes') ? ' selected' : '' }}>Yes</option>
+								<option value="No" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'No') ? ' selected' : '' }}>No</option>
+								<option value="N/A" {{ (isset($facility_followup) && $facility_followup->continued_breastfeeding == 'N/A') ? ' selected' : '' }}>N/A</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="">Complementary Feeding</label>
+							<input type="text" name="complementary_feeding_frequency" class="form-control" placeholder="Frequency (How many times)"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_frequency : '' }}">
+							<br/>
+							<input type="number" name="complementary_feeding_introduction_time" class="form-control" placeholder="Introduction Time (Age of child in month)"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_introduction_time : '' }}" min="0">
+							<br/>
+							<input type="text" name="complementary_feeding_foodtype" class="form-control" placeholder="Type of Food"
+								   value="{{ isset($facility_followup) ? $facility_followup->complementary_feeding_foodtype : '' }}">
+						</div>
+
+
+					</div>
+				</div>
+			</div>
             <div class="col-lg-6">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
@@ -183,7 +222,10 @@
 					</div>
 				</div>
 			</div>
-            <div class="col-lg-6">
+			</div>
+			<div class="row">
+
+			<div class="col-lg-6">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
 						<h5>Physical Examination</h5>
@@ -195,8 +237,8 @@
 					</div>
 					<div class="ibox-content">
 						<div class="form-group">
-							<label for="">Temperature (oC)</label>
-							<input type="number" name="temperature" class="form-control" placeholder="Temperature (oC)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0" step="0.01">
+							<label for="">Temperature (oF)</label>
+							<input type="number" name="temperature" class="form-control" placeholder="Temperature (oF)" value="{{ isset($facility_followup) ? $facility_followup->temperature : '' }}" min="0" step="0.01">
 						</div>
 						<div class="form-group">
 							<label for="">Respiratory rate (breaths/min)</label>
@@ -272,9 +314,6 @@
 	</div>
 </div>
 
-
-
-
 			<div class="col-lg-6">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
@@ -305,7 +344,23 @@
                                 <option value="Not applicable" {{ (isset($facility_followup) && $facility_followup->albendazole == 'Not applicable') ? ' selected' : '' }}>Not Applicable</option>
 							</select>
 						</div>
-                        <div class="form-group">
+						<div class="form-group" >
+
+								<label for="">Albendazole Received Date</label>
+								<input type="date" name="albendazole_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->albendazole_date : '' }}">
+
+						</div>
+
+						<div class="form-group">
+							<label for="">Received all EPI vaccinations as per schedule</label>
+							<select name="received_all_epi_vaccination" class="form-control">
+								<option value="">Select EPI vaccinations</option>
+								<option value="1" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '1') ? ' selected' : '' }}>Yes</option>
+								<option value="0" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '0') ? ' selected' : '' }}>No</option>
+							</select>
+						</div>
+
+						<div class="form-group">
 							<label for="measles">Received Measles Vaccination</label>
 							<select name="measles" class="form-control">
 								<option value="" >Select Measles</option>
@@ -318,6 +373,7 @@
 					</div>
 				</div>
 			</div>
+            </div>
             </div>
             <h1><span id="admission-discharge-tab-heading">Admission Criteria</span></h1>
 
@@ -432,6 +488,7 @@
 			</div>
 
 
+
 			<div class="col-lg-6 discharge-criteria-tabs">
 				<div class="ibox float-e-margins ">
 					<div class="ibox-title">
@@ -481,27 +538,27 @@
 		</div>
 	</div>
 	<div class="ibox-content">
-		<div class="form-group">
+		<div class="form-group rutf" id="rutf">
 			<label for="">No of RUTF</label>
 			<input type="number" name="no_of_rutf" class="form-control" placeholder="No of RUTF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rutf : '' }}" min="0">
 		</div>
-		<div class="form-group">
+		<div class="form-group rusf" id="rusf">
 			<label for="">No of RUSF</label>
 			<input type="number" name="no_of_rusf" class="form-control" placeholder="No of RUSF" value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}" min="0">
 		</div>
-		<div class="form-group">
-			<label for="">WSB++ (kg)</label>
-			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="WSB++ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
+		<div class="form-group wsbpp" id="wsbpp">
+			<label for="">Super Cerial Plus (WSB++)(kg)</label>
+			<input type="number" name="wsb_plus_plus_kg" class="form-control" placeholder="Super Cerial Plus (WSB++)(kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}" min="0">
 		</div>
-		<div class="form-group">
-			<label for="">WSB+ (kg)</label>
-			<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">
-		</div>
-		<div class="form-group">
-			<label for="">Oil (kg)</label>
-			<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">
-		</div>
-		<div class="form-group">
+		{{--<div class="form-group wsbp" id="wsbp">--}}
+			{{--<label for="">WSB+ (kg)</label>--}}
+			{{--<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">--}}
+		{{--</div>--}}
+		{{--<div class="form-group">--}}
+			{{--<label for="">Oil (kg)</label>--}}
+			{{--<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">--}}
+		{{--</div>--}}
+		<div class="form-group others" id="others">
 			<label for="">Others</label>
 			<input type="number" name="others" class="form-control" placeholder="Others" value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
 		</div>

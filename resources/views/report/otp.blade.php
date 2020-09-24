@@ -62,7 +62,7 @@
                                     <strong>{{ $facility->facility_id}}</strong>
 {{--                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>--}}
                                 </td>
-                                <td>Following Expanded Criteria:</td>
+                                <td></td>
                                 <td>Name of Camp: <strong>{{ $facility->camp->name }}</strong></td>
                             </tr>
                             <tr>

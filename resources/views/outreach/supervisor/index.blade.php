@@ -75,7 +75,7 @@
                                         <th>Name</th>
                                         <th>Month</th>
                                         <th>Pregnant women</th>
-                                        <th>0 to 6 months</th>
+                                        <th>0 to 5 months</th>
                                         <th>6 to 24 months</th>
                                         <th>Grandmothers</th>
                                         <th>Adolescent</th>

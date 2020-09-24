@@ -1,17 +1,17 @@
 <style>
     .dark-timeline .colorSam {
-        background: rgba(255, 0, 153, .2);
-        /*color: black;*/
+        background: rgba(255, 0, 0, .8);
+        color: white;
         !important;
     }
     .dark-timeline .colorMam {
-        background: rgba(255, 217, 0, .2);
-        /*color: black;*/
+        background: rgba(255, 255, 0, .8);
+        color: black;
         !important;
     }
     .dark-timeline .colorNormal {
-        background: rgba(33, 185, 187, .2);
-        /*color: black;*/
+        background: rgba(0, 128, 0, .8);
+        color: white;
         !important;
     }
     /*.dark-timeline .vertical-timeline-content {*/
@@ -38,22 +38,26 @@
         <strong>{{ $child->children_name }}</strong>
         <p>
             ID: {{ $child->sync_id}}<br />
-            MNR: {{ $child->mnr_no}}<br />
+            MOHAID: {{ $child->moha_id}}<br />
+            Sex: {{ $child->sex}}<br />
             {{ $child->age }} months old<br />
-            {{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }}<br/>
-            Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
+            {{ $child->facility->name.' '.$child->facility->facility_id }}<br/>
+            Block {{ $child->block.''.$child->sub_block_no }}, Household {{ $child->hh_no }} <br />
 
         </p>
         <div class="row">
             <div class="col-lg-12">
                 <a href="{{ route('children.edit', $child->sync_id) }}" class="edit-btn">
-                    <button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
+                    <button class="btn btn-info btn-circle" type="button" title="Edit"><i class="fa fa-pencil"></i></button>
+                </a>
+                <a href="{{ route('children.show', $child->sync_id) }}" class="edit-btn">
+                    <button class="btn btn-success btn-circle" type="button" title="Facility Followup"><i class="fa fa-plus"></i></button>
                 </a>
                 <form action="{{ route('children.destroy', $child->sync_id) }}" method="post" class="delete-form">
                     @csrf
                     @method('DELETE')
 
-                    <button  class="btn btn-danger btn-circle" type="submit" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
+                    <button  class="btn btn-danger btn-circle" type="submit" title="Delete" onclick="return confirm('Are you sure?')" ><i class="fa fa-trash"></i></button>
                 </form>
             </div>
 
@@ -640,7 +644,15 @@
                     point: {
                         radius: 0
                     }
-                }
+                },
+//                tooltips: {
+//                    mode: 'index',
+//                    intersect: false
+//                },
+//                hover: {
+//                    mode: 'index',
+//                    intersect: false
+//                }
             }
         });
         var gmpHModal = new Chart(ctx_gmpH, {
@@ -671,7 +683,8 @@
                         borderColor: [
                             'rgba(55, 59, 64, .2)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        tooltip:false
                     },
                     {
                         label: '-2Z',
@@ -743,13 +756,14 @@
                         borderColor: [
                             'rgba(55, 59, 64, .2)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 0
                     }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
                 bezierCurve: false,
+                datasetFill: true,
                 title: {
                     display: true,
                     text: 'Girl\'s GMP Height: '+child_info
@@ -764,7 +778,7 @@
                 },
                 elements: {
                     point: {
-                        radius: 0
+                        radius: 1
                     }
                 }
             }

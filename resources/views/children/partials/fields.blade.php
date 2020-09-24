@@ -1,6 +1,21 @@
-<div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>
-	<div class="col-sm-9"><input type="text" name="mnr_no" class="form-control" placeholder="Registration ID" 
-		value="{{ isset($child) ? $child->mnr_no : '' }}">
+<div class="form-group"><label class="col-sm-3 control-label">MOHA ID</label>
+	<div class="col-sm-9"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
+		value="{{ isset($child) ? $child->moha_id : '' }}">
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Progress ID</label>
+	<div class="col-sm-9"><input type="text" name="progress_id" class="form-control" placeholder="Progress ID"
+		value="{{ isset($child) ? $child->progress_id : '' }}">
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Family Count Number (FCN)</label>
+	<div class="col-sm-9"><input type="text" name="family_count_no" class="form-control" placeholder="Family Count Number"
+								 value="{{ isset($child) ? $child->family_count_no : '' }}" >
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">SCOPE ID</label>
+	<div class="col-sm-9"><input type="text" name="scope_no" class="form-control" placeholder="SCOPE ID"
+								 value="{{ isset($child) ? $child->scope_no : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Camp</label>
@@ -20,30 +35,44 @@
 <div class="hr-line-dashed"></div>
 
 
-<div class="form-group"><label class="col-sm-3 control-label">Block Number</label>
-	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Block Number"
-		value="{{ isset($child) ? $child->sub_block_no : '' }}" required>
+
+<div class="form-group"><label class="col-sm-3 control-label">Household Number</label>
+	<div class="col-sm-9"><input type="text" name="hh_no" class="form-control" placeholder="Household Number"
+		value="{{ isset($child) ? $child->hh_no : '' }}" >
 	</div>
 </div>
-
-<div class="form-group"><label class="col-sm-3 control-label">Household Number/FCN</label>
-	<div class="col-sm-9"><input type="text" name="hh_no" class="form-control" placeholder="Household Number" 
-		value="{{ isset($child) ? $child->hh_no : '' }}" >
+<div class="form-group"><label class="col-sm-3 control-label">Block</label>
+	<div class="col-sm-9"><input type="text" name="block" class="form-control" placeholder="Block"
+		value="{{ isset($child) ? $child->block : '' }}" >
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Sub Block</label>
+	<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Sub Block"
+		value="{{ isset($child) ? $child->sub_block_no : '' }}" >
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
 	<div class="col-sm-3"><input id="currentLatitude" type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
-		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" disabled>
+		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" >
 	</div><div class="col-sm-3"><input id="currentLongitude" type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng" 
-		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" disabled>
+		value="@if(isset($child)){{ isset($child) ? $child->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" >
 	</div>
 </div>
 <div class="hr-line-dashed"></div>
-<!-- div class="form-group"><label class="col-sm-3 control-label">Family Count</label>
-	<div class="col-sm-9"><input type="number" class="form-control" name="family_count_no" placeholder="Family Count" 
-		value="{{ isset($child) ? $child->family_count_no : '' }}" >
+
+<div class="form-group" >
+	<label class="col-sm-3 control-label">Mother's MOHA ID</label>
+	<div class="col-sm-9">
+		<select name="mother_moha_id" class="form-control show-tick selectpicker"
+				data-live-search="true">
+			<option value="">Select Mother's MOHA ID</option>
+			@foreach($mothers as $mother)
+				<option value="{{ $mother->sync_id }}" {{ (in_array($mother->sync_id, $selected_mother)) ? ' selected' : '' }}>{{ $mother->moha_id.' '.$mother->pregnant_women_name }}</option>
+			@endforeach
+		</select>
 	</div>
-</div -->
+</div>
+
 <div class="form-group"><label class="col-sm-3 control-label">Mother's Name / Caregiver Name</label>
 	<div class="col-sm-9"><input type="text" class="form-control" name="mother_caregiver_name" placeholder="Mother's Name" 
 		value="{{ isset($child) ? $child->mother_caregiver_name : '' }}" required>
@@ -72,7 +101,16 @@
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Age</label>
 	<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age" 
-		value="{{ isset($child) ? $child->age : '' }}" ><span class="small">(months)</span>
+		value="{{ isset($child) ? $child->age : '' }}" required><span class="small">(months)</span>
+	</div>
+</div>
+<div class="form-group"><label class="col-sm-3 control-label">Age Group (Months)</label>
+	<div class="col-sm-9">
+		<input type="radio" name="age_group" value="0to6m" {{ (isset($child) && $child->age_group == '0to5m') ? ' checked' : '' }}> 0 to 5
+		<input type="radio" name="age_group" value="6to11m" {{ (isset($child) && $child->age_group == '6to11m') ? ' checked' : '' }}> 6 to 11
+		<input type="radio" name="age_group" value="12to23m" {{ (isset($child) && $child->age_group == '12to23m') ? ' checked' : '' }}> 12 to 23
+		<input type="radio" name="age_group" value="24to59m" {{ (isset($child) && $child->age_group == '24to59m') ? ' checked' : '' }}> 24 to 59
+		<input type="radio" name="age_group" value="others" {{ (isset($child) && $child->age_group == 'others') ? ' checked' : '' }}> Others
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-3 control-label">Sex</label>

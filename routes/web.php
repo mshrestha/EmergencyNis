@@ -25,9 +25,18 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('fourW', 'OtpImportController@fourW')->name('fourW');
     Route::get('fourW_ym', 'OtpImportController@fourW_ym')->name('fourW_ym');
 
+    Route::get('/ou', function () {
+        return view('facility.ou');
+    });
+
+    Route::post('select-pp', ['as' => 'select-pp', 'uses' => 'FacilityController@selectPp']);
+    Route::post('select-ip', ['as' => 'select-ip', 'uses' => 'FacilityController@selectIp']);
+    Route::post('select-camp', ['as' => 'select-camp', 'uses' => 'FacilityController@selectCamp']);
+
     Route::get('preview', 'MonthlyMailController@preview');
     Route::get('generate-pdf', 'MonthlyMailController@generatePDF');
     Route::get('/sendmail','MonthlyMailController@sendmail')->name('sendmail');
+    Route::get('/monthly_mail_home','MonthlyMailController@monthly_mail_home')->name('monthly_mail_home');
     Route::get('/monthly_mail','MonthlyMailController@monthly_mail')->name('monthly_mail');
 
 
@@ -56,6 +65,12 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::resource('community-followup', 'CommunityFollowupController');
 	Route::post('community-followup/{child}/save', 'CommunityFollowupController@save')->name('community-followup.save');
 
+
+    Route::resource('service', 'ServiceController');
+    Route::resource('sector', 'SectorController');
+    Route::resource('programPartner', 'PpController');
+	Route::resource('implementingPartner', 'IpController');
+	Route::resource('camp', 'CampController');
 	Route::resource('facility', 'FacilityController');
 	Route::resource('facility-followup', 'FacilityFollowupController');
 	Route::post('facility-followup/{facility}/save', 'FacilityFollowupController@save')->name('facility-followup.save');

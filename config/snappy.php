@@ -69,7 +69,7 @@ return [
     ),
 
 
-////Settings for Local windows based server
+//Settings for Local windows based server
 //    'pdf' => array(
 //        'enabled' => true,
 //        'binary' => base_path('vendor\wemersonjanuario\wkhtmltopdf-windows\bin\64bit\wkhtmltopdf'),

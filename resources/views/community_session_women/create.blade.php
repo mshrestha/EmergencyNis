@@ -25,7 +25,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="">MAM In Progress</label>
+                  <label for="">MAM In Program</label>
                   <div class="row">
                     <div class="col-md-6">
                       {{ html()->number('mam_inprogress_preg')->class('form-control')->placeholder('Preg.')->required() }}
@@ -59,7 +59,7 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="form-group">
-                  {{ html()->number('normal_preg')->class('form-control')->placeholder('Lac.')->required() }}
+                  {{ html()->number('normal_preg')->class('form-control')->placeholder('Preg.')->required() }}
                   <label class="pull-right">Preg</label>
                 </div>
               </div>
