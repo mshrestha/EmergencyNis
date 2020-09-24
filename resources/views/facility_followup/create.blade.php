@@ -204,8 +204,6 @@
                     $("#wsbp").show();
 //                    $("#wsbpp").show();
                     $("#others").show();
-
-
                 }
 
             }, 'json')

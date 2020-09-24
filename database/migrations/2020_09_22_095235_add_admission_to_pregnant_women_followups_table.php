@@ -17,7 +17,7 @@ class AddAdmissionToPregnantWomenFollowupsTable extends Migration
             $table->enum('new_admission', ['MUAC'])->nullable();
             $table->enum('readmission', ['Readmission after default', 'Readmission after recovery'])->nullable();
             $table->enum('transfer_in', ['Transfer in from other TSFP', 'Transfer in from other BSFP'])->nullable();
-            $table->enum('referred_from', ['Referred from BSFP', 'Referred from TSFP'])->nullable();
+            $table->enum('return_from', ['Returned from BSFP', 'Returned from TSFP'])->nullable();
 
             $table->string('outcome')->nullable();
             $table->date('next_visit_date')->nullable();

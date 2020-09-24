@@ -20,6 +20,8 @@ class AddGeneralinfoToFacilityFollowupsTable extends Migration
             $table->integer('complementary_feeding_introduction_time')->nullable();
             $table->string('complementary_feeding_foodtype')->nullable();
             $table->string('outcome')->nullable();
+            $table->date('albendazole_date')->nullable();
+            $table->date('planed_date')->nullable();
 
         });
     }
@@ -38,6 +40,8 @@ class AddGeneralinfoToFacilityFollowupsTable extends Migration
             $table->dropColumn('complementary_feeding_introduction_time');
             $table->dropColumn('complementary_feeding_foodtype');
             $table->dropColumn('outcome');
+            $table->dropColumn('albendazole_date');
+            $table->dropColumn('planed_date');
         });
     }
 }

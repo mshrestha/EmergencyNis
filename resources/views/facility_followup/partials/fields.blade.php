@@ -15,9 +15,15 @@
 					<div class="ibox-content">
 						<div class="form-group row" >
                             <div class="col-md-5">
-                                <label for="">Date</label>
+                                <label for="">Planed Date</label>
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}" />
                                 <input type="hidden" name="children_id" value="{{ $children->sync_id }}" />
+                                <input type="date" name="planed_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->planed_date : '' }}">
+                            </div>
+						{{--</div>--}}
+						{{--<div class="form-group row" >--}}
+                            <div class="col-md-5">
+                                <label for="">Actual Date</label>
                                 <input type="date" name="date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
                             </div>
 						</div>
@@ -338,6 +344,13 @@
                                 <option value="Not applicable" {{ (isset($facility_followup) && $facility_followup->albendazole == 'Not applicable') ? ' selected' : '' }}>Not Applicable</option>
 							</select>
 						</div>
+						<div class="form-group" >
+
+								<label for="">Albendazole Received Date</label>
+								<input type="date" name="albendazole_date" class="form-control" value="{{ isset($facility_followup) ? $facility_followup->albendazole_date : '' }}">
+
+						</div>
+
 						<div class="form-group">
 							<label for="">Received all EPI vaccinations as per schedule</label>
 							<select name="received_all_epi_vaccination" class="form-control">

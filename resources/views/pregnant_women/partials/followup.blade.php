@@ -64,15 +64,15 @@
 
                                 <select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="MAM" id="outcome_mam">
-                                        <option value="New case">New Case</option>
+                                        <option value="MAM New case">MAM New Case</option>
                                         <option value="Follow up visit at TSFP">Follow up visit at TSFP</option>
-                                        <option value="Already admitted at OTP">Already admitted at OTP</option>
-                                        <option value="Referred to TSFP">Referred to TSFP</option>
+                                        <option value="Already in program">Already in program</option>
+                                        <option value="Referred to other TSFP">Referred to other TSFP</option>
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-                                        <option value="New case">New Case</option>
+                                        <option value="Normal New case">Normal New Case</option>
                                         <option value="Already in Program">Already in program</option>
-                                        <option value="Referred to BSFP">Referred to BSFP</option>
+                                        <option value="Referred to other BSFP">Referred to other BSFP</option>
                                         <option value="Follow up visit at BSFP">Follow up visit at BSFP</option>
                                     </optgroup>
 
@@ -141,15 +141,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Referred From</label>
+                            <label class="col-sm-3 control-label">Returned From</label>
                             <div class="col-sm-9">
                                 <select name="referred_from" class="form-control">
                                     <option value="">Please Select Referral</option>
-                                    <option value="Referred from BSFP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Referred from BSFP') ? ' selected' : '' }}>
-                                        Referred from BSFP
+                                    <option value="Returned from BSFP" {{ (isset($pregnant_women) && $pregnant_women->returned_from == 'Returned from BSFP') ? ' selected' : '' }}>
+                                        Returned from BSFP
                                     </option>
-                                    <option value="Referred from TSFP" {{ (isset($pregnant_women) && $pregnant_women->referred_from == 'Referred from TSFP') ? ' selected' : '' }}>
-                                        Referred from TSFP
+                                    <option value="Returned from TSFP" {{ (isset($pregnant_women) && $pregnant_women->returned_from == 'Returned from TSFP') ? ' selected' : '' }}>
+                                        Returned from TSFP
                                     </option>
                                 </select>
                             </div>
