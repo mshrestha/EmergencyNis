@@ -89,11 +89,11 @@
                         <div class="form-group row">
                         <div class="col-md-5">
                                 <label for="">Nutrition Status</label>
-                                <select name="nutritionstatus" class="form-control" id="nutritionstatus"  style="color: white">
+                                <select name="nutritionstatus" class="form-control" id="nutritionstatus"  >
                                     <option value="" >Nutrition Status</option>
-									<option value="SAM" {{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? ' selected' : '' }}>SAM</option>
-									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? ' selected' : '' }}>MAM</option>
-									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? ' selected' : '' }}>Normal</option>
+									<option value="SAM" {{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'SAM') ? 'selected' : '' }}>SAM</option>
+									<option value="MAM"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'MAM') ? 'selected' : '' }}>MAM</option>
+									<option value="Normal"	{{ (isset($facility_followup) && $facility_followup->nutritionstatus == 'Normal') ? 'selected' : '' }}>Normal</option>
 
 							     </select>
                             </div>
@@ -102,27 +102,22 @@
 
 								<select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="SAM" id="outcome_sam">
-                                        <option value="SAM New case" >New case</option>
-                                        <option value="Followup visit at OTP" >Followup visit at OTP</option>
-                                        <option value="Already admitted at TSFP" >Already admitted at TSFP</option>
-                                        <option value="Referred to OTP" >Referred to OTP</option>
-
+										<option value="SAM new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'SAM new case') ? 'selected' : '' }}>SAM new case</option>
+										<option value="Followup visit at OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Followup visit at OTP') ? 'selected' : '' }}>Followup visit at OTP</option>
+										<option value="Already admitted at TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already admitted at TSFP') ? 'selected' : '' }}>Already admitted at TSFP</option>
+										<option value="Referred to OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to OTP') ? 'selected' : '' }}>Referred to OTP</option>
                                     </optgroup>
                                     <optgroup label="MAM" id="outcome_mam">
-										<option value="MAM New case" >New Case</option>
-                                        <option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>
-                                        <option value="Already admitted at OTP" >Already admitted at OTP</option>
-                                        <option value="Referred to TSFP" >Referred to TSFP</option>
-										{{--<optgroup label="New case">--}}
-                                        {{--<option value="Follow up visit at TSFP" >Follow up visit at TSFP</option>--}}
-                                        {{--<option value="Already admitted at TSFP" >Already admitted at TSFP</option>--}}
-                                        {{--<option value="Referred to TSFP" >Referred to TSFP</option>--}}
+										<option value="MAM new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'MAM new case') ? 'selected' : '' }}>MAM new case</option>
+										<option value="Follow up visit at TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Follow up visit at TSFP') ? 'selected' : '' }}>Follow up visit at TSFP</option>
+										<option value="Already admitted at OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already admitted at OTP') ? 'selected' : '' }}>Already admitted at OTP</option>
+										<option value="Referred to TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to TSFP') ? 'selected' : '' }}>Referred to TSFP</option>
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-										<option value="Normal New case" >New Case</option>
-                                        <option value="Already in Program" >Already in program</option>
-                                        <option value="Referred to BSFP" >Referred to BSFP</option>
-                                        <option value="Follow up visit at BSFP" >Follow up visit at BSFP</option>
+										<option value="Normal new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'Normal new case') ? 'selected' : '' }}>Normal new case</option>
+										<option value="Already in Program" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already in Program') ? 'selected' : '' }}>Already in Program</option>
+										<option value="Referred to BSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to BSFP') ? 'selected' : '' }}>Referred to BSFP</option>
+										<option value="Follow up visit at BSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Follow up visit at BSFP') ? 'selected' : '' }}>Follow up visit at BSFP</option>
                                     </optgroup>
 
 

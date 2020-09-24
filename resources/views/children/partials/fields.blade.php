@@ -67,7 +67,7 @@
 				data-live-search="true">
 			<option value="">Select Mother's MOHA ID</option>
 			@foreach($mothers as $mother)
-				<option value="{{ $mother->sync_id }}" {{ (in_array($mother->sync_id, $selected_mother)) ? ' selected' : '' }}>{{ $mother->moha_id }}</option>
+				<option value="{{ $mother->sync_id }}" {{ (in_array($mother->sync_id, $selected_mother)) ? ' selected' : '' }}>{{ $mother->moha_id.' '.$mother->pregnant_women_name }}</option>
 			@endforeach
 		</select>
 	</div>

@@ -38,11 +38,11 @@
         <strong>{{ $child->children_name }}</strong>
         <p>
             ID: {{ $child->sync_id}}<br />
-            MNR: {{ $child->mnr_no}}<br />
+            MOHAID: {{ $child->moha_id}}<br />
             Sex: {{ $child->sex}}<br />
             {{ $child->age }} months old<br />
-            {{ $child->facility['implementing_partner'] }}  {{ $child->facility['service_type'] }}<br/>
-            Block {{ $child->sub_block_no }}, Household {{ $child->hh_no }} <br />
+            {{ $child->facility->name.' '.$child->facility->facility_id }}<br/>
+            Block {{ $child->block.''.$child->sub_block_no }}, Household {{ $child->hh_no }} <br />
 
         </p>
         <div class="row">
