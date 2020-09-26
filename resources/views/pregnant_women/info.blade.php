@@ -11,6 +11,10 @@
 			<button class="btn btn-info btn-circle" type="button"><i class="fa fa-pencil"></i></button>
 		</a>
 
+		<a href="{{ route('pregnant-women-followup.show', $pregnant_women->sync_id) }}" class="edit-btn">
+			<button class="btn btn-default btn-circle" type="button" title="Followup"><i
+						class="fa fa-plus"></i></button>
+		</a>
 		<form action="{{ route('pregnant-women.destroy', $pregnant_women->sync_id) }}" method="post" class="delete-form" style="margin-left: 10px;">
 			@csrf
 			@method('DELETE')

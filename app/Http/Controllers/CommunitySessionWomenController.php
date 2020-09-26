@@ -6,7 +6,7 @@ use App\Models\Volunteer;
 use App\Models\CommunitySessionWomen;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class CommunitySessionWomenController extends Controller
 {
     private $_notify_message = "Successfully saved community session women.";
@@ -57,6 +57,8 @@ class CommunitySessionWomenController extends Controller
     {
         try {
             $data = $request->all();
+            $data['facility_id'] = Auth::user()->facility_id;
+
             //Create sync id
             $latest_community_session = CommunitySessionWomen::orderBy('id', 'desc')->first();
             $app_id = $latest_community_session ? $latest_community_session->id + 1 : 1;

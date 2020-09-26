@@ -48,7 +48,7 @@
                                                     <td class="children-show">{{ $child->mother_caregiver_name }}</td>
                                                     <td class="children-show">{{ $child->fathers_name }}</td>
                                                     <td class="children-show">{{ $child->block.' '.$child->sub_block_no.' '.$child->hh_no }} </td>
-                                                    <td class="children-show">{{ $child->facility->name }} </td>
+                                                    <td class="children-show">{{ $child->facility->facility_id}} </td>
                                                     <td class="children-show">
                                                         @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
                                                             <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>

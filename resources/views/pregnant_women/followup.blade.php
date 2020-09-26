@@ -61,7 +61,12 @@
         load_pregnant_women({{$pregnant_women->sync_id}})
         $(".discharge-criteria-tabs").hide();
         $( "#identification-outcome" ).change(function() {
-            if($("#identification-outcome").val() == 'New case'){
+            if($("#identification-outcome").val() == 'MAM new case'){
+              $("#admission-criteria-tab").show();
+              $(".discharge-criteria-tabs").hide();
+              $("#admission-discharge-tab-heading").text("Admission Criteria")
+            }
+            else if($("#identification-outcome").val() == 'Normal new case'){
               $("#admission-criteria-tab").show();
               $(".discharge-criteria-tabs").hide();
               $("#admission-discharge-tab-heading").text("Admission Criteria")

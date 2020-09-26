@@ -619,11 +619,6 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label>Next visit date</label>
-                            <input type="date" name="next_visit_date" class="form-control"
-                                   value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -800,6 +795,12 @@
                             <input type="number" name="others" class="form-control" placeholder="Others"
                                    value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
                         </div>
+                        <div class="form-group">
+                            <label>Next visit date</label>
+                            <input type="date" name="next_visit_date" class="form-control"
+                                   value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
+                        </div>
+
                     </div>
                 </div>
             </div>

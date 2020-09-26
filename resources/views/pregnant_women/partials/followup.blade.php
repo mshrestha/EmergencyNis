@@ -64,13 +64,13 @@
 
                                 <select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="MAM" id="outcome_mam">
-                                        <option value="MAM New case">MAM New Case</option>
+                                        <option value="MAM new case">MAM New Case</option>
                                         <option value="Follow up visit at TSFP">Follow up visit at TSFP</option>
                                         <option value="Already in program">Already in program</option>
                                         <option value="Referred to other TSFP">Referred to other TSFP</option>
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-                                        <option value="Normal New case">Normal New Case</option>
+                                        <option value="Normal new case">Normal New Case</option>
                                         <option value="Already in Program">Already in program</option>
                                         <option value="Referred to other BSFP">Referred to other BSFP</option>
                                         <option value="Follow up visit at BSFP">Follow up visit at BSFP</option>
@@ -152,13 +152,6 @@
                                         Returned from TSFP
                                     </option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Next visit date</label>
-                            <div class="col-sm-9">
-                                <input type="date" name="next_visit_date" class="form-control"
-                                       value="{{ isset($pregnant_women) ? $pregnant_women->next_visit_date : '' }}">
                             </div>
                         </div>
                     </div>
@@ -328,6 +321,12 @@
                             <input type="number" name="others" class="form-control" placeholder="Others"
                                    value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}" >
                         </div>
+                        <div class="form-group">
+                            <label>Next visit date</label>
+                                <input type="date" name="next_visit_date" class="form-control"
+                                       value="{{ isset($pregnant_women) ? $pregnant_women->next_visit_date : '' }}">
+                        </div>
+
                     </div>
                 </div>
             </div>

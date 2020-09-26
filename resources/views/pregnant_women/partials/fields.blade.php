@@ -13,12 +13,17 @@
 				</div>
 			</div>
 			<div class="ibox-content">
-				<div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>
-					<div class="col-sm-9">
-						<input type="text" name="registration_id" class="form-control" placeholder="Registration ID"
-							   value="{{ isset($pregnant_women) ? $pregnant_women->registration_id : '' }}">
+				{{--<div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>--}}
+					{{--<div class="col-sm-9">--}}
+						{{--<input type="text" name="registration_id" class="form-control" placeholder="Registration ID"--}}
+							   {{--value="{{ isset($pregnant_women) ? $pregnant_women->registration_id : '' }}">--}}
+					{{--</div>--}}
+				{{--</div>--}}
+				<div class="form-group"><label class="col-sm-3 control-label">Registration Date</label>
+					<div class="col-sm-9"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}">
 					</div>
 				</div>
+
 
 				<div class="form-group"><label class="col-sm-3 control-label">MOHA ID</label>
 					<div class="col-sm-9"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
@@ -81,13 +86,13 @@
 				<div class="hr-line-dashed"></div>
 
 				<div class="form-group" >
-					<label class="col-sm-3 control-label">Children's MOHA ID</label>
+					<label class="col-sm-3 control-label">Children's FCN Number</label>
 					<div class="col-sm-9">
 						<select name="children_moha_id[]" class="form-control show-tick selectpicker"
 								data-live-search="true" multiple>
-							<option value="">Select Children's MOHA ID</option>
+							<option value="">Select Children</option>
 							@foreach($children as $child)
-								<option value="{{ $child->sync_id }}" {{ (in_array($child->sync_id, $selected_children)) ? ' selected' : '' }}>{{ $child->moha_id.' '.$child->children_name  }}</option>
+								<option value="{{ $child->sync_id }}" {{ (in_array($child->sync_id, $selected_children)) ? ' selected' : '' }}>{{ $child->family_count_no.' '.$child->children_name  }}</option>
 							@endforeach
 						</select>
 					</div>
@@ -105,7 +110,7 @@
 				</div>
 				<div class="form-group"><label class="col-sm-3 control-label">Father's Name</label>
 					<div class="col-sm-9"><input type="text" class="form-control" name="fathers_name" placeholder="Father's Name"
-												 value="{{ isset($pregnant_women) ? $pregnant_women->fathers_name : '' }}" required>
+												 value="{{ isset($pregnant_women) ? $pregnant_women->fathers_name : '' }}" >
 					</div>
 				</div>
 				<div class="form-group"><label class="col-sm-3 control-label">Age</label>
