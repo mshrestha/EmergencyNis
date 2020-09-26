@@ -780,7 +780,7 @@
                                    value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}"
                                    min="0">
                         </div>
-                        <div class="form-group wsbpp" id="wsbpp">
+                        <div class="form-group wsbpp" id="wsbp">
                             <label for="">Super Cerial Plus (WSB++)(kg)</label>
                             <input type="number" name="wsb_plus_plus_kg" class="form-control"
                                    placeholder="Super Cerial Plus (WSB++)(kg)"
