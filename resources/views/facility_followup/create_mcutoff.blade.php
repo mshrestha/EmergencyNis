@@ -60,15 +60,15 @@
         load_child({{$children->sync_id}})
         $(".discharge-criteria-tabs").hide();
         $("#identification-outcome").change(function () {
-            if ($("#identification-outcome").val() == 'SAM new case') {
+            if ($("#identification-outcome").val() == 'SAM New case') {
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
-            } else if ($("#identification-outcome").val() == 'MAM new case') {
+            } else if ($("#identification-outcome").val() == 'MAM New case') {
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
-            } else if ($("#identification-outcome").val() == 'Normal new case') {
+            } else if ($("#identification-outcome").val() == 'Normal New case') {
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
@@ -154,35 +154,44 @@
                 childSex: child_sex,
                 _token: $("input[name='_token']").val()
             };
-            $.get(url, sendData, function (data) {
+            var ns = 'Normal';
+            var nsColor = '#21b9bb';
+            if (child_muac < 13){ns='MAM'; nsColor = 'Orange'; }
+            if (child_muac < 12){ns='SAM'; nsColor = 'Red'; }
+            //$.get(url, sendData, function (data) {
 //                console.log(data)
-                var ns = data.nutritionstatus;
+                //var ns = data.nutritionstatus;
 //                console.log(ns)
-                $("#nutritionstatus").val(data.nutritionstatus)
-                    .css('background-color', data.nutritionstatusColor);
-                if (ns == 'SAM') {
-                    $("#outcome_mam").hide();
+
+                    $("#nutritionstatus").val(ns)
+                        .css('background-color', nsColor);
+                if(ns=='SAM') {                    $("#outcome_mam").hide();
                     $("#outcome_normal").hide();
                     $("#outcome_sam").show();
+
                     $("#wsbp").hide();
 //                    $("#wsbpp").hide();
                     $("#rusf").hide();
                     $("#rutf").show();
                     $("#others").show();
+
                 }
                 else if (ns == 'MAM') {
                     $("#outcome_mam").show();
                     $("#outcome_sam").hide();
                     $("#outcome_normal").hide();
+
                     $("#wsbp").hide();
 //                    $("#wsbpp").hide();
                     $("#rutf").hide();
                     $("#rusf").show();
                     $("#others").show();
+
                 } else if (ns == 'Normal') {
                     $("#outcome_normal").show();
                     $("#outcome_sam").hide();
                     $("#outcome_mam").hide();
+
                     $("#rutf").hide();
                     $("#rusf").hide();
                     $("#wsbp").show();
@@ -193,13 +202,15 @@
                     $("#outcome_normal").show();
                     $("#outcome_sam").show();
                     $("#outcome_mam").show();
+
                     $("#rutf").show();
                     $("#rusf").show();
                     $("#wsbp").show();
 //                    $("#wsbpp").show();
                     $("#others").show();
                 }
-            }, 'json')
+
+            //}, 'json')
         }
     });
 

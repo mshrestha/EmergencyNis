@@ -374,11 +374,13 @@ class HomeController extends Controller
                                         $result = '> 3SD';
         }
 
-        if ($input_oedema == '+' || $input_oedema == '++' || $input_oedema == '+++' || $result== '< - 3SD' || $input_muac < 11.5){
+//        if ($input_oedema == '+' || $input_oedema == '++' || $input_oedema == '+++' || $result== '< - 3SD' || $input_muac < 11.5){ //26/09/2020
+        if ($input_oedema == '+' || $input_oedema == '++' || $input_oedema == '+++' || $result== '< - 3SD' || $input_muac < 12){
             $nStatus = 'SAM';
             $nStatusColor = '#FF0099';
         }
-        elseif ($result== '< - 2SD' || $result== '> - 3SD' || $result== '= - 3SD' || $input_muac >= 11.5 && $input_muac <= 12.4) {
+//        elseif ($result== '< - 2SD' || $result== '> - 3SD' || $result== '= - 3SD' || $input_muac >= 11.5 && $input_muac <= 12.4) { //26/09/2020
+        elseif ($result== '< - 2SD' || $result== '> - 3SD' || $result== '= - 3SD' || $input_muac >= 12 && $input_muac <= 12.9) {
             $nStatus = 'MAM';
             $nStatusColor = 'orange';
         }

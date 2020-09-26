@@ -312,21 +312,21 @@
                     </div>
                     <div class="ibox-content">
                         <div class="form-group">
-                            <label for="">Super Cereal WSB+ (kg)</label>
+                            <label for="">Super Cereal (WSB+)(kg)</label>
                             <input type="number" name="wsb_plus_kg" class="form-control"
-                                   placeholder="Super Cereal WSB+ (kg)"
+                                   placeholder="Super Cereal (WSB+)(kg)"
                                    value="{{ isset($pregnant_followup) ? $pregnant_followup->wsb_plus_kg : '' }}"
-                                   min="0">
+                                   >
                         </div>
                         <div class="form-group">
                             <label for="">Oil (kg)</label>
                             <input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)"
-                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->oil_kg : '' }}" min="0">
+                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->oil_kg : '' }}" >
                         </div>
                         <div class="form-group">
                             <label for="">Others</label>
                             <input type="number" name="others" class="form-control" placeholder="Others"
-                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}" min="0">
+                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}" >
                         </div>
                     </div>
                 </div>
