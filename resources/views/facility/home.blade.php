@@ -20,22 +20,32 @@
                     <table class="table dataTables table-striped table-bordered table-hover">
                         <thead>
                             <tr>
+                                <th>S/N</th>
+                                <th>Name</th>
                                 <th>Facility ID</th>
                                 <th>Camp</th>
-                                <th>Implementing Partner</th>
-                                <th>Program Partner</th>
-                                <th>Service Type</th>
+                                <th>Implementing<br/> Partner</th>
+                                <th>Program<br/> Partner</th>
+                                <th>Service<br/> Type</th>
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($facilities as $facility)
+                            @foreach($facilities as $key=>$facility)
                             <tr class="facility-client" data-facility-id={{ $facility->id }}>
-                                <td><a class="client-link">{{ $facility->facility_id }}</a></td>
+                                <td>{{ $key+1 }}</td>
+                                <td>{{ $facility->name }}</td>
+                                <td>{{ $facility->facility_id }}</td>
                                 <td>{{ $facility->camp->name }}</td>
-                                <td><i class="fa fa-flag"></i> {{ $facility->implementing_partner }}</td>
-                                <td><i class="fa fa-flag"></i> {{ $facility->program_partner }}</td>
-                                <td class="client-status"><span class="label label-warning">{{ $facility->service_type }}</span></td>
+                                <td>
+                                    {{($facility->ip_id!=null) ? $facility->ip->name :''}}
+                                </td>
+                                <td> {{($facility->pp_id!=null) ? $facility->pp->name :''}} </td>
+                                <td >
+                                    @foreach($facility->services as $service)
+                                        {{$service->name.', '}}
+                                     @endforeach
+                                </td>
                                 <td>
                                     <a href="{{ route('facility.edit', $facility->id) }}" class="edit-btn">
 

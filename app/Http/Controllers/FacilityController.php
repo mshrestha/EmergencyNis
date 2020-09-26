@@ -25,8 +25,7 @@ class FacilityController extends Controller
     public function index()
     {
         
-        $facilities = Facility::orderBy('created_at', 'asc')
-            ->get();
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
 
 //        dd($facilities);
     	
