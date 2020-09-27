@@ -18,7 +18,7 @@ class FacilityFollowup extends Model
         'discharge_criteria_others', 'discharge_weight_kg', 'lowest_weight_kg', 'duration_between_lowest_weight_and_discharged_weight_days',
         'gain_of_weight', 'duration_between_discharged_and_admission_days', 'measles','nutritionstatus','continued_breastfeeding',
         'received_all_epi_vaccination','complementary_feeding_frequency','complementary_feeding_introduction_time','complementary_feeding_foodtype',
-        'outcome'
+        'outcome','medical_complecation'
 
 
     ];
