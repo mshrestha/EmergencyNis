@@ -22,7 +22,16 @@ class PregnantWomenController extends Controller
      */
     public function index()
     {
-        $pregnant_womens = PregnantWomen::orderby('created_at', 'desc')->get();
+        if(Auth::user()->facility_id){
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+//            dd($facility->id);
+            $pregnant_womens = PregnantWomen::orderby('created_at', 'desc')->where('facility_id', $facility->id)->get();
+
+        }else{
+            $pregnant_womens = PregnantWomen::orderby('created_at', 'desc')->get();
+        }
+
+//        $pregnant_womens = PregnantWomen::orderby('created_at', 'desc')->get();
 
         return view('pregnant_women.index', compact('pregnant_womens'));
     }

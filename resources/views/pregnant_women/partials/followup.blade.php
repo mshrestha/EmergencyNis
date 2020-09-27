@@ -129,12 +129,12 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Transfer in</label>
                             <div class="col-sm-9">
-                                <select name="transfer_in_from" class="form-control">
+                                <select name="transfer_in" class="form-control">
                                     <option value="">Select transfer in</option>
-                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from other TSFP') ? ' selected' : '' }}>
+                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in == 'Transfer in from other TSFP') ? ' selected' : '' }}>
                                         Transfer in from other TSFP
                                     </option>
-                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from other BSFP') ? ' selected' : '' }}>
+                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in == 'Transfer in from other BSFP') ? ' selected' : '' }}>
                                         Transfer in from other BSFP
                                     </option>
                                 </select>
@@ -247,7 +247,7 @@
                         <div class="form-group">
                             <label for="">Nutrition Education</label>
                             <select name="nutrition_education" class="form-control">
-                                <option value="">Select Nutrition Education</option>
+                                <option value="0">Select Nutrition Education</option>
                                 <option value="1" {{ (isset($pregnant_followup) && $pregnant_followup->nutrition_education == '1') ? ' selected' : '' }}>
                                     Yes
                                 </option>
@@ -259,7 +259,7 @@
                         <div class="form-group">
                             <label for="">Nutrition Counseling </label>
                             <select name="nutrition_counseling" class="form-control">
-                                <option value="">Select Nutrition Counseling</option>
+                                <option value="0">Select Nutrition Counseling</option>
                                 <option value="1" {{ (isset($pregnant_followup) && $pregnant_followup->nutrition_counseling == '1') ? ' selected' : '' }}>
                                     Yes
                                 </option>
@@ -276,7 +276,7 @@
                         <div class="form-group">
                             <label for="">Received Iron/Folic Tab.</label>
                             <select name="nutrition_education" class="form-control">
-                                <option value="">Received Iron/Folic Tab.</option>
+                                <option value="0">Received Iron/Folic Tab.</option>
                                 <option value="1" {{ (isset($pregnant_followup) && $pregnant_followup->receive_iron_folic == '1') ? ' selected' : '' }}>
                                     Yes
                                 </option>
