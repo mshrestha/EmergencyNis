@@ -523,15 +523,22 @@
                     {{--<div class="col-sm-6" >--}}
                         {{--<input style="display: inline" type="radio" name="complicacy_found" value="1" {{ (isset($child) && $child->sex == '1') ? ' checked' : '' }}> Yes--}}
                         {{--<input style="display: inline" type="radio" name="complicacy_found" value="0" {{ (isset($child) && $child->sex == '0') ? ' checked' : '' }}> No--}}
+                        &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="0" />
+                        <label style="display: inline">No medical complecation</label>
+                        &nbsp; &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="1" />
+                        <label style="display: inline">Medical complecation (Referred to SC)</label>
+                        &nbsp; &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="2" />
+                        <label style="display: inline">Medical complecation (Keep in OTP)</label>
                     {{--</div>--}}
-                {{--</div>--}}
-                    &nbsp; &nbsp; &nbsp; <input type="checkbox" name="medical_complecation" value="0"/>
-                    <label >No medical complecation</label>
-                &nbsp; &nbsp; &nbsp; <input type="checkbox" name="medical_complecation" value="1"/>
-                <label >Medical complecation (Referred to SC)</label>
-                &nbsp; &nbsp; &nbsp; <input type="checkbox" name="medical_complecation" value="2"/>
-                <label >Medical complecation (Keep in OTP)</label>
-            </div>
+                </div>
+                {{--<div class="form-group" >--}}
+                    {{--&nbsp; &nbsp; &nbsp; <input type="radio" name="medical_complecation" value="0" class="form-control"/>--}}
+                    {{--<label >No medical complecation</label>--}}
+                {{--&nbsp; &nbsp; &nbsp; <input type="radio" name="medical_complecation" value="1" class="form-control"/>--}}
+                {{--<label >Medical complecation (Referred to SC)</label>--}}
+                {{--&nbsp; &nbsp; &nbsp; <input type="radio" name="medical_complecation" value="2" class="form-control"/>--}}
+                {{--<label >Medical complecation (Keep in OTP)</label>--}}
+            {{--</div>--}}
             </div>
 
         </div>

@@ -143,12 +143,12 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Returned From</label>
                             <div class="col-sm-9">
-                                <select name="referred_from" class="form-control">
+                                <select name="return_from" class="form-control">
                                     <option value="">Please Select Referral</option>
-                                    <option value="Returned from BSFP" {{ (isset($pregnant_women) && $pregnant_women->returned_from == 'Returned from BSFP') ? ' selected' : '' }}>
+                                    <option value="Returned from BSFP" {{ (isset($pregnant_women) && $pregnant_women->return_from == 'Returned from BSFP') ? ' selected' : '' }}>
                                         Returned from BSFP
                                     </option>
-                                    <option value="Returned from TSFP" {{ (isset($pregnant_women) && $pregnant_women->returned_from == 'Returned from TSFP') ? ' selected' : '' }}>
+                                    <option value="Returned from TSFP" {{ (isset($pregnant_women) && $pregnant_women->return_from == 'Returned from TSFP') ? ' selected' : '' }}>
                                         Returned from TSFP
                                     </option>
                                 </select>
