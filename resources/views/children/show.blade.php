@@ -69,10 +69,10 @@
 	                                    @csrf
 	                                    @method('DELETE')
 
-	                                    <button type="submit" onclick="return confirm('Are you sure?')" style="background: none;border: none;color: #a94442;outline: none;padding: 0;">Delete</button>
+	                                    <button type="submit" onclick="return confirm('Are you sure?')" style="background: none;border: none;color: black;outline: none;padding: 0;">Delete</button>
 	                                </form>
 
-                                    <a href="{{ route('facility-followup.edit', $followup['sync_id']) }}" style="margin-left: 10px;">Edit</a>
+                                    <a href="{{ route('facility-followup.edit', $followup['sync_id']) }}" style="margin-left: 10px; color: black">Edit</a>
                                 </span>
                             </div>
                             @elseif(array_key_exists('deworming', $followup))

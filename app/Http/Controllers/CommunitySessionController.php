@@ -6,6 +6,7 @@ use App\Models\Volunteer;
 use App\Models\CommunitySession;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class CommunitySessionController extends Controller
 {
@@ -56,6 +57,8 @@ class CommunitySessionController extends Controller
 
             $result = $request->all();
             $data = array_filter($result);
+            $data['facility_id'] = Auth::user()->facility_id;
+
 
             // IF NEW COMMUNITY SESSION
             if(!$community_session) {

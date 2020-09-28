@@ -80,7 +80,7 @@
                                 <label for="">Weight (kg)</label>
                                 <input type="number" name="weight" class="form-control" placeholder="Weight (kg)"
                                        id="child_weight"
-                                       value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0"
+                                       value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0.1"
                                        step="0.1">
                             </div>
                             <div class="col-md-3">
@@ -88,7 +88,7 @@
                                 <input type="number" name="height" class="form-control" placeholder="Height (cm)"
                                        id="child_height"
                                        value="{{ isset($facility_followup) ? $facility_followup->height : '' }}" min="0"
-                                       step="0.5">
+                                       step="0.1">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -152,8 +152,8 @@
                                         <option value="Already admitted at TSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already admitted at TSFP') ? 'selected' : '' }}>
                                             Already admitted at TSFP
                                         </option>
-                                        <option value="Referred to OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to OTP') ? 'selected' : '' }}>
-                                            Referred to OTP
+                                        <option value="Referred to Other OTP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to Other OTP') ? 'selected' : '' }}>
+                                            Referred to Other OTP
                                         </option>
                                     </optgroup>
                                     <optgroup label="MAM" id="outcome_mam">
@@ -174,8 +174,8 @@
                                         <option value="Normal new case" {{ (isset($facility_followup) && $facility_followup->outcome == 'Normal new case') ? 'selected' : '' }}>
                                             Normal new case
                                         </option>
-                                        <option value="Already in Program" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already in Program') ? 'selected' : '' }}>
-                                            Already in Program
+                                        <option value="Already in TSFP Program" {{ (isset($facility_followup) && $facility_followup->outcome == 'Already in TSFP Program') ? 'selected' : '' }}>
+                                            Already in TSFP Program
                                         </option>
                                         <option value="Referred to BSFP" {{ (isset($facility_followup) && $facility_followup->outcome == 'Referred to BSFP') ? 'selected' : '' }}>
                                             Referred to BSFP
@@ -262,28 +262,28 @@
                                 <input type="number" name="medical_history_diarrhoea" class="form-control"
                                        placeholder="Diarrhoea (no of days)"
                                        value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}"
-                                       min="0">
+                                       min="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label for="">Vomiting (no of days)</label>
                                 <input type="number" name="medical_history_vomiting" class="form-control"
                                        placeholder="Vomiting (no of days)"
                                        value="{{ isset($facility_followup) ? $facility_followup->medical_history_vomiting : '' }}"
-                                       min="0">
+                                       min="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label for="">Fever (no of days)</label>
                                 <input type="number" name="medical_history_fever" class="form-control"
                                        placeholder="Fever (no of days)"
                                        value="{{ isset($facility_followup) ? $facility_followup->medical_history_fever : '' }}"
-                                       min="0">
+                                       min="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label for="">Cough (no of days)</label>
                                 <input type="number" name="medical_history_cough" class="form-control"
                                        placeholder="Cough (no of days)"
                                        value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}"
-                                       min="0">
+                                       min="0" step="1">
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -300,7 +300,7 @@
                                         <input type="number" name="medical_history_others" class="form-control"
                                                placeholder="Others (specific)(no of days)"
                                                value="{{ isset($facility_followup) ? $facility_followup->medical_history_others : '' }}"
-                                               min="0">
+                                               min="0" step="1">
                                     </div>
                                 </div>
                             </div>
@@ -334,7 +334,7 @@
                                 <input type="number" name="respiratory_rate" class="form-control"
                                        placeholder="Respiratory rate (breaths/min)"
                                        value="{{ isset($facility_followup) ? $facility_followup->respiratory_rate : '' }}"
-                                       min="0">
+                                       min="0" step="1">
                             </div>
 
                             <div class="form-group">
@@ -525,8 +525,12 @@
                         {{--<input style="display: inline" type="radio" name="complicacy_found" value="0" {{ (isset($child) && $child->sex == '0') ? ' checked' : '' }}> No--}}
                     {{--</div>--}}
                 {{--</div>--}}
-                &nbsp; &nbsp; &nbsp; <input type="checkbox" name="referred_sc"/>
-                <label >Referred to SC due to medical complecation (Only applicable for first visit)</label>
+                    &nbsp; &nbsp; &nbsp; <input type="checkbox" name="medical_complecation" value="0"/>
+                    <label >No medical complecation</label>
+                &nbsp; &nbsp; &nbsp; <input type="checkbox" name="medical_complecation" value="1"/>
+                <label >Medical complecation (Referred to SC)</label>
+                &nbsp; &nbsp; &nbsp; <input type="checkbox" name="medical_complecation" value="2"/>
+                <label >Medical complecation (Keep in OTP)</label>
             </div>
             </div>
 
@@ -618,11 +622,6 @@
                                     Inpatient Treatement
                                 </option>
                             </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Next visit date</label>
-                            <input type="date" name="next_visit_date" class="form-control"
-                                   value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
                         </div>
                     </div>
                 </div>
@@ -719,14 +718,14 @@
                             <input type="number" name="discharge_weight_kg" class="form-control"
                                    placeholder="Discharge weight (kg)"
                                    value="{{ isset($facility_followup) ? $facility_followup->discharge_weight_kg : '' }}"
-                                   min="0">
+                                   min="0" step="0.1">
                         </div>
                         <div class="form-group">
                             <label for="">Lowest weight (kg)</label>
                             <input type="number" name="lowest_weight_kg" class="form-control"
                                    placeholder="Lowest weight (kg)"
                                    value="{{ isset($facility_followup) ? $facility_followup->lowest_weight_kg : '' }}"
-                                   min="0">
+                                   min="0" step="0.1">
                         </div>
                         <div class="form-group">
                             <label for="">Duration between lowest weight and discharged weight (days)</label>
@@ -740,7 +739,7 @@
                             <label for="">Gain of weight</label>
                             <input type="number" name="gain_of_weight" class="form-control" placeholder="Gain of weight"
                                    value="{{ isset($facility_followup) ? $facility_followup->gain_of_weight : '' }}"
-                                   min="0">
+                                   min="0" step="0.1">
                         </div>
                         <div class="form-group">
                             <label for="">Duration between discharged and admission days (LOS) (days)</label>
@@ -780,12 +779,12 @@
                                    value="{{ isset($facility_followup) ? $facility_followup->no_of_rusf : '' }}"
                                    min="0">
                         </div>
-                        <div class="form-group wsbpp" id="wsbpp">
+                        <div class="form-group wsbpp" id="wsbp">
                             <label for="">Super Cerial Plus (WSB++)(kg)</label>
                             <input type="number" name="wsb_plus_plus_kg" class="form-control"
                                    placeholder="Super Cerial Plus (WSB++)(kg)"
                                    value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_plus_kg : '' }}"
-                                   min="0">
+                                   min="0.5" step="0.5">
                         </div>
                         {{--<div class="form-group wsbp" id="wsbp">--}}
                         {{--<label for="">WSB+ (kg)</label>--}}
@@ -800,6 +799,12 @@
                             <input type="number" name="others" class="form-control" placeholder="Others"
                                    value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
                         </div>
+                        <div class="form-group">
+                            <label>Next visit date</label>
+                            <input type="date" name="next_visit_date" class="form-control"
+                                   value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
+                        </div>
+
                     </div>
                 </div>
             </div>

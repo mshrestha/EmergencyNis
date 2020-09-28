@@ -60,22 +60,33 @@
         load_child({{$children->sync_id}})
         $(".discharge-criteria-tabs").hide();
         $("#identification-outcome").change(function () {
+//             io = $("#identification-outcome").val();
+//            console.log($("#identification-outcome").val())
             if ($("#identification-outcome").val() == 'SAM new case') {
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
+//                $("#rutf").show();
             } else if ($("#identification-outcome").val() == 'MAM new case') {
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
+//                $("#rutf").hide();
             } else if ($("#identification-outcome").val() == 'Normal new case') {
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
+//                $("#rutf").hide();
+//            } else if ($("#identification-outcome").val() == 'Already admitted at OTP') {
+//                $("#admission-criteria-tab").hide();
+//                $(".discharge-criteria-tabs").show();
+//                $("#admission-discharge-tab-heading").text("Discharge Criteria")
+//                $("#rutf").show();
             } else {
                 $("#admission-criteria-tab").hide();
                 $(".discharge-criteria-tabs").show();
                 $('#admission-discharge-tab-heading').text("Discharge Criteria")
+//                $("#rutf").hide();
             }
 
         });
@@ -154,10 +165,13 @@
                 childSex: child_sex,
                 _token: $("input[name='_token']").val()
             };
+//            $("#identification-outcome").change(function () {
+//                var io = $("#identification-outcome").val();
+//            });
             $.get(url, sendData, function (data) {
 //                console.log(data)
                 var ns = data.nutritionstatus;
-//                console.log(ns)
+//                console.log(io)
                 $("#nutritionstatus").val(data.nutritionstatus)
                     .css('background-color', data.nutritionstatusColor);
                 if (ns == 'SAM') {
@@ -176,15 +190,16 @@
                     $("#outcome_normal").hide();
                     $("#wsbp").hide();
 //                    $("#wsbpp").hide();
-                    $("#rutf").hide();
+                    $("#rutf").show();
                     $("#rusf").show();
                     $("#others").show();
-                } else if (ns == 'Normal') {
+                }
+                else if (ns == 'Normal') {
                     $("#outcome_normal").show();
                     $("#outcome_sam").hide();
                     $("#outcome_mam").hide();
                     $("#rutf").hide();
-                    $("#rusf").hide();
+                    $("#rusf").show();
                     $("#wsbp").show();
 //                    $("#wsbpp").show();
                     $("#others").show();
@@ -199,7 +214,6 @@
 //                    $("#wsbpp").show();
                     $("#others").show();
                 }
-
             }, 'json')
         }
     });

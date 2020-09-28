@@ -64,13 +64,13 @@
 
                                 <select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="MAM" id="outcome_mam">
-                                        <option value="MAM New case">MAM New Case</option>
+                                        <option value="MAM new case">MAM New Case</option>
                                         <option value="Follow up visit at TSFP">Follow up visit at TSFP</option>
                                         <option value="Already in program">Already in program</option>
                                         <option value="Referred to other TSFP">Referred to other TSFP</option>
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
-                                        <option value="Normal New case">Normal New Case</option>
+                                        <option value="Normal new case">Normal New Case</option>
                                         <option value="Already in Program">Already in program</option>
                                         <option value="Referred to other BSFP">Referred to other BSFP</option>
                                         <option value="Follow up visit at BSFP">Follow up visit at BSFP</option>
@@ -129,12 +129,12 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Transfer in</label>
                             <div class="col-sm-9">
-                                <select name="transfer_in_from" class="form-control">
+                                <select name="transfer_in" class="form-control">
                                     <option value="">Select transfer in</option>
-                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from other TSFP') ? ' selected' : '' }}>
+                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in == 'Transfer in from other TSFP') ? ' selected' : '' }}>
                                         Transfer in from other TSFP
                                     </option>
-                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in_from == 'Transfer in from other BSFP') ? ' selected' : '' }}>
+                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in == 'Transfer in from other BSFP') ? ' selected' : '' }}>
                                         Transfer in from other BSFP
                                     </option>
                                 </select>
@@ -152,13 +152,6 @@
                                         Returned from TSFP
                                     </option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Next visit date</label>
-                            <div class="col-sm-9">
-                                <input type="date" name="next_visit_date" class="form-control"
-                                       value="{{ isset($pregnant_women) ? $pregnant_women->next_visit_date : '' }}">
                             </div>
                         </div>
                     </div>
@@ -254,7 +247,7 @@
                         <div class="form-group">
                             <label for="">Nutrition Education</label>
                             <select name="nutrition_education" class="form-control">
-                                <option value="">Select Nutrition Education</option>
+                                <option value="0">Select Nutrition Education</option>
                                 <option value="1" {{ (isset($pregnant_followup) && $pregnant_followup->nutrition_education == '1') ? ' selected' : '' }}>
                                     Yes
                                 </option>
@@ -266,7 +259,7 @@
                         <div class="form-group">
                             <label for="">Nutrition Counseling </label>
                             <select name="nutrition_counseling" class="form-control">
-                                <option value="">Select Nutrition Counseling</option>
+                                <option value="0">Select Nutrition Counseling</option>
                                 <option value="1" {{ (isset($pregnant_followup) && $pregnant_followup->nutrition_counseling == '1') ? ' selected' : '' }}>
                                     Yes
                                 </option>
@@ -283,7 +276,7 @@
                         <div class="form-group">
                             <label for="">Received Iron/Folic Tab.</label>
                             <select name="nutrition_education" class="form-control">
-                                <option value="">Received Iron/Folic Tab.</option>
+                                <option value="0">Received Iron/Folic Tab.</option>
                                 <option value="1" {{ (isset($pregnant_followup) && $pregnant_followup->receive_iron_folic == '1') ? ' selected' : '' }}>
                                     Yes
                                 </option>
@@ -328,6 +321,12 @@
                             <input type="number" name="others" class="form-control" placeholder="Others"
                                    value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}" >
                         </div>
+                        <div class="form-group">
+                            <label>Next visit date</label>
+                                <input type="date" name="next_visit_date" class="form-control"
+                                       value="{{ isset($pregnant_women) ? $pregnant_women->next_visit_date : '' }}">
+                        </div>
+
                     </div>
                 </div>
             </div>

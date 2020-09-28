@@ -1,3 +1,8 @@
+<div class="form-group"><label class="col-sm-3 control-label">Registration Date</label>
+	<div class="col-sm-9"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}">
+	</div>
+</div>
+
 <div class="form-group"><label class="col-sm-3 control-label">MOHA ID</label>
 	<div class="col-sm-9"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
 		value="{{ isset($child) ? $child->moha_id : '' }}">
@@ -61,13 +66,13 @@
 <div class="hr-line-dashed"></div>
 
 <div class="form-group" >
-	<label class="col-sm-3 control-label">Mother's MOHA ID</label>
+	<label class="col-sm-3 control-label">Mother's FCN Number</label>
 	<div class="col-sm-9">
 		<select name="mother_moha_id" class="form-control show-tick selectpicker"
 				data-live-search="true">
-			<option value="">Select Mother's MOHA ID</option>
+			<option value="">Select Mother</option>
 			@foreach($mothers as $mother)
-				<option value="{{ $mother->sync_id }}" {{ (in_array($mother->sync_id, $selected_mother)) ? ' selected' : '' }}>{{ $mother->moha_id.' '.$mother->pregnant_women_name }}</option>
+				<option value="{{ $mother->sync_id }}" {{ (in_array($mother->sync_id, $selected_mother)) ? ' selected' : '' }}>{{ $mother->family_count_no.' '.$mother->pregnant_women_name }}</option>
 			@endforeach
 		</select>
 	</div>

@@ -40,7 +40,7 @@
                                                 <td>{{ $pregnant_women->pregnant_women_name }}</td>
                                                 <td>{{ $pregnant_women->block.' '.$pregnant_women->sub_block_no.' '.$pregnant_women->hh_no }} </td>
 
-                                                <td>{{ $pregnant_women->facility->name }}</td>
+                                                <td>{{ $pregnant_women->facility->facility_id}}</td>
                                                 <td>
                                                     <a href="{{ route('pregnant-women-followup.show', $pregnant_women->sync_id) }}"class="edit-btn">
                                                      <button class="btn btn-default btn-circle" type="button" title="Followup"><i
