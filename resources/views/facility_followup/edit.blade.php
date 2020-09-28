@@ -14,7 +14,7 @@
 <div class="wrapper wrapper-content  animated fadeInRight">
 	<div class="row">
 		<div class="col-lg-8">
-			<form action="{{ route('facility-followup.update', $facility_followup->id) }}" method="post" id="followupform">
+			<form action="{{ route('facility-followup.update', $facility_followup->sync_id) }}" method="post" id="followupform">
 				@csrf
 				@method('PATCH')
 				@include('facility_followup.partials.fields')
