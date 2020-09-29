@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function() {
 	Route::get('/child-search', 'HomeController@childSearch')->name('child-search');
 	Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
 
+    Route::get('register_selected_facility/{facility}', 'RegisterController@register_selected_facility')->name('register_selected_facility');
     Route::get('register', 'RegisterController@index')->name('register');
 	Route::get('register-iycf', 'RegisterController@iycf')->name('register-iycf');
 

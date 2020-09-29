@@ -9,20 +9,41 @@ use App\Models\FacilityFollowup;
 use App\Models\CommunityFollowup;
 
 use Illuminate\Http\Request;
+use DB;
 
 class RegisterController extends Controller
 {
     public function index() {
         if(Auth::user()->facility_id){
             $facility = Facility::findOrFail(Auth::user()->facility_id);
+            $camp_facilities=DB::table('facilities')->where('camp_id', $facility->camp_id)->get();
+//            dd($camp_facilities);
             $children = Child::with(['facility', 'facility_followup'])->where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->limit(100)->get();
         }else{
             $children = Child::with(['facility', 'facility_followup'])->orderBy('created_at', 'desc')->get();
+            $camp_facilities=DB::table('facilities')->get();
         }
 
-        $facilities = Facility::orderBy('created_at', 'desc')->get();
+//        $facilities = Facility::orderBy('created_at', 'desc')->get();
+//        $camp_facilities=DB::table('facilities')->where('camp_id', $facility->camp_id)->get();
 
-        return view('register.home', compact('children', 'facilities'));
+        return view('register.home', compact('children', 'facilities','camp_facilities'));
+    }
+
+    public function register_selected_facility($facility) {
+
+        if(Auth::user()->facility_id){
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+            $camp_facilities=DB::table('facilities')->where('camp_id', $facility->camp_id)->get();
+            $children = Child::with(['facility', 'facility_followup'])->where('facility_id', $facility->id)->orderBy('created_at', 'desc')->limit(100)->get();
+        }else{
+//            dd($facility);
+            $children = Child::with(['facility', 'facility_followup'])->where('facility_id', $facility)->orderBy('created_at', 'desc')->limit(100)->get();
+//            dd($children);
+            $camp_facilities=DB::table('facilities')->get();
+        }
+
+        return view('register.home', compact('children', 'facilities','camp_facilities'));
     }
 
     public function iycf() {

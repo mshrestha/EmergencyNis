@@ -523,11 +523,11 @@
                     {{--<div class="col-sm-6" >--}}
                         {{--<input style="display: inline" type="radio" name="complicacy_found" value="1" {{ (isset($child) && $child->sex == '1') ? ' checked' : '' }}> Yes--}}
                         {{--<input style="display: inline" type="radio" name="complicacy_found" value="0" {{ (isset($child) && $child->sex == '0') ? ' checked' : '' }}> No--}}
-                        &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="0" />
+                    &nbsp; &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="0" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '0') ? ' checked' : '' }}/>
                         <label style="display: inline">No medical complecation</label>
-                        &nbsp; &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="1" />
+                        <input style="display: inline" type="radio" name="medical_complecation" value="1" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '1') ? ' checked' : '' }}/>
                         <label style="display: inline">Medical complecation (Referred to SC)</label>
-                        &nbsp; &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="2" />
+                        <input style="display: inline" type="radio" name="medical_complecation" value="2" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '2') ? ' checked' : '' }}/>
                         <label style="display: inline">Medical complecation (Keep in OTP)</label>
                     {{--</div>--}}
                 </div>
