@@ -18,9 +18,9 @@ class RegisterController extends Controller
             $facility = Facility::findOrFail(Auth::user()->facility_id);
             $camp_facilities=DB::table('facilities')->where('camp_id', $facility->camp_id)->get();
 //            dd($camp_facilities);
-            $children = Child::with(['facility', 'facility_followup'])->where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->limit(100)->get();
+            $children = Child::with(['facility', 'facility_followup'])->where('camp_id', $facility->camp_id)->orderBy('created_at', 'desc')->get();
         }else{
-            $children = Child::with(['facility', 'facility_followup'])->orderBy('created_at', 'desc')->get();
+            $children = Child::with(['facility', 'facility_followup'])->orderBy('created_at', 'desc')->limit(500)->get();
             $camp_facilities=DB::table('facilities')->get();
         }
 
@@ -30,15 +30,16 @@ class RegisterController extends Controller
         return view('register.home', compact('children', 'facilities','camp_facilities'));
     }
 
-    public function register_selected_facility($facility) {
+    public function register_selected_facility($fac) {
+//        dd($facility);
 
         if(Auth::user()->facility_id){
             $facility = Facility::findOrFail(Auth::user()->facility_id);
             $camp_facilities=DB::table('facilities')->where('camp_id', $facility->camp_id)->get();
-            $children = Child::with(['facility', 'facility_followup'])->where('facility_id', $facility->id)->orderBy('created_at', 'desc')->limit(100)->get();
+            $children = Child::where('facility_id', $fac)->orderBy('created_at', 'desc')->get();
         }else{
 //            dd($facility);
-            $children = Child::with(['facility', 'facility_followup'])->where('facility_id', $facility)->orderBy('created_at', 'desc')->limit(100)->get();
+            $children = Child::where('facility_id', $fac)->orderBy('created_at', 'desc')->limit(500)->get();
 //            dd($children);
             $camp_facilities=DB::table('facilities')->get();
         }

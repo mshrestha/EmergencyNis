@@ -87,9 +87,9 @@
                                       <th rowspan="3">Date</th>
                                       <th rowspan="3">Volunteer</th>
                                       <th colspan="4">Screening</th>
-                                      <th colspan="4">SAM in prog</th>
+                                      <th colspan="4">SAM in Program</th>
                                       <th colspan="4">SAM Referred</th>
-                                      <th colspan="4">MAM Identified</th>
+                                      <th colspan="4">MAM in Program</th>
                                       <th colspan="4">MAM Referred</th>
                                       <th colspan="4">At Risk</th>
                                       <th colspan="4" rowspan="2">No Referred</th>
