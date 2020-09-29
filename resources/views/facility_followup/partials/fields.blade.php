@@ -19,7 +19,7 @@
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}"/>
                                 <input type="hidden" name="children_id" value="{{ $children->sync_id }}"/>
                                 <input type="date" name="planed_date" class="form-control"
-                                       value="{{ isset($facility_followup) ? $facility_followup->planed_date : '' }}">
+                                       value="{{ $plan_date }}">
                             </div>
                             {{--</div>--}}
                             {{--<div class="form-group row" >--}}
@@ -807,7 +807,7 @@
                                    value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
                         </div>
                         <div class="form-group">
-                            <label>Next visit date</label>
+                            <label>Next visit date *</label>
                             <input type="date" name="next_visit_date" class="form-control"
                                    value="{{ isset($facility_followup) ? $facility_followup->next_visit_date : '' }}">
                         </div>

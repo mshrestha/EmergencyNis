@@ -59,12 +59,17 @@ class FacilityFollowupController extends Controller
 //        dd($children);
         $facilities = Facility::orderBy('created_at', 'desc')->get();
         $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
+        if (count($facility_followups)>1){
+        $facility_followups_latest = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('date', 'desc')->limit(1)->first();
+        $plan_date=$facility_followups_latest->next_visit_date;}
+    else{
+        $plan_date='';}
         $chart_date = array_column($facility_followups, 'date');
         $chart_weight = array_column($facility_followups, 'weight');
         $child_sex=$children->sex;
 
 
-        return view('facility_followup.create', compact('facilities', 'children','chart_date','chart_weight','child_sex'));
+        return view('facility_followup.create', compact('facilities', 'children','chart_date','chart_weight','child_sex','plan_date'));
     }
 
     public function save($id, Request $request) {
