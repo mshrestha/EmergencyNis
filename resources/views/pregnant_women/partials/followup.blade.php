@@ -105,7 +105,7 @@
                             <div class="col-sm-9">
                                 <select name="new_admission" class="form-control">
                                     <option value="">Select new admission</option>
-                                    <option value="MUAC" {{ (isset($pregnant_women) && $pregnant_women->new_admission == 'MUAC') ? ' selected' : '' }}>
+                                    <option value="MUAC" {{ (isset($pregnant_followup) && $pregnant_followup->new_admission == 'MUAC') ? ' selected' : '' }}>
                                         MUAC
                                     </option>
                                 </select>
@@ -117,10 +117,10 @@
                             <div class="col-sm-9">
                                 <select name="readmission" class="form-control">
                                     <option value="">Select readmission</option>
-                                    <option value="Readmission after default" {{ (isset($pregnant_women) && $pregnant_women->readmission == 'Readmission after default') ? ' selected' : '' }}>
+                                    <option value="Readmission after default" {{ (isset($pregnant_followup) && $pregnant_followup->readmission == 'Readmission after default') ? ' selected' : '' }}>
                                         Readmission after default
                                     </option>
-                                    <option value="Readmission after recovery" {{ (isset($pregnant_women) && $pregnant_women->readmission == 'Readmission after recovery') ? ' selected' : '' }}>
+                                    <option value="Readmission after recovery" {{ (isset($pregnant_followup) && $pregnant_followup->readmission == 'Readmission after recovery') ? ' selected' : '' }}>
                                         Readmission after recovery
                                     </option>
                                 </select>
@@ -131,10 +131,10 @@
                             <div class="col-sm-9">
                                 <select name="transfer_in" class="form-control">
                                     <option value="">Select transfer in</option>
-                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in == 'Transfer in from other TSFP') ? ' selected' : '' }}>
+                                    <option value="Transfer in from other TSFP" {{ (isset($pregnant_followup) && $pregnant_followup->transfer_in == 'Transfer in from other TSFP') ? ' selected' : '' }}>
                                         Transfer in from other TSFP
                                     </option>
-                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_women) && $pregnant_women->transfer_in == 'Transfer in from other BSFP') ? ' selected' : '' }}>
+                                    <option value="Transfer in from other BSFP" {{ (isset($pregnant_followup) && $pregnant_followup->transfer_in == 'Transfer in from other BSFP') ? ' selected' : '' }}>
                                         Transfer in from other BSFP
                                     </option>
                                 </select>
@@ -145,10 +145,10 @@
                             <div class="col-sm-9">
                                 <select name="return_from" class="form-control">
                                     <option value="">Please Select Referral</option>
-                                    <option value="Returned from BSFP" {{ (isset($pregnant_women) && $pregnant_women->return_from == 'Returned from BSFP') ? ' selected' : '' }}>
+                                    <option value="Returned from BSFP" {{ (isset($pregnant_followup) && $pregnant_followup->return_from == 'Returned from BSFP') ? ' selected' : '' }}>
                                         Returned from BSFP
                                     </option>
-                                    <option value="Returned from TSFP" {{ (isset($pregnant_women) && $pregnant_women->return_from == 'Returned from TSFP') ? ' selected' : '' }}>
+                                    <option value="Returned from TSFP" {{ (isset($pregnant_followup) && $pregnant_followup->return_from == 'Returned from TSFP') ? ' selected' : '' }}>
                                         Returned from TSFP
                                     </option>
                                 </select>
@@ -324,7 +324,7 @@
                         <div class="form-group">
                             <label>Next visit date</label>
                                 <input type="date" name="next_visit_date" class="form-control"
-                                       value="{{ isset($pregnant_women) ? $pregnant_women->next_visit_date : '' }}">
+                                       value="{{ isset($pregnant_followup) ? $pregnant_followup->next_visit_date : '' }}">
                         </div>
 
                     </div>
