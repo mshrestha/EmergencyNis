@@ -122,7 +122,10 @@ class FacilityFollowupController extends Controller
         $chart_weight = array_column($facility_followups, 'weight');
         $child_sex=$children->sex;
 
-        return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities','chart_date','chart_weight','child_sex'));
+            $plan_date=$facility_followup->planed_date;
+
+
+        return view('facility_followup.edit', compact('facility_followup', 'children', 'facilities','chart_date','chart_weight','child_sex','plan_date'));
     }
 
     /**
