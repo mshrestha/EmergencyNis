@@ -149,9 +149,18 @@ class ChildrenController extends Controller
             return $b['date'] <=> $a['date'];
         });
 
+        $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
+        if (count($facility_followups) >= 1) {
+            $facility_followups_latest = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('date', 'desc')->limit(1)->first();
+            $plan_date = $facility_followups_latest->next_visit_date;
+        } else {
+            $plan_date = '';
+        }
+
+
         // dd($followups);
 
-        return view('children.show', compact('children', 'facility_followup', 'followups', 'todays_followup'));
+        return view('children.show', compact('children', 'facility_followup', 'followups', 'todays_followup','plan_date'));
     }
 
     /**
