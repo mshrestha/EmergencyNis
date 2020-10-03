@@ -61,6 +61,18 @@
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'BSFP') ? ' selected' : '' }}>
                                         BSFP
                                     </option>
+                                    <option value="Other OTP"
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'Other OTP') ? ' selected' : '' }}>
+                                        Other OTP
+                                    </option>
+                                    <option value="Other TSFP"
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'Other TSFP') ? ' selected' : '' }}>
+                                        Other TSFP
+                                    </option>
+                                    <option value="Other BSFP"
+                                            {{ (isset($facility_followup) && $facility_followup->refered_by == 'Other BSFP') ? ' selected' : '' }}>
+                                        Other BSFP
+                                    </option>
                                     <option value="Health Facility"
                                             {{ (isset($facility_followup) && $facility_followup->refered_by == 'Health Facility') ? ' selected' : '' }}>
                                         Health Facility
@@ -652,8 +664,8 @@
                                 <option value="MAM Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'MAM Treatement') ? ' selected' : '' }}>
                                     MAM Treatement
                                 </option>
-                                <option value="Inpatient Treatement" {{ (isset($facility_followup) && $facility_followup->return_from == 'Inpatient Treatement') ? ' selected' : '' }}>
-                                    Inpatient Treatement
+                                <option value="Inpatient Treatment" {{ (isset($facility_followup) && $facility_followup->return_from == 'Inpatient Treatment') ? ' selected' : '' }}>
+                                    Inpatient Treatment
                                 </option>
                             </select>
                         </div>
