@@ -35,7 +35,7 @@
 							<i class="fa fa-briefcase"></i>
 						</div>
 						<div class="vertical-timeline-content">
-							<span class="vertical-date small text-muted"> {{ $followup->date }} </span><br />
+							<span class="vertical-date small text-muted"> {{ $followup->actual_date }} </span><br />
 							<p>Visited {{ $followup->facility->facility_id }}</p>
 
 							<strong>MUAC: </strong> {{ $followup['muac'] }} cm <br />							

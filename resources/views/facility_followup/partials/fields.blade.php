@@ -795,16 +795,16 @@
                         </div>
                         {{--<div class="form-group wsbp" id="wsbp">--}}
                         {{--<label for="">WSB+ (kg)</label>--}}
-                        {{--<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0">--}}
+                        {{--<input type="number" name="wsb_plus_kg" class="form-control" placeholder="WSB+ (kg)" value="{{ isset($facility_followup) ? $facility_followup->wsb_plus_kg : '' }}" min="0.5" step="0.5">--}}
                         {{--</div>--}}
                         {{--<div class="form-group">--}}
                         {{--<label for="">Oil (kg)</label>--}}
-                        {{--<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0">--}}
+                        {{--<input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)" value="{{ isset($facility_followup) ? $facility_followup->oil_kg : '' }}" min="0.5" step="0.5">--}}
                         {{--</div>--}}
                         <div class="form-group others" id="others">
                             <label for="">Others</label>
-                            <input type="number" name="others" class="form-control" placeholder="Others"
-                                   value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" min="0">
+                            <input type="text" name="others" class="form-control" placeholder="Others"
+                                   value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" >
                         </div>
                         <div class="form-group">
                             <label>Next visit date *</label>

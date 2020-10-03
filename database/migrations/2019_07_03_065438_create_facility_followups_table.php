@@ -25,9 +25,9 @@ class CreateFacilityFollowupsTable extends Migration
             $table->date('next_visit_date')->nullable();
             $table->integer('age')->nullable();
             $table->enum('attandance', ['present', 'absent'])->nullable();
-            $table->integer('muac')->nullable();
-            $table->integer('weight')->nullable();
-            $table->integer('height')->nullable();
+            $table->decimal('muac',5,2)->nullable();
+            $table->decimal('weight',5,2)->nullable();
+            $table->decimal('height',5,2)->nullable();
             $table->string('wfh_z_score')->nullable();
             $table->enum('oedema', ['0', '+', '++', '+++'])->nullable();
             $table->integer('medical_history_diarrhoea')->nullable();
@@ -36,7 +36,7 @@ class CreateFacilityFollowupsTable extends Migration
             $table->integer('medical_history_cough')->nullable();
             $table->integer('medical_history_others')->nullable();
             $table->string('medical_history_others_detail')->nullable();
-            $table->integer('temperature')->nullable();
+            $table->double('temperature',6,2)->nullable();
             $table->integer('respiratory_rate')->nullable();
             $table->enum('sign_of_dehydration', ['Yes', 'No'])->nullable();
             $table->enum('pneumonia', ['Yes', 'No', 'Severe'])->nullable();

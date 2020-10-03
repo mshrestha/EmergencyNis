@@ -13,40 +13,40 @@
 				</div>
 			</div>
 			<div class="ibox-content">
-				{{--<div class="form-group"><label class="col-sm-3 control-label">Registration ID</label>--}}
-					{{--<div class="col-sm-9">--}}
+				{{--<div class="form-group"><label class="col-sm-4 control-label">Registration ID</label>--}}
+					{{--<div class="col-sm-8">--}}
 						{{--<input type="text" name="registration_id" class="form-control" placeholder="Registration ID"--}}
 							   {{--value="{{ isset($pregnant_women) ? $pregnant_women->registration_id : '' }}">--}}
 					{{--</div>--}}
 				{{--</div>--}}
-				<div class="form-group"><label class="col-sm-3 control-label">Registration Date</label>
-					<div class="col-sm-9"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}">
+				<div class="form-group"><label class="col-sm-4 control-label">Registration Date</label>
+					<div class="col-sm-8"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}">
 					</div>
 				</div>
 
 
-				<div class="form-group"><label class="col-sm-3 control-label">MOHA ID</label>
-					<div class="col-sm-9"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
+				<div class="form-group"><label class="col-sm-4 control-label">MOHA ID</label>
+					<div class="col-sm-8"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->moha_id : '' }}">
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Progress ID</label>
-					<div class="col-sm-9"><input type="text" name="progress_id" class="form-control" placeholder="Progress ID"
+				<div class="form-group"><label class="col-sm-4 control-label">Progress ID</label>
+					<div class="col-sm-8"><input type="text" name="progress_id" class="form-control" placeholder="Progress ID"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->progress_id : '' }}">
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Family Count Number (FCN)</label>
-					<div class="col-sm-9"><input type="text" name="family_count_no" class="form-control" placeholder="Family Count Number"
+				<div class="form-group"><label class="col-sm-4 control-label">Family Count Number (FCN) / MRC No</label>
+					<div class="col-sm-8"><input type="text" name="family_count_no" class="form-control" placeholder="Family Count Number"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->family_count_no : '' }}" >
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">SCOPE ID</label>
-					<div class="col-sm-9"><input type="text" name="scope_no" class="form-control" placeholder="SCOPE ID"
+				<div class="form-group"><label class="col-sm-4 control-label">SCOPE ID</label>
+					<div class="col-sm-8"><input type="text" name="scope_no" class="form-control" placeholder="SCOPE ID"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->scope_no : '' }}" >
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Camp</label>
-					<div class="col-sm-9">
+				<div class="form-group"><label class="col-sm-4 control-label">Camp</label>
+					<div class="col-sm-8">
 						<select name="camp_id" class="form-control" required>
 							<option value="">Select Camp</option>
 							@foreach($camps as $camp)
@@ -61,33 +61,33 @@
 				</div>
 				<div class="hr-line-dashed"></div>
 
-				<div class="form-group"><label class="col-sm-3 control-label">Household Number</label>
-					<div class="col-sm-9"><input type="text" name="household_no" class="form-control" placeholder="Household Number"
+				<div class="form-group"><label class="col-sm-4 control-label">Household Number</label>
+					<div class="col-sm-8"><input type="text" name="household_no" class="form-control" placeholder="Household Number"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->household_no : '' }}" >
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Block</label>
-					<div class="col-sm-9"><input type="text" name="block_no" class="form-control" placeholder="Block"
+				<div class="form-group"><label class="col-sm-4 control-label">Block</label>
+					<div class="col-sm-8"><input type="text" name="block_no" class="form-control" placeholder="Block"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->block_no : '' }}" >
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Sub Block</label>
-					<div class="col-sm-9"><input type="text" name="sub_block_no" class="form-control" placeholder="Sub Block"
+				<div class="form-group"><label class="col-sm-4 control-label">Sub Block</label>
+					<div class="col-sm-8"><input type="text" name="sub_block_no" class="form-control" placeholder="Sub Block"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->sub_block_no : '' }}" >
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Lat/Lng</label>
-					<div class="col-sm-3"><input id="currentLatitude" type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
+				<div class="form-group"><label class="col-sm-4 control-label">Lat/Lng</label>
+					<div class="col-sm-4"><input id="currentLatitude" type="text" name="gps_coordinates_lat" class="form-control" placeholder="Lat"
 												 value="@if(isset($pregnant_women)){{ isset($pregnant_women) ? $pregnant_women->gps_coordinates_lat : '' }} @else {{$facility->latitude}} @endif" >
-					</div><div class="col-sm-3"><input id="currentLongitude" type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng"
+					</div><div class="col-sm-4"><input id="currentLongitude" type="text" name="gps_coordinates_lng" class="form-control" placeholder="Lng"
 													   value="@if(isset($pregnant_women)){{ isset($pregnant_women) ? $pregnant_women->gps_coordinates_lng : '' }} @else {{$facility->longitude}} @endif" >
 					</div>
 				</div>
 				<div class="hr-line-dashed"></div>
 
 				<div class="form-group" >
-					<label class="col-sm-3 control-label">Children's FCN Number</label>
-					<div class="col-sm-9">
+					<label class="col-sm-4 control-label">Children's FCN Number</label>
+					<div class="col-sm-8">
 						<select name="children_moha_id[]" class="form-control show-tick selectpicker"
 								data-live-search="true" multiple>
 							<option value="">Select Children</option>
@@ -98,29 +98,29 @@
 					</div>
 				</div>
 
-				<div class="form-group"><label class="col-sm-3 control-label">Name of PLW</label>
-					<div class="col-sm-9"><input type="text" class="form-control" name="pregnant_women_name" placeholder="Name of PLW"
+				<div class="form-group"><label class="col-sm-4 control-label">Name of PLW</label>
+					<div class="col-sm-8"><input type="text" class="form-control" name="pregnant_women_name" placeholder="Name of PLW"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->pregnant_women_name : '' }}" required>
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Husband's Name</label>
-					<div class="col-sm-9"><input type="text" class="form-control" name="husbands_name" placeholder="Husband's Name"
+				<div class="form-group"><label class="col-sm-4 control-label">Husband's Name</label>
+					<div class="col-sm-8"><input type="text" class="form-control" name="husbands_name" placeholder="Husband's Name"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->husbands_name : '' }}" required>
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Father's Name</label>
-					<div class="col-sm-9"><input type="text" class="form-control" name="fathers_name" placeholder="Father's Name"
+				<div class="form-group"><label class="col-sm-4 control-label">Father's Name</label>
+					<div class="col-sm-8"><input type="text" class="form-control" name="fathers_name" placeholder="Father's Name"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->fathers_name : '' }}" >
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Age</label>
-					<div class="col-sm-9"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age"
+				<div class="form-group"><label class="col-sm-4 control-label">Age</label>
+					<div class="col-sm-8"><input type="number" class="form-control" style="width:100px" name="age" placeholder="Age"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->age : '' }}" ><span class="small">(Years)</span>
 					</div>
 				</div>
 
-				<div class="form-group"><label class="col-sm-3 control-label">Type</label>
-					<div class="col-sm-9">
+				<div class="form-group"><label class="col-sm-4 control-label">Type</label>
+					<div class="col-sm-8">
 						<input type="radio" name="type" value="pregnant" {{ (isset($pregnant_women) && $pregnant_women->type == 'pregnant') ? ' checked' : '' }}> Pregnant
 						<input type="radio" name="type" value="lactating" {{ (isset($pregnant_women) && $pregnant_women->type == 'lactating') ? ' checked' : '' }}> Lactating
 					</div>
@@ -128,23 +128,23 @@
 
 				<div class="hr-line-dashed"></div>
 
-				<div class="form-group"><label class="col-sm-3 control-label">ANC/PNC Card No</label>
-					<div class="col-sm-9"><input type="text" class="form-control" name="anc_pnc_card_no" placeholder="ANC/PNC card no"
+				<div class="form-group"><label class="col-sm-4 control-label">ANC/PNC Card No</label>
+					<div class="col-sm-8"><input type="text" class="form-control" name="anc_pnc_card_no" placeholder="ANC/PNC card no"
 												 value="{{ isset($pregnant_women) ? $pregnant_women->anc_pnc_card_no : '' }}" required>
 					</div>
 				</div>
 
-				<div class="form-group"><label class="col-sm-3 control-label">Month of Pregnancy or Lactation</label>
-					<div class="col-sm-9"><input type="number" class="form-control" name="pregnancy_month" placeholder="Pregnancy or Lactation Month" 
+				<div class="form-group"><label class="col-sm-4 control-label">Month of Pregnancy or Lactation</label>
+					<div class="col-sm-8"><input type="number" class="form-control" name="pregnancy_month" placeholder="Pregnancy or Lactation Month" 
 						value="{{ isset($pregnant_women) ? $pregnant_women->pregnancy_month : '' }}" >(month)
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Expected Delivery Date</label>
-					<div class="col-sm-9"><input type="date" name="expected_delivery_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->expected_delivery_date : '' }}">
+				<div class="form-group"><label class="col-sm-4 control-label">Expected Delivery Date</label>
+					<div class="col-sm-8"><input type="date" name="expected_delivery_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->expected_delivery_date : '' }}">
 					</div>
 				</div>
-				<div class="form-group"><label class="col-sm-3 control-label">Actual date of delivery</label>
-					<div class="col-sm-9"><input type="date" name="actual_date_of_delivery" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->actual_date_of_delivery : '' }}">
+				<div class="form-group"><label class="col-sm-4 control-label">Actual date of delivery</label>
+					<div class="col-sm-8"><input type="date" name="actual_date_of_delivery" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->actual_date_of_delivery : '' }}">
 					</div>
 				</div>
 				<div class="hr-line-dashed"></div>
