@@ -80,7 +80,8 @@
                                 <label for="">Weight (kg)</label>
                                 <input type="number" name="weight" class="form-control" placeholder="Weight (kg)"
                                        id="child_weight"
-                                       value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}" min="0.1"
+                                       value="{{ isset($facility_followup) ? $facility_followup->weight : '' }}"
+                                       min="0.1"
                                        step="0.1">
                             </div>
                             <div class="col-md-3">
@@ -139,7 +140,7 @@
                                 <label for="">Identification Outcome</label>
 
                                 <select name="outcome" class="form-control" id="identification-outcome">
-                                    <option value="" >
+                                    <option value="">
                                         Select Outcome
                                     </option>
                                     <optgroup label="SAM" id="outcome_sam">
@@ -198,8 +199,9 @@
         <h1>Medical and Physical</h1>
 
         <div class="row step-content">
-            <div class="row">
+            {{--<div class="row ">--}}
                 <div class="col-lg-6">
+                    {{--general--}}
                     <div class="ibox float-e-margins ">
                         <div class="ibox-title">
                             <h5>General Information</h5>
@@ -257,11 +259,10 @@
 
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6">
+                    {{--Systemetic Treatment--}}
                     <div class="ibox float-e-margins ">
                         <div class="ibox-title">
-                            <h5>Medical History</h5>
+                            <h5>Systemetic Treatment</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -270,60 +271,130 @@
                         </div>
                         <div class="ibox-content">
                             <div class="form-group">
-                                <label for="">Diarrhoea (no of days)</label>
-                                <input type="number" name="medical_history_diarrhoea" class="form-control"
-                                       placeholder="Diarrhoea (no of days)"
-                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}"
-                                       min="0" step="1">
+                                <label for="">Antibiotic</label>
+                                <select name="antibiotic" class="form-control">
+                                    <option value="">Select antibiotic</option>
+                                    <option value="125mg (6-11m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '125mg (6-11m)') ? ' selected' : '' }}>
+                                        125mg (6-11m)
+                                    </option>
+                                    <option value="187.5mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '187.5mg (12-23m)') ? ' selected' : '' }}>
+                                        187.5mg (12-23m)
+                                    </option>
+                                    <option value="250mg (24-59m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '250mg (24-59m)') ? ' selected' : '' }}>
+                                        250mg (24-59m)
+                                    </option>
+                                    <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->antibiotic == 'Not Applicable') ? ' selected' : '' }}>
+                                        Not Applicable
+                                    </option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Vomiting (no of days)</label>
-                                <input type="number" name="medical_history_vomiting" class="form-control"
-                                       placeholder="Vomiting (no of days)"
-                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_vomiting : '' }}"
-                                       min="0" step="1">
+                                <label for="">Albendazole</label>
+                                <select name="albendazole" class="form-control">
+                                    <option value="">Select albendazole</option>
+                                    <option value="200mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '200mg (12-23m)') ? ' selected' : '' }}>
+                                        200mg (12-23m)
+                                    </option>
+                                    <option value="400mg (>24m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '400mg (>24m)') ? ' selected' : '' }}>
+                                        400mg (>24m)
+                                    </option>
+                                    <option value="Not applicable" {{ (isset($facility_followup) && $facility_followup->albendazole == 'Not applicable') ? ' selected' : '' }}>
+                                        Not Applicable
+                                    </option>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="">Fever (no of days)</label>
-                                <input type="number" name="medical_history_fever" class="form-control"
-                                       placeholder="Fever (no of days)"
-                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_fever : '' }}"
-                                       min="0" step="1">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Cough (no of days)</label>
-                                <input type="number" name="medical_history_cough" class="form-control"
-                                       placeholder="Cough (no of days)"
-                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}"
-                                       min="0" step="1">
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Others (specific)</label>
-                                        <input type="text" name="medical_history_others_detail" class="form-control"
-                                               placeholder="Others (specific)"
-                                               value="{{ isset($facility_followup) ? $facility_followup->medical_history_others_detail : '' }}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="">No of days</label>
-                                        <input type="number" name="medical_history_others" class="form-control"
-                                               placeholder="Others (specific)(no of days)"
-                                               value="{{ isset($facility_followup) ? $facility_followup->medical_history_others : '' }}"
-                                               min="0" step="1">
-                                    </div>
-                                </div>
+
+                                <label for="">Albendazole Received Date</label>
+                                <input type="date" name="albendazole_date" class="form-control"
+                                       value="{{ isset($facility_followup) ? $facility_followup->albendazole_date : '' }}">
+
                             </div>
 
+                            <div class="form-group">
+                                <label for="">Received all EPI vaccinations as per schedule</label>
+                                <select name="received_all_epi_vaccination" class="form-control">
+                                    <option value="">Select EPI vaccinations</option>
+                                    <option value="1" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '1') ? ' selected' : '' }}>
+                                        Yes
+                                    </option>
+                                    <option value="0" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '0') ? ' selected' : '' }}>
+                                        No
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="measles">Received Measles Vaccination</label>
+                                <select name="measles" class="form-control">
+                                    <option value="">Select Measles</option>
+                                    <option value="Yes" {{ (isset($facility_followup) && $facility_followup->measles == 'Yes') ? ' selected' : '' }}>
+                                        Yes
+                                    </option>
+                                    <option value="No"{{ (isset($facility_followup) && $facility_followup->measles == 'No') ? ' selected' : '' }}>
+                                        No
+                                    </option>
+                                    <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->measles == 'Not Applicable') ? ' selected' : '' }}>
+                                        Not Applicable
+                                    </option>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {{--Appetite test--}}
+                    <div class="ibox float-e-margins ">
+                        <div class="ibox-title">
+                            <h5>Appetite test</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <label for="">Presence of appetite</label>
+                                <select name="presence_of_appetite" class="form-control">
+                                    <option value="">Select presence of appetite</option>
+                                    <option value="Yes" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'Yes') ? ' selected' : '' }}>
+                                        Yes
+                                    </option>
+                                    <option value="No" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'No') ? ' selected' : '' }}>
+                                        No
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    {{--Medical Complecation--}}
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5 style="color: red">Medical Complication</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="form-group">
+                                <input style="display: inline" type="radio" name="medical_complecation"
+                                       value="0" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '0') ? ' checked' : '' }}/>
+                                <label style="display: inline">No medical complecation</label> <br/>
+                                <input style="display: inline" type="radio" name="medical_complecation"
+                                       value="1" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '1') ? ' checked' : '' }}/>
+                                <label style="display: inline">Medical complecation (Referred to SC)</label><br/>
+                                <input style="display: inline" type="radio" name="medical_complecation"
+                                       value="2" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '2') ? ' checked' : '' }}/>
+                                <label style="display: inline">Medical complecation (Keep in OTP)</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
 
                 <div class="col-lg-6">
+                    {{--Physical Examination--}}
                     <div class="ibox float-e-margins ">
                         <div class="ibox-title">
                             <h5>Physical Examination</h5>
@@ -415,12 +486,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-6">
+                    {{--Medical History--}}
                     <div class="ibox float-e-margins ">
                         <div class="ibox-title">
-                            <h5>Appetite test</h5>
+                            <h5>Medical History</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
@@ -429,130 +498,76 @@
                         </div>
                         <div class="ibox-content">
                             <div class="form-group">
-                                <label for="">Presence of appetite</label>
-                                <select name="presence_of_appetite" class="form-control">
-                                    <option value="">Select presence of appetite</option>
-                                    <option value="Yes" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'Yes') ? ' selected' : '' }}>
-                                        Yes
-                                    </option>
-                                    <option value="No" {{ (isset($facility_followup) && $facility_followup->presence_of_appetite == 'No') ? ' selected' : '' }}>
-                                        No
-                                    </option>
-                                </select>
+                                <label for="">Diarrhoea (no of days)</label>
+                                <input type="number" name="medical_history_diarrhoea" class="form-control"
+                                       placeholder="Diarrhoea (no of days)"
+                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_diarrhoea : '' }}"
+                                       min="0" step="1">
                             </div>
+                            <div class="form-group">
+                                <label for="">Vomiting (no of days)</label>
+                                <input type="number" name="medical_history_vomiting" class="form-control"
+                                       placeholder="Vomiting (no of days)"
+                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_vomiting : '' }}"
+                                       min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Fever (no of days)</label>
+                                <input type="number" name="medical_history_fever" class="form-control"
+                                       placeholder="Fever (no of days)"
+                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_fever : '' }}"
+                                       min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Cough (no of days)</label>
+                                <input type="number" name="medical_history_cough" class="form-control"
+                                       placeholder="Cough (no of days)"
+                                       value="{{ isset($facility_followup) ? $facility_followup->medical_history_cough : '' }}"
+                                       min="0" step="1">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">Others (specific)</label>
+                                        <input type="text" name="medical_history_others_detail" class="form-control"
+                                               placeholder="Others (specific)"
+                                               value="{{ isset($facility_followup) ? $facility_followup->medical_history_others_detail : '' }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="">No of days</label>
+                                        <input type="number" name="medical_history_others" class="form-control"
+                                               placeholder="Others (specific)(no of days)"
+                                               value="{{ isset($facility_followup) ? $facility_followup->medical_history_others : '' }}"
+                                               min="0" step="1">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-
-                <div class="col-lg-6">
+                    {{--comments--}}
                     <div class="ibox float-e-margins ">
                         <div class="ibox-title">
-                            <h5>Systemetic treatment</h5>
+                            <h5>Comments</h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
                             </div>
                         </div>
+
                         <div class="ibox-content">
                             <div class="form-group">
-                                <label for="">Antibiotic</label>
-                                <select name="antibiotic" class="form-control">
-                                    <option value="">Select antibiotic</option>
-                                    <option value="125mg (6-11m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '125mg (6-11m)') ? ' selected' : '' }}>
-                                        125mg (6-11m)
-                                    </option>
-                                    <option value="187.5mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '187.5mg (12-23m)') ? ' selected' : '' }}>
-                                        187.5mg (12-23m)
-                                    </option>
-                                    <option value="250mg (24-59m)" {{ (isset($facility_followup) && $facility_followup->antibiotic == '250mg (24-59m)') ? ' selected' : '' }}>
-                                        250mg (24-59m)
-                                    </option>
-                                    <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->antibiotic == 'Not Applicable') ? ' selected' : '' }}>
-                                        Not Applicable
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Albendazole</label>
-                                <select name="albendazole" class="form-control">
-                                    <option value="">Select albendazole</option>
-                                    <option value="200mg (12-23m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '200mg (12-23m)') ? ' selected' : '' }}>
-                                        200mg (12-23m)
-                                    </option>
-                                    <option value="400mg (>24m)" {{ (isset($facility_followup) && $facility_followup->albendazole == '400mg (>24m)') ? ' selected' : '' }}>
-                                        400mg (>24m)
-                                    </option>
-                                    <option value="Not applicable" {{ (isset($facility_followup) && $facility_followup->albendazole == 'Not applicable') ? ' selected' : '' }}>
-                                        Not Applicable
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
+                                <textarea name="comments" class="form-control" placeholder="Comments">{{ isset($facility_followup) ? $facility_followup->comments : '' }}
+                                       </textarea>
 
-                                <label for="">Albendazole Received Date</label>
-                                <input type="date" name="albendazole_date" class="form-control"
-                                       value="{{ isset($facility_followup) ? $facility_followup->albendazole_date : '' }}">
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="">Received all EPI vaccinations as per schedule</label>
-                                <select name="received_all_epi_vaccination" class="form-control">
-                                    <option value="">Select EPI vaccinations</option>
-                                    <option value="1" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '1') ? ' selected' : '' }}>
-                                        Yes
-                                    </option>
-                                    <option value="0" {{ (isset($facility_followup) && $facility_followup->received_all_epi_vaccination == '0') ? ' selected' : '' }}>
-                                        No
-                                    </option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="measles">Received Measles Vaccination</label>
-                                <select name="measles" class="form-control">
-                                    <option value="">Select Measles</option>
-                                    <option value="Yes" {{ (isset($facility_followup) && $facility_followup->measles == 'Yes') ? ' selected' : '' }}>
-                                        Yes
-                                    </option>
-                                    <option value="No"{{ (isset($facility_followup) && $facility_followup->measles == 'No') ? ' selected' : '' }}>
-                                        No
-                                    </option>
-                                    <option value="Not Applicable" {{ (isset($facility_followup) && $facility_followup->measles == 'Not Applicable') ? ' selected' : '' }}>
-                                        Not Applicable
-                                    </option>
-
-                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="background-color: red; color: white">
-                <div class="form-group" >
-                    {{--<label class="col-sm-6 control-label" >Any complicacy found ? </label>--}}
-                    {{--<div class="col-sm-6" >--}}
-                        {{--<input style="display: inline" type="radio" name="complicacy_found" value="1" {{ (isset($child) && $child->sex == '1') ? ' checked' : '' }}> Yes--}}
-                        {{--<input style="display: inline" type="radio" name="complicacy_found" value="0" {{ (isset($child) && $child->sex == '0') ? ' checked' : '' }}> No--}}
-                    &nbsp; &nbsp; &nbsp; <input style="display: inline" type="radio" name="medical_complecation" value="0" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '0') ? ' checked' : '' }}/>
-                        <label style="display: inline">No medical complecation</label>
-                        <input style="display: inline" type="radio" name="medical_complecation" value="1" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '1') ? ' checked' : '' }}/>
-                        <label style="display: inline">Medical complecation (Referred to SC)</label>
-                        <input style="display: inline" type="radio" name="medical_complecation" value="2" {{ (isset($facility_followup) && $facility_followup->medical_complecation == '2') ? ' checked' : '' }}/>
-                        <label style="display: inline">Medical complecation (Keep in OTP)</label>
-                    {{--</div>--}}
-                </div>
-                {{--<div class="form-group" >--}}
-                    {{--&nbsp; &nbsp; &nbsp; <input type="radio" name="medical_complecation" value="0" class="form-control"/>--}}
-                    {{--<label >No medical complecation</label>--}}
-                {{--&nbsp; &nbsp; &nbsp; <input type="radio" name="medical_complecation" value="1" class="form-control"/>--}}
-                {{--<label >Medical complecation (Referred to SC)</label>--}}
-                {{--&nbsp; &nbsp; &nbsp; <input type="radio" name="medical_complecation" value="2" class="form-control"/>--}}
-                {{--<label >Medical complecation (Keep in OTP)</label>--}}
             {{--</div>--}}
-            </div>
-
         </div>
         <h1><span id="admission-discharge-tab-heading">Admission Criteria</span></h1>
 
@@ -734,8 +749,10 @@
                     <div class="ibox-content">
                         <div class="form-group">
                             <label for="">Discharge MUAC (cm)</label>
-                            <input type="number" name="discharge_muac" class="form-control" placeholder="Discharge MUAC (cm)"
-                                   value="{{ isset($facility_followup) ? $facility_followup->discharge_muac : '' }}" min="0"
+                            <input type="number" name="discharge_muac" class="form-control"
+                                   placeholder="Discharge MUAC (cm)"
+                                   value="{{ isset($facility_followup) ? $facility_followup->discharge_muac : '' }}"
+                                   min="0"
                                    step="0.01">
                         </div>
                         <div class="form-group">
@@ -762,7 +779,8 @@
                         </div>
                         <div class="form-group">
                             <label for="">Gain of weight</label>
-                            <input type="number" name="gain_of_weight" class="form-control" placeholder="Gain of weight"
+                            <input type="number" name="gain_of_weight" class="form-control"
+                                   placeholder="Gain of weight"
                                    value="{{ isset($facility_followup) ? $facility_followup->gain_of_weight : '' }}"
                                    min="0" step="0.1">
                         </div>
@@ -822,7 +840,7 @@
                         <div class="form-group others" id="others">
                             <label for="">Others</label>
                             <input type="text" name="others" class="form-control" placeholder="Others"
-                                   value="{{ isset($facility_followup) ? $facility_followup->others : '' }}" >
+                                   value="{{ isset($facility_followup) ? $facility_followup->others : '' }}">
                         </div>
                         <div class="form-group">
                             <label>Next visit date *</label>

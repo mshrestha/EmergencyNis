@@ -23,6 +23,7 @@ class ChangeFieldDecimalToFacilityFollowupsTable extends Migration
             DB::statement("ALTER TABLE facility_followups CHANGE others others VARCHAR (191)");
             $table->decimal('discharge_muac',5,2)->nullable();
             $table->enum('home_visit', ['Yes', 'No'])->nullable();
+            $table->text('comments')->nullable();
 
         });
     }
@@ -44,6 +45,7 @@ class ChangeFieldDecimalToFacilityFollowupsTable extends Migration
             DB::statement("ALTER TABLE facility_followups CHANGE others others INTEGER ");
             $table->dropColumn('discharge_muac');
             $table->dropColumn('home_visit');
+            $table->dropColumn('comments');
             //
         });
     }
