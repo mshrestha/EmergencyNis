@@ -189,7 +189,7 @@ class HomeController extends Controller
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
 
-            return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
+            return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard',
                 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count',
                 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count',
                 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));

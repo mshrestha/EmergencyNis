@@ -212,6 +212,18 @@
                         <div class="ibox-content">
 
                             <div class="form-group">
+                                <label for="">Home Visit Info</label>
+                                <select name="home_visit" class="form-control">
+                                    <option value="">Select Continued Breastfeeding</option>
+                                    <option value="Yes" {{ (isset($facility_followup) && $facility_followup->home_visit == 'Yes') ? ' selected' : '' }}>
+                                        Yes
+                                    </option>
+                                    <option value="No" {{ (isset($facility_followup) && $facility_followup->home_visit == 'No') ? ' selected' : '' }}>
+                                        No
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="">Continued Breastfeeding</label>
                                 <select name="continued_breastfeeding" class="form-control">
                                     <option value="">Select Continued Breastfeeding</option>
@@ -720,6 +732,12 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                        <div class="form-group">
+                            <label for="">Discharge MUAC (cm)</label>
+                            <input type="number" name="discharge_muac" class="form-control" placeholder="Discharge MUAC (cm)"
+                                   value="{{ isset($facility_followup) ? $facility_followup->discharge_muac : '' }}" min="0"
+                                   step="0.01">
+                        </div>
                         <div class="form-group">
                             <label for="">Discharge weight (kg)</label>
                             <input type="number" name="discharge_weight_kg" class="form-control"
