@@ -29,6 +29,7 @@
                                        value="{{ isset($facility_followup) ? $facility_followup->date : date('Y-m-d') }}">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-md-5">
                                 <label for="refered_by">Referred From</label>

@@ -8,7 +8,7 @@
         @csrf
         @include('pregnant_women.partials.fields')
         <div class="m-b-lg">
-            <button class="btn btn-primary" type="submit">Register</button>
+            <button class="btn btn-primary" type="submit">Add</button>
         </div>
     </form>
 </div> <!-- wrapper -->

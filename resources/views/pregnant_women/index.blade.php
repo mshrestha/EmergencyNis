@@ -13,7 +13,7 @@
                         <h2>Pregnant And Lactating Women
                             <a href="{{ route('pregnant-women.create') }}" class="pull-right">
                                 <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-plus"></i>
-                                    Register
+                                    Add
                                 </button>
                             </a>
                         </h2>

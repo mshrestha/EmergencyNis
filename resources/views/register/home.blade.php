@@ -142,7 +142,13 @@
                                                     </td>
                                                     <td class="children-show">
                                                         @if ($child->facility_followup->count()>=2)
+                                                            @if($child->facility_followup[$child->facility_followup->count()-1]['weight']==null)
+                                                                <small class="label label-warning">weight Missing</small>
+                                                            @else
                                                             <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
+                                                                @endif
+                                                            @else
+                                                            <small class="label label-success">New</small>
                                                         @endif
                                                     </td>
                                                     <td class="children-show">
