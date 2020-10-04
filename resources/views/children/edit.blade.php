@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @push('styles')
 <link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet"/>
+<link href="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.css') }}" rel="stylesheet"/>
 @endpush
 @section('content')
 <div class="wrapper wrapper-content  animated fadeInRight">
@@ -61,8 +62,19 @@ function success(pos) {
 function error(err) {
   console.warn(`ERROR(${err.code}): ${err.message}`);
 }
-
-
-
 </script>
+<script src="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepickerRegistration').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(function () {
+        $('#datetimepickerDob').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+</script>
+
 @endpush

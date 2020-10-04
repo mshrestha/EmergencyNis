@@ -7,6 +7,7 @@ use App\Models\Facility;
 use App\Models\FacilityFollowup;
 
 use Illuminate\Http\Request;
+use DateTime;
 
 class FacilityFollowupController extends Controller
 {
@@ -91,6 +92,11 @@ class FacilityFollowupController extends Controller
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
+            $data['planed_date'] = new DateTime($request->planed_date);
+            $data['date'] = new DateTime($request->date);
+            $data['albendazole_date'] = new DateTime($request->albendazole_date);
+            $data['next_visit_date'] = new DateTime($request->next_visit_date);
+
             $facility_followup = FacilityFollowup::create($data);
 
 
@@ -144,6 +150,11 @@ class FacilityFollowupController extends Controller
         $data = $request->all();
 
         $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+        $data['planed_date'] = new DateTime($request->planed_date);
+        $data['date'] = new DateTime($request->date);
+        $data['albendazole_date'] = new DateTime($request->albendazole_date);
+        $data['next_visit_date'] = new DateTime($request->next_visit_date);
+
 //            dd($data);
 
         FacilityFollowup::findOrFail($id)->update($data);

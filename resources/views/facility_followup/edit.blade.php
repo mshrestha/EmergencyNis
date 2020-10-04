@@ -9,6 +9,8 @@
         margin:0 auto;
     }
 </style>
+<link href="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.css') }}" rel="stylesheet"/>
+
 @endpush
 @section('content')
 <div class="wrapper wrapper-content  animated fadeInRight">
@@ -170,4 +172,29 @@
     });
 
 </script>
+
+<script src="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepickerPlandate').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(function () {
+        $('#datetimepickerActualdate').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(function () {
+        $('#datetimepickerAlbendazole').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(function () {
+        $('#datetimepickerNextvisitdate').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+</script>
+
 @endpush

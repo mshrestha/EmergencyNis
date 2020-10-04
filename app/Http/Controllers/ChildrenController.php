@@ -12,6 +12,7 @@ use App\Models\IycfFollowup;
 use App\Models\FacilityFollowup;
 
 use Illuminate\Http\Request;
+use DateTime;
 
 class ChildrenController extends Controller
 {
@@ -65,6 +66,9 @@ class ChildrenController extends Controller
             $image = $this->uploadImage($request);
             $image ? $data['picture'] = $image : false ;
             $data['date'] = date('y-m-d');
+            $data['registration_date'] = new DateTime($request->registration_date);
+            $data['date_of_birth'] = new DateTime($request->date_of_birth);
+
             $data['facility_id'] = Auth::user()->facility_id;
             
             //Create sync id
@@ -119,6 +123,7 @@ class ChildrenController extends Controller
      */
     public function show($id)
     {
+//        dd($id);
         $children = Child::with('facility_followup')->findOrFail($id);
 
         $facility_followup = $children->facility_followup->last();
@@ -158,7 +163,7 @@ class ChildrenController extends Controller
         }
 
 
-        // dd($followups);
+//         dd($plan_date);
 
         return view('children.show', compact('children', 'facility_followup', 'followups', 'todays_followup','plan_date'));
     }
@@ -196,7 +201,10 @@ class ChildrenController extends Controller
             $image = $this->uploadImage($request);
             $image ? $data['picture'] = $image : false ;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
-            
+            $data['registration_date'] = new DateTime($request->registration_date);
+            $data['date_of_birth'] = new DateTime($request->date_of_birth);
+
+
             Child::findOrFail($id)->update($data);
 
 //            $childId = Child::where('sync_id',$id)->first();

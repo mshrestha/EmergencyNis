@@ -1,18 +1,31 @@
-<div class="form-group"><label class="col-sm-4 control-label">Registration Date</label>
-	<div class="col-sm-8"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}">
+<div class="form-group">
+	<label class="col-md-4 control-label"> Registration Date</label>
+	<div class=' col-md-8 input-group date ' id='datetimepickerRegistration'>
+		<input type='text' class="form-control " name="registration_date"
+			   value="{{ isset($child) ? Carbon\Carbon::parse($child->registration_date)->format('dd-mm-YYYY') : \Carbon\Carbon::now()->format('dd-mm-YYYY') }}"/>
+		<span class="input-group-addon"><span
+					class="glyphicon glyphicon-calendar"></span></span>
 	</div>
 </div>
+
+{{--<div class="form-group"><label class="col-sm-4 control-label">Registration Date</label>--}}
+	{{--<div class="col-sm-8"><input type="date" name="registration_date" class="form-control" value="{{ isset($child) ? $child->registration_date : date('Y-m-d') }}">--}}
+	{{--</div>--}}
+{{--</div>--}}
+
 
 <div class="form-group"><label class="col-sm-4 control-label">MOHA ID</label>
 	<div class="col-sm-8"><input type="text" name="moha_id" class="form-control" placeholder="Moha ID"
 		value="{{ isset($child) ? $child->moha_id : '' }}">
 	</div>
 </div>
+
 <div class="form-group"><label class="col-sm-4 control-label">Progress ID</label>
 	<div class="col-sm-8"><input type="text" name="progress_id" class="form-control" placeholder="Progress ID"
 		value="{{ isset($child) ? $child->progress_id : '' }}">
 	</div>
 </div>
+
 <div class="form-group"><label class="col-sm-4 control-label">Family Count Number (FCN) / MRC No</label>
 	<div class="col-sm-8"><input type="text" name="family_count_no" class="form-control" placeholder="Family Count Number"
 								 value="{{ isset($child) ? $child->family_count_no : '' }}" >
@@ -104,9 +117,18 @@
 		value="{{ isset($child) ? $child->children_name : '' }}" required>
 	</div>
 </div>
-<div class="form-group"><label class="col-sm-4 control-label">Date of Birth</label>
-	<div class="col-sm-8"><input type="date" class="form-control" name="date_of_birth" 
-		value="{{ isset($child) ? $child->date_of_birth : '' }}" >
+{{--<div class="form-group"><label class="col-sm-4 control-label">Date of Birth</label>--}}
+	{{--<div class="col-sm-8"><input type="date" class="form-control" name="date_of_birth" --}}
+		{{--value="{{ isset($child) ? $child->date_of_birth : '' }}" >--}}
+	{{--</div>--}}
+{{--</div>--}}
+<div class="form-group">
+	<label class="col-md-4 control-label"> Date of Birth</label>
+	<div class=' col-md-8 input-group date ' id='datetimepickerDob'>
+		<input type='text' class="form-control " name="date_of_birth"
+			   value="{{ isset($child) ? Carbon\Carbon::parse($child->date_of_birth)->format('dd-mm-YYYY') : '' }}"/>
+		<span class="input-group-addon"><span
+					class="glyphicon glyphicon-calendar"></span></span>
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-4 control-label">Age (Months)</label>
