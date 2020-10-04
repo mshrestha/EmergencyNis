@@ -43,7 +43,7 @@
                             <div class="col-md-5">
                                 <label> Actual Date</label>
                                 <div class='input-group date ' id='datetimepickerActualdate'>
-                                    <input type='text' class="form-control " name="date"
+                                    <input type='text' class="form-control " name="date" required
                                            value="{{  isset($facility_followup) ? Carbon\Carbon::parse($facility_followup->date)->format('dd-mm-YYYY') : \Carbon\Carbon::now()->format('dd-mm-YYYY')}}"/>
                                     <span class="input-group-addon"><span
                                                 class="glyphicon glyphicon-calendar"></span></span>
@@ -347,7 +347,7 @@
                             <label> Albendazole Received Date</label>
                             <div class='input-group date ' id='datetimepickerAlbendazole'>
                                 <input type='text' class="form-control " name="albendazole_date"
-                                       value="{{  isset($facility_followup) ? Carbon\Carbon::parse($facility_followup->albendazole_date)->format('dd-mm-YYYY') : ''}}"/>
+                                       value="{{  isset($facility_followup->albendazole_date) ? Carbon\Carbon::parse($facility_followup->albendazole_date)->format('dd-mm-YYYY') : ''}}"/>
                                 <span class="input-group-addon"><span
                                             class="glyphicon glyphicon-calendar"></span></span>
                             </div>
@@ -894,7 +894,7 @@
                             <label> Next visit date *</label>
                             <div class='input-group date ' id='datetimepickerNextvisitdate'>
                                 <input type='text' class="form-control " name="next_visit_date"
-                                       value="{{  isset($facility_followup) ? Carbon\Carbon::parse($facility_followup->next_visit_date)->format('dd-mm-YYYY') : ''}}"/>
+                                       value="{{  isset($facility_followup->next_visit_date) ? Carbon\Carbon::parse($facility_followup->next_visit_date)->format('dd-mm-YYYY') : ''}}"/>
                                 <span class="input-group-addon"><span
                                             class="glyphicon glyphicon-calendar"></span></span>
                             </div>

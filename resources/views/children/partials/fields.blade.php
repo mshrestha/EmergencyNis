@@ -1,7 +1,7 @@
 <div class="form-group">
 	<label class="col-md-4 control-label"> Registration Date</label>
 	<div class=' col-md-8 input-group date ' id='datetimepickerRegistration'>
-		<input type='text' class="form-control " name="registration_date"
+		<input type='text' class="form-control " name="registration_date" required
 			   value="{{ isset($child) ? Carbon\Carbon::parse($child->registration_date)->format('dd-mm-YYYY') : \Carbon\Carbon::now()->format('dd-mm-YYYY') }}"/>
 		<span class="input-group-addon"><span
 					class="glyphicon glyphicon-calendar"></span></span>
@@ -126,7 +126,7 @@
 	<label class="col-md-4 control-label"> Date of Birth</label>
 	<div class=' col-md-8 input-group date ' id='datetimepickerDob'>
 		<input type='text' class="form-control " name="date_of_birth"
-			   value="{{ isset($child) ? Carbon\Carbon::parse($child->date_of_birth)->format('dd-mm-YYYY') : '' }}"/>
+			   value="{{ isset($child->date_of_birth) ? Carbon\Carbon::parse($child->date_of_birth)->format('dd-mm-YYYY') : '' }}"/>
 		<span class="input-group-addon"><span
 					class="glyphicon glyphicon-calendar"></span></span>
 	</div>

@@ -92,10 +92,10 @@ class FacilityFollowupController extends Controller
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
 
-            $data['planed_date'] = new DateTime($request->planed_date);
-            $data['date'] = new DateTime($request->date);
-            $data['albendazole_date'] = new DateTime($request->albendazole_date);
-            $data['next_visit_date'] = new DateTime($request->next_visit_date);
+            $data['planed_date'] = ($request->planed_date) ? new DateTime($request->planed_date) : null;
+            $data['date'] =  new DateTime($request->date);
+            $data['albendazole_date'] = ($request->albendazole_date) ? new DateTime($request->albendazole_date) : null;
+            $data['next_visit_date'] = ($request->next_visit_date) ? new DateTime($request->next_visit_date) : null;
 
             $facility_followup = FacilityFollowup::create($data);
 
@@ -146,22 +146,22 @@ class FacilityFollowupController extends Controller
     public function update(Request $request, $id)
     {
 //        dd($id);
-//        try {
+        try {
         $data = $request->all();
 
         $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
-        $data['planed_date'] = new DateTime($request->planed_date);
-        $data['date'] = new DateTime($request->date);
-        $data['albendazole_date'] = new DateTime($request->albendazole_date);
-        $data['next_visit_date'] = new DateTime($request->next_visit_date);
+            $data['planed_date'] = ($request->planed_date) ? new DateTime($request->planed_date) : null;
+            $data['date'] =  new DateTime($request->date);
+            $data['albendazole_date'] = ($request->albendazole_date) ? new DateTime($request->albendazole_date) : null;
+            $data['next_visit_date'] = ($request->next_visit_date) ? new DateTime($request->next_visit_date) : null;
 
 //            dd($data);
 
         FacilityFollowup::findOrFail($id)->update($data);
-//        } catch (\Exception $e) {
-//            $this->_notify_message = "Failed to save followup, Try again";
-//            $this->_notify_type = "danger";
-//        }
+        } catch (\Exception $e) {
+            $this->_notify_message = "Failed to save followup, Try again";
+            $this->_notify_type = "danger";
+        }
 
         return redirect()->back()->with([
             'notify_message' => $this->_notify_message,

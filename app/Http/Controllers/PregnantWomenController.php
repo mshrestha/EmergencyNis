@@ -9,6 +9,7 @@ use App\Models\Facility;
 use App\Models\PregnantWomen;
 
 use Illuminate\Http\Request;
+use DateTime;
 
 class PregnantWomenController extends Controller
 {
@@ -86,6 +87,9 @@ class PregnantWomenController extends Controller
             $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
+            $data['registration_date'] = new DateTime($request->registration_date);
+            $data['actual_date_of_delivery'] = ($request->actual_date_of_delivery) ? new DateTime($request->actual_date_of_delivery) : null;
+            $data['expected_delivery_date'] = ($request->expected_delivery_date) ? new DateTime($request->expected_delivery_date) :null;
 
             $pregnant_women = PregnantWomen::create($data);
 
@@ -108,7 +112,7 @@ class PregnantWomenController extends Controller
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
         $pregnant_women = PregnantWomen::findOrFail($id);
-
+//dd($pregnant_women);
         $children=Child::where('camp_id',$facility->camp->id)->get();
         $selected_children= $pregnant_women->childrens->pluck('sync_id')->toArray();
 
@@ -120,6 +124,10 @@ class PregnantWomenController extends Controller
 //            $data = $request->all();
             $data = $request->except(['children_moha_id']);
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+            $data['registration_date'] = new DateTime($request->registration_date);
+            $data['actual_date_of_delivery'] = ($request->actual_date_of_delivery) ? new DateTime($request->actual_date_of_delivery) : null;
+            $data['expected_delivery_date'] = ($request->expected_delivery_date) ? new DateTime($request->expected_delivery_date) :null;
+
 
             PregnantWomen::findOrFail($id)->update($data);
 

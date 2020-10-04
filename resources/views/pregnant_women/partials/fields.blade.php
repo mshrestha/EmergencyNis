@@ -20,8 +20,14 @@
 					{{--</div>--}}
 				{{--</div>--}}
 				<div class="form-group"><label class="col-sm-4 control-label">Registration Date</label>
-					<div class="col-sm-8"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}">
+					{{--<div class="col-sm-8"><input type="date" name="registration_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->registration_date : date('Y-m-d') }}"></div>--}}
+					<div class='input-group date col-sm-8' id='datetimepickerRegidate'>
+						<input type='text' class="form-control " name="registration_date" required
+							   value="{{  isset($pregnant_women) ? Carbon\Carbon::parse($pregnant_women->registration_date)->format('dd-mm-YYYY') : \Carbon\Carbon::now()->format('dd-mm-YYYY')}}"/>
+						<span class="input-group-addon"><span
+									class="glyphicon glyphicon-calendar"></span></span>
 					</div>
+
 				</div>
 
 
@@ -140,12 +146,26 @@
 					</div>
 				</div>
 				<div class="form-group"><label class="col-sm-4 control-label">Expected Delivery Date</label>
-					<div class="col-sm-8"><input type="date" name="expected_delivery_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->expected_delivery_date : '' }}">
+					{{--<div class="col-sm-8"><input type="date" name="expected_delivery_date" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->expected_delivery_date : '' }}"></div>--}}
+					<div class='input-group date col-sm-8' id='datetimepickerEdd'>
+						<input type='text' class="form-control " name="expected_delivery_date"
+							   value="{{  isset($pregnant_women->expected_delivery_date) ? Carbon\Carbon::parse($pregnant_women->expected_delivery_date)->format('dd-mm-YYYY') : ''}}"/>
+{{--							   value="{{  isset($pregnant_women) ? $pregnant_women->expected_delivery_date : ''}}"/>--}}
+						<span class="input-group-addon"><span
+									class="glyphicon glyphicon-calendar"></span></span>
 					</div>
+
 				</div>
 				<div class="form-group"><label class="col-sm-4 control-label">Actual date of delivery</label>
-					<div class="col-sm-8"><input type="date" name="actual_date_of_delivery" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->actual_date_of_delivery : '' }}">
+					{{--<div class="col-sm-8"><input type="date" name="actual_date_of_delivery" class="form-control" value="{{ isset($pregnant_women) ? $pregnant_women->actual_date_of_delivery : '' }}"></div>--}}
+					<div class='input-group date col-sm-8' id='datetimepickerAdd'>
+						<input type='text' class="form-control " name="actual_date_of_delivery"
+							   value="{{  isset($pregnant_women->actual_date_of_delivery) ? Carbon\Carbon::parse($pregnant_women->actual_date_of_delivery)->format('dd-mm-YYYY') : ''}}"/>
+{{--							   value="{{  isset($pregnant_women) ? $pregnant_women->actual_date_of_delivery : ''}}"/>--}}
+						<span class="input-group-addon"><span
+									class="glyphicon glyphicon-calendar"></span></span>
 					</div>
+
 				</div>
 				<div class="hr-line-dashed"></div>
 			</div> <!-- ibox-content -->
