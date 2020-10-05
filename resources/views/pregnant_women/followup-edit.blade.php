@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @push('styles')
+<link href="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.css') }}" rel="stylesheet"/>
+
 <style>
     .modal {
         border: 1px solid black;
@@ -89,4 +91,23 @@
     }
 
 </script>
+<script src="{{ asset('custom/bootstrap_datetime_picker/datetimepicker4.17.47.min.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepickerPlandate').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(function () {
+        $('#datetimepickerActualdate').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+    $(function () {
+        $('#datetimepickerNextvisitdate').datetimepicker({
+            format: 'DD-MM-YYYY'
+        });
+    });
+</script>
+
 @endpush

@@ -13,20 +13,44 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                        {{--<div class="form-group row">--}}
+                            {{--<div class="col-md-8">--}}
+                                {{--<label for="">Planed Date</label>--}}
+                                {{--<input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}"/>--}}
+                                {{--<input type="hidden" name="pregnant_women_id" value="{{ $pregnant_women_id }}"/>--}}
+                                {{--<input type="date" name="planed_date" class="form-control"--}}
+                                       {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->planed_date : '' }}">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="form-group row">--}}
+                            {{--<div class="col-md-8">--}}
+                                {{--<label for="">Actual Date</label>--}}
+                                {{--<input type="date" name="actual_date" class="form-control"--}}
+                                       {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->actual_date : date('Y-m-d') }}">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                         <div class="form-group row">
                             <div class="col-md-8">
                                 <label for="">Planed Date</label>
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}"/>
                                 <input type="hidden" name="pregnant_women_id" value="{{ $pregnant_women_id }}"/>
-                                <input type="date" name="planed_date" class="form-control"
-                                       value="{{ isset($pregnant_followup) ? $pregnant_followup->planed_date : '' }}">
+                                <div class='input-group date ' id='datetimepickerPlandate'>
+                                    <input type='text' class="form-control " name="planed_date"
+                                           value="{{  isset($pregnant_followup->planed_date) ? Carbon\Carbon::parse($pregnant_followup->planed_date)->format('dd-mm-YYYY') : ''}}"/>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-8">
                                 <label for="">Actual Date</label>
-                                <input type="date" name="actual_date" class="form-control"
-                                       value="{{ isset($pregnant_followup) ? $pregnant_followup->actual_date : date('Y-m-d') }}">
+                                <div class='input-group date ' id='datetimepickerActualdate'>
+                                    <input type='text' class="form-control " name="actual_date" required
+                                           value="{{  isset($pregnant_followup) ? Carbon\Carbon::parse($pregnant_followup->actual_date)->format('dd-mm-YYYY') : \Carbon\Carbon::now()->format('dd-mm-YYYY')}}"/>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
                             </div>
                         </div>
 
@@ -321,11 +345,23 @@
                             <input type="number" name="others" class="form-control" placeholder="Others"
                                    value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}" >
                         </div>
-                        <div class="form-group">
-                            <label>Next visit date</label>
-                                <input type="date" name="next_visit_date" class="form-control"
-                                       value="{{ isset($pregnant_followup) ? $pregnant_followup->next_visit_date : '' }}">
+                        {{--<div class="form-group">--}}
+                            {{--<label>Next visit date</label>--}}
+                                {{--<input type="date" name="next_visit_date" class="form-control"--}}
+                                       {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->next_visit_date : '' }}">--}}
+                        {{--</div>--}}
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <label for="">Next visit date</label>
+                                <div class='input-group date ' id='datetimepickerNextvisitdate'>
+                                    <input type='text' class="form-control " name="next_visit_date"
+                                           value="{{  isset($pregnant_followup->next_visit_date) ? Carbon\Carbon::parse($pregnant_followup->next_visit_date)->format('dd-mm-YYYY') : ''}}"/>
+                                    <span class="input-group-addon"><span
+                                                class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
                         </div>
+
 
                     </div>
                 </div>

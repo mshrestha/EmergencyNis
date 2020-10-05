@@ -10,6 +10,7 @@ use App\Models\PregnantWomenFollowup;
 use Auth;
 use Illuminate\Http\Request;
 use DB;
+use DateTime;
 
 class PregnantWomenFollowupController extends Controller
 {
@@ -58,6 +59,11 @@ class PregnantWomenFollowupController extends Controller
             $data['id'] = $app_id;
             $data['sync_id'] = env('SERVER_CODE') . $app_id;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'created';
+
+            $data['planed_date'] = ($request->planed_date) ? new DateTime($request->planed_date) : null;
+            $data['actual_date'] = ($request->actual_date) ? new DateTime($request->actual_date) : null;
+            $data['next_visit_date'] = ($request->next_visit_date) ? new DateTime($request->next_visit_date) : null;
+
 
             PregnantWomenFollowup::create($data);
         } catch (Exception $e) {
@@ -119,12 +125,16 @@ class PregnantWomenFollowupController extends Controller
      */
     public function update(Request $request, $id)
     {
+//        dd($id);
         try {
             $data = $request->all();
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
+            $data['planed_date'] = ($request->planed_date) ? new DateTime($request->planed_date) : null;
+            $data['actual_date'] = ($request->actual_date) ? new DateTime($request->actual_date) : null;
+            $data['next_visit_date'] = ($request->next_visit_date) ? new DateTime($request->next_visit_date) : null;
 
             PregnantWomenFollowup::findOrFail($id)->update($data);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = "Failed to update pregnant women followup, Try again.";
             $this->_notify_type = "danger";
         }
@@ -147,7 +157,7 @@ class PregnantWomenFollowupController extends Controller
             $pregnant_women_followup = PregnantWomenFollowup::destroy($id);
 
             $this->_notify_message = "Followup deleted.";
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->_notify_message = "Failed to delete followup, Try again.";
             $this->_notify_type = "danger";
         }
