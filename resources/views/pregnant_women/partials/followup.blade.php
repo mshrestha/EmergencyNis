@@ -14,20 +14,20 @@
                     </div>
                     <div class="ibox-content">
                         {{--<div class="form-group row">--}}
-                            {{--<div class="col-md-8">--}}
-                                {{--<label for="">Planed Date</label>--}}
-                                {{--<input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}"/>--}}
-                                {{--<input type="hidden" name="pregnant_women_id" value="{{ $pregnant_women_id }}"/>--}}
-                                {{--<input type="date" name="planed_date" class="form-control"--}}
-                                       {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->planed_date : '' }}">--}}
-                            {{--</div>--}}
+                        {{--<div class="col-md-8">--}}
+                        {{--<label for="">Planed Date</label>--}}
+                        {{--<input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}"/>--}}
+                        {{--<input type="hidden" name="pregnant_women_id" value="{{ $pregnant_women_id }}"/>--}}
+                        {{--<input type="date" name="planed_date" class="form-control"--}}
+                        {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->planed_date : '' }}">--}}
+                        {{--</div>--}}
                         {{--</div>--}}
                         {{--<div class="form-group row">--}}
-                            {{--<div class="col-md-8">--}}
-                                {{--<label for="">Actual Date</label>--}}
-                                {{--<input type="date" name="actual_date" class="form-control"--}}
-                                       {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->actual_date : date('Y-m-d') }}">--}}
-                            {{--</div>--}}
+                        {{--<div class="col-md-8">--}}
+                        {{--<label for="">Actual Date</label>--}}
+                        {{--<input type="date" name="actual_date" class="form-control"--}}
+                        {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->actual_date : date('Y-m-d') }}">--}}
+                        {{--</div>--}}
                         {{--</div>--}}
                         <div class="form-group row">
                             <div class="col-md-8">
@@ -37,7 +37,9 @@
                                 {{--{{ $pregnant_women_id }}--}}
                                 <div class='input-group date ' id='datetimepickerPlandate'>
                                     <input type='text' class="form-control " name="planed_date"
-                                           value="{{  isset($pregnant_followup->planed_date) ? Carbon\Carbon::parse($pregnant_followup->planed_date)->format('dd-mm-YYYY') : ''}}"/>
+                                           {{--                                           value="{{  isset($pregnant_followup->planed_date) ? Carbon\Carbon::parse($pregnant_followup->planed_date)->format('dd-mm-YYYY') : ''}}"/>--}}
+                                           value="{{ ($plan_date!=null) ? Carbon\Carbon::parse($plan_date)->format('dd-mm-YYYY'):''}}"/>
+
                                     <span class="input-group-addon"><span
                                                 class="glyphicon glyphicon-calendar"></span></span>
                                 </div>
@@ -334,22 +336,22 @@
                             <input type="number" name="wsb_plus_kg" class="form-control"
                                    placeholder="Super Cereal (WSB+)(kg)"
                                    value="{{ isset($pregnant_followup) ? $pregnant_followup->wsb_plus_kg : '' }}"
-                                   >
+                            >
                         </div>
                         <div class="form-group">
                             <label for="">Oil (kg)</label>
                             <input type="number" name="oil_kg" class="form-control" placeholder="Oil (kg)"
-                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->oil_kg : '' }}" >
+                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->oil_kg : '' }}">
                         </div>
                         <div class="form-group">
                             <label for="">Others</label>
                             <input type="number" name="others" class="form-control" placeholder="Others"
-                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}" >
+                                   value="{{ isset($pregnant_followup) ? $pregnant_followup->others : '' }}">
                         </div>
                         {{--<div class="form-group">--}}
-                            {{--<label>Next visit date</label>--}}
-                                {{--<input type="date" name="next_visit_date" class="form-control"--}}
-                                       {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->next_visit_date : '' }}">--}}
+                        {{--<label>Next visit date</label>--}}
+                        {{--<input type="date" name="next_visit_date" class="form-control"--}}
+                        {{--value="{{ isset($pregnant_followup) ? $pregnant_followup->next_visit_date : '' }}">--}}
                         {{--</div>--}}
                         <div class="form-group row">
                             <div class="col-md-8">

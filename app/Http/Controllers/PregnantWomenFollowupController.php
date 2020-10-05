@@ -90,8 +90,19 @@ class PregnantWomenFollowupController extends Controller
         $facility = Facility::findOrFail($facility_id);
         $pregnant_women_id = $id;
         $pregnant_women = PregnantWomen::findOrFail($id);
+        $women_followups = PregnantWomenFollowup::where('pregnant_women_id', $id)->get()->toArray();
 
-        return view('pregnant_women.followup', compact('camps', 'facility', 'pregnant_women_id','pregnant_women'));
+//        dd(count($women_followups));
+
+        if (count($women_followups) >= 1) {
+            $women_followups_latest = PregnantWomenFollowup::where('pregnant_women_id', $id)->orderBy('actual_date', 'desc')->limit(1)->first();
+            $plan_date = $women_followups_latest->next_visit_date;
+        } else {
+            $plan_date = '';
+        }
+
+
+        return view('pregnant_women.followup', compact('camps', 'facility', 'pregnant_women_id','pregnant_women','plan_date'));
     }
 
     /**
@@ -112,8 +123,11 @@ class PregnantWomenFollowupController extends Controller
 //        dd($pregnant_followup);
         $pregnant_women = DB::table('pregnant_womens')->where('sync_id',$pregnant_followup->pregnant_women_id)->first();
 //        dd($pregnant_women->id);
+        $plan_date = $pregnant_followup->planed_date;
 
-        return view('pregnant_women.followup-edit', compact('camps', 'facility', 'pregnant_women_id', 'pregnant_followup','pregnant_women'));
+
+        return view('pregnant_women.followup-edit', compact('camps', 'facility', 'pregnant_women_id',
+            'pregnant_followup','pregnant_women','plan_date'));
     }
 
     /**
