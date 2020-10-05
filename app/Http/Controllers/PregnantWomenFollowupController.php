@@ -106,9 +106,9 @@ class PregnantWomenFollowupController extends Controller
         $camps = Camp::orderBy('id', 'asc')->get();
         $facility_id= Auth::user()->facility_id;
         $facility = Facility::findOrFail($facility_id);
-        $pregnant_women_id = $id;
 
         $pregnant_followup = PregnantWomenFollowup::findOrFail($id);
+        $pregnant_women_id = $pregnant_followup->pregnant_women_id;
 //        dd($pregnant_followup);
         $pregnant_women = DB::table('pregnant_womens')->where('sync_id',$pregnant_followup->pregnant_women_id)->first();
 //        dd($pregnant_women->id);

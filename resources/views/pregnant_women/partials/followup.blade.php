@@ -34,6 +34,7 @@
                                 <label for="">Planed Date</label>
                                 <input type="hidden" name="facility_id" value="{{ Auth::user()->facility_id }}"/>
                                 <input type="hidden" name="pregnant_women_id" value="{{ $pregnant_women_id }}"/>
+                                {{--{{ $pregnant_women_id }}--}}
                                 <div class='input-group date ' id='datetimepickerPlandate'>
                                     <input type='text' class="form-control " name="planed_date"
                                            value="{{  isset($pregnant_followup->planed_date) ? Carbon\Carbon::parse($pregnant_followup->planed_date)->format('dd-mm-YYYY') : ''}}"/>
