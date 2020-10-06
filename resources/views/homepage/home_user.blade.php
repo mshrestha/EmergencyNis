@@ -118,7 +118,21 @@
 
         <div class="col-lg-3">
             @include('homepage.partials.sync')
+            <a href="{{ url('myprofile') }}">
+                <div class="widget style1 blue-bg">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <i class="fa fa-user-circle fa-5x"></i>
+                        </div>
+                        <div class="col-xs-8 text-right">
+
+                            <h2 class="font-bold">Profile</h2>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
+
     </div><!-- End of First Row -->
 
     <div class="row"></div>
