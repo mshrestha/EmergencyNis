@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\FacilitySupervisor;
-use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use App\Models\Facility;
+use Hash;
+use DB;
+use Auth;
+
 
 class UserController extends Controller
 {
@@ -21,7 +24,7 @@ class UserController extends Controller
                 abort(503);
             }
             return $next($request);
-        });
+        }, ['except' => ['myprofile','password_update']]);
     }
 
     /**
@@ -159,7 +162,7 @@ class UserController extends Controller
             if ($request->mfacility_id != null && $request->role == 'manager') {
                 $user->facility_id = null;
                 $user->save();
-                $facility_supervisor = FacilitySupervisor::where('user_id',$user->id)->delete();
+                $facility_supervisor = FacilitySupervisor::where('user_id', $user->id)->delete();
 
                 foreach ($request['mfacility_id'] as $item) {
                     $fasup_id[] = $item;
@@ -177,9 +180,9 @@ class UserController extends Controller
             } elseif ($request->role == 'admin') {
                 $user->facility_id = null;
                 $user->save();
-                $facility_supervisor = FacilitySupervisor::where('user_id',$user->id)->delete();
-            }else{
-                $facility_supervisor = FacilitySupervisor::where('user_id',$user->id)->delete();
+                $facility_supervisor = FacilitySupervisor::where('user_id', $user->id)->delete();
+            } else {
+                $facility_supervisor = FacilitySupervisor::where('user_id', $user->id)->delete();
             }
 
         } catch (Exception $e) {
@@ -219,5 +222,48 @@ class UserController extends Controller
             'notify_message' => $this->_notify_message,
             'notify_type' => $this->_notify_type
         ]);
+    }
+
+    public function myprofile()
+    {
+        $user = \Auth::user();
+//        dd($user);
+        return view('user.profile', compact('user'));
+    }
+
+    //By selfUser
+    public function password_update(Request $request)
+    {
+//        dd($request);
+        $this->validate($request, [
+            'current_password' => 'required',
+            'new_password' => ['required',
+                'min:6',
+//                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!@#$%^&*_]).*$/',
+                'different:current_password'],
+            'confirm_password' => 'required|same:new_password',
+        ]);
+        $data = $request->all();
+        $user = User::find(auth()->user()->id);
+//        dd($user);
+        if (!Hash::check($data['current_password'], $user->password)) {
+//            dd('not match');
+            return back()->with([
+                'notify_message' => "Current password does not match the system.",
+                'notify_type' => "danger"
+
+            ]);
+        } else {
+//            dd('match');
+            $input = $request->all();
+            $input['password'] = bcrypt($request['new_password']);
+            $user->update($input);
+
+//            return view('homepage');
+            return redirect('/myprofile')->with([
+                'notify_message' => "Password Changed successfully",
+                'notify_type' => "success"
+            ]);
+        }
     }
 }
