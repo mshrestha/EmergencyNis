@@ -32,9 +32,9 @@
                                 <p class="form-control-static"> {{$user->facility->facility_id.' ( '.$user->facility->name.' )'}}</p>
                             </div>
                         @endif
-                        @if(env('SERVER_CODE')!='LIVE_SERVER')
-                            <h2>Password Change only possible from Live Server, please visit <a href="https://emergencynutrition.org" target="_blank">https://emergencynutrition.org</a> for password change.</h2>
-                            <h3>After change your password need to update your SMSERVER database</h3>
+                        @if(!env('LIVE_SERVER') && env('SERVER_CODE'))
+                            <h3>Password Change only possible from Live Server, please visit <a href="https://emergencynutrition.org" target="_blank">https://emergencynutrition.org</a> for password change.</h3>
+                            <h4>After change your password need to update your SMSERVER database</h4>
                         @else
                         <form action="{{ route('user.password_update', $user->id) }}" class="form-horizontal"
                               method="post">
