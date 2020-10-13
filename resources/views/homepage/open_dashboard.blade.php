@@ -637,10 +637,10 @@
             var myLineChart = new Chart(ctx_lc_modal, {
                 type: 'line',
                 data: {
-                    labels: months,
+                    labels: months.reverse(),
                     datasets: [{
                         label: 'OTP',
-                        data: obj_otp,
+                        data: obj_otp.reverse(),
                         backgroundColor: window.chartColors.red,
                         borderColor: window.chartColors.red,
                         borderDash: [5, 5],
@@ -650,7 +650,7 @@
                     },
                         {
                             label: 'BSFP',
-                            data: obj_bsfp,
+                            data: obj_bsfp.reverse(),
                             backgroundColor: window.chartColors.blue,
                             borderColor: window.chartColors.blue,
                             borderDash: [5, 5],
@@ -660,7 +660,7 @@
                         },
                         {
                             label: 'TSFP-Child',
-                            data: obj_tsfp,
+                            data: obj_tsfp.reverse(),
                             backgroundColor: window.chartColors.orange,
                             borderColor: window.chartColors.orange,
                             borderDash: [5, 5],
@@ -670,7 +670,7 @@
                         },
                         {
                             label: 'TSFP-PLW',
-                            data: obj_tsfp_plw,
+                            data: obj_tsfp_plw.reverse(),
                             backgroundColor: window.chartColors.green,
                             borderColor: window.chartColors.green,
                             borderDash: [5, 5],
@@ -680,7 +680,7 @@
                         },
                         {
                             label: 'SC',
-                            data: obj_sc,
+                            data: obj_sc.reverse(),
                             backgroundColor: window.chartColors.purple,
                             borderColor: window.chartColors.purple,
                             borderDash: [5, 5],
