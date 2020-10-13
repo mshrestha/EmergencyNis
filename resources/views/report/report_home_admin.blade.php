@@ -41,7 +41,7 @@
                         </a>
                     </div>
                     <div class="col-lg-3">
-                        <a href="#">
+                        <a href="{{ route('tsfp_report') }}">
                             <div class="widget style1 lazur-bg">
                                 <div class="row">
                                     <div class="col-xs-4">

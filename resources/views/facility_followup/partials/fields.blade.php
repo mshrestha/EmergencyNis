@@ -660,7 +660,7 @@
                                     Readmission after default
                                 </option>
                                 <option value="Readmission after non recovery" {{ (isset($facility_followup) && $facility_followup->readmission == 'Readmission after non recovery') ? ' selected' : '' }}>
-                                    Readmission after non recovery
+                                    Readmission after Recovery
                                 </option>
                             </select>
                         </div>
