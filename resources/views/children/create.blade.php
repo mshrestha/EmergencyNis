@@ -24,8 +24,9 @@
                               enctype="multipart/form-data">
                             @csrf
                             @include('children.partials.fields')
-
-                            <button class="btn btn-primary ">Register</button>
+                            <div class="row">
+                              <button class="btn btn-primary ">Register</button>
+                            </div>
                         </form>
                     </div> <!-- ibox-content -->
                 </div> <!-- ibox -->

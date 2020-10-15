@@ -24,8 +24,9 @@
 						@csrf
 						@method('PATCH')
 						@include('children.partials.fields')
-						
-						<button class="btn btn-primary ">Update</button>
+						<div class="row">
+							<button class="btn btn-primary ">Update</button>
+						</div>
 					</form>
 				</div> <!-- ibox-content -->
 			</div> <!-- ibox -->
@@ -41,7 +42,7 @@
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
 <script>
       $(document).ready(function() {
-         navigator.geolocation.getCurrentPosition(success, error, options);  
+         navigator.geolocation.getCurrentPosition(success, error, options);
       });
 
 var options = {
@@ -53,10 +54,10 @@ var options = {
 function success(pos) {
   var crd = pos.coords;
 
-  
+
   $('#currentLongitude').val(crd.longitude);
   $('#currentLatitude').val(crd.latitude);
-  
+
 }
 
 function error(err) {
