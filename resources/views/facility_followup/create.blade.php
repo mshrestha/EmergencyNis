@@ -20,10 +20,12 @@
                     @method('POST')
                     @include('facility_followup.partials.fields')
 
+<div class="row">
                     <button tyle="submit" class="btn btn-primary pull-right"
-                            style="margin-right: 5px; margin-bottom: 20px;">Save
+                            style="margin-right: 5px; margin-bottom: 20px; z-index:99999;">Save
                     </button>
                 </form>
+              </div>
             </div> <!-- col -->
             <div class="col-lg-4">
                 <div class="ibox ">
