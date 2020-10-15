@@ -97,8 +97,16 @@ class FacilityFollowupController extends Controller
             $data['albendazole_date'] = ($request->albendazole_date) ? new DateTime($request->albendazole_date) : null;
             $data['next_visit_date'] = ($request->next_visit_date) ? new DateTime($request->next_visit_date) : null;
 
-            $facility_followup = FacilityFollowup::create($data);
+            $child=Child::where('sync_id',$request->children_id)->first();
+            if ($child->date_of_birth == null  ) {
+                $created_at=new DateTime($child->created_at);
+                $dob = $created_at->modify("-".$child->age.' months');
+            } else
+                $dob = new DateTime($child->date_of_birth);
+            $diff = $dob->diff(new DateTime());
+            $data['age'] = $diff->format('%m') + 12 * $diff->format('%y');
 
+            $facility_followup = FacilityFollowup::create($data);
 
         } catch (\Exception $e) {
 
