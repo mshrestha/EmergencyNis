@@ -916,7 +916,11 @@ class HomeController extends Controller
     }
 
     public function test(){
-        $categoris = \App\Pp::all();
+        $now=new DateTime();
+        $childrenage=10;
+        $dob = $now->modify("-".$childrenage.' months');
+        dd($dob);
+        //        $categoris = \App\Pp::all();
 
 //        $ips=DB::table('ips')->select('ips.id','ips.name')
 ////            ->join('product_types', 'product_types.id', '=', 'products.product_type_id')

@@ -67,7 +67,14 @@ class ChildrenController extends Controller
             $image ? $data['picture'] = $image : false;
             $data['date'] = date('y-m-d');
             $data['registration_date'] = new DateTime($request->registration_date);
-            $data['date_of_birth'] = ($request->date_of_birth) ? new DateTime($request->date_of_birth) : null;
+
+            if ($request->date_of_birth == null) {
+                $now = new DateTime();
+                $childrenage = $request->age;
+                $dob = $now->modify("-" . $childrenage . ' months');
+                $data['date_of_birth'] = $dob;
+            } else
+                $data['date_of_birth'] = new DateTime($request->date_of_birth);
 
             $data['facility_id'] = Auth::user()->facility_id;
 
@@ -200,7 +207,15 @@ class ChildrenController extends Controller
             $image ? $data['picture'] = $image : false;
             $data['sync_status'] = env('LIVE_SERVER') ? 'synced' : 'updated';
             $data['registration_date'] = new DateTime($request->registration_date);
-            $data['date_of_birth'] = ($request->date_of_birth) ? new DateTime($request->date_of_birth) : null;
+//            $data['date_of_birth'] = ($request->date_of_birth) ? new DateTime($request->date_of_birth) : null;
+
+            if ($request->date_of_birth == null) {
+                $now = new DateTime();
+                $childrenage = $request->age;
+                $dob = $now->modify("-" . $childrenage . ' months');
+                $data['date_of_birth'] = $dob;
+            } else
+                $data['date_of_birth'] = new DateTime($request->date_of_birth);
 
 
             Child::findOrFail($id)->update($data);
