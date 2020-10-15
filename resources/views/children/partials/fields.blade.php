@@ -139,10 +139,10 @@
 <div class="form-group"><label class="col-sm-4 control-label">Age Group (Months)</label>
 	<div class="col-sm-8">
 		<input type="radio" name="age_group" value="0to5m" {{ (isset($child) && $child->age_group == '0to5m') ? ' checked' : '' }}> 0 to 5
-		<input type="radio" name="age_group" value="6to11" {{ (isset($child) && $child->age_group == '6to11') ? ' checked' : '' }}> 6 to 11
+		<input type="radio" name="age_group" value="6to11m" {{ (isset($child) && $child->age_group == '6to11m') ? ' checked' : '' }}> 6 to 11
 		<input type="radio" name="age_group" value="12to23m" {{ (isset($child) && $child->age_group == '12to23m') ? ' checked' : '' }}> 12 to 23
 		<input type="radio" name="age_group" value="24to59m" {{ (isset($child) && $child->age_group == '24to59m') ? ' checked' : '' }}> 24 to 59
-		<input type="radio" name="age_group" value="others" {{ (isset($child) && $child->age_group == 'others') ? ' checked' : '' }}> Others
+		<input type="radio" name="age_group" value="60+" {{ (isset($child) && $child->age_group == '60+') ? ' checked' : '' }}> 60+
 	</div>
 </div>
 <div class="form-group"><label class="col-sm-4 control-label">Sex</label>

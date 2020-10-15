@@ -40,7 +40,17 @@
             ID: {{ $child->sync_id}}<br />
             MOHAID: {{ $child->moha_id}}<br />
             Sex: {{ $child->sex}}<br />
-            {{ $child->age }} months old<br />
+            {{--{{ $child->age }} months old<br />--}}
+            <?php
+            if ($child->date_of_birth == null  ) {
+                $created_at=new DateTime($child->created_at);
+                $dob = $created_at->modify("-".$child->age.' months');
+            } else
+                $dob = new DateTime($child->date_of_birth);
+            $diff = $dob->diff(new DateTime());
+            $age = $diff->format('%m') + 12 * $diff->format('%y');
+            echo $age.' month old';
+            ?><br/>
             {{ $child->facility->name.' '.$child->facility->facility_id }}<br/>
             Block {{ $child->block.''.$child->sub_block_no }}, Household {{ $child->hh_no }} <br />
 
