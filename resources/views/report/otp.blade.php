@@ -2,6 +2,21 @@
 @extends('layouts.app')
 @push('styles')
 <link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet"/>
+<style>
+    .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+        padding: 0px;
+    !important;
+        text-align: center;
+        /*line-height: 1.42857;*/
+        /*line-height: 1.42857;*/
+        border-top: 1px solid #e7ecf1;
+    }
+
+    .table-responsive {
+        overflow-x: hidden;
+    }
+
+</style>
 
 @endpush
 
@@ -122,9 +137,10 @@
                                 <th colspan="3">Total Discharge</th>
 
                                 <th colspan="2">Medical Transfer (F1)</th>
-                                <th colspan="2">Transfer to other OTP (F2)</th>
+                                <th colspan="2">Unknown /Other (F2)</th>
                                 <th colspan="2">Transfer to inpatient (F3)</th>
-                                <th colspan="2">Unknown /Other (F4)</th>
+                                <th colspan="2">Transfer to other OTP (F4)</th>
+
 
 
                             </tr>
@@ -229,6 +245,7 @@
                                 <th>F</th>
                                 <th>T</th>
 
+
                             </tr>
                             </thead>
                             <tbody>
@@ -293,13 +310,18 @@
                                 <td>{{$report_male_6to23['discharge_criteria_transfer_out_otp']}}</td>
                                 <td>{{$report_female_6to23['discharge_criteria_transfer_out_otp']}}</td>
 
-                                <td>{{$report_male_6to23['discharge_criteria_transfer_out_total']}}</td>
-                                <td>{{$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>
-                                <td>{{$report_male_6to23['discharge_criteria_transfer_out_total']+$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>
+                                {{--<td>{{$report_male_6to23['discharge_criteria_transfer_out_total']}}</td>--}}
+                                {{--<td>{{$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>--}}
+                                {{--<td>{{$report_male_6to23['discharge_criteria_transfer_out_total']+$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>--}}
 
                                 <td>{{$report_male_6to23['exit_total']}}</td>
                                 <td>{{$report_female_6to23['exit_total']}}</td>
                                 <td>{{$report_male_6to23['exit_total']+$report_female_6to23['exit_total']}}</td>
+
+                                <td>{{$report_male_6to23['end_of_month']}}</td>
+                                <td>{{$report_female_6to23['end_of_month']}}</td>
+                                <td>{{$report_male_6to23['end_of_month']+$report_female_6to23['end_of_month']}}</td>
+
                             </tr>
 
                             <tr class="gradeX">
@@ -363,13 +385,18 @@
                                 <td>{{$report_male_24to59['discharge_criteria_transfer_out_otp']}}</td>
                                 <td>{{$report_female_24to59['discharge_criteria_transfer_out_otp']}}</td>
 
-                                <td>{{$report_male_24to59['discharge_criteria_transfer_out_total']}}</td>
-                                <td>{{$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>
-                                <td>{{$report_male_24to59['discharge_criteria_transfer_out_total']+$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>
+                                {{--<td>{{$report_male_24to59['discharge_criteria_transfer_out_total']}}</td>--}}
+                                {{--<td>{{$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>--}}
+                                {{--<td>{{$report_male_24to59['discharge_criteria_transfer_out_total']+$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>--}}
 
                                 <td>{{$report_male_24to59['exit_total']}}</td>
                                 <td>{{$report_female_24to59['exit_total']}}</td>
                                 <td>{{$report_male_24to59['exit_total']+$report_female_24to59['exit_total']}}</td>
+
+                                <td>{{$report_male_24to59['end_of_month']}}</td>
+                                <td>{{$report_female_24to59['end_of_month']}}</td>
+                                <td>{{$report_male_24to59['end_of_month']+$report_female_24to59['end_of_month']}}</td>
+
                             </tr>
                             <tr class="gradeX">
                                 <td> Over 5 Years </td>
@@ -432,13 +459,18 @@
                                 <td>{{$report_male_60up['discharge_criteria_transfer_out_otp']}}</td>
                                 <td>{{$report_female_60up['discharge_criteria_transfer_out_otp']}}</td>
 
-                                <td>{{$report_male_60up['discharge_criteria_transfer_out_total']}}</td>
-                                <td>{{$report_female_60up['discharge_criteria_transfer_out_total']}}</td>
-                                <td>{{$report_male_60up['discharge_criteria_transfer_out_total']+$report_female_60up['discharge_criteria_transfer_out_total']}}</td>
+                                {{--<td>{{$report_male_60up['discharge_criteria_transfer_out_total']}}</td>--}}
+                                {{--<td>{{$report_female_60up['discharge_criteria_transfer_out_total']}}</td>--}}
+                                {{--<td>{{$report_male_60up['discharge_criteria_transfer_out_total']+$report_female_60up['discharge_criteria_transfer_out_total']}}</td>--}}
 
                                 <td>{{$report_male_60up['exit_total']}}</td>
                                 <td>{{$report_female_60up['exit_total']}}</td>
                                 <td>{{$report_male_60up['exit_total']+$report_female_60up['exit_total']}}</td>
+
+                                <td>{{$report_male_60up['end_of_month']}}</td>
+                                <td>{{$report_female_60up['end_of_month']}}</td>
+                                <td>{{$report_male_60up['end_of_month']+$report_female_60up['end_of_month']}}</td>
+
                             </tr>
                             </tbody>
 

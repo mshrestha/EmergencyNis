@@ -248,35 +248,6 @@ class ReportController extends Controller
         $otp['begining_balance_total_exit']=$otp['begining_balance_discharge_criteria_exit']+$otp['begining_balance_discharge_criteria_others']+$otp['begining_balance_discharge_criteria_transfer_out'];
 
 
-//        $endof_month_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
-//            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
-//            ->where('age', '<=', 23)
-//            ->where('nutritionstatus', 'SAM')
-//            ->where('outcome', 'SAM new case')
-//            ->where('new_admission', '!=', null)
-//            ->where('new_admission', '!=', 'Age 6 to 59m')
-//            ->where('readmission', '!=', null)
-//            ->where('readmission', '!=', 'Readmission after non recovery')
-//            ->where('transfer_in', '!=', null)
-//            ->where('transfer_in', '!=', 'Transfer in from BSFP')
-//            ->where('transfer_in', '!=', 'Transfer in from Medical Center')
-//            ->pluck('children_id')->toArray();
-//
-//        $endof_month_total_exit = FacilityFollowup::where('facility_id', $facility_id)
-//            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
-//            ->where('age', '<=', 23)
-//            ->where('nutritionstatus', 'SAM')
-//            ->where('outcome', '!=', 'SAM new case')
-//            ->where('discharge_criteria_exit', '!=', null)
-//            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
-//            ->where('discharge_criteria_others', '!=', null)
-//            ->where('discharge_criteria_transfer_out', '!=', null)
-//            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to SAM treatment')
-//            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to MAM treatment')
-//            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other TSFP')
-//            ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other BSFP')
-//            ->pluck('children_id')->toArray();
-//
 ////OTP report 1st part (Table-1)
         $otp['new_admission_muac'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
             ->whereMonth('facility_followups.date', '=', $report_month)
@@ -468,10 +439,7 @@ class ReportController extends Controller
         $otp['discharge_criteria_transfer_out_total']=$otp['discharge_criteria_others_medical_transfer']+$otp['discharge_criteria_others_unkown']+$otp['discharge_criteria_transfer_out_sc']+$otp['discharge_criteria_transfer_out_otp'];
         $otp['exit_total']=$otp['discharge_criteria_exit_total']+$otp['discharge_criteria_transfer_out_total'];
 
-
-
-//        $otp['report_month'] = $report_month;
-//        $otp['report_year'] = $report_year;
+        $otp['end_of_month']=$otp['begining_balance_total_enrolled']+$otp['enrollment_total']-$otp['exit_total'];
 
         return $otp;
     }
