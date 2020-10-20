@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @push('styles')
 <link href="{{ asset('custom/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet"/>
@@ -11,7 +12,6 @@
 
     <div class="row">
         <div class="col-sm-12 ">
-
             <form action="{{ route('otp_report_admin') }}" class="form-horizontal" method="get">
                 <div class="form-group pull-right">
                     <select name="facility_id" class="btn btn show-tick selectpicker"
@@ -60,7 +60,7 @@
                             <tr>
                                 <td>Facility ID:
                                     <strong>{{ $facility->facility_id}}</strong>
-{{--                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>--}}
+                                    {{--                                    <strong>{{ substr($facility->facility_id, strpos($facility->facility_id, "/") + 1) }}</strong>--}}
                                 </td>
                                 <td></td>
                                 <td>Name of Camp: <strong>{{ $facility->camp->name }}</strong></td>
@@ -70,7 +70,7 @@
                                 <td>Program Partner: <strong>{{ $facility->program_partner }}</strong></td>
                                 {{--<td>Month/Year: <strong>{{ date("F Y",strtotime("-1 month")) }}</strong></td>--}}
                                 <td>Month/Year:
-                                    <strong>{{ date('F', mktime(0, 0, 0, $report['report_month'], 10)).'-'.$report['report_year'] }}</strong>
+                                    <strong>{{ date('F', mktime(0, 0, 0, $current_month, 10)).'-'.$current_year }}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -80,7 +80,7 @@
                             </tr>
                             </tbody>
                         </table>
-                        <table id="otp_data"
+                        <table
                                class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             <thead>
                             <tr>
@@ -233,358 +233,216 @@
                             </thead>
                             <tbody>
                             <tr class="gradeX">
-                                <td>6-23 mnths</td>
+                                <td>6-23 months</td>
 
-                                <td>{{$report['begining_balance_23_male']}}</td>
-                                <td>{{$report['begining_balance_23_female']}}</td>
-                                <td>{{$report['begining_balance_23_male']+$report['begining_balance_23_female']}}</td>
+                                <td>{{$report_male_6to23['begining_balance_total_enrolled']}}</td>
+                                <td>{{$report_female_6to23['begining_balance_total_enrolled']}}</td>
+                                <td>{{$report_male_6to23['begining_balance_total_enrolled']+$report_female_6to23['begining_balance_total_enrolled']}}</td>
 
-                                <td>{{$report['muac_23_male']}}</td>
-                                <td>{{$report['muac_23_female']}}</td>
-                                <td>{{$report['zscore_23_male']}}</td>
-                                <td>{{$report['zscore_23_female']}}</td>
-                                <td>{{$report['oedema_23_male']}}</td>
-                                <td>{{$report['oedema_23_female']}}</td>
-                                <td>{{$report['relapse_23_male']}}</td>
-                                <td>{{$report['relapse_23_female']}}</td>
+                                <td>{{$report_male_6to23['new_admission_muac']}}</td>
+                                <td>{{$report_female_6to23['new_admission_muac']}}</td>
+                                <td>{{$report_male_6to23['new_admission_zscore']}}</td>
+                                <td>{{$report_female_6to23['new_admission_zscore']}}</td>
+                                <td>{{$report_male_6to23['new_admission_oedema']}}</td>
+                                <td>{{$report_female_6to23['new_admission_oedema']}}</td>
+                                <td>{{$report_male_6to23['new_admission_relapse']}}</td>
+                                <td>{{$report_female_6to23['new_admission_relapse']}}</td>
 
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']}}</td>
-                                <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']}}</td>
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']}}</td>
-
-                                <td>{{$report['return_default_23_male']}}</td>
-                                <td>{{$report['return_default_23_female']}}</td>
-                                <td>{{$report['transferin_tsfp_23_male']}}</td>
-                                <td>{{$report['transferin_tsfp_23_female']}}</td>
-                                <td>{{$report['transferin_sc_23_male']}}</td>
-                                <td>{{$report['transferin_sc_23_female']}}</td>
-                                <td>{{$report['transferin_otp_23_male']}}</td>
-                                <td>{{$report['transferin_otp_23_female']}}</td>
-
-                                <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']}}</td>
-                                <td>{{$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
-                                <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
-
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']}}</td>
-                                <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']}}</td>
+                                <td>{{$report_male_6to23['new_admission_total']}}</td>
+                                <td>{{$report_female_6to23['new_admission_total']}}</td>
+                                <td>{{$report_male_6to23['new_admission_total']+$report_female_6to23['new_admission_total']}}</td>
 
 
-                                <!-- Second Set Starts Here -->
-                                <td>{{$report['recovered_23_male']}}</td>
-                                <td>{{$report['recovered_23_female']}}</td>
-                                <td>{{$report['death_23_male']}}</td>
-                                <td>{{$report['death_23_female']}}</td>
-                                <td>{{$report['defaulted_23_male']}}</td>
-                                <td>{{$report['defaulted_23_female']}}</td>
-                                <td>{{$report['non_responder_23_male']}}</td>
-                                <td>{{$report['non_responder_23_female']}}</td>
+                                <td>{{$report_male_6to23['readmission_after_default']}}</td>
+                                <td>{{$report_female_6to23['readmission_after_default']}}</td>
+                                <td>{{$report_male_6to23['transfer_in_from_tsfp']}}</td>
+                                <td>{{$report_female_6to23['transfer_in_from_tsfp']}}</td>
+                                <td>{{$report_male_6to23['transfer_in_from_sc']}}</td>
+                                <td>{{$report_female_6to23['transfer_in_from_sc']}}</td>
+                                <td>{{$report_male_6to23['transfer_in_from_otp']}}</td>
+                                <td>{{$report_female_6to23['transfer_in_from_otp']}}</td>
 
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']}}</td>
-                                <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']}}</td>
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']}}</td>
+                                <td>{{$report_male_6to23['transfer_in_total']}}</td>
+                                <td>{{$report_female_6to23['transfer_in_total']}}</td>
+                                <td>{{$report_male_6to23['transfer_in_total']+$report_female_6to23['transfer_in_total']}}</td>
 
-                                <td>{{$report['medical_transfer_23_male']}}</td>
-                                <td>{{$report['medical_transfer_23_female']}}</td>
-                                <td>{{$report['transferout_otp_23_male']}}</td>
-                                <td>{{$report['transferout_otp_23_female']}}</td>
-                                <td>{{$report['transferout_sc_23_male']}}</td>
-                                <td>{{$report['transferout_sc_23_female']}}</td>
-                                <td>{{$report['others_unkown_23_male']}}</td>
-                                <td>{{$report['others_unkown_23_female']}}</td>
+                                <td>{{$report_male_6to23['enrollment_total']}}</td>
+                                <td>{{$report_female_6to23['enrollment_total']}}</td>
+                                <td>{{$report_male_6to23['enrollment_total']+$report_female_6to23['enrollment_total']}}</td>
 
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
-                        $report['medical_transfer_23_male']+$report['transferout_otp_23_male']+$report['transferout_sc_23_male']+$report['others_unkown_23_male']}}</td>
-                                <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['medical_transfer_23_female']+$report['transferout_otp_23_female']+$report['transferout_sc_23_female']+$report['others_unkown_23_female']}}</td>
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
-                        $report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['medical_transfer_23_male']+$report['transferout_otp_23_male']+$report['transferout_sc_23_male']+$report['others_unkown_23_male']+
-                        $report['medical_transfer_23_female']+$report['transferout_otp_23_female']+$report['transferout_sc_23_female']+$report['others_unkown_23_female']}}</td>
+                                {{--<!-- Second Set Starts Here -->--}}
+                                <td>{{$report_male_6to23['discharge_criteria_exit_recovered']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_exit_recovered']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_exit_death']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_exit_death']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_exit_defaulted']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_exit_defaulted']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_exit_nonrecovered']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_exit_nonrecovered']}}</td>
 
-                                <td>{{$report['endof_month_23_male']}}</td>
-                                <td>{{$report['endof_month_23_female']}}</td>
-                                <td>{{$report['endof_month_23_male']+$report['endof_month_23_female']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_exit_total']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_exit_total']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_exit_total']+$report_female_6to23['discharge_criteria_exit_total']}}</td>
 
+                                <td>{{$report_male_6to23['discharge_criteria_others_medical_transfer']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_others_medical_transfer']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_others_unkown']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_others_unkown']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_transfer_out_sc']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_transfer_out_sc']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_transfer_out_otp']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_transfer_out_otp']}}</td>
+
+                                <td>{{$report_male_6to23['discharge_criteria_transfer_out_total']}}</td>
+                                <td>{{$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>
+                                <td>{{$report_male_6to23['discharge_criteria_transfer_out_total']+$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>
+
+                                <td>{{$report_male_6to23['exit_total']}}</td>
+                                <td>{{$report_female_6to23['exit_total']}}</td>
+                                <td>{{$report_male_6to23['exit_total']+$report_female_6to23['exit_total']}}</td>
+                            </tr>
+
+                            <tr class="gradeX">
+                                <td>24-59 months</td>
+
+                                <td>{{$report_male_24to59['begining_balance_total_enrolled']}}</td>
+                                <td>{{$report_female_24to59['begining_balance_total_enrolled']}}</td>
+                                <td>{{$report_male_24to59['begining_balance_total_enrolled']+$report_female_24to59['begining_balance_total_enrolled']}}</td>
+
+                                <td>{{$report_male_24to59['new_admission_muac']}}</td>
+                                <td>{{$report_female_24to59['new_admission_muac']}}</td>
+                                <td>{{$report_male_24to59['new_admission_zscore']}}</td>
+                                <td>{{$report_female_24to59['new_admission_zscore']}}</td>
+                                <td>{{$report_male_24to59['new_admission_oedema']}}</td>
+                                <td>{{$report_female_24to59['new_admission_oedema']}}</td>
+                                <td>{{$report_male_24to59['new_admission_relapse']}}</td>
+                                <td>{{$report_female_24to59['new_admission_relapse']}}</td>
+
+                                <td>{{$report_male_24to59['new_admission_total']}}</td>
+                                <td>{{$report_female_24to59['new_admission_total']}}</td>
+                                <td>{{$report_male_24to59['new_admission_total']+$report_female_24to59['new_admission_total']}}</td>
+
+
+                                <td>{{$report_male_24to59['readmission_after_default']}}</td>
+                                <td>{{$report_female_24to59['readmission_after_default']}}</td>
+                                <td>{{$report_male_24to59['transfer_in_from_tsfp']}}</td>
+                                <td>{{$report_female_24to59['transfer_in_from_tsfp']}}</td>
+                                <td>{{$report_male_24to59['transfer_in_from_sc']}}</td>
+                                <td>{{$report_female_24to59['transfer_in_from_sc']}}</td>
+                                <td>{{$report_male_24to59['transfer_in_from_otp']}}</td>
+                                <td>{{$report_female_24to59['transfer_in_from_otp']}}</td>
+
+                                <td>{{$report_male_24to59['transfer_in_total']}}</td>
+                                <td>{{$report_female_24to59['transfer_in_total']}}</td>
+                                <td>{{$report_male_24to59['transfer_in_total']+$report_female_24to59['transfer_in_total']}}</td>
+
+                                <td>{{$report_male_24to59['enrollment_total']}}</td>
+                                <td>{{$report_female_24to59['enrollment_total']}}</td>
+                                <td>{{$report_male_24to59['enrollment_total']+$report_female_24to59['enrollment_total']}}</td>
+
+                                {{--<!-- Second Set Starts Here -->--}}
+                                <td>{{$report_male_24to59['discharge_criteria_exit_recovered']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_exit_recovered']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_exit_death']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_exit_death']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_exit_defaulted']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_exit_defaulted']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_exit_nonrecovered']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_exit_nonrecovered']}}</td>
+
+                                <td>{{$report_male_24to59['discharge_criteria_exit_total']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_exit_total']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_exit_total']+$report_female_24to59['discharge_criteria_exit_total']}}</td>
+
+                                <td>{{$report_male_24to59['discharge_criteria_others_medical_transfer']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_others_medical_transfer']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_others_unkown']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_others_unkown']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_transfer_out_sc']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_transfer_out_sc']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_transfer_out_otp']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_transfer_out_otp']}}</td>
+
+                                <td>{{$report_male_24to59['discharge_criteria_transfer_out_total']}}</td>
+                                <td>{{$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>
+                                <td>{{$report_male_24to59['discharge_criteria_transfer_out_total']+$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>
+
+                                <td>{{$report_male_24to59['exit_total']}}</td>
+                                <td>{{$report_female_24to59['exit_total']}}</td>
+                                <td>{{$report_male_24to59['exit_total']+$report_female_24to59['exit_total']}}</td>
                             </tr>
                             <tr class="gradeX">
-                                <td>24-59 mnths</td>
-                                <td>{{$report['begining_balance_24to59_male']}}</td>
-                                <td>{{$report['begining_balance_24to59_female']}}</td>
-                                <td>{{$report['begining_balance_24to59_male']+$report['begining_balance_24to59_female']}}</td>
+                                <td> Over 5 Years </td>
 
-                                <td>{{$report['muac_24to59_male']}}</td>
-                                <td>{{$report['muac_24to59_female']}}</td>
-                                <td>{{$report['zscore_24to59_male']}}</td>
-                                <td>{{$report['zscore_24to59_female']}}</td>
-                                <td>{{$report['oedema_24to59_male']}}</td>
-                                <td>{{$report['oedema_24to59_female']}}</td>
-                                <td>{{$report['relapse_24to59_male']}}</td>
-                                <td>{{$report['relapse_24to59_female']}}</td>
+                                <td>{{$report_male_60up['begining_balance_total_enrolled']}}</td>
+                                <td>{{$report_female_60up['begining_balance_total_enrolled']}}</td>
+                                <td>{{$report_male_60up['begining_balance_total_enrolled']+$report_female_60up['begining_balance_total_enrolled']}}</td>
 
-                                <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']}}</td>
-                                <td>{{$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']}}</td>
-                                <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']}}</td>
+                                <td>{{$report_male_60up['new_admission_muac']}}</td>
+                                <td>{{$report_female_60up['new_admission_muac']}}</td>
+                                <td>{{$report_male_60up['new_admission_zscore']}}</td>
+                                <td>{{$report_female_60up['new_admission_zscore']}}</td>
+                                <td>{{$report_male_60up['new_admission_oedema']}}</td>
+                                <td>{{$report_female_60up['new_admission_oedema']}}</td>
+                                <td>{{$report_male_60up['new_admission_relapse']}}</td>
+                                <td>{{$report_female_60up['new_admission_relapse']}}</td>
 
-                                <td>{{$report['return_default_24to59_male']}}</td>
-                                <td>{{$report['return_default_24to59_female']}}</td>
-                                <td>{{$report['transferin_tsfp_24to59_male']}}</td>
-                                <td>{{$report['transferin_tsfp_24to59_female']}}</td>
-                                <td>{{$report['transferin_sc_24to59_male']}}</td>
-                                <td>{{$report['transferin_sc_24to59_female']}}</td>
-                                <td>{{$report['transferin_otp_24to59_male']}}</td>
-                                <td>{{$report['transferin_otp_24to59_female']}}</td>
-
-                                <td>{{$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']}}</td>
-                                <td>{{$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
-                                <td>{{$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
-
-                                <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']}}</td>
-                                <td>{{$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
-                                <td>{{$report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']}}</td>
-
-                                <!-- Second Set starts here -->
-                                <td>{{$report['recovered_24to59_male']}}</td>
-                                <td>{{$report['recovered_24to59_female']}}</td>
-                                <td>{{$report['death_24to59_male']}}</td>
-                                <td>{{$report['death_24to59_female']}}</td>
-                                <td>{{$report['defaulted_24to59_male']}}</td>
-                                <td>{{$report['defaulted_24to59_female']}}</td>
-                                <td>{{$report['non_responder_24to59_male']}}</td>
-                                <td>{{$report['non_responder_24to59_female']}}</td>
-
-                                <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']}}</td>
-                                <td>{{$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']}}</td>
-                                <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']}}</td>
-
-                                <td>{{$report['medical_transfer_24to59_male']}}</td>
-                                <td>{{$report['medical_transfer_24to59_female']}}</td>
-                                <td>{{$report['transferout_otp_24to59_male']}}</td>
-                                <td>{{$report['transferout_otp_24to59_female']}}</td>
-                                <td>{{$report['transferout_sc_24to59_male']}}</td>
-                                <td>{{$report['transferout_sc_24to59_female']}}</td>
-                                <td>{{$report['others_unkown_24to59_male']}}</td>
-                                <td>{{$report['others_unkown_24to59_female']}}</td>
-
-                                <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
-                        $report['medical_transfer_24to59_male']+$report['transferout_otp_24to59_male']+$report['transferout_sc_24to59_male']+$report['others_unkown_24to59_male']}}</td>
-                                <td>{{$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['medical_transfer_24to59_female']+$report['transferout_otp_24to59_female']+$report['transferout_sc_24to59_female']+$report['others_unkown_24to59_female']}}</td>
-                                <td>{{$report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
-                        $report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['medical_transfer_24to59_male']+$report['transferout_otp_24to59_male']+$report['transferout_sc_24to59_male']+$report['others_unkown_24to59_male']+
-                        $report['medical_transfer_24to59_female']+$report['transferout_otp_24to59_female']+$report['transferout_sc_24to59_female']+$report['others_unkown_24to59_female']}}</td>
-
-                                <td>{{$report['endof_month_24to59_male']}}</td>
-                                <td>{{$report['endof_month_24to59_female']}}</td>
-                                <td>{{$report['endof_month_24to59_male']+$report['endof_month_24to59_female']}}</td>
+                                <td>{{$report_male_60up['new_admission_total']}}</td>
+                                <td>{{$report_female_60up['new_admission_total']}}</td>
+                                <td>{{$report_male_60up['new_admission_total']+$report_female_60up['new_admission_total']}}</td>
 
 
-                            </tr>
-                            <tr class="gradeX">
-                                <td>> 5 yrs</td>
+                                <td>{{$report_male_60up['readmission_after_default']}}</td>
+                                <td>{{$report_female_60up['readmission_after_default']}}</td>
+                                <td>{{$report_male_60up['transfer_in_from_tsfp']}}</td>
+                                <td>{{$report_female_60up['transfer_in_from_tsfp']}}</td>
+                                <td>{{$report_male_60up['transfer_in_from_sc']}}</td>
+                                <td>{{$report_female_60up['transfer_in_from_sc']}}</td>
+                                <td>{{$report_male_60up['transfer_in_from_otp']}}</td>
+                                <td>{{$report_female_60up['transfer_in_from_otp']}}</td>
 
-                                <td>{{$report['begining_balance_60_male']}}</td>
-                                <td>{{$report['begining_balance_60_female']}}</td>
-                                <td>{{$report['begining_balance_60_male']+$report['begining_balance_60_female']}}</td>
+                                <td>{{$report_male_60up['transfer_in_total']}}</td>
+                                <td>{{$report_female_60up['transfer_in_total']}}</td>
+                                <td>{{$report_male_60up['transfer_in_total']+$report_female_60up['transfer_in_total']}}</td>
 
-                                <td>{{$report['muac_60_male']}}</td>
-                                <td>{{$report['muac_60_female']}}</td>
-                                <td>{{$report['zscore_60_male']}}</td>
-                                <td>{{$report['zscore_60_female']}}</td>
-                                <td>{{$report['oedema_60_male']}}</td>
-                                <td>{{$report['oedema_60_female']}}</td>
-                                <td>{{$report['relapse_60_male']}}</td>
-                                <td>{{$report['relapse_60_female']}}</td>
+                                <td>{{$report_male_60up['enrollment_total']}}</td>
+                                <td>{{$report_female_60up['enrollment_total']}}</td>
+                                <td>{{$report_male_60up['enrollment_total']+$report_female_60up['enrollment_total']}}</td>
 
-                                <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']}}</td>
-                                <td>{{$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
-                                <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
+                                {{--<!-- Second Set Starts Here -->--}}
+                                <td>{{$report_male_60up['discharge_criteria_exit_recovered']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_exit_recovered']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_exit_death']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_exit_death']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_exit_defaulted']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_exit_defaulted']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_exit_nonrecovered']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_exit_nonrecovered']}}</td>
 
-                                <td>{{$report['return_default_60_male']}}</td>
-                                <td>{{$report['return_default_60_female']}}</td>
-                                <td>{{$report['transferin_tsfp_60_male']}}</td>
-                                <td>{{$report['transferin_tsfp_60_female']}}</td>
-                                <td>{{$report['transferin_sc_60_male']}}</td>
-                                <td>{{$report['transferin_sc_60_female']}}</td>
-                                <td>{{$report['transferin_otp_60_male']}}</td>
-                                <td>{{$report['transferin_otp_60_female']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_exit_total']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_exit_total']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_exit_total']+$report_female_60up['discharge_criteria_exit_total']}}</td>
 
-                                <td>{{$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
-                                <td>{{$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-                                <td>{{$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_others_medical_transfer']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_others_medical_transfer']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_others_unkown']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_others_unkown']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_transfer_out_sc']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_transfer_out_sc']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_transfer_out_otp']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_transfer_out_otp']}}</td>
 
-                                <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
-                                <td>{{$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-                                <td>{{$report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_transfer_out_total']}}</td>
+                                <td>{{$report_female_60up['discharge_criteria_transfer_out_total']}}</td>
+                                <td>{{$report_male_60up['discharge_criteria_transfer_out_total']+$report_female_60up['discharge_criteria_transfer_out_total']}}</td>
 
-                                <!-- Second Set Starts Here -->
-
-                                <td>{{$report['recovered_60_male']}}</td>
-                                <td>{{$report['recovered_60_female']}}</td>
-                                <td>{{$report['death_60_male']}}</td>
-                                <td>{{$report['death_60_female']}}</td>
-                                <td>{{$report['defaulted_60_male']}}</td>
-                                <td>{{$report['defaulted_60_female']}}</td>
-                                <td>{{$report['non_responder_60_male']}}</td>
-                                <td>{{$report['non_responder_60_female']}}</td>
-
-                                <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']}}</td>
-                                <td>{{$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
-                                <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
-
-                                <td>{{$report['medical_transfer_60_male']}}</td>
-                                <td>{{$report['medical_transfer_60_female']}}</td>
-                                <td>{{$report['transferout_otp_60_male']}}</td>
-                                <td>{{$report['transferout_otp_60_female']}}</td>
-                                <td>{{$report['transferout_sc_60_male']}}</td>
-                                <td>{{$report['transferout_sc_60_female']}}</td>
-                                <td>{{$report['others_unkown_60_male']}}</td>
-                                <td>{{$report['others_unkown_60_female']}}</td>
-
-                                <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
-                        $report['medical_transfer_60_male']+$report['transferout_otp_60_male']+$report['transferout_sc_60_male']+$report['others_unkown_60_male']}}</td>
-                                <td>{{$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
-                        $report['medical_transfer_60_female']+$report['transferout_otp_60_female']+$report['transferout_sc_60_female']+$report['others_unkown_60_female']}}</td>
-                                <td>{{$report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
-                        $report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
-                        $report['medical_transfer_60_male']+$report['transferout_otp_60_male']+$report['transferout_sc_60_male']+$report['others_unkown_60_male']+
-                        $report['medical_transfer_60_female']+$report['transferout_otp_60_female']+$report['transferout_sc_60_female']+$report['others_unkown_60_female']}}</td>
-
-                                <td>{{$report['endof_month_60_male']}}</td>
-                                <td>{{$report['endof_month_60_female']}}</td>
-                                <td>{{$report['endof_month_60_male']+$report['endof_month_60_female']}}</td>
-
+                                <td>{{$report_male_60up['exit_total']}}</td>
+                                <td>{{$report_female_60up['exit_total']}}</td>
+                                <td>{{$report_male_60up['exit_total']+$report_female_60up['exit_total']}}</td>
                             </tr>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <th>Total</th>
-                                <td>{{$report['begining_balance_23_male']+$report['begining_balance_24to59_male']+$report['begining_balance_60_male']}}</td>
-                                <td>{{$report['begining_balance_23_female']+$report['begining_balance_24to59_female']+$report['begining_balance_60_female']}}</td>
-                                <td>{{$report['begining_balance_23_male']+$report['begining_balance_24to59_male']+$report['begining_balance_60_male']+$report['begining_balance_23_female']+$report['begining_balance_24to59_female']+$report['begining_balance_60_female']}}</td>
 
-                                <td>{{$report['muac_23_male']+$report['muac_24to59_male']+$report['muac_60_male']}}</td>
-                                <td>{{$report['muac_23_female']+$report['muac_24to59_female']+$report['muac_60_female']}}</td>
-                                <td>{{$report['zscore_23_male']+$report['zscore_24to59_male']+$report['zscore_60_male']}}</td>
-                                <td>{{$report['zscore_23_female']+$report['zscore_24to59_female']+$report['zscore_60_female']}}</td>
-                                <td>{{$report['oedema_23_male']+$report['oedema_24to59_male']+$report['oedema_60_male']}}</td>
-                                <td>{{$report['oedema_23_female']+$report['oedema_24to59_female']+$report['oedema_60_female']}}</td>
-                                <td>{{$report['relapse_23_male']+$report['relapse_24to59_male']+$report['relapse_60_male']}}</td>
-                                <td>{{$report['relapse_23_female']+$report['relapse_24to59_female']+$report['relapse_60_female']}}</td>
-
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+
-                            $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+
-                            $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']}}</td>
-
-                                <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+
-                            $report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+
-                            $report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
-
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+
-                            $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+
-                            $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']}}</td>
-
-                                <td>{{$report['return_default_23_male']+$report['return_default_24to59_male']+$report['return_default_60_male']}}</td>
-                                <td>{{$report['return_default_23_female']+$report['return_default_24to59_female']+$report['return_default_60_female']}}</td>
-                                <td>{{$report['transferin_tsfp_23_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_tsfp_60_male']}}</td>
-                                <td>{{$report['transferin_tsfp_23_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_tsfp_60_female']}}</td>
-                                <td>{{$report['transferin_sc_23_male']+$report['transferin_sc_24to59_male']+$report['transferin_sc_60_male']}}</td>
-                                <td>{{$report['transferin_sc_23_female']+$report['transferin_sc_24to59_female']+$report['transferin_sc_60_female']}}</td>
-                                <td>{{$report['transferin_otp_23_male']+$report['transferin_otp_24to59_male']+$report['transferin_otp_60_male']}}</td>
-                                <td>{{$report['transferin_otp_23_female']+$report['transferin_otp_24to59_female']+$report['transferin_otp_60_female']}}</td>
-
-                                <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+
-                            $report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+
-                            $report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
-
-                                <td>{{$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
-                            $report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
-                            $report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-
-                                <td>{{$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
-                            $report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
-                            $report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+
-                        $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+
-                        $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']}}</td>
-
-                                <td>{{$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
-                        $report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
-                        $report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-
-                                <td>{{$report['muac_23_male']+$report['zscore_23_male']+$report['oedema_23_male']+$report['relapse_23_male']+$report['muac_23_female']+$report['zscore_23_female']+$report['oedema_23_female']+$report['relapse_23_female']+$report['return_default_23_male']+$report['transferin_tsfp_23_male']+$report['transferin_sc_23_male']+$report['transferin_otp_23_male']+$report['return_default_23_female']+$report['transferin_tsfp_23_female']+$report['transferin_sc_23_female']+$report['transferin_otp_23_female']+
-                        $report['muac_24to59_male']+$report['zscore_24to59_male']+$report['oedema_24to59_male']+$report['relapse_24to59_male']+$report['muac_24to59_female']+$report['zscore_24to59_female']+$report['oedema_24to59_female']+$report['relapse_24to59_female']+$report['return_default_24to59_male']+$report['transferin_tsfp_24to59_male']+$report['transferin_sc_24to59_male']+$report['transferin_otp_24to59_male']+$report['return_default_24to59_female']+$report['transferin_tsfp_24to59_female']+$report['transferin_sc_24to59_female']+$report['transferin_otp_24to59_female']+
-                        $report['muac_60_male']+$report['zscore_60_male']+$report['oedema_60_male']+$report['relapse_60_male']+$report['muac_60_female']+$report['zscore_60_female']+$report['oedema_60_female']+$report['relapse_60_female']+$report['return_default_60_male']+$report['transferin_tsfp_60_male']+$report['transferin_sc_60_male']+$report['transferin_otp_60_male']+$report['return_default_60_female']+$report['transferin_tsfp_60_female']+$report['transferin_sc_60_female']+$report['transferin_otp_60_female']}}</td>
-
-                                <!--Second Set Starts Here -->
-                                <td>{{$report['recovered_23_male']+$report['recovered_24to59_male']+$report['recovered_60_male']}}</td>
-                                <td>{{$report['recovered_23_female']+$report['recovered_24to59_female']+$report['recovered_60_female']}}</td>
-                                <td>{{$report['death_23_male']+$report['death_24to59_male']+$report['death_60_male']}}</td>
-                                <td>{{$report['death_23_female']+$report['death_24to59_female']+$report['death_60_female']}}</td>
-                                <td>{{$report['defaulted_23_male']+$report['defaulted_24to59_male']+$report['defaulted_60_male']}}</td>
-                                <td>{{$report['defaulted_23_female']+$report['defaulted_24to59_female']+$report['defaulted_60_female']}}</td>
-                                <td>{{$report['non_responder_23_male']+$report['non_responder_24to59_male']+$report['non_responder_60_male']}}</td>
-                                <td>{{$report['non_responder_23_female']+$report['non_responder_24to59_female']+$report['non_responder_60_female']}}</td>
-
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
-                        $report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
-                        $report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']}}</td>
-
-                                <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
-
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']}}</td>
-
-                                <td>{{$report['medical_transfer_23_male']+$report['medical_transfer_24to59_male']+$report['medical_transfer_60_male']}}</td>
-                                <td>{{$report['medical_transfer_23_female']+$report['medical_transfer_24to59_female']+$report['medical_transfer_60_female']}}</td>
-                                <td>{{$report['transferout_otp_23_male']+$report['transferout_otp_24to59_male']+$report['transferout_otp_60_male']}}</td>
-                                <td>{{$report['transferout_otp_23_female']+$report['transferout_otp_24to59_female']+$report['transferout_otp_60_female']}}</td>
-                                <td>{{$report['transferout_sc_23_male']+$report['transferout_sc_24to59_male']+$report['transferout_sc_60_male']}}</td>
-                                <td>{{$report['transferout_sc_23_female']+$report['transferout_sc_24to59_female']+$report['transferout_sc_60_female']}}</td>
-                                <td>{{$report['others_unkown_23_male']+$report['others_unkown_24to59_male']+$report['others_unkown_60_male']}}</td>
-                                <td>{{$report['others_unkown_23_female']+$report['others_unkown_24to59_female']+$report['others_unkown_60_female']}}</td>
-
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+
-                        $report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+
-                        $report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+
-                        $report['medical_transfer_23_male']+$report['medical_transfer_24to59_male']+$report['medical_transfer_60_male']+
-                        $report['transferout_otp_23_male']+$report['transferout_otp_24to59_male']+$report['transferout_otp_60_male']+
-                        $report['transferout_sc_23_male']+$report['transferout_sc_24to59_male']+$report['transferout_sc_60_male']+
-                        $report['others_unkown_23_male']+$report['others_unkown_24to59_male']+$report['others_unkown_60_male']}}</td>
-
-                                <td>{{$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
-                        $report['medical_transfer_23_female']+$report['medical_transfer_24to59_female']+$report['medical_transfer_60_female']+
-                        $report['transferout_otp_23_female']+$report['transferout_otp_24to59_female']+$report['transferout_otp_60_female']+
-                        $report['transferout_sc_23_female']+$report['transferout_sc_24to59_female']+$report['transferout_sc_60_female']+
-                        $report['others_unkown_23_female']+$report['others_unkown_24to59_female']+$report['others_unkown_60_female']}}</td>
-
-                                <td>{{$report['recovered_23_male']+$report['death_23_male']+$report['defaulted_23_male']+$report['non_responder_23_male']+$report['recovered_23_female']+$report['death_23_female']+$report['defaulted_23_female']+$report['non_responder_23_female']+
-                        $report['recovered_24to59_male']+$report['death_24to59_male']+$report['defaulted_24to59_male']+$report['non_responder_24to59_male']+$report['recovered_24to59_female']+$report['death_24to59_female']+$report['defaulted_24to59_female']+$report['non_responder_24to59_female']+
-                        $report['recovered_60_male']+$report['death_60_male']+$report['defaulted_60_male']+$report['non_responder_60_male']+$report['recovered_60_female']+$report['death_60_female']+$report['defaulted_60_female']+$report['non_responder_60_female']+
-                        $report['medical_transfer_23_male']+$report['medical_transfer_24to59_male']+$report['medical_transfer_60_male']+
-                        $report['transferout_otp_23_male']+$report['transferout_otp_24to59_male']+$report['transferout_otp_60_male']+
-                        $report['transferout_sc_23_male']+$report['transferout_sc_24to59_male']+$report['transferout_sc_60_male']+
-                        $report['others_unkown_23_male']+$report['others_unkown_24to59_male']+$report['others_unkown_60_male']+
-                        $report['medical_transfer_23_female']+$report['medical_transfer_24to59_female']+$report['medical_transfer_60_female']+
-                        $report['transferout_otp_23_female']+$report['transferout_otp_24to59_female']+$report['transferout_otp_60_female']+
-                        $report['transferout_sc_23_female']+$report['transferout_sc_24to59_female']+$report['transferout_sc_60_female']+
-                        $report['others_unkown_23_female']+$report['others_unkown_24to59_female']+$report['others_unkown_60_female']}}</td>
-
-                                <td>{{$report['endof_month_23_male']+$report['endof_month_24to59_male']+$report['endof_month_60_male']}}</td>
-                                <td>{{$report['endof_month_23_female']+$report['endof_month_24to59_female']+$report['endof_month_60_female']}}</td>
-                                <td>{{$report['endof_month_23_male']+$report['endof_month_24to59_male']+$report['endof_month_60_male']+$report['endof_month_23_female']+$report['endof_month_24to59_female']+$report['endof_month_60_female']}}</td>
-                            </tr>
-                            </tfoot>
                         </table>
-                        <!-- Second Table -->
-                        {{--<div class="full-height-scroll"></div>--}}
                     </div>
                 </div>
             </div>
@@ -593,43 +451,11 @@
 @endsection
 
 @push('scripts')
-<script>
-    $(document).ready(function () {
-        $('#otp_data').DataTable({
-            "paging": false,
-            "searching": false,
-            "info": false,
-            responsive: true,
-            dom: '<"html5buttons"B>lTfgtip',
-            buttons: [
-                {extend: 'excel', title: 'otp_report'},
-                {extend: 'pdf', title: 'otp_report'},
-            ]
-        });
-    });
-</script>
 
-<script src="js/plugins/dataTables/datatables.min.js"></script>
+
+{{--<script src="js/plugins/dataTables/datatables.min.js"></script>--}}
 
 <script src="{{ asset('custom/bootstrap-select/js/bootstrap-select.js') }}"></script>
-<script type="text/javascript">
-
-
-//    $(document).ready(function() {
-//            $('.date-oyear').datepicker({
-//                minViewMode: 2,
-//                format: 'yyyy'
-//            });
-
-//        $("#date-oyear").datepicker({
-//            format: " yyyy",
-//            viewMode: "years",
-//            minViewMode: "years"
-//        });
-//    });
-
-
-</script>
-
 
 @endpush
+

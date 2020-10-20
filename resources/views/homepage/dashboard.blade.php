@@ -30,6 +30,9 @@
                 <div class="col-lg-6" style="background-color: #FECEC3">
                     <div class="row">
                         <h1 style="padding-left: 15px">OTP</h1>
+                        {{--<div class="row">--}}
+                        {{--<div class="col-md-8">--}}
+
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -77,6 +80,21 @@
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
+
+                                    <h5>Admission Criteria</h5>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <canvas id="doughnutChart" width="200" height="150"
+                                            style="margin: 18px auto 0"></canvas>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
                                     {{--<span class="label label-success pull-right">Normal</span>--}}
                                     <h5>Default Rate</h5>
                                 </div>
@@ -88,6 +106,9 @@
                                 </div>
                             </div>
                         </div>
+                        {{--</div>--}}
+                        {{--</div>--}}
+
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -102,6 +123,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -128,20 +151,6 @@
                                         Days</h1>
                                     {{--                                <div class="stat-percent font-bold text-{{($report_month_dashboard['avg_length_stay']-$previous_month_dashboard['avg_length_stay']>=0)?'success':'danger'}}">{{ abs($previous_month_dashboard['avg_length_stay']-$report_month_dashboard['avg_length_stay'])}}% <i class="fa fa-level-{{($report_month_dashboard['avg_length_stay']-$previous_month_dashboard['avg_length_stay']>=0)?'up':'down'}}"></i></div>--}}
                                     {{--<small>{{$month_year}}</small>--}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-
-                                    <h5>Admission Criteria</h5>
-                                </div>
-                                <div class="ibox-content">
-
-                                    <canvas id="doughnutChart" width="200" height="150"
-                                            style="margin: 18px auto 0"></canvas>
-
                                 </div>
                             </div>
                         </div>
@@ -197,6 +206,20 @@
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
+
+                                    <h5>Admission Criteria</h5>
+                                </div>
+                                <div class="ibox-content">
+
+                                    <canvas id="doughnutChart1" width="200" height="120"
+                                            style="margin: 18px auto 0"></canvas>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
                                     {{--<span class="label label-success pull-right">Normal</span>--}}
                                     <h5>Default Rate</h5>
                                 </div>
@@ -208,6 +231,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -251,17 +275,31 @@
                                 </div>
                             </div>
                         </div>
+
+                    </div><!-- END OF INNER ROW -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" style="background-color: #dff0d8">
+                    <div class="row">
+                        <h1 style="padding-left: 15px">BSFP</h1>
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
-
-                                    <h5>Admission Criteria</h5>
+                                    <h5>BSFP Child</h5>
                                 </div>
                                 <div class="ibox-content">
-
-                                    <canvas id="doughnutChart1" width="200" height="120"
-                                            style="margin: 18px auto 0"></canvas>
-
+                                    <h1 class="no-margins">1234</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>BSFP PLW</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h1 class="no-margins">1234</h1>
                                 </div>
                             </div>
                         </div>
@@ -275,41 +313,12 @@
                                 </div>
                             </div>
                         </div>
-
-                    </div><!-- END OF INNER ROW -->
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12" style="background-color: #dff0d8">
-                    <div class="row">
-                        <h1 style="padding-left: 15px">BSFP</h1>
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>BSFP Child</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">1234</h1>
-                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>BSFP PLW</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">1234</h1>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            </div>
             </div>
 
 
-            </div><!-- End of First Row -->
+        </div><!-- End of First Row -->
 
         <div class="row"></div>
     </div> <!-- wrapper -->

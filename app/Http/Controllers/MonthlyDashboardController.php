@@ -104,15 +104,29 @@ class MonthlyDashboardController extends Controller
     {
         $begining_balance_1stday = DB::table('facility_followups')->MIN('date');
         $endof_month_lastday = date('Y-m-d', strtotime($year . '-' . $month . '-' . (cal_days_in_month(CAL_GREGORIAN, $month, $year))));
-        $child_23 = Child::where('age', '<=', 23)->where('sex', $sex)->pluck('sync_id')->toArray();
+        $child_23 = Child::where('sex', $sex)->pluck('sync_id')->toArray();
         $endof_month_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
             ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
+            ->where('age', '<=', 23)
+            ->where('nutritionstatus', 'SAM')
+            ->where('outcome', 'SAM new case')
+            ->where('new_admission', '!=', null)
             ->where('new_admission', '!=', 'Age 6 to 59m')
+            ->where('readmission', '!=', null)
+            ->where('readmission', '!=', 'Readmission after non recovery')
+            ->where('transfer_in', '!=', null)
+            ->where('transfer_in', '!=', 'Transfer in from BSFP')
             ->where('transfer_in', '!=', 'Transfer in from Medical Center')
             ->pluck('children_id')->toArray();
         $endof_month_total_exit = FacilityFollowup::where('facility_id', $facility_id)
             ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
+            ->where('age', '<=', 23)
+            ->where('nutritionstatus', 'SAM')
+            ->where('outcome', '!=', 'SAM new case')
+            ->where('discharge_criteria_exit', '!=', null)
             ->where('discharge_criteria_exit', '!=', 'Age > 59m')
+            ->where('discharge_criteria_others', '!=', null)
+            ->where('discharge_criteria_transfer_out', '!=', null)
             ->where('discharge_criteria_transfer_out', '!=', 'Transfer to SAM treatment')
             ->where('discharge_criteria_transfer_out', '!=', 'Transfer to MAM treatment')
             ->where('discharge_criteria_transfer_out', '!=', 'Transfer to other TSFP')
