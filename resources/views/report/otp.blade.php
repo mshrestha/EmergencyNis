@@ -99,19 +99,19 @@
                                class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             <thead>
                             <tr>
-                                <th rowspan="3">Age Group</th>
-                                <th rowspan="2" colspan="3">Total In Care Begining of month [A]</th>
+                                <th rowspan="3" >Age Group</th>
+                                <th rowspan="2" colspan="3" style="background-color: #FCDDAE">Total In Care Begining of month [A]</th>
                                 <th rowspan="1" colspan="11">New Enrollment [B]</th>
 
                                 <th rowspan="1" colspan="8">Transfer In [C]</th>
-                                <th rowspan="2" colspan="3">Total Transfer In [C1 + C2 + C3 + C4]</th>
-                                <th rowspan="2" colspan="3">Total Enrollment [D=B+C]</th>
+                                <th rowspan="2" colspan="3" style="background-color: #F6FCCD">Total Transfer In [C1 + C2 + C3 + C4]</th>
+                                <th rowspan="2" colspan="3" style="background-color: #D9FB9C">Total Enrollment [D=B+C]</th>
 
                                 <!-- Second Set Starts Here -->
                                 <th rowspan="1" colspan="11">Discharge (E)</th>
 
                                 <th rowspan="1" colspan="8">Transfer Out [F]</th>
-                                <th rowspan="2" colspan="3">Total Exits [G=E+F]</th>
+                                <th rowspan="2" colspan="3" style="background-color: #CDECFC">Total Exits [G=E+F]</th>
                                 <th rowspan="2" colspan="3">Total End of the month</th>
                             </tr>
                             <tr>
@@ -120,7 +120,7 @@
                                 <th colspan="2">Edema (B3)</th>
                                 <th colspan="2">Relapse (B4)</th>
 
-                                <th colspan="3">Total New Enrollment</th>
+                                <th colspan="3" style="background-color: #F6FCCD">Total New Enrollment</th>
 
                                 <th colspan="2">Return after Default (C1)</th>
                                 <th colspan="2">Transfer in from TSFP (C2)</th>
@@ -134,7 +134,7 @@
                                 <th colspan="2">Default (E3)</th>
                                 <th colspan="2">Non recover (E4)</th>
 
-                                <th colspan="3">Total Discharge</th>
+                                <th colspan="3" style="background-color: #CDECFC">Total Discharge</th>
 
                                 <th colspan="2">Medical Transfer (F1)</th>
                                 <th colspan="2">Unknown /Other (F2)</th>
@@ -146,9 +146,9 @@
                             </tr>
                             <tr>
                                 <!-- Total in Care begining of month A -->
-                                <th>M</th>
-                                <th>F</th>
-                                <th>T</th>
+                                <th style="background-color: #FCDDAE">M</th>
+                                <th style="background-color: #FCDDAE">F</th>
+                                <th style="background-color: #FCDDAE">T</th>
 
                                 <!-- B1 -->
                                 <th>M</th>
@@ -167,9 +167,9 @@
                                 <th>F</th>
 
                                 <!-- Total new enrollment -->
-                                <th>M</th>
-                                <th>F</th>
-                                <th>T</th>
+                                <th style="background-color: #F6FCCD">M</th>
+                                <th style="background-color: #F6FCCD">F</th>
+                                <th style="background-color: #F6FCCD">T</th>
 
                                 <!-- C1 -->
                                 <th>M</th>
@@ -188,14 +188,14 @@
                                 <th>F</th>
 
                                 <!-- Total Transfer In -->
-                                <th>M</th>
-                                <th>F</th>
-                                <th>T</th>
+                                <th style="background-color: #F6FCCD">M</th>
+                                <th style="background-color: #F6FCCD">F</th>
+                                <th style="background-color: #F6FCCD">T</th>
 
                                 <!-- This is for D Total Enrollment -->
-                                <th>M</th>
-                                <th>F</th>
-                                <th>T</th>
+                                <th style="background-color: #D9FB9C">M</th>
+                                <th style="background-color: #D9FB9C">F</th>
+                                <th style="background-color: #D9FB9C">T</th>
 
                                 <!-- Second Set Starts here -->
                                 <!-- B1 -->
@@ -214,10 +214,10 @@
                                 <th>M</th>
                                 <th>F</th>
 
-                                <!-- Total new enrollment -->
-                                <th>M</th>
-                                <th>F</th>
-                                <th>T</th>
+                                <!-- Total exit -->
+                                <th style="background-color: #CDECFC">M</th>
+                                <th style="background-color: #CDECFC">F</th>
+                                <th style="background-color: #CDECFC">T</th>
 
                                 <!-- C1 -->
                                 <th>M</th>
@@ -236,9 +236,9 @@
                                 <th>F</th>
 
                                 <!-- Total Transfer In -->
-                                <th>M</th>
-                                <th>F</th>
-                                <th>T</th>
+                                <th style="background-color: #CDECFC">M</th>
+                                <th style="background-color: #CDECFC">F</th>
+                                <th style="background-color: #CDECFC">T</th>
 
                                 <!-- This is for D Total Enrollment -->
                                 <th>M</th>
@@ -252,9 +252,9 @@
                             <tr class="gradeX">
                                 <td>6-23 months</td>
 
-                                <td>{{$report_male_6to23['begining_balance_total_enrolled']}}</td>
-                                <td>{{$report_female_6to23['begining_balance_total_enrolled']}}</td>
-                                <td>{{$report_male_6to23['begining_balance_total_enrolled']+$report_female_6to23['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_male_6to23['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_female_6to23['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_male_6to23['begining_balance_total_enrolled']+$report_female_6to23['begining_balance_total_enrolled']}}</td>
 
                                 <td>{{$report_male_6to23['new_admission_muac']}}</td>
                                 <td>{{$report_female_6to23['new_admission_muac']}}</td>
@@ -265,9 +265,9 @@
                                 <td>{{$report_male_6to23['new_admission_relapse']}}</td>
                                 <td>{{$report_female_6to23['new_admission_relapse']}}</td>
 
-                                <td>{{$report_male_6to23['new_admission_total']}}</td>
-                                <td>{{$report_female_6to23['new_admission_total']}}</td>
-                                <td>{{$report_male_6to23['new_admission_total']+$report_female_6to23['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_6to23['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_female_6to23['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_6to23['new_admission_total']+$report_female_6to23['new_admission_total']}}</td>
 
 
                                 <td>{{$report_male_6to23['readmission_after_default']}}</td>
@@ -279,13 +279,13 @@
                                 <td>{{$report_male_6to23['transfer_in_from_otp']}}</td>
                                 <td>{{$report_female_6to23['transfer_in_from_otp']}}</td>
 
-                                <td>{{$report_male_6to23['transfer_in_total']}}</td>
-                                <td>{{$report_female_6to23['transfer_in_total']}}</td>
-                                <td>{{$report_male_6to23['transfer_in_total']+$report_female_6to23['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_6to23['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_female_6to23['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_6to23['transfer_in_total']+$report_female_6to23['transfer_in_total']}}</td>
 
-                                <td>{{$report_male_6to23['enrollment_total']}}</td>
-                                <td>{{$report_female_6to23['enrollment_total']}}</td>
-                                <td>{{$report_male_6to23['enrollment_total']+$report_female_6to23['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_male_6to23['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_female_6to23['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_male_6to23['enrollment_total']+$report_female_6to23['enrollment_total']}}</td>
 
                                 {{--<!-- Second Set Starts Here -->--}}
                                 <td>{{$report_male_6to23['discharge_criteria_exit_recovered']}}</td>
@@ -297,9 +297,9 @@
                                 <td>{{$report_male_6to23['discharge_criteria_exit_nonrecovered']}}</td>
                                 <td>{{$report_female_6to23['discharge_criteria_exit_nonrecovered']}}</td>
 
-                                <td>{{$report_male_6to23['discharge_criteria_exit_total']}}</td>
-                                <td>{{$report_female_6to23['discharge_criteria_exit_total']}}</td>
-                                <td>{{$report_male_6to23['discharge_criteria_exit_total']+$report_female_6to23['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_6to23['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_female_6to23['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_6to23['discharge_criteria_exit_total']+$report_female_6to23['discharge_criteria_exit_total']}}</td>
 
                                 <td>{{$report_male_6to23['discharge_criteria_others_medical_transfer']}}</td>
                                 <td>{{$report_female_6to23['discharge_criteria_others_medical_transfer']}}</td>
@@ -314,9 +314,9 @@
                                 {{--<td>{{$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>--}}
                                 {{--<td>{{$report_male_6to23['discharge_criteria_transfer_out_total']+$report_female_6to23['discharge_criteria_transfer_out_total']}}</td>--}}
 
-                                <td>{{$report_male_6to23['exit_total']}}</td>
-                                <td>{{$report_female_6to23['exit_total']}}</td>
-                                <td>{{$report_male_6to23['exit_total']+$report_female_6to23['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_6to23['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_female_6to23['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_6to23['exit_total']+$report_female_6to23['exit_total']}}</td>
 
                                 <td>{{$report_male_6to23['end_of_month']}}</td>
                                 <td>{{$report_female_6to23['end_of_month']}}</td>
@@ -327,9 +327,9 @@
                             <tr class="gradeX">
                                 <td>24-59 months</td>
 
-                                <td>{{$report_male_24to59['begining_balance_total_enrolled']}}</td>
-                                <td>{{$report_female_24to59['begining_balance_total_enrolled']}}</td>
-                                <td>{{$report_male_24to59['begining_balance_total_enrolled']+$report_female_24to59['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_male_24to59['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_female_24to59['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_male_24to59['begining_balance_total_enrolled']+$report_female_24to59['begining_balance_total_enrolled']}}</td>
 
                                 <td>{{$report_male_24to59['new_admission_muac']}}</td>
                                 <td>{{$report_female_24to59['new_admission_muac']}}</td>
@@ -340,9 +340,9 @@
                                 <td>{{$report_male_24to59['new_admission_relapse']}}</td>
                                 <td>{{$report_female_24to59['new_admission_relapse']}}</td>
 
-                                <td>{{$report_male_24to59['new_admission_total']}}</td>
-                                <td>{{$report_female_24to59['new_admission_total']}}</td>
-                                <td>{{$report_male_24to59['new_admission_total']+$report_female_24to59['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_24to59['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_female_24to59['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_24to59['new_admission_total']+$report_female_24to59['new_admission_total']}}</td>
 
 
                                 <td>{{$report_male_24to59['readmission_after_default']}}</td>
@@ -354,13 +354,13 @@
                                 <td>{{$report_male_24to59['transfer_in_from_otp']}}</td>
                                 <td>{{$report_female_24to59['transfer_in_from_otp']}}</td>
 
-                                <td>{{$report_male_24to59['transfer_in_total']}}</td>
-                                <td>{{$report_female_24to59['transfer_in_total']}}</td>
-                                <td>{{$report_male_24to59['transfer_in_total']+$report_female_24to59['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_24to59['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_female_24to59['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_24to59['transfer_in_total']+$report_female_24to59['transfer_in_total']}}</td>
 
-                                <td>{{$report_male_24to59['enrollment_total']}}</td>
-                                <td>{{$report_female_24to59['enrollment_total']}}</td>
-                                <td>{{$report_male_24to59['enrollment_total']+$report_female_24to59['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_male_24to59['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_female_24to59['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_male_24to59['enrollment_total']+$report_female_24to59['enrollment_total']}}</td>
 
                                 {{--<!-- Second Set Starts Here -->--}}
                                 <td>{{$report_male_24to59['discharge_criteria_exit_recovered']}}</td>
@@ -372,9 +372,9 @@
                                 <td>{{$report_male_24to59['discharge_criteria_exit_nonrecovered']}}</td>
                                 <td>{{$report_female_24to59['discharge_criteria_exit_nonrecovered']}}</td>
 
-                                <td>{{$report_male_24to59['discharge_criteria_exit_total']}}</td>
-                                <td>{{$report_female_24to59['discharge_criteria_exit_total']}}</td>
-                                <td>{{$report_male_24to59['discharge_criteria_exit_total']+$report_female_24to59['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC"> {{$report_male_24to59['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_female_24to59['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_24to59['discharge_criteria_exit_total']+$report_female_24to59['discharge_criteria_exit_total']}}</td>
 
                                 <td>{{$report_male_24to59['discharge_criteria_others_medical_transfer']}}</td>
                                 <td>{{$report_female_24to59['discharge_criteria_others_medical_transfer']}}</td>
@@ -389,9 +389,9 @@
                                 {{--<td>{{$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>--}}
                                 {{--<td>{{$report_male_24to59['discharge_criteria_transfer_out_total']+$report_female_24to59['discharge_criteria_transfer_out_total']}}</td>--}}
 
-                                <td>{{$report_male_24to59['exit_total']}}</td>
-                                <td>{{$report_female_24to59['exit_total']}}</td>
-                                <td>{{$report_male_24to59['exit_total']+$report_female_24to59['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_24to59['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_female_24to59['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_24to59['exit_total']+$report_female_24to59['exit_total']}}</td>
 
                                 <td>{{$report_male_24to59['end_of_month']}}</td>
                                 <td>{{$report_female_24to59['end_of_month']}}</td>
@@ -401,9 +401,9 @@
                             <tr class="gradeX">
                                 <td> Over 5 Years </td>
 
-                                <td>{{$report_male_60up['begining_balance_total_enrolled']}}</td>
-                                <td>{{$report_female_60up['begining_balance_total_enrolled']}}</td>
-                                <td>{{$report_male_60up['begining_balance_total_enrolled']+$report_female_60up['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_male_60up['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_female_60up['begining_balance_total_enrolled']}}</td>
+                                <td style="background-color: #FCDDAE">{{$report_male_60up['begining_balance_total_enrolled']+$report_female_60up['begining_balance_total_enrolled']}}</td>
 
                                 <td>{{$report_male_60up['new_admission_muac']}}</td>
                                 <td>{{$report_female_60up['new_admission_muac']}}</td>
@@ -414,9 +414,9 @@
                                 <td>{{$report_male_60up['new_admission_relapse']}}</td>
                                 <td>{{$report_female_60up['new_admission_relapse']}}</td>
 
-                                <td>{{$report_male_60up['new_admission_total']}}</td>
-                                <td>{{$report_female_60up['new_admission_total']}}</td>
-                                <td>{{$report_male_60up['new_admission_total']+$report_female_60up['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_60up['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_female_60up['new_admission_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_60up['new_admission_total']+$report_female_60up['new_admission_total']}}</td>
 
 
                                 <td>{{$report_male_60up['readmission_after_default']}}</td>
@@ -428,13 +428,13 @@
                                 <td>{{$report_male_60up['transfer_in_from_otp']}}</td>
                                 <td>{{$report_female_60up['transfer_in_from_otp']}}</td>
 
-                                <td>{{$report_male_60up['transfer_in_total']}}</td>
-                                <td>{{$report_female_60up['transfer_in_total']}}</td>
-                                <td>{{$report_male_60up['transfer_in_total']+$report_female_60up['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_60up['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_female_60up['transfer_in_total']}}</td>
+                                <td style="background-color: #F6FCCD">{{$report_male_60up['transfer_in_total']+$report_female_60up['transfer_in_total']}}</td>
 
-                                <td>{{$report_male_60up['enrollment_total']}}</td>
-                                <td>{{$report_female_60up['enrollment_total']}}</td>
-                                <td>{{$report_male_60up['enrollment_total']+$report_female_60up['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_male_60up['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_female_60up['enrollment_total']}}</td>
+                                <td style="background-color: #D9FB9C">{{$report_male_60up['enrollment_total']+$report_female_60up['enrollment_total']}}</td>
 
                                 {{--<!-- Second Set Starts Here -->--}}
                                 <td>{{$report_male_60up['discharge_criteria_exit_recovered']}}</td>
@@ -446,9 +446,9 @@
                                 <td>{{$report_male_60up['discharge_criteria_exit_nonrecovered']}}</td>
                                 <td>{{$report_female_60up['discharge_criteria_exit_nonrecovered']}}</td>
 
-                                <td>{{$report_male_60up['discharge_criteria_exit_total']}}</td>
-                                <td>{{$report_female_60up['discharge_criteria_exit_total']}}</td>
-                                <td>{{$report_male_60up['discharge_criteria_exit_total']+$report_female_60up['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_60up['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_female_60up['discharge_criteria_exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_60up['discharge_criteria_exit_total']+$report_female_60up['discharge_criteria_exit_total']}}</td>
 
                                 <td>{{$report_male_60up['discharge_criteria_others_medical_transfer']}}</td>
                                 <td>{{$report_female_60up['discharge_criteria_others_medical_transfer']}}</td>
@@ -463,9 +463,9 @@
                                 {{--<td>{{$report_female_60up['discharge_criteria_transfer_out_total']}}</td>--}}
                                 {{--<td>{{$report_male_60up['discharge_criteria_transfer_out_total']+$report_female_60up['discharge_criteria_transfer_out_total']}}</td>--}}
 
-                                <td>{{$report_male_60up['exit_total']}}</td>
-                                <td>{{$report_female_60up['exit_total']}}</td>
-                                <td>{{$report_male_60up['exit_total']+$report_female_60up['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_60up['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_female_60up['exit_total']}}</td>
+                                <td style="background-color: #CDECFC">{{$report_male_60up['exit_total']+$report_female_60up['exit_total']}}</td>
 
                                 <td>{{$report_male_60up['end_of_month']}}</td>
                                 <td>{{$report_female_60up['end_of_month']}}</td>
