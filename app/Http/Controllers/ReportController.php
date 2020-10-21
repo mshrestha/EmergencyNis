@@ -166,12 +166,19 @@ class ReportController extends Controller
 //        dd($facility);
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
-        $report = $this->tsfp($facility_id, $report_month, $report_year);
+//        $report = $this->tsfp($facility_id, $report_month, $report_year);
         $facilities = Facility::all();
         $current_month = $report_month;
         $current_year = $report_year;
+        $report_male_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'male','6','23');
+        $report_male_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'male','23','59');
+        $report_female_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'female','6','23');
+        $report_female_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'female','23','59');
 
-        return view('report.tsfp', compact('children', 'facility', 'report', 'facilities', 'facility_id', 'current_year', 'current_month'));
+
+        return view('report.tsfp', compact('children', 'facility', 'facilities', 'facility_id', 'current_year', 'current_month',
+            'report_male_6to23','report_female_6to23','report_male_24to59','report_female_24to59'));
+
     }
 
     private function otp($facility_id, $report_month, $report_year, $sex, $start_age, $end_age)
