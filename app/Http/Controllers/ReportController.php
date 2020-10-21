@@ -115,13 +115,21 @@ class ReportController extends Controller
             $facility = Facility::findOrFail($request->facility_id);
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
-        $report = $this->otp($facility_id, $report_month, $report_year);
+//        $report = $this->otp($facility_id, $report_month, $report_year);
         $facilities = Facility::all();
         $current_month = $report_month;
         $current_year = $report_year;
 
+        $report_male_6to23 = $this->otp($facility_id, $report_month, $report_year, 'male','6','23');
+        $report_male_24to59 = $this->otp($facility_id, $report_month, $report_year, 'male','23','59');
+        $report_male_60up = $this->otp($facility_id, $report_month, $report_year, 'male','60','120');
+        $report_female_6to23 = $this->otp($facility_id, $report_month, $report_year, 'female','6','23');
+        $report_female_24to59 = $this->otp($facility_id, $report_month, $report_year, 'female','23','59');
+        $report_female_60up = $this->otp($facility_id, $report_month, $report_year, 'female','60','120');
+
 //            dd($report);
-        return view('report.otp', compact('children', 'facility', 'report', 'facilities', 'facility_id', 'current_year', 'current_month'));
+        return view('report.otp', compact('children', 'facility', 'facilities', 'facility_id', 'current_year', 'current_month',
+            'report_male_6to23','report_female_6to23','report_female_24to59','report_male_24to59','report_male_60up','report_female_60up'));
 
     }
 
