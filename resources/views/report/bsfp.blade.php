@@ -100,7 +100,7 @@
                             {{--</thead>--}}
                             <tbody>
                             {{--block-1 start                            --}}
-                            <tr>
+                            <tr style="background-color: #dff0d8">
                                 <td colspan="2"><strong>At the Begining (A)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['begining_balance_total']+$report_male_24to59['begining_balance_total']+$report_female_6to23['begining_balance_total']+$report_female_24to59['begining_balance_total']}}</strong>
@@ -131,7 +131,7 @@
                             {{--row end                            --}}
                             {{--block-1 end                            --}}
                             {{--block-2 start                            --}}
-                            <tr>
+                            <tr style="background-color: #b8daff">
                                 <td colspan="2"><strong>New Admission</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['new_admission']+$report_male_24to59['new_admission']+$report_female_6to23['new_admission']+$report_female_24to59['new_admission']}}</strong>
@@ -162,7 +162,7 @@
                             {{--row end                            --}}
                             {{--block-2 end                            --}}
                             {{--block-3 start                            --}}
-                            <tr>
+                            <tr style="background-color: #b8daff">
                                 <td colspan="2"><strong>Readmission after being default</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['readmission']+$report_male_24to59['readmission']+$report_female_6to23['readmission']+$report_female_24to59['readmission']}}</strong>
@@ -193,7 +193,7 @@
                             {{--row end                            --}}
                             {{--block-3 end                            --}}
                             {{--block-Transfer_in start                            --}}
-                            <tr>
+                            <tr style="background-color: #b8daff">
                                 <td colspan="2"><strong>Transfer-in (from other BSFP)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['transfer_in']+$report_male_24to59['transfer_in']+$report_female_6to23['transfer_in']+$report_female_24to59['transfer_in']}}</strong>
@@ -224,7 +224,7 @@
                             {{--row end                            --}}
                             {{--block-Transfer in end                            --}}
                             {{--block-Return From start                            --}}
-                            <tr>
+                            <tr style="background-color: #b8daff">
                                 <td colspan="2"><strong>Return From MAM Treatment(from other BSFP)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['return_from']+$report_male_24to59['return_from']+$report_female_6to23['return_from']+$report_female_24to59['return_from']}}</strong>
@@ -255,7 +255,7 @@
                             {{--row end                            --}}
                             {{--block-return from end                            --}}
                             {{--block- Total Admission start                            --}}
-                            <tr>
+                            <tr style="background-color: #b8daff">
                                 <td colspan="2"><strong>Total Admission during this period (B)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['this_period_total_enrollment']+$report_male_24to59['this_period_total_enrollment']+$report_female_6to23['this_period_total_enrollment']+$report_female_24to59['this_period_total_enrollment']}}</strong>
@@ -286,7 +286,7 @@
                             {{--row end                            --}}
                             {{--block-Total Admission end                            --}}
                             {{--block- Discharge start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Discharge (Age > 59 months & Get minimum 6 months support)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['discharge_age>59']+$report_male_24to59['discharge_age>59']+$report_female_6to23['discharge_age>59']+$report_female_24to59['discharge_age>59']}}</strong>
@@ -317,7 +317,7 @@
                             {{--row end                            --}}
                             {{--block-Discharge end                            --}}
                             {{--block- Defaulter start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Defaulted</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['discharge_defaulted']+$report_male_24to59['discharge_defaulted']+$report_female_6to23['discharge_defaulted']+$report_female_24to59['discharge_defaulted']}}</strong>
@@ -348,7 +348,7 @@
                             {{--row end                            --}}
                             {{--block-Defaulter end                            --}}
                             {{--block- Death start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Death</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['discharge_death']+$report_male_24to59['discharge_death']+$report_female_6to23['discharge_death']+$report_female_24to59['discharge_death']}}</strong>
@@ -379,7 +379,7 @@
                             {{--row end                            --}}
                             {{--block-Death end                            --}}
                             {{--block- Transfer out (to other BSFP) start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Transfer out (to other BSFP)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['transfer_out']+$report_male_24to59['transfer_out']+$report_female_6to23['transfer_out']+$report_female_24to59['transfer_out']}}</strong>
@@ -410,7 +410,7 @@
                             {{--row end                            --}}
                             {{--block-Transfer out (to other BSFP) end                            --}}
                             {{--block- Transfer to SAM Treatment start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Transfer to SAM Treatment</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['transfer_to_sam']+$report_male_24to59['transfer_to_sam']+$report_female_6to23['transfer_to_sam']+$report_female_24to59['transfer_to_sam']}}</strong>
@@ -440,7 +440,7 @@
                             {{--row end                            --}}
                             {{--block-Transfer to SAM Treatment end                            --}}
                             {{--block- Transfer to MAM Treatment start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Transfer to MAM Treatment</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['transfer_to_mam']+$report_male_24to59['transfer_to_mam']+$report_female_6to23['transfer_to_mam']+$report_female_24to59['transfer_to_mam']}}</strong>
@@ -470,7 +470,7 @@
                             {{--row end                            --}}
                             {{--block-Transfer to MAM Treatment end                            --}}
                             {{--block- Other start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Others</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['others']+$report_male_24to59['others']+$report_female_6to23['others']+$report_female_24to59['others']}}</strong>
@@ -500,7 +500,7 @@
                             {{--row end                            --}}
                             {{--block-Others end                            --}}
                             {{--block- Exits start                            --}}
-                            <tr>
+                            <tr style="background-color: #1cc09f">
                                 <td colspan="2"><strong>Total exits during this period (C)</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['this_period_total_exit']+$report_male_24to59['this_period_total_exit']+$report_female_6to23['this_period_total_exit']+$report_female_24to59['this_period_total_exit']}}</strong>
@@ -530,7 +530,7 @@
                             {{--row end                            --}}
                             {{--block-Exits end                            --}}
                             {{--block- At the  end start                            --}}
-                            <tr>
+                            <tr style="background-color: #77ee77">
                                 <td colspan="2"><strong>At the end (A+B)-C</strong></td>
                                 <td>
                                     <strong>{{$report_male_6to23['end_of_month_total']+$report_male_24to59['end_of_month_total']+$report_female_6to23['end_of_month_total']+$report_female_24to59['end_of_month_total']}}</strong>
