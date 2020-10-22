@@ -146,12 +146,17 @@ class ReportController extends Controller
 //        dd($facility);
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
-        $report = $this->bsfp($facility_id, $report_month, $report_year);
         $facilities = Facility::all();
         $current_month = $report_month;
         $current_year = $report_year;
 
-        return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'facility_id', 'current_year', 'current_month'));
+        $report_male_6to23 = $this->bsfp($facility_id, $report_month, $report_year, 'male','6','23');
+        $report_male_24to59 = $this->bsfp($facility_id, $report_month, $report_year, 'male','24','59');
+        $report_female_6to23 = $this->bsfp($facility_id, $report_month, $report_year, 'female','6','23');
+        $report_female_24to59 = $this->bsfp($facility_id, $report_month, $report_year, 'female','24','59');
+
+        return view('report.bsfp', compact('children', 'facility', 'facilities', 'current_month', 'current_year', 'facility_id',
+            'report_male_6to23','report_female_6to23','report_male_24to59','report_female_24to59'));
     }
     public function tsfp_report_admin(Request $request)
     {
