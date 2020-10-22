@@ -79,7 +79,7 @@
                                 <td>Program Partner: <strong>{{ $facility->program_partner }}</strong></td>
                                 {{--<td>Month/Year: <strong>{{ date("F Y",strtotime("-1 month")) }}</strong></td>--}}
                                 <td>Month/Year:
-                                    <strong>{{ date('F', mktime(0, 0, 0, $report['report_month'], 10)).'-'.$report['report_year'] }}</strong>
+                                    <strong>{{ date('F', mktime(0, 0, 0, $current_month, 10)).'-'.$current_year }}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -92,441 +92,473 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             {{--<thead>--}}
                             {{--<tr>--}}
-                                {{--<td >Age Group</td>--}}
-                                {{--<td>Indicator</td>--}}
-                                {{--<td> Sex</td>--}}
-                                {{--<td> </td>--}}
+                            {{--<td >Age Group</td>--}}
+                            {{--<td>Indicator</td>--}}
+                            {{--<td> Sex</td>--}}
+                            {{--<td> </td>--}}
                             {{--</tr>--}}
                             {{--</thead>--}}
                             <tbody>
-{{--block-1 start                            --}}
+                            {{--block-1 start                            --}}
                             <tr>
                                 <td colspan="2"><strong>At the Begining (A)</strong></td>
-                                <td><strong>{{$report['begining_balance_23_male']+$report['begining_balance_23_female']+$report['begining_balance_24to59_male']+$report['begining_balance_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['begining_balance_total']+$report_male_24to59['begining_balance_total']+$report_female_6to23['begining_balance_total']+$report_female_24to59['begining_balance_total']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['begining_balance_23_male']}}</td>
+                                <td>{{$report_male_6to23['begining_balance_total']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['begining_balance_23_female']}}</td>
+                                <td>{{$report_female_6to23['begining_balance_total']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['begining_balance_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['begining_balance_total']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['begining_balance_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['begining_balance_total']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-1 end                            --}}
-{{--block-2 start                            --}}
+                            {{--row end                            --}}
+                            {{--block-1 end                            --}}
+                            {{--block-2 start                            --}}
                             <tr>
                                 <td colspan="2"><strong>New Admission</strong></td>
-                                <td><strong>{{$report['new_admission_23_male']+$report['new_admission_23_female']+$report['new_admission_24to59_male']+$report['new_admission_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['new_admission']+$report_male_24to59['new_admission']+$report_female_6to23['new_admission']+$report_female_24to59['new_admission']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['new_admission_23_male']}}</td>
+                                <td>{{$report_male_6to23['new_admission']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['new_admission_23_female']}}</td>
+                                <td>{{$report_female_6to23['new_admission']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['new_admission_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['new_admission']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['new_admission_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['new_admission']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-2 end                            --}}
-{{--block-3 start                            --}}
+                            {{--row end                            --}}
+                            {{--block-2 end                            --}}
+                            {{--block-3 start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Readmission after being default</strong></td>
-                                <td><strong>{{$report['re_admission_23_male']+$report['re_admission_23_female']+$report['re_admission_24to59_male']+$report['re_admission_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['readmission']+$report_male_24to59['readmission']+$report_female_6to23['readmission']+$report_female_24to59['readmission']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['re_admission_23_male']}}</td>
+                                <td>{{$report_male_6to23['readmission']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['re_admission_23_female']}}</td>
+                                <td>{{$report_female_6to23['readmission']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['re_admission_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['readmission']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['re_admission_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['readmission']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-3 end                            --}}
-{{--block-Transfer_in start                            --}}
+                            {{--row end                            --}}
+                            {{--block-3 end                            --}}
+                            {{--block-Transfer_in start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Transfer-in (from other BSFP)</strong></td>
-                                <td><strong>{{$report['transfer_in_23_male']+$report['transfer_in_23_female']+$report['transfer_in_24to59_male']+$report['transfer_in_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['transfer_in']+$report_male_24to59['transfer_in']+$report_female_6to23['transfer_in']+$report_female_24to59['transfer_in']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_in_23_male']}}</td>
+                                <td>{{$report_male_6to23['transfer_in']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_in_23_female']}}</td>
+                                <td>{{$report_female_6to23['transfer_in']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_in_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['transfer_in']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_in_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['transfer_in']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Transfer in end                            --}}
-{{--block-Return From start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Transfer in end                            --}}
+                            {{--block-Return From start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Return From MAM Treatment(from other BSFP)</strong></td>
-                                <td><strong>{{$report['return_from_23_male']+$report['return_from_23_female']+$report['return_from_24to59_male']+$report['return_from_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['return_from']+$report_male_24to59['return_from']+$report_female_6to23['return_from']+$report_female_24to59['return_from']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['return_from_23_male']}}</td>
+                                <td>{{$report_male_6to23['return_from']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['return_from_23_female']}}</td>
+                                <td>{{$report_female_6to23['return_from']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['return_from_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['return_from']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['return_from_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['return_from']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-return from end                            --}}
-{{--block- Total Admission start                            --}}
+                            {{--row end                            --}}
+                            {{--block-return from end                            --}}
+                            {{--block- Total Admission start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Total Admission during this period (B)</strong></td>
-                                <td><strong>{{$report['total_admission_23_male']+$report['total_admission_23_female']+$report['total_admission_24to59_male']+$report['total_admission_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['this_period_total_enrollment']+$report_male_24to59['this_period_total_enrollment']+$report_female_6to23['this_period_total_enrollment']+$report_female_24to59['this_period_total_enrollment']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['total_admission_23_male']}}</td>
+                                <td>{{$report_male_6to23['this_period_total_enrollment']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['total_admission_23_female']}}</td>
+                                <td>{{$report_female_6to23['this_period_total_enrollment']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['total_admission_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['this_period_total_enrollment']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['total_admission_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['this_period_total_enrollment']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Total Admission end                            --}}
-{{--block- Discharge start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Total Admission end                            --}}
+                            {{--block- Discharge start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Discharge (Age > 59 months & Get minimum 6 months support)</strong></td>
-                                <td><strong>{{$report['discharge_23_male']+$report['discharge_23_female']+$report['discharge_24to59_male']+$report['discharge_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['discharge_age>59']+$report_male_24to59['discharge_age>59']+$report_female_6to23['discharge_age>59']+$report_female_24to59['discharge_age>59']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['discharge_23_male']}}</td>
+                                <td>{{$report_male_6to23['discharge_age>59']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['discharge_23_female']}}</td>
+                                <td>{{$report_female_6to23['discharge_age>59']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['discharge_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['discharge_age>59']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['discharge_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['discharge_age>59']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Discharge end                            --}}
-{{--block- Defaulter start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Discharge end                            --}}
+                            {{--block- Defaulter start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Defaulted</strong></td>
-                                <td><strong>{{$report['defaulted_23_male']+$report['defaulted_23_female']+$report['defaulted_24to59_male']+$report['defaulted_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['discharge_defaulted']+$report_male_24to59['discharge_defaulted']+$report_female_6to23['discharge_defaulted']+$report_female_24to59['discharge_defaulted']}}</strong>
+                                </td>
                             </tr>
 
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['defaulted_23_male']}}</td>
+                                <td>{{$report_male_6to23['discharge_defaulted']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['defaulted_23_female']}}</td>
+                                <td>{{$report_female_6to23['discharge_defaulted']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['defaulted_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['discharge_defaulted']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['defaulted_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['discharge_defaulted']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Defaulter end                            --}}
-{{--block- Death start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Defaulter end                            --}}
+                            {{--block- Death start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Death</strong></td>
-                                <td><strong>{{$report['death_23_male']+$report['death_23_female']+$report['death_24to59_male']+$report['death_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['discharge_death']+$report_male_24to59['discharge_death']+$report_female_6to23['discharge_death']+$report_female_24to59['discharge_death']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['death_23_male']}}</td>
+                                <td>{{$report_male_6to23['discharge_death']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['death_23_female']}}</td>
+                                <td>{{$report_female_6to23['discharge_death']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['death_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['discharge_death']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['death_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['discharge_death']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Death end                            --}}
-{{--block- Transfer out (to other BSFP) start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Death end                            --}}
+                            {{--block- Transfer out (to other BSFP) start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Transfer out (to other BSFP)</strong></td>
-                                <td><strong>{{$report['transfer_out_23_male']+$report['transfer_out_23_female']+$report['transfer_out_24to59_male']+$report['transfer_out_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['transfer_out']+$report_male_24to59['transfer_out']+$report_female_6to23['transfer_out']+$report_female_24to59['transfer_out']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_out_23_male']}}</td>
+                                <td>{{$report_male_6to23['transfer_out']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_out_23_female']}}</td>
+                                <td>{{$report_female_6to23['transfer_out']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_out_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['transfer_out']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_out_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['transfer_out']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Transfer out (to other BSFP) end                            --}}
-{{--block- Transfer to SAM Treatment start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Transfer out (to other BSFP) end                            --}}
+                            {{--block- Transfer to SAM Treatment start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Transfer to SAM Treatment</strong></td>
-                                <td><strong>{{$report['transfer_to_sam_23_male']+$report['transfer_to_sam_23_female']+$report['transfer_to_sam_24to59_male']+$report['transfer_to_sam_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['transfer_to_sam']+$report_male_24to59['transfer_to_sam']+$report_female_6to23['transfer_to_sam']+$report_female_24to59['transfer_to_sam']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_to_sam_23_male']}}</td>
+                                <td>{{$report_male_6to23['transfer_to_sam']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_to_sam_23_female']}}</td>
+                                <td>{{$report_female_6to23['transfer_to_sam']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_to_sam_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['transfer_to_sam']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_to_sam_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['transfer_to_sam']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Transfer to SAM Treatment end                            --}}
-{{--block- Transfer to MAM Treatment start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Transfer to SAM Treatment end                            --}}
+                            {{--block- Transfer to MAM Treatment start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Transfer to MAM Treatment</strong></td>
-                                <td><strong>{{$report['transfer_to_mam_23_male']+$report['transfer_to_mam_23_female']+$report['transfer_to_mam_24to59_male']+$report['transfer_to_mam_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['transfer_to_mam']+$report_male_24to59['transfer_to_mam']+$report_female_6to23['transfer_to_mam']+$report_female_24to59['transfer_to_mam']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_to_mam_23_male']}}</td>
+                                <td>{{$report_male_6to23['transfer_to_mam']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_to_mam_23_female']}}</td>
+                                <td>{{$report_female_6to23['transfer_to_mam']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['transfer_to_mam_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['transfer_to_mam']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['transfer_to_mam_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['transfer_to_mam']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Transfer to MAM Treatment end                            --}}
-{{--block- Other start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Transfer to MAM Treatment end                            --}}
+                            {{--block- Other start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Others</strong></td>
-                                <td><strong>{{$report['others_23_male']+$report['others_23_female']+$report['others_24to59_male']+$report['others_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['others']+$report_male_24to59['others']+$report_female_6to23['others']+$report_female_24to59['others']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['others_23_male']}}</td>
+                                <td>{{$report_male_6to23['others']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['others_23_female']}}</td>
+                                <td>{{$report_female_6to23['others']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['others_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['others']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['others_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['others']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Others end                            --}}
-{{--block- Exits start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Others end                            --}}
+                            {{--block- Exits start                            --}}
                             <tr>
                                 <td colspan="2"><strong>Total exits during this period (C)</strong></td>
-                                <td><strong>{{$report['total_exits_23_male']+$report['total_exits_23_female']+$report['total_exits_24to59_male']+$report['total_exits_24to59_female']}}</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['this_period_total_exit']+$report_male_24to59['this_period_total_exit']+$report_female_6to23['this_period_total_exit']+$report_female_24to59['this_period_total_exit']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['total_exits_23_male']}}</td>
+                                <td>{{$report_male_6to23['this_period_total_exit']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['total_exits_23_female']}}</td>
+                                <td>{{$report_female_6to23['this_period_total_exit']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['total_exits_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['this_period_total_exit']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['total_exits_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['this_period_total_exit']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-Exits end                            --}}
-{{--block- At the  end start                            --}}
+                            {{--row end                            --}}
+                            {{--block-Exits end                            --}}
+                            {{--block- At the  end start                            --}}
                             <tr>
-                                <td colspan="2"><strong>At the  end (A+B)-C</strong></td>
-                                <td><strong>{{$report['endof_month_23_male']+$report['endof_month_23_female']+$report['endof_month_24to59_male']+$report['endof_month_24to59_female']}}</strong></td>
+                                <td colspan="2"><strong>At the end (A+B)-C</strong></td>
+                                <td>
+                                    <strong>{{$report_male_6to23['end_of_month_total']+$report_male_24to59['end_of_month_total']+$report_female_6to23['end_of_month_total']+$report_female_24to59['end_of_month_total']}}</strong>
+                                </td>
                             </tr>
-{{--row start--}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">6-23 month</td>
                                 <td>Male</td>
-                                <td>{{$report['endof_month_23_male']}}</td>
+                                <td>{{$report_male_6to23['end_of_month_total']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['endof_month_23_female']}}</td>
+                                <td>{{$report_female_6to23['end_of_month_total']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--row start--}}
+                            {{--row end                            --}}
+                            {{--row start--}}
                             <tr>
                                 <td rowspan="2">24-59 month</td>
                                 <td>Male</td>
-                                <td>{{$report['endof_month_24to59_male']}}</td>
+                                <td>{{$report_male_24to59['end_of_month_total']}}</td>
                             </tr>
                             <tr>
                                 <td>Female</td>
-                                <td>{{$report['endof_month_24to59_female']}}</td>
+                                <td>{{$report_female_24to59['this_period_total_exit']}}</td>
                             </tr>
-{{--row end                            --}}
-{{--block-At the  end end                            --}}
+                            {{--row end                            --}}
+                            {{--block-At the  end end                            --}}
                             </tbody>
                         </table>
 

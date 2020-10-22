@@ -81,10 +81,10 @@ class ReportController extends Controller
 //            dd($report_year);
 
             $report_male_6to23 = $this->otp($facility_id, $report_month, $report_year, 'male','6','23');
-            $report_male_24to59 = $this->otp($facility_id, $report_month, $report_year, 'male','23','59');
+            $report_male_24to59 = $this->otp($facility_id, $report_month, $report_year, 'male','24','59');
             $report_male_60up = $this->otp($facility_id, $report_month, $report_year, 'male','60','120');
             $report_female_6to23 = $this->otp($facility_id, $report_month, $report_year, 'female','6','23');
-            $report_female_24to59 = $this->otp($facility_id, $report_month, $report_year, 'female','23','59');
+            $report_female_24to59 = $this->otp($facility_id, $report_month, $report_year, 'female','24','59');
             $report_female_60up = $this->otp($facility_id, $report_month, $report_year, 'female','60','120');
 
 //            dd($report_male_6to23);
@@ -121,10 +121,10 @@ class ReportController extends Controller
         $current_year = $report_year;
 
         $report_male_6to23 = $this->otp($facility_id, $report_month, $report_year, 'male','6','23');
-        $report_male_24to59 = $this->otp($facility_id, $report_month, $report_year, 'male','23','59');
+        $report_male_24to59 = $this->otp($facility_id, $report_month, $report_year, 'male','24','59');
         $report_male_60up = $this->otp($facility_id, $report_month, $report_year, 'male','60','120');
         $report_female_6to23 = $this->otp($facility_id, $report_month, $report_year, 'female','6','23');
-        $report_female_24to59 = $this->otp($facility_id, $report_month, $report_year, 'female','23','59');
+        $report_female_24to59 = $this->otp($facility_id, $report_month, $report_year, 'female','24','59');
         $report_female_60up = $this->otp($facility_id, $report_month, $report_year, 'female','60','120');
 
 //            dd($report);
@@ -477,8 +477,12 @@ class ReportController extends Controller
             $facilities = Facility::all();
             $current_month = $report_month;
             $current_year = $report_year;
-            $report = $this->bsfp($facility_id, $report_month, $report_year);
-            return view('report.bsfp', compact('children', 'facility', 'report', 'facilities', 'current_month', 'current_year', 'facility_id'));
+            $report_male_6to23 = $this->bsfp($facility_id, $report_month, $report_year, 'male','6','23');
+            $report_male_24to59 = $this->bsfp($facility_id, $report_month, $report_year, 'male','24','59');
+            $report_female_6to23 = $this->bsfp($facility_id, $report_month, $report_year, 'female','6','23');
+            $report_female_24to59 = $this->bsfp($facility_id, $report_month, $report_year, 'female','24','59');
+            return view('report.bsfp', compact('children', 'facility', 'facilities', 'current_month', 'current_year', 'facility_id',
+                'report_male_6to23','report_female_6to23','report_male_24to59','report_female_24to59'));
 
         } else {
 
@@ -488,7 +492,6 @@ class ReportController extends Controller
 
             return view('report.search_home_bsfp', compact('children', 'current_month', 'facilities'));
         }
-
     }
     public function tsfp_report()
     {
@@ -511,9 +514,9 @@ class ReportController extends Controller
             $current_year = $report_year;
 
             $report_male_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'male','6','23');
-            $report_male_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'male','23','59');
+            $report_male_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'male','24','59');
             $report_female_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'female','6','23');
-            $report_female_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'female','23','59');
+            $report_female_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'female','24','59');
 
             return view('report.tsfp', compact('children', 'facility', 'facilities', 'current_month', 'current_year', 'facility_id',
                 'report_male_6to23','report_female_6to23','report_male_24to59','report_female_24to59'));
@@ -528,197 +531,261 @@ class ReportController extends Controller
         }
 
     }
-    private function bsfp($facility_id, $report_month, $report_year)
+    private function bsfp($facility_id, $report_month, $report_year, $sex, $start_age, $end_age)
     {
-//        dd($facility_id);
-//        $days_in_month = cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year);
-        $begining_balance_1stday = \DB::table('facility_followups')->MIN('date');
+        $begining_balance_1stday = DB::table('facility_followups')->MIN('date');
         $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($report_year . '-' . $report_month . '-01')));
         $this_month_1stday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . '1'));
         $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
-//dd($begining_balance_1stday.'/'.$begining_balance_lastday.'/'.$endof_month_lastday);
 
-        $male_23 = Child::select('sync_id')->where('age', '<=', 23)->where('sex', 'male')->pluck('sync_id')->toArray();
-        $female_23 = Child::select('sync_id')->where('age', '<=', 23)->where('sex', 'female')->pluck('sync_id')->toArray();
-        $male_24to59 = Child::select('sync_id')->where('age', '>=', 24)->where('age', '<=', 59)->where('sex', 'male')->pluck('sync_id')->toArray();
-        $female_24to59 = Child::select('sync_id')->where('age', '>=', 24)->where('age', '<=', 59)->where('sex', 'female')->pluck('sync_id')->toArray();
+//        $male_23 = Child::select('sync_id')->where('age', '<=', 23)->where('sex', 'male')->pluck('sync_id')->toArray();
+//        $female_23 = Child::select('sync_id')->where('age', '<=', 23)->where('sex', 'female')->pluck('sync_id')->toArray();
+//        $male_24to59 = Child::select('sync_id')->where('age', '>=', 24)->where('age', '<=', 59)->where('sex', 'male')->pluck('sync_id')->toArray();
+//        $female_24to59 = Child::select('sync_id')->where('age', '>=', 24)->where('age', '<=', 59)->where('sex', 'female')->pluck('sync_id')->toArray();
 
-        $begining_balance_new_admission = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+        $bsfp['begining_balance_new_admission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
             ->where('new_admission', '!=', null)
             ->where('new_admission', '!=', 'Age 6 to 59m')
-            ->pluck('children_id')->toArray();
-        $begining_balance_re_admission = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_readmission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
             ->where('readmission', 'Readmission after default')
-            ->pluck('children_id')->toArray();
-        $begining_balance_transfer_in = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+
+        $bsfp['begining_balance_transfer_in'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
             ->where('transfer_in', 'Transfer in from BSFP')
-            ->pluck('children_id')->toArray();
-        $begining_balance_return_from = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+
+        $bsfp['begining_balance_return_from'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
             ->where('return_from', 'MAM Treatement')
-            ->pluck('children_id')->toArray();
-        $begining_balance_total_enrollment = array_merge($begining_balance_new_admission, $begining_balance_re_admission, $begining_balance_transfer_in, $begining_balance_return_from);
-//dd(count($begining_balance_total_enrollment));
-        $begining_balance_total_exit = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $begining_balance_lastday])
-            ->where('discharge_criteria_exit', '!=', null)
-            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
-            ->pluck('children_id')->toArray();
-//        dd($begining_balance_total_exit);
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
 
-        $endof_month_total_enrollment = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
-            ->where('new_admission', '!=', null)
-            ->where('new_admission', '!=', 'Age 6 to 59m')
-            ->pluck('children_id')->toArray();
+        $bsfp['begining_balance_total_enrollment']=$bsfp['begining_balance_new_admission']+$bsfp['begining_balance_readmission']+$bsfp['begining_balance_transfer_in']+$bsfp['begining_balance_return_from'];
 
-        $endof_month_total_exit = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$begining_balance_1stday, $endof_month_lastday])
-            ->where('discharge_criteria_exit', '!=', null)
-            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
-            ->pluck('children_id')->toArray();
-
-        $new_admission = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
-            ->where('new_admission', '!=', null)
-            ->where('new_admission', '!=', 'Age 6 to 59m')
-            ->pluck('children_id')->toArray();
-        $re_admission = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
-            ->where('readmission', 'Readmission after default')
-            ->pluck('children_id')->toArray();
-        $transfer_in = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
-            ->where('transfer_in', 'Transfer in from BSFP')
-            ->pluck('children_id')->toArray();
-        $return_from = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
-            ->where('return_from', 'MAM Treatement')
-            ->pluck('children_id')->toArray();
-
-        $total_admission_report_month = array_merge($new_admission, $re_admission, $transfer_in, $return_from);
-//dd($total_admission_report_month);
-        $discharge = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+        $bsfp['begining_balance_discharge_age>59'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_exit', 'Age > 59m')
-            ->pluck('children_id')->toArray();
-//dd($discharge);
-        $defaulted = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_discharge_defaulted'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_exit', 'Defaulted')
-            ->pluck('children_id')->toArray();
-
-        $death = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_discharge_death'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_exit', 'Death')
-            ->pluck('children_id')->toArray();
-
-        $transfer_out = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_transfer_out'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_transfer_out', 'Transfer to other BSFP')
-            ->pluck('children_id')->toArray();
-//dd($transfer_out);
-        $transfer_to_sam = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_transfer_to_sam'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_transfer_out', 'Transfer to SAM treatment')
-            ->pluck('children_id')->toArray();
-
-        $transfer_to_mam = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_transfer_to_mam'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_transfer_out', 'Transfer to MAM treatment')
-            ->pluck('children_id')->toArray();
-
-        $others = FacilityFollowup::where('facility_id', $facility_id)
-            ->whereBetween('date', [$this_month_1stday, $endof_month_lastday])
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['begining_balance_others'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
             ->where('discharge_criteria_others', '!=', null)
-            ->pluck('children_id')->toArray();
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
 
-        $total_exits_report_month = array_merge($discharge, $defaulted, $death, $transfer_out, $transfer_to_sam, $transfer_to_mam, $others);
-//        dd($total_exits_report_month);
+        $bsfp['begining_balance_total_exit']=$bsfp['begining_balance_discharge_age>59']+$bsfp['begining_balance_discharge_defaulted']+$bsfp['begining_balance_discharge_death']+$bsfp['begining_balance_transfer_out']+
+            $bsfp['begining_balance_transfer_to_sam']+$bsfp['begining_balance_transfer_to_mam']+$bsfp['begining_balance_others'];
 
-        $report['begining_balance_23_male'] = count(array_intersect($begining_balance_total_enrollment, $male_23)) - count(array_intersect($begining_balance_total_exit, $male_23));
-        $report['begining_balance_23_female'] = count(array_intersect($begining_balance_total_enrollment, $female_23)) - count(array_intersect($begining_balance_total_exit, $female_23));
-        $report['begining_balance_24to59_male'] = count(array_intersect($begining_balance_total_enrollment, $male_24to59)) - count(array_intersect($begining_balance_total_exit, $male_24to59));
-        $report['begining_balance_24to59_female'] = count(array_intersect($begining_balance_total_enrollment, $female_24to59)) - count(array_intersect($begining_balance_total_exit, $female_24to59));
+        $bsfp['begining_balance_total']=$bsfp['begining_balance_total_enrollment']-$bsfp['begining_balance_total_exit'];
 
-        $report['new_admission_23_male'] = count(array_intersect($new_admission, $male_23));
-        $report['new_admission_23_female'] = count(array_intersect($new_admission, $female_23));
-        $report['new_admission_24to59_male'] = count(array_intersect($new_admission, $male_24to59));
-        $report['new_admission_24to59_female'] = count(array_intersect($new_admission, $female_24to59));
+        $bsfp['new_admission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['readmission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
+            ->where('readmission', 'Readmission after default')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
 
-        $report['re_admission_23_male'] = count(array_intersect($re_admission, $male_23));
-        $report['re_admission_23_female'] = count(array_intersect($re_admission, $female_23));
-        $report['re_admission_24to59_male'] = count(array_intersect($re_admission, $male_24to59));
-        $report['re_admission_24to59_female'] = count(array_intersect($re_admission, $female_24to59));
+        $bsfp['transfer_in'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
+            ->where('transfer_in', 'Transfer in from BSFP')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
 
-        $report['transfer_in_23_male'] = count(array_intersect($transfer_in, $male_23));
-        $report['transfer_in_23_female'] = count(array_intersect($transfer_in, $female_23));
-        $report['transfer_in_24to59_male'] = count(array_intersect($transfer_in, $male_24to59));
-        $report['transfer_in_24to59_female'] = count(array_intersect($transfer_in, $female_24to59));
+        $bsfp['return_from'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome', 'Normal new case')
+            ->where('return_from', 'MAM Treatement')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['this_period_total_enrollment']=$bsfp['new_admission']+$bsfp['readmission']+$bsfp['transfer_in']+$bsfp['return_from'];
 
-        $report['return_from_23_male'] = count(array_intersect($return_from, $male_23));
-        $report['return_from_23_female'] = count(array_intersect($return_from, $female_23));
-        $report['return_from_24to59_male'] = count(array_intersect($return_from, $male_24to59));
-        $report['return_from_24to59_female'] = count(array_intersect($return_from, $female_24to59));
-
-        $report['total_admission_23_male'] = count(array_intersect($total_admission_report_month, $male_23));
-        $report['total_admission_23_female'] = count(array_intersect($total_admission_report_month, $female_23));
-        $report['total_admission_24to59_male'] = count(array_intersect($total_admission_report_month, $male_24to59));
-        $report['total_admission_24to59_female'] = count(array_intersect($total_admission_report_month, $female_24to59));
-
-//Exit/Discharge
-        $report['discharge_23_male'] = count(array_intersect($discharge, $male_23));
-        $report['discharge_23_female'] = count(array_intersect($discharge, $female_23));
-        $report['discharge_24to59_male'] = count(array_intersect($discharge, $male_24to59));
-        $report['discharge_24to59_female'] = count(array_intersect($discharge, $female_24to59));
-
-        $report['defaulted_23_male'] = count(array_intersect($defaulted, $male_23));
-        $report['defaulted_23_female'] = count(array_intersect($defaulted, $female_23));
-        $report['defaulted_24to59_male'] = count(array_intersect($defaulted, $male_24to59));
-        $report['defaulted_24to59_female'] = count(array_intersect($defaulted, $female_24to59));
-
-        $report['death_23_male'] = count(array_intersect($death, $male_23));
-        $report['death_23_female'] = count(array_intersect($death, $female_23));
-        $report['death_24to59_male'] = count(array_intersect($death, $male_24to59));
-        $report['death_24to59_female'] = count(array_intersect($death, $female_24to59));
-
-        $report['transfer_out_23_male'] = count(array_intersect($transfer_out, $male_23));
-        $report['transfer_out_23_female'] = count(array_intersect($transfer_out, $female_23));
-        $report['transfer_out_24to59_male'] = count(array_intersect($transfer_out, $male_24to59));
-        $report['transfer_out_24to59_female'] = count(array_intersect($transfer_out, $female_24to59));
-
-        $report['transfer_to_sam_23_male'] = count(array_intersect($transfer_to_sam, $male_23));
-        $report['transfer_to_sam_23_female'] = count(array_intersect($transfer_to_sam, $female_23));
-        $report['transfer_to_sam_24to59_male'] = count(array_intersect($transfer_to_sam, $male_24to59));
-        $report['transfer_to_sam_24to59_female'] = count(array_intersect($transfer_to_sam, $female_24to59));
-
-        $report['transfer_to_mam_23_male'] = count(array_intersect($transfer_to_mam, $male_23));
-        $report['transfer_to_mam_23_female'] = count(array_intersect($transfer_to_mam, $female_23));
-        $report['transfer_to_mam_24to59_male'] = count(array_intersect($transfer_to_mam, $male_24to59));
-        $report['transfer_to_mam_24to59_female'] = count(array_intersect($transfer_to_mam, $female_24to59));
-
-        $report['others_23_male'] = count(array_intersect($others, $male_23));
-        $report['others_23_female'] = count(array_intersect($others, $female_23));
-        $report['others_24to59_male'] = count(array_intersect($others, $male_24to59));
-        $report['others_24to59_female'] = count(array_intersect($others, $female_24to59));
-
-        $report['total_exits_23_male'] = count(array_intersect($total_exits_report_month, $male_23));
-        $report['total_exits_23_female'] = count(array_intersect($total_exits_report_month, $female_23));
-        $report['total_exits_24to59_male'] = count(array_intersect($total_exits_report_month, $male_24to59));
-        $report['total_exits_24to59_female'] = count(array_intersect($total_exits_report_month, $female_24to59));
-
-        $report['endof_month_23_male'] = count(array_intersect($endof_month_total_enrollment, $male_23)) - count(array_intersect($endof_month_total_exit, $male_23));
-        $report['endof_month_23_female'] = count(array_intersect($endof_month_total_enrollment, $female_23)) - count(array_intersect($endof_month_total_exit, $female_23));
-        $report['endof_month_24to59_male'] = count(array_intersect($endof_month_total_enrollment, $male_24to59)) - count(array_intersect($endof_month_total_exit, $male_24to59));
-        $report['endof_month_24to59_female'] = count(array_intersect($endof_month_total_enrollment, $female_24to59)) - count(array_intersect($endof_month_total_exit, $female_24to59));
-
-        $report['report_month'] = $report_month;
-        $report['report_year'] = $report_year;
-
-        return $report;
+        $bsfp['discharge_age>59'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_exit', 'Age > 59m')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['discharge_defaulted'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_exit', 'Defaulted')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['discharge_death'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_exit', 'Death')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['transfer_out'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_transfer_out', 'Transfer to other BSFP')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['transfer_to_sam'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_transfer_out', 'Transfer to SAM treatment')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['transfer_to_mam'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_transfer_out', 'Transfer to MAM treatment')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['others'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'Normal')
+            ->where('outcome','!=', 'Normal new case')
+            ->where('discharge_criteria_others', '!=', null)
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $bsfp['this_period_total_exit']=$bsfp['discharge_age>59']+$bsfp['discharge_defaulted']+$bsfp['discharge_death']+$bsfp['transfer_out']+
+            $bsfp['transfer_to_sam']+$bsfp['transfer_to_mam']+$bsfp['others'];
+        $bsfp['this_period_total']=$bsfp['this_period_total_enrollment']-$bsfp['this_period_total_exit'];
+        $bsfp['end_of_month_total']=$bsfp['begining_balance_total']+$bsfp['this_period_total'];
+//dd($bsfp);
+        return $bsfp;
 
     }
     private function tsfp($facility_id, $report_month, $report_year, $sex, $start_age, $end_age)
