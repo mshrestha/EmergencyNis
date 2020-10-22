@@ -809,7 +809,7 @@ class ReportController extends Controller
             $facilities = Facility::all();
             $current_month = date('n');
 
-            return view('report.search_home_bsfp', compact('children', 'current_month', 'facilities'));
+            return view('report.search_home_tsfp', compact('children', 'current_month', 'facilities'));
         }
 
     }
