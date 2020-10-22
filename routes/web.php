@@ -56,12 +56,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('register', 'RegisterController@index')->name('register');
     Route::get('register-iycf', 'RegisterController@iycf')->name('register-iycf');
 
+    Route::get('sc_report_admin', 'ReportController@sc_report_admin')->name('sc_report_admin');
     Route::get('otp_report_admin', 'ReportController@otp_report_admin')->name('otp_report_admin');
     Route::get('bsfp_report_admin', 'ReportController@bsfp_report_admin')->name('bsfp_report_admin');
     Route::get('tsfp_report_admin', 'ReportController@tsfp_report_admin')->name('tsfp_report_admin');
     Route::get('bsfp_report', 'ReportController@bsfp_report')->name('bsfp_report');
     Route::get('tsfp_report', 'ReportController@tsfp_report')->name('tsfp_report');
     Route::get('otp_report', 'ReportController@otp_report')->name('otp_report');
+    Route::get('sc_report', 'ReportController@sc_report')->name('sc_report');
     Route::get('reports', 'ReportController@index')->name('reports');
 
     Route::resource('children', 'ChildrenController');

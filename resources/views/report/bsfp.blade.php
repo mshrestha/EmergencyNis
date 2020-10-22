@@ -89,6 +89,7 @@
                             </tr>
                             </tbody>
                         </table>
+
                         <table class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             {{--<thead>--}}
                             {{--<tr>--}}
@@ -561,9 +562,6 @@
                             {{--block-At the  end end                            --}}
                             </tbody>
                         </table>
-
-                        <!-- Second Table -->
-                        {{--<div class="full-height-scroll"></div>--}}
                     </div>
                 </div>
             </div>

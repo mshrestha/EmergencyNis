@@ -102,6 +102,49 @@ class ReportController extends Controller
             return view('report.search_home_otp', compact('children', 'current_month', 'facilities'));
         }
     }
+    public function sc_report()
+    {
+        if (Auth::user()->facility_id) {
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+            $children = Child::where('camp_id', $facility->camp_id)->get();
+            //$facility_followup = FacilityFollowup::find();
+            if (date('n') == 1) {
+                $report_month = 12;
+                $report_year = date('Y') - 1;
+            } else {
+                $report_month = date('n') - 1;
+                $report_year = date('Y');
+            }
+            $facility_id = Auth::user()->facility_id;
+
+            $facilities = Facility::all();
+            $current_month = $report_month;
+            $current_year = $report_year;
+
+//            dd($report_year);
+
+            $report_male_under6 = $this->sc($facility_id, $report_month, $report_year, 'male','0','6');
+            $report_male_6to59 = $this->sc($facility_id, $report_month, $report_year, 'male','6','59');
+            $report_male_60up = $this->sc($facility_id, $report_month, $report_year, 'male','60','520');
+            $report_female_under6 = $this->sc($facility_id, $report_month, $report_year, 'female','0','6');
+            $report_female_6to59 = $this->sc($facility_id, $report_month, $report_year, 'female','6','59');
+            $report_female_60up = $this->sc($facility_id, $report_month, $report_year, 'female','60','520');
+
+//            dd($report_male_6to23);
+
+            return view('report.sc', compact('children', 'facility',  'facilities', 'current_month', 'current_year', 'facility_id',
+                'report_male_under6','report_female_under6','report_female_6to59','report_male_6to59','report_male_60up','report_female_60up'));
+
+        } else {
+
+            $children = Child::orderBy('created_at', 'desc')->get();
+
+            $facilities = Facility::all();
+            $current_month = date('n');
+
+            return view('report.search_home_otp', compact('children', 'current_month', 'facilities'));
+        }
+    }
 
     public function otp_report_admin(Request $request)
     {
@@ -460,6 +503,215 @@ class ReportController extends Controller
         $otp['end_of_month']=$otp['begining_balance_total_enrolled']+$otp['enrollment_total']-$otp['exit_total'];
 
         return $otp;
+    }
+    private function sc($facility_id, $report_month, $report_year, $sex, $start_age, $end_age)
+    {
+        $begining_balance_1stday = DB::table('facility_followups')->MIN('date');
+        $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($report_year . '-' . $report_month . '-01')));
+        $this_month_1stday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . '1'));
+        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
+
+        $sc['begining_balance_new_admission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.new_admission', '!=', null)
+            ->where('facility_followups.new_admission', '!=', 'Age 6 to 59m')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['begining_balance_readmission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.readmission', '!=', null)
+            ->where('facility_followups.readmission', '!=', 'Readmission after non recovery')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['begining_balance_transfer_in'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.transfer_in', 'Transfer in from OTP')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['begining_balance_total_enrolled']=$sc['begining_balance_new_admission']+$sc['begining_balance_readmission']+$sc['begining_balance_transfer_in'];
+
+        $sc['begining_balance_discharge_criteria_exit'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_exit', '!=', null)
+            ->where('discharge_criteria_exit', '!=', 'Age > 59m')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['begining_balance_discharge_criteria_others'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_others', '!=', null)
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['begining_balance_discharge_criteria_transfer_out'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_transfer_out', 'Transfer to other OTP')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['begining_balance_total_exit']=$sc['begining_balance_discharge_criteria_exit']+$sc['begining_balance_discharge_criteria_others']+$sc['begining_balance_discharge_criteria_transfer_out'];
+
+        $sc['begining_balance_total']=$sc['begining_balance_total_enrolled']+$sc['begining_balance_total_exit'];
+
+        $sc['new_admission_muac'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.new_admission', 'MUAC')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['new_admission_zscore'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.new_admission','!=', null)
+            ->where('facility_followups.new_admission','!=', 'MUAC')
+            ->where('facility_followups.new_admission','!=', 'Oedema')
+            ->where('facility_followups.new_admission','!=', 'Age 6 to 59m')
+            ->where('facility_followups.new_admission','!=', 'Relapse')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['new_admission_oedema'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.new_admission', 'Oedema')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['new_admission_relapse'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.new_admission', 'Relapse')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['this_period_new_admission_total']=$sc['new_admission_muac']+$sc['new_admission_zscore']+$sc['new_admission_oedema']+$sc['new_admission_relapse'];
+
+        $sc['readmission_after_default'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.readmission', 'Readmission after default')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['transfer_in_from_otp'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('facility_followups.transfer_in', 'Transfer in from OTP')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+
+        $sc['this_period_transfer_in_total']=$sc['readmission_after_default']+$sc['transfer_in_from_otp'];
+
+        $sc['this_period_enrollment_total']=$sc['this_period_new_admission_total']+$sc['this_period_transfer_in_total'];
+
+        $sc['discharge_criteria_exit_recovered'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_exit',  'Recovered')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['discharge_criteria_exit_death'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_exit',  'Death')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['discharge_criteria_exit_defaulted'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_exit',  'Defaulted')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['discharge_criteria_exit_nonrecovered'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_exit',  'Non recovered')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['this_period_discharge_criteria_exit_total']=$sc['discharge_criteria_exit_recovered']+$sc['discharge_criteria_exit_death']+$sc['discharge_criteria_exit_defaulted']+$sc['discharge_criteria_exit_nonrecovered'];
+
+        $sc['discharge_criteria_others_medical_transfer'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_others', 'Medical transfer')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['discharge_criteria_others_unkown'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_others', 'Unkown')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+        $sc['discharge_criteria_transfer_out_otp'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('medical_complecation', 1)
+            ->where('discharge_criteria_transfer_out', 'Transfer to other OTP')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+
+        $sc['this_period_discharge_criteria_transfer_out_total']=$sc['discharge_criteria_others_medical_transfer']+$sc['discharge_criteria_others_unkown'];
+
+        $sc['this_period_exit_total']=$sc['this_period_discharge_criteria_exit_total']+$sc['this_period_discharge_criteria_transfer_out_total'];
+
+        $sc['end_of_month']=$sc['begining_balance_total']+$sc['this_period_enrollment_total']-$sc['this_period_exit_total'];
+
+        return $sc;
     }
 
     public function bsfp_report()
@@ -852,7 +1104,7 @@ class ReportController extends Controller
             ->where('facility_followups.age', '>=', $start_age)
             ->where('facility_followups.age', '<=', $end_age)
             ->where('nutritionstatus', 'MAM')
-            ->where('outcome','!=', 'Already admitted at OTP')
+            ->where('outcome','!=', 'Already admitted at sc')
             ->where('discharge_criteria_exit', '!=', null)
             ->where('discharge_criteria_exit', '!=', 'Recovered')
             ->where('discharge_criteria_exit', '!=', 'Age > 59m')
