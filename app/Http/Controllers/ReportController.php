@@ -121,16 +121,12 @@ class ReportController extends Controller
             $current_month = $report_month;
             $current_year = $report_year;
 
-//            dd($report_year);
-
             $report_male_under6 = $this->sc($facility_id, $report_month, $report_year, 'male','0','6');
             $report_male_6to59 = $this->sc($facility_id, $report_month, $report_year, 'male','6','59');
             $report_male_60up = $this->sc($facility_id, $report_month, $report_year, 'male','60','520');
             $report_female_under6 = $this->sc($facility_id, $report_month, $report_year, 'female','0','6');
             $report_female_6to59 = $this->sc($facility_id, $report_month, $report_year, 'female','6','59');
             $report_female_60up = $this->sc($facility_id, $report_month, $report_year, 'female','60','520');
-
-//            dd($report_male_6to23);
 
             return view('report.sc', compact('children', 'facility',  'facilities', 'current_month', 'current_year', 'facility_id',
                 'report_male_under6','report_female_under6','report_female_6to59','report_male_6to59','report_male_60up','report_female_60up'));
@@ -142,7 +138,7 @@ class ReportController extends Controller
             $facilities = Facility::all();
             $current_month = date('n');
 
-            return view('report.search_home_otp', compact('children', 'current_month', 'facilities'));
+            return view('report.search_home_sc', compact('children', 'current_month', 'facilities'));
         }
     }
 
@@ -173,6 +169,35 @@ class ReportController extends Controller
 //            dd($report);
         return view('report.otp', compact('children', 'facility', 'facilities', 'facility_id', 'current_year', 'current_month',
             'report_male_6to23','report_female_6to23','report_female_24to59','report_male_24to59','report_male_60up','report_female_60up'));
+
+    }
+
+    public function sc_report_admin(Request $request)
+    {
+//        dd($request);
+        $report_month = $request->month;
+        $report_year = $request->year;
+
+        if (Auth::user()->facility_id) {
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+        } else
+            $facility = Facility::findOrFail($request->facility_id);
+        $children = Child::where('camp_id', $facility->camp_id)->get();
+        $facility_id = $facility->id;
+//        $report = $this->otp($facility_id, $report_month, $report_year);
+        $facilities = Facility::all();
+        $current_month = $report_month;
+        $current_year = $report_year;
+
+        $report_male_under6 = $this->sc($facility_id, $report_month, $report_year, 'male','0','6');
+        $report_male_6to59 = $this->sc($facility_id, $report_month, $report_year, 'male','6','59');
+        $report_male_60up = $this->sc($facility_id, $report_month, $report_year, 'male','60','520');
+        $report_female_under6 = $this->sc($facility_id, $report_month, $report_year, 'female','0','6');
+        $report_female_6to59 = $this->sc($facility_id, $report_month, $report_year, 'female','6','59');
+        $report_female_60up = $this->sc($facility_id, $report_month, $report_year, 'female','60','520');
+
+        return view('report.sc', compact('children', 'facility',  'facilities', 'current_month', 'current_year', 'facility_id',
+            'report_male_under6','report_female_under6','report_female_6to59','report_male_6to59','report_male_60up','report_female_60up'));
 
     }
 

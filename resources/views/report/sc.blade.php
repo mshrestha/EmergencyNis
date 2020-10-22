@@ -27,7 +27,7 @@
 
     <div class="row">
         <div class="col-sm-12 ">
-            <form action="{{ route('otp_report_admin') }}" class="form-horizontal" method="get">
+            <form action="{{ route('sc_report_admin') }}" class="form-horizontal" method="get">
                 <div class="form-group pull-right">
                     <select name="facility_id" class="btn btn show-tick selectpicker"
                             data-live-search="true" required {{(Auth::user()->facility_id)?'disabled':''}}>
