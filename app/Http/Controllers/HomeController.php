@@ -973,6 +973,26 @@ class HomeController extends Controller
             $otp['average_weight_gain'] = $recovered_child->sum('gain_of_weight') / $recovered_child->count();
             $otp['average_length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
         }
+
+        $admission = FacilityFollowup::where('facility_id', Auth::user()->facility_id)
+            ->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
+            ->groupBy('dat')
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'SAM')
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
+            ->orderBy('dat', 'ASC')
+            ->pluck('cunt', 'dat')->toArray();
+        $all_date = array_keys($admission);
+        $only_day = [];
+        foreach ($all_date as $dt) {
+            $date = DateTime::createFromFormat("Y-m-d", $dt);
+            $only_day[] = $date->format("d");
+        }
+        $otp['barchart_count'] = array_values($admission);
+        $otp['barchart_date'] = $only_day;
+
         return $otp;
     }
     private function tsfp_dashboard($facility_id, $report_month, $report_year)

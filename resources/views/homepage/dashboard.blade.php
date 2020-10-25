@@ -14,9 +14,9 @@
     <div class="wrapper wrapper-content  animated fadeInRight">
         <div class="row">
             <div class="col-md-8">
-                <h1><strong>DASHBOARD -
+                <h1>DASHBOARD -
                         {{ Auth::user()->facility->facility_id.' ('.Auth::user()->facility->name.')' }}
-                    </strong></h1>
+                    </h1>
             </div>
             <div class="btn-group pull-right" style="padding-bottom: 15px">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-lg-6" style="background-color: #FECEC3">
                     <div class="row">
-                        <h1 style="padding-left: 15px">OTP</h1>
+                        <h1 style="padding-left: 15px"><strong>OTP</strong></h1>
 
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
@@ -132,10 +132,57 @@
                             </div>
                         </div>
                     </div><!-- END OF INNER ROW -->
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>ADMISSIONS
+                                <small>{{$month_year}}</small>
+                            </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="flot-chart">
+                                        {{--<div class="flot-chart-content" >--}}
+                                        <canvas id="otpChildAdmission" class="flot-chart-content"></canvas>
+                                        {{--</div>--}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul class="stat-list">
+                                        <li>
+                                            <h2 class="no-margins ">{{ $otp_dashboard['new_admission_total']}}</h2>
+                                            <small> Enrolled {{$month_year}}</small>
+                                            {{--<div class="stat-percent"> <i class="fa fa-level-down text-navy"></i></div>--}}
+                                            <div class="progress progress-mini">
+                                                <div style="width: 100%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">{{$otp_dashboard['discharge_criteria_exit_recovered']}}</h2>
+                                            <small>Cured {{$month_year}}</small>
+                                            {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
+                                            <div class="progress progress-mini">
+                                                <div style="width: 100%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">{{$otp_dashboard['discharge_criteria_exit_death']}}</h2>
+                                            <small>Death {{$month_year}}</small>
+                                            {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
+                                            <div class="progress progress-mini">
+                                                <div style="width: 100%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="col-lg-6" style="background-color: #FDFCE3">
                     <div class="row">
-                        <h1 style="padding-left: 15px">TSFP</h1>
+                        <h1 style="padding-left: 15px"><strong>TSFP</strong></h1>
 
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
@@ -230,6 +277,43 @@
                     </div><!-- END OF INNER ROW -->
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12" style="background-color: #dff0d8">
+                    <div class="row">
+                        <h1 style="padding-left: 15px">BSFP</h1>
+                        <div class="col-lg-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>BSFP Child</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h1 class="no-margins">1234</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>BSFP PLW</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h1 class="no-margins">1234</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>TSFP PLW</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <h1 class="no-margins">1234</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div><!-- End of First Row -->
 
         <div class="row"></div>
@@ -241,18 +325,7 @@
 <script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
 
 <script>
-
-    setTimeout(function () {
-        toastr.options = {
-            closeButton: true,
-            progressBar: true,
-            showMethod: 'slideDown',
-            timeOut: 4000
-        };
-        toastr.warning('', 'Welcome to Emergency Nutrition');
-
-    }, 1300);
-
+    
     var otp_muac = JSON.parse('<?php echo json_encode($otp_dashboard['new_admission_muac']); ?>');
     var otp_whz = JSON.parse('<?php echo json_encode($otp_dashboard['new_admission_zscore']); ?>');
     var otp_oedema = JSON.parse('<?php echo json_encode($otp_dashboard['new_admission_oedema']); ?>');
@@ -294,6 +367,38 @@
     new Chart(ctxOtp, {type: 'doughnut', data: doughnutDataOtp, options: doughnutOptions});
     new Chart(ctxTsfp, {type: 'doughnut', data: doughnutDataTsfp, options: doughnutOptions});
 </script>
+
+<script>
+    var ctxOtpBarchart = document.getElementById('otpChildAdmission').getContext('2d');
+    var otpArraycount = JSON.parse('<?php echo json_encode($otp_dashboard['barchart_count']); ?>');
+    var otpArraydate = JSON.parse('<?php echo json_encode($otp_dashboard['barchart_date']); ?>');
+    var otpChildAdmission = new Chart(ctxOtpBarchart, {
+        type: 'bar',
+        data: {
+            labels: otpArraydate,
+            datasets: [{
+                label: 'Admission',
+                data: otpArraycount,
+                backgroundColor: 'rgba(0, 128, 0, 0.6)',
+                borderColor: 'rgba(200, 129, 214, 0.6)',
+                pointBackgroundColor: 'rgba(20, 12, 21, 0.6)',
+                borderWidth: 1
+            }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+            }
+        }
+    });
+
+</script>
+
 
 
 @endpush
