@@ -18,7 +18,6 @@
                                         <i class="fa fa-plus fa-5x"></i>
                                     </div>
                                     <div class="col-xs-8 text-right">
-
                                         <h2 class="font-bold">SC Report</h2>
                                     </div>
                                 </div>
@@ -33,7 +32,6 @@
                                         <i class="fa fa-plus fa-5x"></i>
                                     </div>
                                     <div class="col-xs-8 text-right">
-
                                         <h2 class="font-bold">OTP Report</h2>
                                     </div>
                                 </div>
@@ -48,7 +46,6 @@
                                         <i class="fa fa-plus fa-5x"></i>
                                     </div>
                                     <div class="col-xs-8 text-right">
-
                                         <h2 class="font-bold">TSFP Report</h2>
                                     </div>
                                 </div>
@@ -63,7 +60,6 @@
                                         <i class="fa fa-plus fa-5x"></i>
                                     </div>
                                     <div class="col-xs-8 text-right">
-
                                         <h2 class="font-bold">BSFP Report</h2>
                                     </div>
                                 </div>

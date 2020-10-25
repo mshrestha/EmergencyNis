@@ -148,51 +148,27 @@ class HomeController extends Controller
     {
         if (Auth::user()->facility_id) {
 
-            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
-                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
-//            dd($cache_data);
-            if (empty($cache_data)) {
-
-                if (date('n') == 1) {
-                    $report_month = 12;
-                    $report_year = date('Y') - 1;
-                } else {
-                    $report_month = date('n') - 1;
-                    $report_year = date('Y');
-                }
+            $facility_id=Auth::user()->facility_id;
+            $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"),  DB::raw('YEAR(date) year, MONTH(date) month'))
+                ->groupby('year','month')
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'desc')
+                ->get()->toArray();
+            if (date('n') == 1) {
+                $report_month = 12;
+                $report_year = date('Y') - 1;
             } else {
-                $report_month = $cache_data[0]->month;
-                $report_year = $cache_data[0]->year;
-            }
-            if ($report_month == 1) {
-                $previous_month = 12;
-                $previous_year = $report_year - 1;
-            } else {
-                $previous_month = $report_month - 1;
-                $previous_year = $report_year;
+                $report_month = date('n') - 1;
+                $report_year = date('Y');
             }
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
-            $report_month_dashboard = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->first();
-            $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
 
-            $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
+            $otp_dashboard = $this->otp_dashboard($facility_id, $report_month, $report_year);
 
-            //Sync data count
-            $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
-            $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-            $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-            $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
-            $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-            $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
-            $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
-            $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
-            $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
-            $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
+//            dd($otp_dashboard);
 
-            return view('homepage.dashboard', compact('cache_data', 'month_year', 'report_month_dashboard',
-                'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count',
-                'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count',
-                'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+            return view('homepage.dashboard', compact('monthList','month_year','otp_dashboard'));
         } else {
 //            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
 //                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -392,7 +368,6 @@ class HomeController extends Controller
         return response()->json(['nutritionstatus' => $nStatus,'nutritionstatusColor' => $nStatusColor]);
     }
 
-
     public function adminDashboard_ym($year, $month)
     {
         $report_month = $month;
@@ -426,6 +401,7 @@ class HomeController extends Controller
 
     public function programUserDashboard_ym($year, $month)
     {
+//        dd($year);
         $report_month = $month;
         $report_year = $year;
         if ($report_month == 1) {
@@ -646,7 +622,6 @@ class HomeController extends Controller
         }
         return $dashboard_data;
     }
-
 
     private function admin_dashboard_doughnutchart()
     {
@@ -914,6 +889,92 @@ class HomeController extends Controller
 //        dd($gmp);
 //        return view('test',compact('gmp','months'));
     }
+
+    private function otp_dashboard($facility_id, $report_month, $report_year)
+    {
+        $otp['new_admission_muac'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', 'SAM new case')
+            ->where('facility_followups.new_admission', 'MUAC')
+            ->count();
+        $otp['new_admission_zscore'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', 'SAM new case')
+            ->where('facility_followups.new_admission','!=', 'MUAC')
+            ->where('facility_followups.new_admission','!=', 'Oedema')
+            ->where('facility_followups.new_admission','!=', 'Age 6 to 59m')
+            ->where('facility_followups.new_admission','!=', 'Relapse')
+            ->count();
+        $otp['new_admission_oedema'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', 'SAM new case')
+            ->where('facility_followups.new_admission', 'Oedema')
+            ->count();
+        $otp['new_admission_relapse'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', 'SAM new case')
+            ->where('facility_followups.new_admission', 'Relapse')
+            ->count();
+        $otp['new_admission_total']=$otp['new_admission_muac']+$otp['new_admission_zscore']+$otp['new_admission_oedema']+$otp['new_admission_relapse'];
+
+        $otp['discharge_criteria_exit_recovered'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', '!=', 'SAM new case')
+            ->where('discharge_criteria_exit',  'Recovered')
+            ->count();
+        $otp['discharge_criteria_exit_death'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', '!=', 'SAM new case')
+            ->where('discharge_criteria_exit',  'Death')
+            ->count();
+        $otp['discharge_criteria_exit_defaulted'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', '!=', 'SAM new case')
+            ->where('discharge_criteria_exit',  'Defaulted')
+            ->count();
+        $otp['discharge_criteria_exit_nonrecovered'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('facility_followups.nutritionstatus', 'SAM')
+            ->where('facility_followups.outcome', '!=', 'SAM new case')
+            ->where('discharge_criteria_exit',  'Non recovered')
+            ->count();
+        $otp['discharge_criteria_exit_total']=$otp['discharge_criteria_exit_recovered']+$otp['discharge_criteria_exit_death']+$otp['discharge_criteria_exit_defaulted']+$otp['discharge_criteria_exit_nonrecovered'];
+        $otp['cure_rate']=($otp['discharge_criteria_exit_total']==0)?0:($otp['discharge_criteria_exit_recovered']/$otp['discharge_criteria_exit_total'])*100;
+        $otp['death_rate']=($otp['discharge_criteria_exit_total']==0)?0:($otp['discharge_criteria_exit_death']/$otp['discharge_criteria_exit_total'])*100;
+        $otp['default_rate']=($otp['discharge_criteria_exit_total']==0)?0:($otp['discharge_criteria_exit_defaulted']/$otp['discharge_criteria_exit_total'])*100;
+        $otp['nonrecover_rate']=($otp['discharge_criteria_exit_total']==0)?0:($otp['discharge_criteria_exit_nonrecovered']/$otp['discharge_criteria_exit_total'])*100;
+
+        $recovered_child = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('discharge_criteria_exit', 'Recovered')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->get();
+        if ($recovered_child->count() == 0) {
+            $otp['average_weight_gain'] = 0;
+            $otp['average_length_of_stay'] = 0;
+        } else {
+            $otp['average_weight_gain'] = $recovered_child->sum('gain_of_weight') / $recovered_child->count();
+            $otp['average_length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
+        }
+        return $otp;
+    }
+
 
     public function test(){
         $now=new DateTime();

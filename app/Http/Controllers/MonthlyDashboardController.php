@@ -136,7 +136,6 @@ class MonthlyDashboardController extends Controller
         return (count(array_intersect($endof_month_total_enrollment, $child_23)) - count(array_intersect($endof_month_total_exit, $child_23)));
 //        return count(array_intersect($endof_month_total_enrollment, $child_23));
     }
-
     private function otp_mnthend_24($facility_id, $month, $year, $sex)
     {
         $begining_balance_1stday = \DB::table('facility_followups')->MIN('date');
@@ -157,7 +156,6 @@ class MonthlyDashboardController extends Controller
             ->pluck('children_id')->toArray();
         return (count(array_intersect($endof_month_total_enrollment, $child_24)) - count(array_intersect($endof_month_total_exit, $child_24)));
     }
-
     private function otp_mnthend_60($facility_id, $month, $year, $sex)
     {
         $begining_balance_1stday = \DB::table('facility_followups')->MIN('date');
