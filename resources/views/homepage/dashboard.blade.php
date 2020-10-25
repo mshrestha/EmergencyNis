@@ -63,7 +63,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -75,6 +74,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-4">
                             <div class="ibox float-e-margins">
                                 <div class="ibox-title">
@@ -134,7 +134,7 @@
                     </div><!-- END OF INNER ROW -->
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
-                            <h5>ADMISSIONS
+                            <h5>OTP ADMISSIONS
                                 <small>{{$month_year}}</small>
                             </h5>
                         </div>
@@ -275,6 +275,52 @@
                             </div>
                         </div>
                     </div><!-- END OF INNER ROW -->
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>TSFP ADMISSIONS
+                                <small>{{$month_year}}</small>
+                            </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <div class="flot-chart">
+                                        {{--<div class="flot-chart-content" >--}}
+                                        <canvas id="tsfpChildAdmission" class="flot-chart-content"></canvas>
+                                        {{--</div>--}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul class="stat-list">
+                                        <li>
+                                            <h2 class="no-margins ">{{ $tsfp_dashboard['total_admission']}}</h2>
+                                            <small> Enrolled {{$month_year}}</small>
+                                            {{--<div class="stat-percent"> <i class="fa fa-level-down text-navy"></i></div>--}}
+                                            <div class="progress progress-mini">
+                                                <div style="width: 100%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">{{$tsfp_dashboard['discharge_cured']}}</h2>
+                                            <small>Cured {{$month_year}}</small>
+                                            {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
+                                            <div class="progress progress-mini">
+                                                <div style="width: 100%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">{{$tsfp_dashboard['discharge_death']}}</h2>
+                                            <small>Death {{$month_year}}</small>
+                                            {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
+                                            <div class="progress progress-mini">
+                                                <div style="width: 100%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -301,16 +347,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="ibox float-e-margins">
-                                <div class="ibox-title">
-                                    <h5>TSFP PLW</h5>
-                                </div>
-                                <div class="ibox-content">
-                                    <h1 class="no-margins">1234</h1>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -325,7 +361,7 @@
 <script src="{{ asset('js/plugins/chartJs/Chart.min.js')}}"></script>
 
 <script>
-    
+
     var otp_muac = JSON.parse('<?php echo json_encode($otp_dashboard['new_admission_muac']); ?>');
     var otp_whz = JSON.parse('<?php echo json_encode($otp_dashboard['new_admission_zscore']); ?>');
     var otp_oedema = JSON.parse('<?php echo json_encode($otp_dashboard['new_admission_oedema']); ?>');
@@ -379,6 +415,34 @@
             datasets: [{
                 label: 'Admission',
                 data: otpArraycount,
+                backgroundColor: 'rgba(0, 128, 0, 0.6)',
+                borderColor: 'rgba(200, 129, 214, 0.6)',
+                pointBackgroundColor: 'rgba(20, 12, 21, 0.6)',
+                borderWidth: 1
+            }
+            ]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+            }
+        }
+    });
+
+    var ctxTsfpBarchart = document.getElementById('tsfpChildAdmission').getContext('2d');
+    var tsfpArraycount = JSON.parse('<?php echo json_encode($tsfp_dashboard['barchart_count']); ?>');
+    var tsfpArraydate = JSON.parse('<?php echo json_encode($tsfp_dashboard['barchart_date']); ?>');
+    var tsfpChildAdmission = new Chart(ctxTsfpBarchart, {
+        type: 'bar',
+        data: {
+            labels: tsfpArraydate,
+            datasets: [{
+                label: 'Admission',
+                data: tsfpArraycount,
                 backgroundColor: 'rgba(0, 128, 0, 0.6)',
                 borderColor: 'rgba(200, 129, 214, 0.6)',
                 pointBackgroundColor: 'rgba(20, 12, 21, 0.6)',

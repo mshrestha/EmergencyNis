@@ -167,8 +167,6 @@ class HomeController extends Controller
             $otp_dashboard = $this->otp_dashboard($facility_id, $report_month, $report_year);
             $tsfp_dashboard = $this->tsfp_dashboard($facility_id, $report_month, $report_year);
 
-//            dd($tsfp_dashboard);
-
             return view('homepage.dashboard', compact('monthList','month_year','otp_dashboard','tsfp_dashboard'));
         } else {
 //            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
@@ -405,6 +403,7 @@ class HomeController extends Controller
 //        dd($year);
         $report_month = $month;
         $report_year = $year;
+        $facility_id=Auth::user()->facility_id;
         if ($report_month == 1) {
             $previous_month = 12;
             $previous_year = $report_year - 1;
@@ -413,95 +412,19 @@ class HomeController extends Controller
             $previous_year = $report_year;
         }
         $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
-        $cache_data = DB::table('monthly_dashboards')
-            ->select('year', 'month')
-            ->groupBy('year', 'month')
+        $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+            DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"),  DB::raw('YEAR(date) year, MONTH(date) month'))
+            ->groupby('year','month')
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
             ->get()->toArray();
-        $report_month_dashboard = MonthlyDashboard::where('year', $report_year)->where('month', $report_month)
-            ->where('facility_id', Auth::user()->facility_id)->first();
-//        dd($report_month_dashboard);
-        if ($report_month_dashboard == null) {
-//            dd($report_month_dashboard);
-            $report_month_dashboard['otp_admit_23m'] = 0;
-            $report_month_dashboard['otp_admit_23f'] = 0;
-            $report_month_dashboard['otp_admit_24m'] = 0;
-            $report_month_dashboard['otp_admit_24f'] = 0;
-            $report_month_dashboard['otp_admit_60m'] = 0;
-            $report_month_dashboard['otp_admit_60f'] = 0;
-            $report_month_dashboard['otp_admit_male'] = 0;
-            $report_month_dashboard['otp_admit_female'] = 0;
-            $report_month_dashboard['otp_admit_others'] = 0;
-            $report_month_dashboard['otp_admit_muac'] = 0;
-            $report_month_dashboard['otp_admit_whz'] = 0;
-            $report_month_dashboard['otp_admit_both'] = 0;
-            $report_month_dashboard['total_admit'] = 0;
-            $report_month_dashboard['cure_rate'] = 0;
-            $report_month_dashboard['death_rate'] = 0;
-            $report_month_dashboard['default_rate'] = 0;
-            $report_month_dashboard['nonrespondent_rate'] = 0;
-            $report_month_dashboard['avg_weight_gain'] = 0;
-            $report_month_dashboard['avg_length_stay'] = 0;
-            $report_month_dashboard['otp_mnthend_23m'] = 0;
-            $report_month_dashboard['otp_mnthend_23f'] = 0;
-            $report_month_dashboard['otp_mnthend_24m'] = 0;
-            $report_month_dashboard['otp_mnthend_24f'] = 0;
-            $report_month_dashboard['otp_mnthend_60m'] = 0;
-            $report_month_dashboard['otp_mnthend_60f'] = 0;
 
-        }
-        $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
-            ->where('facility_id', Auth::user()->facility_id)->first();
+        $otp_dashboard = $this->otp_dashboard($facility_id, $report_month, $report_year);
+        $tsfp_dashboard = $this->tsfp_dashboard($facility_id, $report_month, $report_year);
+        $otp_dashboard_previous_month = $this->otp_dashboard($facility_id, $previous_month, $previous_year);
+        $tsfp_dashboard_previous_month = $this->tsfp_dashboard($facility_id, $previous_month, $previous_year);
 
-        if ($previous_month_dashboard == null) {
-            $previous_month_dashboard['otp_admit_23m'] = 0;
-            $previous_month_dashboard['otp_admit_23f'] = 0;
-            $previous_month_dashboard['otp_admit_24m'] = 0;
-            $previous_month_dashboard['otp_admit_24f'] = 0;
-            $previous_month_dashboard['otp_admit_60m'] = 0;
-            $previous_month_dashboard['otp_admit_60f'] = 0;
-            $previous_month_dashboard['otp_admit_male'] = 0;
-            $previous_month_dashboard['otp_admit_female'] = 0;
-            $previous_month_dashboard['otp_admit_others'] = 0;
-            $previous_month_dashboard['otp_admit_muac'] = 0;
-            $previous_month_dashboard['otp_admit_whz'] = 0;
-            $previous_month_dashboard['otp_admit_both'] = 0;
-            $previous_month_dashboard['total_admit'] = 0;
-            $previous_month_dashboard['cure_rate'] = 0;
-            $previous_month_dashboard['death_rate'] = 0;
-            $previous_month_dashboard['default_rate'] = 0;
-            $previous_month_dashboard['nonrespondent_rate'] = 0;
-            $previous_month_dashboard['avg_weight_gain'] = 0;
-            $previous_month_dashboard['avg_length_stay'] = 0;
-            $previous_month_dashboard['otp_mnthend_23m'] = 0;
-            $previous_month_dashboard['otp_mnthend_23f'] = 0;
-            $previous_month_dashboard['otp_mnthend_24m'] = 0;
-            $previous_month_dashboard['otp_mnthend_24f'] = 0;
-            $previous_month_dashboard['otp_mnthend_60m'] = 0;
-            $previous_month_dashboard['otp_mnthend_60f'] = 0;
-
-        }
-        $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
-        $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
-        //dashboard chart bar
-        $user_barchart = $this->user_dashboard_barchart($report_month);
-        //end dashboard chart bar
-
-        //Sync data count
-        $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
-        $facility_followup_sync_count = FacilityFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-        $iycf_followup_sync_count = IycfFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-        $pregnant_women_sync_count = PregnantWomen::whereIn('sync_status', ['created', 'updated'])->count();
-        $pregnant_women_followup_sync_count = PregnantWomenFollowup::whereIn('sync_status', ['created', 'updated'])->count();
-        $volunteers_sync_count = Volunteer::whereIn('sync_status', ['created', 'updated'])->count();
-        $community_sessions_sync_count = CommunitySession::whereIn('sync_status', ['created', 'updated'])->count();
-        $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
-        $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
-        $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
-
-        return view('homepage.home_user_ym', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard',
-            'children', 'user_barchart', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'total_admission', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'));
+        return view('homepage.home_user_ym', compact('monthList','month_year','otp_dashboard','tsfp_dashboard','otp_dashboard_previous_month','tsfp_dashboard_previous_month'));
     }
 
     public function programManagerDashboard_ym($year, $month)
@@ -1077,6 +1000,26 @@ class HomeController extends Controller
             $tsfp['average_weight_gain'] = $recovered_child->sum('gain_of_weight') / $recovered_child->count();
             $tsfp['average_length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
         }
+
+        $admission = FacilityFollowup::where('facility_id', Auth::user()->facility_id)
+            ->selectRaw('DATE(date) as dat, COUNT(*) as cunt')
+            ->groupBy('dat')
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('new_admission', '!=', null)
+            ->where('new_admission', '!=', 'Age 6 to 59m')
+            ->orderBy('dat', 'ASC')
+            ->pluck('cunt', 'dat')->toArray();
+        $all_date = array_keys($admission);
+        $only_day = [];
+        foreach ($all_date as $dt) {
+            $date = DateTime::createFromFormat("Y-m-d", $dt);
+            $only_day[] = $date->format("d");
+        }
+        $tsfp['barchart_count'] = array_values($admission);
+        $tsfp['barchart_date'] = $only_day;
+
         return $tsfp;
     }
 
