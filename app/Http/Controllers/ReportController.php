@@ -1190,6 +1190,28 @@ class ReportController extends Controller
             ->where('children.sex',$sex)
             ->count();
 
+        $tsfp['new_admission_oedema'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', 'Oedema')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+
+        $tsfp['new_admission_relapse'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
+            ->where('facility_followups.age', '>=', $start_age)
+            ->where('facility_followups.age', '<=', $end_age)
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', 'Relapse')
+            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
+            ->where('children.sex',$sex)
+            ->count();
+
         $tsfp['readmission_after_default'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
             ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])
             ->where('facility_followups.age', '>=', $start_age)
@@ -1234,8 +1256,8 @@ class ReportController extends Controller
             ->where('children.sex',$sex)
             ->count();
 
-        $tsfp['total_admission_report_month']=$tsfp['new_admission_muac']+$tsfp['new_admission_zscore']+$tsfp['readmission_after_default']+
-            $tsfp['readmission_after_recovery']+$tsfp['transfer_in_from_tsfp']+ $tsfp['return_from_sam'];
+        $tsfp['total_admission_report_month']=$tsfp['new_admission_muac']+$tsfp['new_admission_zscore']+$tsfp['new_admission_oedema']+$tsfp['new_admission_relapse']
+            +$tsfp['readmission_after_default']+$tsfp['readmission_after_recovery']+$tsfp['transfer_in_from_tsfp']+ $tsfp['return_from_sam'];
 
         $tsfp['discharge_cured'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
             ->whereBetween('facility_followups.date', [$this_month_1stday, $endof_month_lastday])

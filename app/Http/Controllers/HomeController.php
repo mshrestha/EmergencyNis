@@ -165,10 +165,11 @@ class HomeController extends Controller
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
 
             $otp_dashboard = $this->otp_dashboard($facility_id, $report_month, $report_year);
+            $tsfp_dashboard = $this->tsfp_dashboard($facility_id, $report_month, $report_year);
 
-//            dd($otp_dashboard);
+//            dd($tsfp_dashboard);
 
-            return view('homepage.dashboard', compact('monthList','month_year','otp_dashboard'));
+            return view('homepage.dashboard', compact('monthList','month_year','otp_dashboard','tsfp_dashboard'));
         } else {
 //            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
 //                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
@@ -962,8 +963,8 @@ class HomeController extends Controller
         $recovered_child = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
             ->whereMonth('facility_followups.date', '=', $report_month)
             ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'SAM')
             ->where('discharge_criteria_exit', 'Recovered')
-            ->join('children', 'children.sync_id', '=', 'facility_followups.children_id')
             ->get();
         if ($recovered_child->count() == 0) {
             $otp['average_weight_gain'] = 0;
@@ -973,6 +974,90 @@ class HomeController extends Controller
             $otp['average_length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
         }
         return $otp;
+    }
+    private function tsfp_dashboard($facility_id, $report_month, $report_year)
+    {
+        $tsfp['new_admission_muac'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', 'MUAC')
+            ->count();
+        $tsfp['new_admission_zscore'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission','!=', null)
+            ->where('new_admission','!=', 'Oedema')
+            ->where('new_admission','!=', 'Age 6 to 59m')
+            ->where('new_admission','!=', 'Relapse')
+            ->count();
+        $tsfp['new_admission_oedema'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', 'Oedema')
+            ->count();
+        $tsfp['new_admission_relapse'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', 'Relapse')
+            ->count();
+        $tsfp['total_admission']=$tsfp['new_admission_muac']+$tsfp['new_admission_zscore']+$tsfp['new_admission_oedema']+$tsfp['new_admission_relapse'];
+
+        $tsfp['discharge_cured'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('discharge_criteria_exit',  'Recovered')
+            ->count();
+
+        $tsfp['discharge_death'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('discharge_criteria_exit',  'Death')
+            ->count();
+
+        $tsfp['discharge_defaulted'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('discharge_criteria_exit',  'Defaulted')
+            ->count();
+
+        $tsfp['discharge_nonresponder'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('discharge_criteria_exit',  'Non responder')
+            ->count();
+        $tsfp['total_exits']=$tsfp['discharge_cured']+ $tsfp['discharge_death']+$tsfp['discharge_defaulted']+$tsfp['discharge_nonresponder'];
+
+        $tsfp['cure_rate']=($tsfp['total_exits']==0)?0:($tsfp['discharge_cured']/$tsfp['total_exits'])*100;
+        $tsfp['death_rate']=($tsfp['total_exits']==0)?0:($tsfp['discharge_death']/$tsfp['total_exits'])*100;
+        $tsfp['default_rate']=($tsfp['total_exits']==0)?0:($tsfp['discharge_defaulted']/$tsfp['total_exits'])*100;
+        $tsfp['nonrecover_rate']=($tsfp['total_exits']==0)?0:($tsfp['discharge_nonresponder']/$tsfp['total_exits'])*100;
+
+        $recovered_child = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
+            ->whereMonth('facility_followups.date', '=', $report_month)
+            ->whereYear('facility_followups.date', '=', $report_year)
+            ->where('nutritionstatus', 'MAM')
+            ->where('discharge_criteria_exit', 'Recovered')
+            ->get();
+        if ($recovered_child->count() == 0) {
+            $tsfp['average_weight_gain'] = 0;
+            $tsfp['average_length_of_stay'] = 0;
+        } else {
+            $tsfp['average_weight_gain'] = $recovered_child->sum('gain_of_weight') / $recovered_child->count();
+            $tsfp['average_length_of_stay'] = $recovered_child->sum('duration_between_discharged_and_admission_days') / $recovered_child->count();
+        }
+        return $tsfp;
     }
 
 
