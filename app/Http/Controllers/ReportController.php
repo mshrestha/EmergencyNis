@@ -145,12 +145,15 @@ class ReportController extends Controller
 
         } else {
 
-            $children = Child::orderBy('created_at', 'desc')->get();
-
             $facilities = Facility::all();
-            $current_month = date('n');
+            $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
+                ->groupby('year', 'month')
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'desc')
+                ->get()->toArray();
 
-            return view('report.search_home_sc', compact('children', 'current_month', 'facilities'));
+            return view('report.search_home_sc', compact( 'monthList', 'facilities'));
         }
     }
 
@@ -225,7 +228,7 @@ class ReportController extends Controller
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
         $facilities = Facility::all();
-        
+
         $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
             DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
             ->groupby('year', 'month')

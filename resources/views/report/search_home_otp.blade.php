@@ -82,19 +82,19 @@
 
                                 </select>
                             </div>
-                            </div>
-                            <div class="form-actions">
-                                <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
-                                        <a href="{{ url()->previous() }}" class="btn btn-info"><i
-                                                    class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
-                                        <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>
-                                            Search
-                                        </button>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <a href="{{ url()->previous() }}" class="btn btn-info"><i
+                                                class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>
+                                    <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>
+                                        Search
+                                    </button>
 
-                                    </div>
                                 </div>
                             </div>
+                        </div>
                     </form>
 
                 </div>

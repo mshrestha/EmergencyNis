@@ -36,23 +36,6 @@
                             <option value="{{ $fac->id }}" {{ ($fac->id == Auth::user()->facility_id) ? ' selected' : '' }}>{{ $fac->facility_id }}</option>
                         @endforeach
                     </select>
-                    {{--<select class="btn btn" name="month">--}}
-                        {{--<option value="01" {{($current_month=='01') ? 'selected' : ''}}>January</option>--}}
-                        {{--<option value="02" {{($current_month=='02') ? 'selected' : ''}}>February</option>--}}
-                        {{--<option value="03" {{($current_month=='03') ? 'selected' : ''}}>March</option>--}}
-                        {{--<option value="04" {{($current_month=='04') ? 'selected' : ''}}>April</option>--}}
-                        {{--<option value="05" {{($current_month=='05') ? 'selected' : ''}}>May</option>--}}
-                        {{--<option value="06" {{($current_month=='06') ? 'selected' : ''}}>June</option>--}}
-                        {{--<option value="07" {{($current_month=='07') ? 'selected' : ''}}>July</option>--}}
-                        {{--<option value="08" {{($current_month=='08') ? 'selected' : ''}}>August</option>--}}
-                        {{--<option value="09" {{($current_month=='09') ? 'selected' : ''}}>September</option>--}}
-                        {{--<option value="10" {{($current_month=='10') ? 'selected' : ''}}>October</option>--}}
-                        {{--<option value="11" {{($current_month=='11') ? 'selected' : ''}}>November</option>--}}
-                        {{--<option value="12" {{($current_month=='12') ? 'selected' : ''}}>December</option>--}}
-                    {{--</select>--}}
-                    {{--<input class="date-oyear btn btn" type="text" name="year" id="date-oyear"--}}
-                           {{--style=" z-index: 9999 !important;"--}}
-                           {{--value="{{$current_year}}">--}}
                     <h5 style="display: inline-block">From</h5>
                     <select class="btn btn" name="monthFrom" required>
                         @foreach($monthList as $month_list)
