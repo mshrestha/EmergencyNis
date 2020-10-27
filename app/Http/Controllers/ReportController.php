@@ -61,7 +61,6 @@ class ReportController extends Controller
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
             $children = Child::where('camp_id', $facility->camp_id)->get();
-            //$facility_followup = FacilityFollowup::find();
             if (date('n') == 1) {
                 $report_month = 12;
                 $report_year = date('Y') - 1;
@@ -76,19 +75,19 @@ class ReportController extends Controller
             $reportStart = date('Y-m-d', strtotime('1-' . $report_month . '-' . $report_year));
             $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $report_month . '-' . $report_year));
 
-            $report_male_6to23 = $this->otp($facility_id, $reportStart, $reportEnd, 'male', '6', '23');
-            $report_male_24to59 = $this->otp($facility_id, $reportStart, $reportEnd, 'male', '24', '59');
-            $report_male_60up = $this->otp($facility_id, $reportStart, $reportEnd, 'male', '60', '120');
-            $report_female_6to23 = $this->otp($facility_id, $reportStart, $reportEnd, 'female', '6', '23');
-            $report_female_24to59 = $this->otp($facility_id, $reportStart, $reportEnd, 'female', '24', '59');
-            $report_female_60up = $this->otp($facility_id, $reportStart, $reportEnd, 'female', '60', '120');
-
             $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
                 DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
                 ->groupby('year', 'month')
                 ->orderBy('year', 'desc')
                 ->orderBy('month', 'desc')
                 ->get()->toArray();
+
+            $report_male_6to23 = $this->otp($facility_id, $reportStart, $reportEnd, 'male', '6', '23');
+            $report_male_24to59 = $this->otp($facility_id, $reportStart, $reportEnd, 'male', '24', '59');
+            $report_male_60up = $this->otp($facility_id, $reportStart, $reportEnd, 'male', '60', '120');
+            $report_female_6to23 = $this->otp($facility_id, $reportStart, $reportEnd, 'female', '6', '23');
+            $report_female_24to59 = $this->otp($facility_id, $reportStart, $reportEnd, 'female', '24', '59');
+            $report_female_60up = $this->otp($facility_id, $reportStart, $reportEnd, 'female', '60', '120');
 
             return view('report.otp', compact('children', 'facility', 'facilities', 'facility_id', 'reportStart', 'reportEnd',
                 'report_male_6to23', 'report_female_6to23', 'report_female_24to59', 'report_male_24to59', 'report_male_60up', 'report_female_60up', 'monthList'));
@@ -171,8 +170,6 @@ class ReportController extends Controller
                 'notify_type' => 'danger'
             ]);
         } else
-//        $report_month = $request->month;
-//        $report_year = $request->year;
 
             if (Auth::user()->facility_id) {
                 $facility = Facility::findOrFail(Auth::user()->facility_id);
@@ -180,10 +177,7 @@ class ReportController extends Controller
                 $facility = Facility::findOrFail($request->facility_id);
         $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
-//        $report = $this->otp($facility_id, $report_month, $report_year);
         $facilities = Facility::all();
-//        $current_month = $report_month;
-//        $current_year = $report_year;
         $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
             DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
             ->groupby('year', 'month')
@@ -277,27 +271,33 @@ class ReportController extends Controller
     public function tsfp_report_admin(Request $request)
     {
 //        dd($request);
-        $report_month = $request->month;
-        $report_year = $request->year;
+        $endMonth = date('m', strtotime($request->monthTo));
+        $endYear = date('m', strtotime($request->monthTo));
+        $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
+        $reportStart = date('Y-m-d', strtotime('1' . $request->monthFrom));
+        $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
 
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
         } else
             $facility = Facility::findOrFail($request->facility_id);
-//        dd($facility);
-        $children = Child::where('camp_id', $facility->camp_id)->get();
         $facility_id = $facility->id;
-//        $report = $this->tsfp($facility_id, $report_month, $report_year);
         $facilities = Facility::all();
-        $current_month = $report_month;
-        $current_year = $report_year;
-        $report_male_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'male', '6', '23');
-        $report_male_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'male', '23', '59');
-        $report_female_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'female', '6', '23');
-        $report_female_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'female', '23', '59');
+
+        $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+            DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
+            ->groupby('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
+
+        $report_male_6to23 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'male', '6', '23');
+        $report_male_24to59 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'male', '24', '59');
+        $report_female_6to23 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'female', '6', '23');
+        $report_female_24to59 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'female', '24', '59');
 
 
-        return view('report.tsfp', compact('children', 'facility', 'facilities', 'facility_id', 'current_year', 'current_month',
+        return view('report.tsfp', compact('monthList', 'facility', 'facilities', 'facility_id', 'reportStart', 'reportEnd',
             'report_male_6to23', 'report_female_6to23', 'report_male_24to59', 'report_female_24to59'));
 
     }
@@ -818,11 +818,8 @@ class ReportController extends Controller
 
     public function tsfp_report()
     {
-
         if (Auth::user()->facility_id) {
             $facility = Facility::findOrFail(Auth::user()->facility_id);
-            $children = Child::where('camp_id', $facility->camp_id)->get();
-
             if (date('n') == 1) {
                 $report_month = 12;
                 $report_year = date('Y') - 1;
@@ -831,26 +828,38 @@ class ReportController extends Controller
                 $report_year = date('Y');
             }
             $facility_id = Auth::user()->facility_id;
-
             $facilities = Facility::all();
-            $current_month = $report_month;
-            $current_year = $report_year;
 
-            $report_male_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'male', '6', '23');
-            $report_male_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'male', '24', '59');
-            $report_female_6to23 = $this->tsfp($facility_id, $report_month, $report_year, 'female', '6', '23');
-            $report_female_24to59 = $this->tsfp($facility_id, $report_month, $report_year, 'female', '24', '59');
+            $lastDay = (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year));
+            $reportStart = date('Y-m-d', strtotime('1-' . $report_month . '-' . $report_year));
+            $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $report_month . '-' . $report_year));
 
-            return view('report.tsfp', compact('children', 'facility', 'facilities', 'current_month', 'current_year', 'facility_id',
+            $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
+                ->groupby('year', 'month')
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'desc')
+                ->get()->toArray();
+
+            $report_male_6to23 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'male', '6', '23');
+            $report_male_24to59 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'male', '24', '59');
+            $report_female_6to23 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'female', '6', '23');
+            $report_female_24to59 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'female', '24', '59');
+
+            return view('report.tsfp', compact('monthList', 'facility', 'facilities', 'reportStart', 'reportEnd', 'facility_id',
                 'report_male_6to23', 'report_female_6to23', 'report_male_24to59', 'report_female_24to59'));
 
         } else {
 
-            $children = Child::orderBy('created_at', 'desc')->get();
             $facilities = Facility::all();
-            $current_month = date('n');
+            $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+                DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
+                ->groupby('year', 'month')
+                ->orderBy('year', 'desc')
+                ->orderBy('month', 'desc')
+                ->get()->toArray();
 
-            return view('report.search_home_tsfp', compact('children', 'current_month', 'facilities'));
+            return view('report.search_home_tsfp', compact('monthList',  'facilities'));
         }
 
     }
@@ -1113,12 +1122,15 @@ class ReportController extends Controller
 
     }
 
-    private function tsfp($facility_id, $report_month, $report_year, $sex, $start_age, $end_age)
+    private function tsfp($facility_id, $reportStart, $reportEnd, $sex, $start_age, $end_age)
     {
         $begining_balance_1stday = DB::table('facility_followups')->MIN('date');
-        $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($report_year . '-' . $report_month . '-01')));
-        $this_month_1stday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . '1'));
-        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
+//        $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($report_year . '-' . $report_month . '-01')));
+//        $this_month_1stday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . '1'));
+//        $endof_month_lastday = date('Y-m-d', strtotime($report_year . '-' . $report_month . '-' . (cal_days_in_month(CAL_GREGORIAN, $report_month, $report_year))));
+        $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($reportStart)));
+        $this_month_1stday = date('Y-m-d', strtotime($reportStart));
+        $endof_month_lastday = date('Y-m-d', strtotime($reportEnd));
 
         $tsfp['begining_balance_new_admission'] = DB::table('facility_followups')->where('facility_followups.facility_id', $facility_id)
             ->whereBetween('facility_followups.date', [$begining_balance_1stday, $begining_balance_lastday])
