@@ -40,34 +40,28 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">Select Month</label>
+                            <label class="col-sm-3 control-label">Select Duration</label>
                             <div class="col-sm-9">
-                                <select class="bs-select form-control" name="month">
-                                    <option value="01" {{($current_month=='02') ? 'selected' : ''}}>January</option>
-                                    <option value="02" {{($current_month=='03') ? 'selected' : ''}}>February</option>
-                                    <option value="03" {{($current_month=='04') ? 'selected' : ''}}>March</option>
-                                    <option value="04" {{($current_month=='05') ? 'selected' : ''}}>April</option>
-                                    <option value="05" {{($current_month=='06') ? 'selected' : ''}}>May</option>
-                                    <option value="06" {{($current_month=='07') ? 'selected' : ''}}>June</option>
-                                    <option value="07" {{($current_month=='08') ? 'selected' : ''}}>July</option>
-                                    <option value="08" {{($current_month=='09') ? 'selected' : ''}}>August</option>
-                                    <option value="09" {{($current_month=='10') ? 'selected' : ''}}>September</option>
-                                    <option value="10" {{($current_month=='11') ? 'selected' : ''}}>October</option>
-                                    <option value="11" {{($current_month=='12') ? 'selected' : ''}}>November</option>
-                                    <option value="12" {{($current_month=='01') ? 'selected' : ''}}>December</option>
+                                <h4 style="display: inline-block">From</h4>
+                                <select class="btn btn" name="monthFrom" required>
+                                    @foreach($monthList as $month_list)
+                                        <li>
+                                            <option value="{{$month_list->new_date}}">{{$month_list->new_date}}</option>
+                                        </li>
+                                    @endforeach
+
+                                </select>
+                                <h4 style="display: inline-block">To</h4>
+                                <select class="btn btn" name="monthTo" required>
+                                    @foreach($monthList as $month_list)
+                                        <li>
+                                            <option value="{{$month_list->new_date}}">{{$month_list->new_date}}</option>
+                                        </li>
+                                    @endforeach
+
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-sm-3">Select Year </label>
-                            <div class="col-sm-9">
-                                <input class="date-oyear form-control" type="text" name="year"
-                                       style=" z-index: 9999 !important;"
-                                       value="<?php echo date('Y') ?>">
-                            </div>
-                        </div>
-
 
                         <div class="form-actions">
                             <div class="row">
