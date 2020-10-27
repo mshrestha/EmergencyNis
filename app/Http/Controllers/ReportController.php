@@ -353,6 +353,7 @@ class ReportController extends Controller
             ->where('facility_followups.age', '<=', $end_age)
             ->where('facility_followups.nutritionstatus', 'SAM')
             ->where('facility_followups.outcome', 'SAM new case')
+            ->where('facility_followups.new_admission','!=', null)
             ->where('facility_followups.new_admission','!=', 'MUAC')
             ->where('facility_followups.new_admission','!=', 'Oedema')
             ->where('facility_followups.new_admission','!=', 'Age 6 to 59m')

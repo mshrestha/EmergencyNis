@@ -828,6 +828,7 @@ class HomeController extends Controller
             ->whereYear('facility_followups.date', '=', $report_year)
             ->where('facility_followups.nutritionstatus', 'SAM')
             ->where('facility_followups.outcome', 'SAM new case')
+            ->where('facility_followups.new_admission','!=', null)
             ->where('facility_followups.new_admission','!=', 'MUAC')
             ->where('facility_followups.new_admission','!=', 'Oedema')
             ->where('facility_followups.new_admission','!=', 'Age 6 to 59m')
@@ -933,6 +934,7 @@ class HomeController extends Controller
             ->where('nutritionstatus', 'MAM')
             ->where('outcome', 'MAM new case')
             ->where('new_admission','!=', null)
+            ->where('new_admission','!=', 'MUAC')
             ->where('new_admission','!=', 'Oedema')
             ->where('new_admission','!=', 'Age 6 to 59m')
             ->where('new_admission','!=', 'Relapse')
@@ -1019,7 +1021,7 @@ class HomeController extends Controller
         }
         $tsfp['barchart_count'] = array_values($admission);
         $tsfp['barchart_date'] = $only_day;
-
+//dd($tsfp);
         return $tsfp;
     }
 
