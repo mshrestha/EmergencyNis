@@ -110,8 +110,6 @@
         minViewMode: 2,
         format: 'yyyy'
     });
-
-
 </script>
 
 

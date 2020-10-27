@@ -16,10 +16,15 @@
         overflow-x: hidden;
     }
 
+
+     .FixedHeightContainer {
+         float: right;
+         height: 250px;
+         width: 250px;
+         overflow: auto;
+     }
 </style>
-
 @endpush
-
 
 @section('content')
 
@@ -36,23 +41,50 @@
                             <option value="{{ $fac->id }}" {{ ($fac->id == Auth::user()->facility_id) ? ' selected' : '' }}>{{ $fac->facility_id }}</option>
                         @endforeach
                     </select>
-                    <select class="btn btn" name="month">
-                        <option value="01" {{($current_month=='01') ? 'selected' : ''}}>January</option>
-                        <option value="02" {{($current_month=='02') ? 'selected' : ''}}>February</option>
-                        <option value="03" {{($current_month=='03') ? 'selected' : ''}}>March</option>
-                        <option value="04" {{($current_month=='04') ? 'selected' : ''}}>April</option>
-                        <option value="05" {{($current_month=='05') ? 'selected' : ''}}>May</option>
-                        <option value="06" {{($current_month=='06') ? 'selected' : ''}}>June</option>
-                        <option value="07" {{($current_month=='07') ? 'selected' : ''}}>July</option>
-                        <option value="08" {{($current_month=='08') ? 'selected' : ''}}>August</option>
-                        <option value="09" {{($current_month=='09') ? 'selected' : ''}}>September</option>
-                        <option value="10" {{($current_month=='10') ? 'selected' : ''}}>October</option>
-                        <option value="11" {{($current_month=='11') ? 'selected' : ''}}>November</option>
-                        <option value="12" {{($current_month=='12') ? 'selected' : ''}}>December</option>
+                    {{--<select class="btn btn" name="month">--}}
+                        {{--<option value="01" {{($current_month=='01') ? 'selected' : ''}}>January</option>--}}
+                        {{--<option value="02" {{($current_month=='02') ? 'selected' : ''}}>February</option>--}}
+                        {{--<option value="03" {{($current_month=='03') ? 'selected' : ''}}>March</option>--}}
+                        {{--<option value="04" {{($current_month=='04') ? 'selected' : ''}}>April</option>--}}
+                        {{--<option value="05" {{($current_month=='05') ? 'selected' : ''}}>May</option>--}}
+                        {{--<option value="06" {{($current_month=='06') ? 'selected' : ''}}>June</option>--}}
+                        {{--<option value="07" {{($current_month=='07') ? 'selected' : ''}}>July</option>--}}
+                        {{--<option value="08" {{($current_month=='08') ? 'selected' : ''}}>August</option>--}}
+                        {{--<option value="09" {{($current_month=='09') ? 'selected' : ''}}>September</option>--}}
+                        {{--<option value="10" {{($current_month=='10') ? 'selected' : ''}}>October</option>--}}
+                        {{--<option value="11" {{($current_month=='11') ? 'selected' : ''}}>November</option>--}}
+                        {{--<option value="12" {{($current_month=='12') ? 'selected' : ''}}>December</option>--}}
+                    {{--</select>--}}
+                    {{--<input class="date-oyear btn btn" type="text" name="year" id="date-oyear"--}}
+                           {{--style=" z-index: 9999 !important;"--}}
+                           {{--value="{{$current_year}}">--}}
+                        {{--<ul class="dropdown-menu pull-right FixedHeightContainer" role="menu">--}}
+                            {{--@foreach($monthList as $month_list)--}}
+                                {{--<li>--}}
+                                    {{--<a href="#">{{$month_list->new_date}}</a>--}}
+                                {{--</li>--}}
+                            {{--@endforeach--}}
+                        {{--</ul>--}}
+
+                    <h5 style="display: inline-block">From</h5>
+                    <select class="btn btn" name="monthFrom" required>
+                        @foreach($monthList as $month_list)
+                            <li>
+                                <option value="{{$month_list->new_date}}" >{{$month_list->new_date}}</option>
+                            </li>
+                        @endforeach
+
                     </select>
-                    <input class="date-oyear btn btn" type="text" name="year" id="date-oyear"
-                           style=" z-index: 9999 !important;"
-                           value="{{$current_year}}">
+                    <h5 style="display: inline-block">To</h5>
+                    <select class="btn btn" name="monthTo" required>
+                        @foreach($monthList as $month_list)
+                            <li>
+                                <option value="{{$month_list->new_date}}" >{{$month_list->new_date}}</option>
+                            </li>
+                        @endforeach
+
+                    </select>
+
                     <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>Search</button>
                 </div>
             </form>
@@ -83,15 +115,14 @@
                             <tr>
                                 <td>Facility Name: <strong>{{ $facility->facility_id }}</strong></td>
                                 <td>Program Partner: <strong>{{ $facility->program_partner }}</strong></td>
-                                {{--<td>Month/Year: <strong>{{ date("F Y",strtotime("-1 month")) }}</strong></td>--}}
-                                <td>Month/Year:
-                                    <strong>{{ date('F', mktime(0, 0, 0, $current_month, 10)).'-'.$current_year }}</strong>
+                                <td>Report From Date: {{\Carbon\Carbon::parse($reportStart)->format(' d-M-Y')}}
+{{--                                    <strong>{{ date('F', mktime(0, 0, 0, $current_month, 10)).'-'.$current_year }}</strong>--}}
                                 </td>
                             </tr>
                             <tr>
                                 <td>Report prepared by: <strong>ENIS System</strong></td>
                                 <td>Organization: <strong>{{ $facility->implementing_partner }}</strong></td>
-                                <td>Reporting Duration: <strong>1 Month</strong></td>
+                                <td>Report To Date: {{\Carbon\Carbon::parse($reportEnd)->format(' d-M-Y')}}</td>
                             </tr>
                             </tbody>
                         </table>
