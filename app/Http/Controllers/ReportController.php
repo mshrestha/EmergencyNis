@@ -864,9 +864,10 @@ class ReportController extends Controller
             $report_male_24to59 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'male', '24', '59');
             $report_female_6to23 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'female', '6', '23');
             $report_female_24to59 = $this->tsfp($facility_id, $reportStart, $reportEnd, 'female', '24', '59');
+            $report_tsfp_plw=$this->tsfp_plw($facility_id, $reportStart, $reportEnd);
 
             return view('report.tsfp', compact('monthList', 'facility', 'facilities', 'reportStart', 'reportEnd', 'facility_id',
-                'report_male_6to23', 'report_female_6to23', 'report_male_24to59', 'report_female_24to59'));
+                'report_male_6to23', 'report_female_6to23', 'report_male_24to59', 'report_female_24to59','report_tsfp_plw'));
 
         } else {
 
@@ -1411,5 +1412,201 @@ class ReportController extends Controller
 
     }
 
+    private function tsfp_plw($facility_id, $reportStart, $reportEnd)
+    {
+        $begining_balance_1stday = DB::table('pregnant_women_followups')->MIN('date');
+        $begining_balance_lastday = date('Y-m-d', strtotime('-1 day', strtotime($reportStart)));
+        $this_month_1stday = date('Y-m-d', strtotime($reportStart));
+        $endof_month_lastday = date('Y-m-d', strtotime($reportEnd));
+
+        $tsfp['begining_balance_new_admission'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', '!=', null)
+            ->count();
+
+        $tsfp['begining_balance_readmission_after_default'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('readmission', 'Readmission after default')
+            ->count();
+
+        $tsfp['begining_balance_transfer_in'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('transfer_in', 'Transfer in from other TSFP')
+            ->count();
+
+        $tsfp['begining_balance_return_from'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('return_from', 'Returned from BSFP')
+            ->count();
+
+        $tsfp['begining_balance_total_enrollment'] = $tsfp['begining_balance_new_admission'] + $tsfp['begining_balance_readmission_after_default'] + $tsfp['begining_balance_transfer_in'] + $tsfp['begining_balance_return_from'];
+
+        $tsfp['begining_balance_discharge_cured_plw2bsfp'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Cured PLW to BSFP')
+            ->count();
+
+        $tsfp['begining_balance_discharge_cured_other'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Cured Other')
+            ->count();
+
+        $tsfp['begining_balance_discharge_child_become6'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Child become 6 Month Old')
+            ->count();
+
+        $tsfp['begining_balance_discharge_transfer_out'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_transfer_out', 'Transfer to other TSFP')
+            ->count();
+
+        $tsfp['begining_balance_discharge_defaulted'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Defaulted')
+            ->count();
+
+        $tsfp['begining_balance_discharge_death'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Death')
+            ->count();
+
+        $tsfp['begining_balance_discharge_unexpected'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_others', 'Unexpected discontinuation of pregnancy')
+            ->count();
+
+        $tsfp['begining_balance_discharge_other'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$begining_balance_1stday, $begining_balance_lastday])
+            ->where('nutritionstatus', 'MAM')
+//            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_others','!=', 'Unexpected discontinuation of pregnancy')
+            ->count();
+
+        $tsfp['begining_balance_total_exit'] = $tsfp['begining_balance_discharge_cured_plw2bsfp'] + $tsfp['begining_balance_discharge_cured_other'] +
+            $tsfp['begining_balance_discharge_child_become6']+$tsfp['begining_balance_discharge_transfer_out']+$tsfp['begining_balance_discharge_defaulted']+$tsfp['begining_balance_discharge_death']
+            +$tsfp['begining_balance_discharge_unexpected']+$tsfp['begining_balance_discharge_other'];
+
+        $tsfp['begining_balance_total']=$tsfp['begining_balance_total_enrollment']+$tsfp['begining_balance_total_exit'];
+
+        $tsfp['this_period_new_admission'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('new_admission', '!=', null)
+            ->count();
+
+        $tsfp['this_period_readmission_after_default'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('readmission', 'Readmission after default')
+            ->count();
+
+        $tsfp['this_period_transfer_in'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('transfer_in', 'Transfer in from other TSFP')
+            ->count();
+
+        $tsfp['this_period_return_from'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', 'MAM new case')
+            ->where('return_from', 'Returned from BSFP')
+            ->count();
+
+        $tsfp['this_period_total_enrollment'] = $tsfp['this_period_new_admission'] + $tsfp['this_period_readmission_after_default'] + $tsfp['this_period_transfer_in'] + $tsfp['this_period_return_from'];
+
+        $tsfp['this_period_discharge_cured_plw2bsfp'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Cured PLW to BSFP')
+            ->count();
+
+        $tsfp['this_period_discharge_cured_other'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Cured Other')
+            ->count();
+
+        $tsfp['this_period_discharge_child_become6'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Child become 6 Month Old')
+            ->count();
+
+        $tsfp['this_period_discharge_transfer_out'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_transfer_out', 'Transfer to other TSFP')
+            ->count();
+
+        $tsfp['this_period_discharge_defaulted'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Defaulted')
+            ->count();
+
+        $tsfp['this_period_discharge_death'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_exit', 'Death')
+            ->count();
+
+        $tsfp['this_period_discharge_unexpected'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_others', 'Unexpected discontinuation of pregnancy')
+            ->count();
+
+        $tsfp['this_period_discharge_other'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
+            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
+            ->where('nutritionstatus', 'MAM')
+//            ->where('outcome', '!=', 'MAM new case')
+            ->where('discharge_criteria_others','!=', 'Unexpected discontinuation of pregnancy')
+            ->count();
+
+        $tsfp['this_period_total_exit'] = $tsfp['this_period_discharge_cured_plw2bsfp'] + $tsfp['this_period_discharge_cured_other'] +
+            $tsfp['this_period_discharge_child_become6']+$tsfp['this_period_discharge_transfer_out']+$tsfp['this_period_discharge_defaulted']+$tsfp['this_period_discharge_death']
+            +$tsfp['this_period_discharge_unexpected']+$tsfp['this_period_discharge_other'];
+
+        $tsfp['this_period_total']=$tsfp['this_period_total_enrollment'] -$tsfp['this_period_total_exit'];
+
+        $tsfp['end_of_month'] = $tsfp['begining_balance_total'] + $tsfp['this_period_total'];
+
+        return $tsfp;
+
+    }
 
 }
