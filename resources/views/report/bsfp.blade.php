@@ -92,6 +92,11 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example x-small small">
                             <tbody>
                             {{--block-1 start                            --}}
+                            <tr style="background-color: #1aca7d">
+                                <td rowspan="76"><strong>Blanket<br/>supplementary<br/>Feeding<br/>for 6-59<br/>months<br/>Children
+                                    </strong>
+                                </td>
+                            </tr>
                             <tr style="background-color: #dff0d8">
                                 <td colspan="2"><strong>At the Begining (A)</strong></td>
                                 <td>
@@ -551,6 +556,85 @@
                             </tr>
                             {{--row end                            --}}
                             {{--block-At the  end end                            --}}
+
+                            {{--block- plw  start                            --}}
+                            <tr style="background-color: #bacf7d">
+                                <td rowspan="19">
+                                    <strong>Blanket<br/>supplementary<br/>Feeding<br/>for <br/>Pregnant <br/>and
+                                        <br/>Lactating <br/>Women
+                                    </strong>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color: #eacf7d">
+                                <td colspan="2"><strong>At the beginning (A) BSFP-PLW</strong></td>
+                                <td><strong>{{$report_bsfp_plw['begining_balance_total']}}</strong></td>
+                            </tr>
+                            <tr style="background-color: #facf7d">
+                                <td rowspan="5"><strong>Admission </strong></td>
+                            </tr>
+                            <tr>
+                                <td>New admission</td>
+                                <td>{{$report_bsfp_plw['this_period_new_admission']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Readmission after being default</td>
+                                <td>{{$report_bsfp_plw['this_period_readmission_after_default']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Refer from BSFP</td>
+                                <td>{{$report_bsfp_plw['this_period_transfer_in']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Transfer-in from other TSFP</td>
+                                <td>{{$report_bsfp_plw['this_period_return_from']}}</td>
+                            </tr>
+                            <tr style="background-color: #eacf7d">
+                                <td colspan="2"><strong>Total admissions during this period (B)</strong></td>
+                                <td><strong>{{$report_bsfp_plw['this_period_total_enrollment']}}</strong></td>
+                            </tr>
+                            <tr style="background-color: #facf7d">
+                                <td rowspan="8"><strong>Exit </strong></td>
+                            </tr>
+                            <tr>
+                                <td>Discharge- Child become 6 month old</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_child_become6']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Transfer to TSFP</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_transfer_out_tsfp']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Transfer-out to other BSFP</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_transfer_out_bsfp']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Defaulter</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_defaulted']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Death</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_death']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Unexpected Discontinuation of Pregnancy</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_unexpected']}}</td>
+                            </tr>
+                            <tr>
+                                <td>Other</td>
+                                <td>{{$report_bsfp_plw['this_period_discharge_other']}}</td>
+                            </tr>
+                            <tr style="background-color: #eacf7d">
+                                <td colspan="2"><strong>Total exits during this period (C)</strong></td>
+                                <td><strong>{{$report_bsfp_plw['this_period_total_exit']}}</strong></td>
+                            </tr>
+                            <tr style="background-color: #55ca7d">
+                                <td colspan="2"><strong>At the  end (A+B)-C</strong></td>
+                                <td><strong>{{$report_bsfp_plw['end_of_month']}}</strong></td>
+                            </tr>
+                            {{--block- plw  end                            --}}
+
                             </tbody>
                         </table>
                     </div>

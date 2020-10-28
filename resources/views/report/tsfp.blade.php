@@ -691,7 +691,7 @@
                                 <td>{{$report_tsfp_plw['this_period_discharge_death']}}</td>
                             </tr>
                             <tr>
-                                <td>Unexpected Discontinuationof Pregnancy</td>
+                                <td>Unexpected Discontinuation of Pregnancy</td>
                                 <td>{{$report_tsfp_plw['this_period_discharge_unexpected']}}</td>
                             </tr>
                             <tr>
@@ -706,7 +706,7 @@
                                 <td colspan="2"><strong>At the  end (A+B)-C</strong></td>
                                 <td><strong>{{$report_tsfp_plw['end_of_month']}}</strong></td>
                             </tr>
-                            {{--block- plw new admission end                            --}}
+                            {{--block- plw  end                            --}}
                             </tbody>
                         </table>
 
