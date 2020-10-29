@@ -1737,20 +1737,6 @@ class ReportController extends Controller
 
         $bsfp_plw['this_period_total_enrollment'] = $bsfp_plw['this_period_new_admission'] + $bsfp_plw['this_period_readmission_after_default'] + $bsfp_plw['this_period_transfer_in'] + $bsfp_plw['this_period_return_from'];
 
-//        $bsfp_plw['this_period_discharge_cured_plw2bsfp'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
-//            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
-//            ->where('nutritionstatus', 'Normal')
-//            ->where('outcome', '!=', 'Normal new case')
-//            ->where('discharge_criteria_exit', 'Cured PLW to BSFP')
-//            ->count();
-//
-//        $bsfp_plw['this_period_discharge_cured_other'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
-//            ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
-//            ->where('nutritionstatus', 'Normal')
-//            ->where('outcome', '!=', 'Normal new case')
-//            ->where('discharge_criteria_exit', 'Cured Other')
-//            ->count();
-
         $bsfp_plw['this_period_discharge_child_become6'] = DB::table('pregnant_women_followups')->where('pregnant_women_followups.facility_id', $facility_id)
             ->whereBetween('pregnant_women_followups.actual_date', [$this_month_1stday, $endof_month_lastday])
             ->where('nutritionstatus', 'Normal')

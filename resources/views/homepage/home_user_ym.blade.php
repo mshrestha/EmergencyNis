@@ -425,30 +425,44 @@
             </div>
         </div><!-- End of First Row -->
         <div class="row">
-            <div class="col-lg-12" style="background-color: #dff0d8">
+            <div class="col-lg-8" style="background-color: #dff0d8">
                 <div class="row">
                     <h1 style="padding-left: 15px">BSFP</h1>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>BSFP Child</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">1234</h1>
+                                <h1 class="no-margins">{{$other_dashboard['bsfp_new_admission']}}</h1>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <h5>BSFP PLW</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">1234</h1>
+                                <h1 class="no-margins">{{$other_dashboard['bsfp_plw_new_admission']}}</h1>
                             </div>
                         </div>
                     </div>
-
+                </div>
+            </div>
+            <div class="col-lg-4" style="background-color: #facc87">
+                <div class="row">
+                    <h1 style="padding-left: 15px">TSFP PLW</h1>
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>TSFP PLW</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">{{$other_dashboard['tsfp_plw_new_admission']}}</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
