@@ -99,7 +99,7 @@
                                                 <th>Facility</th>
                                                 <th>Nutrition Status</th>
                                                 <th>Date Status</th>
-                                                <th>Weight Status</th>
+                                                {{--<th>Weight Status</th>--}}
                                                 <th>Follow up</th>
                                             </tr>
                                             </thead>
@@ -107,11 +107,11 @@
                                             @foreach($children as $child)
                                                 <tr class="children-client"
                                                     data-child-href="{{ route('children.show', $child->sync_id) }}">
-                                                    <td class="children-show">{{ $child->sync_id }}</td>
+                                                    <td class="children-show">{{ $child->children_id }}</td>
                                                     <td class="children-show">{{ $child->moha_id }}</td>
                                                     <td class="children-show">{{ $child->family_count_no }}</td>
                                                     <td class="children-show">
-                                                        <a href="{{ route('children.show', $child->sync_id) }}"
+                                                        <a href="{{ route('children.show', $child->children_id) }}"
                                                            class="client-link">{{ $child->children_name }}</a>
                                                     </td>
                                                     <td class="children-show">{{ $child->mother_caregiver_name }}</td>
@@ -119,31 +119,32 @@
                                                     <td class="children-show">{{ $child->block.' '.$child->sub_block_no.' '.$child->hh_no }} </td>
                                                     <td class="children-show">{{ isset($child->facility->facility_id) ? $child->facility->facility_id : ''}} </td>
                                                     <td class="children-show">
-                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']))
-                                                            <small class="label label-{{(($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='SAM') ? 'danger' : (($child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus']=='MAM') ? 'warning' :'info')) }}">{{ $child->facility_followup[$child->facility_followup->count()-1]['nutritionstatus'] }}</small>
+                                                        @if (isset($child->nutritionstatus))
+                                                            <small class="label label-{{(($child->nutritionstatus=='SAM') ? 'danger' : (($child->nutritionstatus=='MAM') ? 'warning' :'info')) }}">
+                                                                {{ $child->nutritionstatus }}</small>
                                                         @endif
                                                     </td>
                                                     <td class="children-show">
-                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']))
-                                                            <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'Defaulter':'' }}</small>
+                                                        @if (isset($child->next_visit_date))
+                                                            <small class="label label-{{($child->next_visit_date<date('Y-m-d'))?'danger':'' }}">{{ ($child->next_visit_date<date('Y-m-d'))?'Defaulter':'' }}</small>
                                                         @else
                                                             <small class="label label-warning">Missing Date</small>
                                                         @endif
                                                     </td>
-                                                    <td class="children-show">
-                                                        @if ($child->facility_followup->count()>=2)
-                                                            @if($child->facility_followup[$child->facility_followup->count()-1]['weight']==null)
-                                                                <small class="label label-warning">weight Missing</small>
-                                                            @else
-                                                            <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
-                                                                @endif
-                                                            @else
-                                                            <small class="label label-success">New</small>
-                                                        @endif
-                                                    </td>
+                                                    {{--<td class="children-show">--}}
+                                                        {{--@if ($child->facility_followup->count()>=2)--}}
+                                                            {{--@if($child->facility_followup[$child->facility_followup->count()-1]['weight']==null)--}}
+                                                                {{--<small class="label label-warning">weight Missing</small>--}}
+                                                            {{--@else--}}
+                                                            {{--<small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>--}}
+                                                                {{--@endif--}}
+                                                            {{--@else--}}
+                                                            {{--<small class="label label-success">New</small>--}}
+                                                        {{--@endif--}}
+                                                    {{--</td>--}}
                                                     <td class="children-show">
                                                         @if(Auth::user()->category == 'community' || Auth::user()->category == 'both')
-                                                            <a href="{{ route('community-followup.show', $child->sync_id) }}"
+                                                            <a href="{{ route('community-followup.show', $child->children_id) }}"
                                                                title="Community followup">
                                                                 <button type="button"
                                                                         class="btn btn-default btn-registered">
@@ -153,7 +154,7 @@
                                                         @endif
                                                         @if(Auth::user()->category == 'facility' || Auth::user()->category == 'both')
                                                             {{--<a href="{{ route('facility-followup.show', $child->sync_id) }}"--}}
-                                                            <a href="{{ route('children.show', $child->sync_id) }}"
+                                                            <a href="{{ route('children.show', $child->children_id) }}"
                                                                class="edit-btn" title="Facility Followup">
                                                                 <button class="btn btn-success btn-circle btn-registered"
                                                                         type="button"><i
