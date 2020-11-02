@@ -160,10 +160,10 @@ class ReportController extends Controller
     {
 //        dd($request);
         $endMonth = date('m', strtotime($request->monthTo));
-        $endYear = date('m', strtotime($request->monthTo));
+        $endYear = date('Y', strtotime($request->monthTo));
 //        dd($endMonth.'-'.$endYear);
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
-        $reportStart = date('Y-m-d', strtotime('1' . $request->monthFrom));
+        $reportStart = date('Y-m-d', strtotime('1-' . $request->monthFrom));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
 
         if ($reportStart > $reportEnd) {
@@ -202,9 +202,9 @@ class ReportController extends Controller
     public function sc_report_admin(Request $request)
     {
         $endMonth = date('m', strtotime($request->monthTo));
-        $endYear = date('m', strtotime($request->monthTo));
+        $endYear = date('Y', strtotime($request->monthTo));
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
-        $reportStart = date('Y-m-d', strtotime('1' . $request->monthFrom));
+        $reportStart = date('Y-m-d', strtotime('1-' . $request->monthFrom));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
 
         if ($reportStart > $reportEnd) {
@@ -245,9 +245,9 @@ class ReportController extends Controller
     {
 //        dd($request);
         $endMonth = date('m', strtotime($request->monthTo));
-        $endYear = date('m', strtotime($request->monthTo));
+        $endYear = date('Y', strtotime($request->monthTo));
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
-        $reportStart = date('Y-m-d', strtotime('1' . $request->monthFrom));
+        $reportStart = date('Y-m-d', strtotime('1-' . $request->monthFrom));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
         if ($reportStart > $reportEnd) {
             return redirect()->back()->with([
@@ -285,9 +285,9 @@ class ReportController extends Controller
     {
 //        dd($request);
         $endMonth = date('m', strtotime($request->monthTo));
-        $endYear = date('m', strtotime($request->monthTo));
+        $endYear = date('Y', strtotime($request->monthTo));
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
-        $reportStart = date('Y-m-d', strtotime('1' . $request->monthFrom));
+        $reportStart = date('Y-m-d', strtotime('1-'. $request->monthFrom));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
 
         if (Auth::user()->facility_id) {
@@ -1803,7 +1803,7 @@ class ReportController extends Controller
         $endMonth = date('m', strtotime($request->monthTo));
         $endYear = date('Y', strtotime($request->monthTo));
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
-        $reportStart = date('Y-m-d', strtotime('1' . '-' . $request->monthFrom));
+        $reportStart = date('Y-m-d', strtotime('1-'. $request->monthFrom));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
 //dd($reportStart);
         if ($reportStart > $reportEnd) {
@@ -1826,7 +1826,7 @@ class ReportController extends Controller
         $month=date('n');
         $year=date('Y');
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $month, $year));
-        $reportStart = date('Y-m-d', strtotime('1' . '-' . $month . '-' . $year));
+        $reportStart = date('Y-m-d', strtotime('1-' . $month . '-' . $year));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $month . '-' . $year));
         $facilities = Facility::orderBy('created_at', 'desc')->get();
         $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
