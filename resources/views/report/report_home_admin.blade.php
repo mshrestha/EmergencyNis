@@ -10,6 +10,24 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="row">
+                      @if(Auth::user()->role == 'admin')
+                    <div class="col-lg-3">
+                        <a href="{{ route('summary_report') }}">
+                            <div class="widget style1 lazur-bg">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <i class="fa fa-plus fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-8 text-right">
+                                        <h2 class="font-bold">Summary Report</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                      @endif
+                  </div>
+                          <div class="row">
                     <div class="col-lg-3">
                         <a href="{{ route('sc_report') }}">
                             <div class="widget style1 lazur-bg">

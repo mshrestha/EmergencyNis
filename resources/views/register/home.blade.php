@@ -40,19 +40,19 @@
                                 <a href="{{ route('sam_child') }}" >
                                     <button type="button" class="btn btn-danger"><i
                                                 class="fa fa-user"></i>
-                                        SAM
+                                        OTP
                                     </button>
                                 </a>
                                 <a href="{{ route('mam_child') }}" >
                                     <button type="button" class="btn btn-warning"><i
                                                 class="fa fa-user"></i>
-                                        MAM
+                                        TSFP
                                     </button>
                                 </a>
                                 <a href="{{ route('normal_child') }}" >
                                     <button type="button" class="btn btn-info"><i
                                                 class="fa fa-user"></i>
-                                        Normal
+                                        BSFP
                                     </button>
                                 </a>
                                 <div  class="btn-group " >

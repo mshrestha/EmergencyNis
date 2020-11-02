@@ -158,8 +158,10 @@ class ReportController extends Controller
 
     public function otp_report_admin(Request $request)
     {
+//        dd($request);
         $endMonth = date('m', strtotime($request->monthTo));
         $endYear = date('m', strtotime($request->monthTo));
+//        dd($endMonth.'-'.$endYear);
         $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
         $reportStart = date('Y-m-d', strtotime('1' . $request->monthFrom));
         $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
@@ -1795,7 +1797,46 @@ class ReportController extends Controller
         $bsfp_plw['end_of_month'] = $bsfp_plw['begining_balance_total'] + $bsfp_plw['this_period_total'];
 
         return $bsfp_plw;
+    }
 
+    public function summary_report_ym(Request $request){
+        $endMonth = date('m', strtotime($request->monthTo));
+        $endYear = date('Y', strtotime($request->monthTo));
+        $lastDay = (cal_days_in_month(CAL_GREGORIAN, $endMonth, $endYear));
+        $reportStart = date('Y-m-d', strtotime('1' . '-' . $request->monthFrom));
+        $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $request->monthTo));
+//dd($reportStart);
+        if ($reportStart > $reportEnd) {
+            return redirect()->back()->with([
+                'notify_message' => 'From (Month/Year) is must equal or smaller then To (Month/Year)',
+                'notify_type' => 'danger'
+            ]);
+        } else
+
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
+        $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+            DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
+            ->groupby('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
+        return view('report.summary_report', compact('facilities','monthList','reportStart','reportEnd'));
+    }
+    public function summary_report(){
+        $month=date('n');
+        $year=date('Y');
+        $lastDay = (cal_days_in_month(CAL_GREGORIAN, $month, $year));
+        $reportStart = date('Y-m-d', strtotime('1' . '-' . $month . '-' . $year));
+        $reportEnd = date('Y-m-d', strtotime($lastDay . '-' . $month . '-' . $year));
+        $facilities = Facility::orderBy('created_at', 'desc')->get();
+        $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
+            DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
+            ->groupby('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get()->toArray();
+
+        return view('report.summary_report', compact('facilities','monthList','reportStart','reportEnd'));
     }
 
 }
