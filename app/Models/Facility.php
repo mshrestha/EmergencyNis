@@ -9,7 +9,7 @@ class Facility extends Model
 {
     protected $fillable = [
     	'facility_id', 'camp_id', 'program_partner', 'implementing_partner', 'status', 'latitude', 'longitude', 'service_type',
-        'facility_reg', 'community_reg', 'ssid','pp_id','ip_id','name','sector_id'
+        'facility_reg', 'community_reg', 'ssid','pp_id','ip_id','name','sector_id','reporting_mode'
     ];
 
     public function camp() {

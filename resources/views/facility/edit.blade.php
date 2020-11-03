@@ -139,6 +139,19 @@
 								</select>
 							</div>
 						</div>
+						<div class="form-group"><label class="col-sm-3 control-label">Reporting Mode</label>
+							<div class="col-sm-9">
+								<select name="reporting_mode" class="form-control" id="reporting_mode">
+									<option value="System" {{ (isset($facility) && $facility->reporting_mode == 'System') ? 'selected' : '' }}>
+										System
+									</option>
+									<option value="Excel Upload" {{ (isset($facility) && $facility->reporting_mode == 'Excel Upload') ? 'selected' : '' }}>
+										Excel Upload
+									</option>
+								</select>
+							</div>
+						</div>
+
 						<div class="form-group"><label class="col-sm-3 control-label">Facility reg</label>
 							<div class="col-sm-9"><input type="text" name="facility_reg" class="form-control" placeholder="Facility reg"
 														 required value="{{ isset($facility) ? $facility->facility_reg : '' }}"></div>

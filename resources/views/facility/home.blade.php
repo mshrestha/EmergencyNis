@@ -2,7 +2,7 @@
 @section('content')
 <h2></h2>
 <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
         <div class="ibox">
             <div class="ibox-title">
                 <h2>List of Facilities    
@@ -27,6 +27,7 @@
                                 <th>Implementing<br/> Partner</th>
                                 <th>Program<br/> Partner</th>
                                 <th>Service<br/> Type</th>
+                                <th>Reporting<br/> Mode</th>
                                 <th width="100">Action</th>
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                         {{$service->name.', '}}
                                      @endforeach
                                 </td>
+                                <td>{{ $facility->reporting_mode}}</td>
                                 <td>
                                     <a href="{{ route('facility.edit', $facility->id) }}" class="edit-btn">
 

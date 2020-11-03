@@ -20,7 +20,6 @@
                                             <option value="{{$month_list->new_date}}">{{$month_list->new_date}}</option>
                                         </li>
                                     @endforeach
-
                                 </select>
                                 <h4 style="display: inline-block">To</h4>
                                 <select class="btn btn" name="monthTo" required>
@@ -29,14 +28,12 @@
                                             <option value="{{$month_list->new_date}}">{{$month_list->new_date}}</option>
                                         </li>
                                     @endforeach
-
                                 </select>
                                 <button type="submit" class="btn btn-success" style="display: inline-block"><i class="fa fa-search"></i>
                                     Search
                                 </button>
                             </div>
                         </div>
-
                     </form>
                 </div>
                 <div class="ibox-content">
@@ -80,10 +77,10 @@
                                             {{$service->name.', '}}
                                         @endforeach
                                     </td>
-                                    <td>{{summaryReport($reportStart, $reportEnd,$facility->id)['registered_child']}}</td>
-                                    <td>{{summaryReport($reportStart, $reportEnd,$facility->id)['child_followup']}}</td>
-                                    <td>{{summaryReport($reportStart, $reportEnd,$facility->id)['registered_women']}}</td>
-                                    <td>{{summaryReport($reportStart, $reportEnd,$facility->id)['women_followup']}}</td>
+                                    <td style="text-align: center">{{summaryReport($reportStart, $reportEnd,$facility->id)['registered_child']}}</td>
+                                    <td style="text-align: center">{{summaryReport($reportStart, $reportEnd,$facility->id)['child_followup']}}</td>
+                                    <td style="text-align: center">{{summaryReport($reportStart, $reportEnd,$facility->id)['registered_women']}}</td>
+                                    <td style="text-align: center">{{summaryReport($reportStart, $reportEnd,$facility->id)['women_followup']}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
