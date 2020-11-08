@@ -15,7 +15,8 @@
 
         <div class="row">
             <div class="col-md-8">
-                <h1>DASHBOARD- {{ Auth::user()->facility->facility_id.' ('.Auth::user()->facility->name.')' }}</h1>
+                <h2>DASHBOARD - {{ Auth::user()->facility->facility_id.'-'.Auth::user()->facility->name.' ('.$month_year.')' }}
+                </h2>
             </div>
             <div class="btn-group pull-right" style="padding-bottom: 15px">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

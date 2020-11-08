@@ -14,7 +14,7 @@
     <div class="wrapper wrapper-content  animated fadeInRight">
         <div class="row">
             <div class="col-md-8">
-                <h1>DASHBOARD - Admin
+                <h1>DASHBOARD - Admin ({{$month_year}})
                     </h1>
             </div>
             <div class="btn-group pull-right" style="padding-bottom: 15px">

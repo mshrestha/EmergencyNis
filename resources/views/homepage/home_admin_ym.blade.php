@@ -15,7 +15,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <h1>DASHBOARD- Admin Dashboard</h1>
+                <h1>DASHBOARD- Admin Dashboard ({{$month_year}})</h1>
             </div>
             <div class="btn-group pull-right" style="padding-bottom: 15px">
                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">

@@ -21,122 +21,167 @@
                     </a>
                 </div>
                 <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <span class="label label-info pull-right">Children</span>
-                            <h5>Total Admissions</h5>
+                    <a href="{{ route('dashboard') }}">
+                        <div class="widget style1 lazur-bg">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <i class="fa fa-plus fa-5x"></i>
+                                </div>
+                                <div class="col-xs-8 text-right">
+
+                                    <h2 class="font-bold">Dashboard</h2>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">{{ $dashboard_data['admission_total'] }}</h1>
-                            {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
-                            {{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            {{--<span class="label label-success pull-right">Normal</span>--}}
-                            <h5>Cure Rate</h5>
+                    <a href="{{ route('reports') }}">
+                        <div class="widget style1 lazur-bg">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <i class="fa fa-plus fa-5x"></i>
+                                </div>
+                                <div class="col-xs-8 text-right">
+
+                                    <h2 class="font-bold">Report</h2>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">{{ number_format($dashboard['cureRate'],2) }}%</h1>
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <a href="{{ url('ou') }}">
+                        <div class="widget style1 lazur-bg">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <i class="fa fa-plus fa-5x"></i>
+                                </div>
+                                <div class="col-xs-8 text-right">
+
+                                    <h2 class="font-bold">Org. Unit</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
+                            {{--<span class="label label-info pull-right">Children</span>--}}
+                            {{--<h5>Total Admissions</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<h1 class="no-margins">{{ $dashboard_data['admission_total'] }}</h1>--}}
+                            {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
+                            {{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
+                            {{--<span class="label label-success pull-right">Normal</span>--}}
+                            {{--<h5>Cure Rate</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<h1 class="no-margins">{{ number_format($dashboard['cureRate'],2) }}%</h1>--}}
                             {{--<div class="stat-percent font-bold text-info">2% <i class="fa fa-level-up"></i></div>--}}
                             {{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
-                </div>
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
                             {{--<span class="label label-success pull-right">Normal</span>--}}
-                            <h5>Death Rate</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">{{ number_format($dashboard['deathRate'],2) }}%</h1>
+                            {{--<h5>Death Rate</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<h1 class="no-margins">{{ number_format($dashboard['deathRate'],2) }}%</h1>--}}
                             {{--<div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>--}}
                             {{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
-                </div>
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <!--Second Line -->
 
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
                             {{--<span class="label label-success pull-right">Normal</span>--}}
-                            <h5>Default Rate</h5>
-                        </div>
-                        <div class="ibox-content">
+                            {{--<h5>Default Rate</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
                             {{--<h1 class="no-margins">{{ $dashboard['defaultRate'] }}%</h1>--}}
-                            <h1 class="no-margins">{{ number_format($dashboard['defaultRate'] , 2)}}%</h1>
+                            {{--<h1 class="no-margins">{{ number_format($dashboard['defaultRate'] , 2)}}%</h1>--}}
                             {{--<div class="stat-percent font-bold text-danger">1% <i class="fa fa-level-down"></i></div>--}}
                             {{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
                             {{--<span class="label label-success pull-right">Normal</span>--}}
-                            <h5>Non Respondent Rate</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">{{ number_format($dashboard['nonRespondantRate'],2) }}%</h1>
+                            {{--<h5>Non Respondent Rate</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<h1 class="no-margins">{{ number_format($dashboard['nonRespondantRate'],2) }}%</h1>--}}
                             {{--<div class="stat-percent font-bold text-success">0% <i class="fa fa-bolt"></i></div>--}}
                             {{--                            <small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
                             {{--<span class="label label-success pull-right">Normal</span>--}}
-                            <h5>Average Weight Gain</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">{{number_format($dashboard_data['weight_gain'],2)}} <small>g/Kg/day</small></h1>
+                            {{--<h5>Average Weight Gain</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<h1 class="no-margins">{{number_format($dashboard_data['weight_gain'],2)}} <small>g/Kg/day</small></h1>--}}
                             {{--<div class="stat-percent font-bold text-info">0% <i class="fa fa-level-up"></i></div>--}}
                             {{--<small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
                             {{--<span class="label label-success pull-right">Normal</span>--}}
-                            <h5>Avg. Length of Stay</h5>
-                        </div>
-                        <div class="ibox-content">
-                            <h1 class="no-margins">{{number_format($dashboard_data['length_of_stay'],2)}}<small> days</small></h1>
+                            {{--<h5>Avg. Length of Stay</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<h1 class="no-margins">{{number_format($dashboard_data['length_of_stay'],2)}}<small> days</small></h1>--}}
                             {{--<div class="stat-percent font-bold text-danger">2 days <i class="fa fa-level-down"></i></div>--}}
                             {{--<small>{{$dashboard_data['month_year']}}</small>--}}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-4">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
 
-                            <h5>Admission Criteria</h5>
-                        </div>
-                        <div class="ibox-content">
+                            {{--<h5>Admission Criteria</h5>--}}
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
 
-                            <canvas id="doughnutChart" width="200" height="150"
-                            style="margin: 18px auto 0"></canvas>
-                            <div class="m-t">
+                            {{--<canvas id="doughnutChart" width="200" height="150"--}}
+                            {{--style="margin: 18px auto 0"></canvas>--}}
+                            {{--<div class="m-t">--}}
                                 {{--<small>{{$dashboard_data['month_year']}} </small>--}}
-                            </div>
+                            {{--</div>--}}
 
 
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12 hidden">
-                    <div class="ibox float-e-margins">
-                        <div class="ibox-title">
-                            <h5>ADMISSIONS (Last 30 days)</h5>
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+                {{--<div class="col-lg-12 hidden">--}}
+                    {{--<div class="ibox float-e-margins">--}}
+                        {{--<div class="ibox-title">--}}
+                            {{--<h5>ADMISSIONS (Last 30 days)</h5>--}}
                             {{--<div class="pull-right">--}}
                                 {{--<div class="btn-group">--}}
                                     {{--<button type="button" class="btn btn-xs btn-white active">Today</button>--}}
@@ -144,56 +189,56 @@
                                     {{--<button type="button" class="btn btn-xs btn-white">Annual</button>--}}
                                 {{--</div>--}}
                             {{--</div>--}}
-                        </div>
-                        <div class="ibox-content">
-                            <div class="row">
-                                <div class="col-lg-9">
-                                    <div class="flot-chart">
+                        {{--</div>--}}
+                        {{--<div class="ibox-content">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-lg-9">--}}
+                                    {{--<div class="flot-chart">--}}
                                         {{--<div class="flot-chart-content" >--}}
-                                            <canvas id="childAdmission" class="flot-chart-content" ></canvas>
+                                            {{--<canvas id="childAdmission" class="flot-chart-content" ></canvas>--}}
                                         {{--</div>--}}
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <ul class="stat-list">
-                                        <li>
-                                            <h2 class="no-margins">{{ $dashboard_data['admission_total'] }}</h2>
-                                            <small>Total Admission</small>
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-lg-3">--}}
+                                    {{--<ul class="stat-list">--}}
+                                        {{--<li>--}}
+                                            {{--<h2 class="no-margins">{{ $dashboard_data['admission_total'] }}</h2>--}}
+                                            {{--<small>Total Admission</small>--}}
                                             {{--<div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>--}}
-                                            <div class="progress progress-mini">
-                                                <div style="width: 100%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <h2 class="no-margins ">{{ $dashboard_data['admission_reportmonth'] }}</h2>
-                                            <small>Enrolled of {{$dashboard_data['month_year']}}</small>
+                                            {{--<div class="progress progress-mini">--}}
+                                                {{--<div style="width: 100%;" class="progress-bar"></div>--}}
+                                            {{--</div>--}}
+                                        {{--</li>--}}
+                                        {{--<li>--}}
+                                            {{--<h2 class="no-margins ">{{ $dashboard_data['admission_reportmonth'] }}</h2>--}}
+                                            {{--<small>Enrolled of {{$dashboard_data['month_year']}}</small>--}}
                                             {{--<div class="stat-percent">0% <i class="fa fa-level-down text-navy"></i></div>--}}
-                                            <div class="progress progress-mini">
-                                                <div style="width: 100%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <h2 class="no-margins ">{{$dashboard_data['death_reportmonth']}}</h2>
-                                            <small>Deaths of {{$dashboard_data['month_year']}}</small>
+                                            {{--<div class="progress progress-mini">--}}
+                                                {{--<div style="width: 100%;" class="progress-bar"></div>--}}
+                                            {{--</div>--}}
+                                        {{--</li>--}}
+                                        {{--<li>--}}
+                                            {{--<h2 class="no-margins ">{{$dashboard_data['death_reportmonth']}}</h2>--}}
+                                            {{--<small>Deaths of {{$dashboard_data['month_year']}}</small>--}}
                                             {{--<div class="stat-percent">0% <i class="fa fa-bolt text-navy"></i></div>--}}
-                                            <div class="progress progress-mini">
-                                                <div style="width: 100%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                            {{--<div class="progress progress-mini">--}}
+                                                {{--<div style="width: 100%;" class="progress-bar"></div>--}}
+                                            {{--</div>--}}
+                                        {{--</li>--}}
+                                    {{--</ul>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
             </div><!-- END OF INNER ROW -->
         </div>
         <div class="col-lg-4">
             <div class="btn-group pull-right" style="padding-bottom: 15px" >
-                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    Select Month
-                    <span class="caret"></span>
-                </button>
+                {{--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">--}}
+                    {{--Select Month--}}
+                    {{--<span class="caret"></span>--}}
+                {{--</button>--}}
                 <ul class="dropdown-menu pull-right" role="menu">
                     @foreach($cache_data as $month_list)
                     <li>

@@ -30,32 +30,33 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->facility_id) {
-            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
-                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
-            if (empty($cache_data)) {
-                if (date('n') == 1) {
-                    $report_month = 12;
-                    $report_year = date('Y') - 1;
-                } else {
-                    $report_month = date('n') - 1;
-                    $report_year = date('Y');
-                }
-            } else {
-                $report_month = $cache_data[0]->month;
-                $report_year = $cache_data[0]->year;
-            }
-            if ($report_month == 1) {
-                $previous_month = 12;
-                $previous_year = $report_year - 1;
-            } else {
-                $previous_month = $report_month - 1;
-                $previous_year = $report_year;
-            }
-            $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
-            $report_month_dashboard = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->first();
-            $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
-
-            $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
+//            dd('t');
+//            $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
+//                ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
+//            if (empty($cache_data)) {
+//                if (date('n') == 1) {
+//                    $report_month = 12;
+//                    $report_year = date('Y') - 1;
+//                } else {
+//                    $report_month = date('n') - 1;
+//                    $report_year = date('Y');
+//                }
+//            } else {
+//                $report_month = $cache_data[0]->month;
+//                $report_year = $cache_data[0]->year;
+//            }
+//            if ($report_month == 1) {
+//                $previous_month = 12;
+//                $previous_year = $report_year - 1;
+//            } else {
+//                $previous_month = $report_month - 1;
+//                $previous_year = $report_year;
+//            }
+//            $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
+//            $report_month_dashboard = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->first();
+//            $total_admission = MonthlyDashboard::where('facility_id', Auth::user()->facility_id)->sum('total_admit');
+//
+//            $children = Child::where('facility_id', Auth::user()->facility_id)->orderBy('created_at', 'desc')->get();
 
             //Sync data count
             $children_sync_count = Child::whereIn('sync_status', ['created', 'updated'])->count();
@@ -69,41 +70,45 @@ class HomeController extends Controller
             $community_sessions_womens_sync_count = CommunitySessionWomen::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_supervisors_sync_count = OutreachSupervisor::whereIn('sync_status', ['created', 'updated'])->count();
             $outreach_monthly_reports_sync_count = OutreachMonthlyReport::whereIn('sync_status', ['created', 'updated'])->count();
-            $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
-                ->where('facility_id', Auth::user()->facility_id)->first();
 
-            if ($previous_month_dashboard == null) {
-                $previous_month_dashboard['otp_admit_23m'] = 0;
-                $previous_month_dashboard['otp_admit_23f'] = 0;
-                $previous_month_dashboard['otp_admit_24m'] = 0;
-                $previous_month_dashboard['otp_admit_24f'] = 0;
-                $previous_month_dashboard['otp_admit_60m'] = 0;
-                $previous_month_dashboard['otp_admit_60f'] = 0;
-                $previous_month_dashboard['otp_admit_male'] = 0;
-                $previous_month_dashboard['otp_admit_female'] = 0;
-                $previous_month_dashboard['otp_admit_others'] = 0;
-                $previous_month_dashboard['otp_admit_muac'] = 0;
-                $previous_month_dashboard['otp_admit_whz'] = 0;
-                $previous_month_dashboard['otp_admit_both'] = 0;
-                $previous_month_dashboard['total_admit'] = 0;
-                $previous_month_dashboard['cure_rate'] = 0;
-                $previous_month_dashboard['death_rate'] = 0;
-                $previous_month_dashboard['default_rate'] = 0;
-                $previous_month_dashboard['nonrespondent_rate'] = 0;
-                $previous_month_dashboard['avg_weight_gain'] = 0;
-                $previous_month_dashboard['avg_length_stay'] = 0;
-                $previous_month_dashboard['otp_mnthend_23m'] = 0;
-                $previous_month_dashboard['otp_mnthend_23f'] = 0;
-                $previous_month_dashboard['otp_mnthend_24m'] = 0;
-                $previous_month_dashboard['otp_mnthend_24f'] = 0;
-                $previous_month_dashboard['otp_mnthend_60m'] = 0;
-                $previous_month_dashboard['otp_mnthend_60f'] = 0;
+//            $previous_month_dashboard = MonthlyDashboard::where('year', $previous_year)->where('month', $previous_month)
+//                ->where('facility_id', Auth::user()->facility_id)->first();
+//
+//            if ($previous_month_dashboard == null) {
+//                $previous_month_dashboard['otp_admit_23m'] = 0;
+//                $previous_month_dashboard['otp_admit_23f'] = 0;
+//                $previous_month_dashboard['otp_admit_24m'] = 0;
+//                $previous_month_dashboard['otp_admit_24f'] = 0;
+//                $previous_month_dashboard['otp_admit_60m'] = 0;
+//                $previous_month_dashboard['otp_admit_60f'] = 0;
+//                $previous_month_dashboard['otp_admit_male'] = 0;
+//                $previous_month_dashboard['otp_admit_female'] = 0;
+//                $previous_month_dashboard['otp_admit_others'] = 0;
+//                $previous_month_dashboard['otp_admit_muac'] = 0;
+//                $previous_month_dashboard['otp_admit_whz'] = 0;
+//                $previous_month_dashboard['otp_admit_both'] = 0;
+//                $previous_month_dashboard['total_admit'] = 0;
+//                $previous_month_dashboard['cure_rate'] = 0;
+//                $previous_month_dashboard['death_rate'] = 0;
+//                $previous_month_dashboard['default_rate'] = 0;
+//                $previous_month_dashboard['nonrespondent_rate'] = 0;
+//                $previous_month_dashboard['avg_weight_gain'] = 0;
+//                $previous_month_dashboard['avg_length_stay'] = 0;
+//                $previous_month_dashboard['otp_mnthend_23m'] = 0;
+//                $previous_month_dashboard['otp_mnthend_23f'] = 0;
+//                $previous_month_dashboard['otp_mnthend_24m'] = 0;
+//                $previous_month_dashboard['otp_mnthend_24f'] = 0;
+//                $previous_month_dashboard['otp_mnthend_60m'] = 0;
+//                $previous_month_dashboard['otp_mnthend_60f'] = 0;
+//
+//            }
 
-            }
-
-            return view('homepage.home_user', compact('cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission', 'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
+            return view('homepage.home_user', compact(
+//                'cache_data', 'month_year', 'report_month_dashboard', 'previous_month_dashboard', 'children', 'total_admission',
+                    'children_sync_count', 'facility_followup_sync_count', 'iycf_followup_sync_count', 'pregnant_women_sync_count', 'pregnant_women_followup_sync_count', 'volunteers_sync_count', 'community_sessions_sync_count', 'community_sessions_womens_sync_count', 'outreach_supervisors_sync_count', 'outreach_monthly_reports_sync_count'
             ));
         } else {
+//            dd('t');
             $cache_data = DB::table('monthly_dashboards')->select('year', 'month')->groupBy('year', 'month')
                 ->orderBy('year', 'desc')->orderBy('month', 'desc')->get()->toArray();
             if (empty($cache_data)) {
@@ -154,13 +159,15 @@ class HomeController extends Controller
                 ->orderBy('year', 'desc')
                 ->orderBy('month', 'desc')
                 ->get()->toArray();
-            if (date('n') == 1) {
-                $report_month = 12;
-                $report_year = date('Y') - 1;
-            } else {
-                $report_month = date('n') - 1;
+//            if (date('n') == 1) {
+//                $report_month = 12;
+//                $report_year = date('Y') - 1;
+//            } else {
+//                $report_month = date('n') - 1;
+//                $report_year = date('Y');
+//            }
+                $report_month = date('n');
                 $report_year = date('Y');
-            }
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
 
             $otp_dashboard = $this->otp_dashboard($facility_id, $report_month, $report_year);
@@ -175,13 +182,15 @@ class HomeController extends Controller
                 ->orderBy('year', 'desc')
                 ->orderBy('month', 'desc')
                 ->get()->toArray();
-            if (date('n') == 1) {
-                $report_month = 12;
-                $report_year = date('Y') - 1;
-            } else {
-                $report_month = date('n') - 1;
-                $report_year = date('Y');
-            }
+//            if (date('n') == 1) {
+//                $report_month = 12;
+//                $report_year = date('Y') - 1;
+//            } else {
+//                $report_month = date('n') - 1;
+//                $report_year = date('Y');
+//            }
+            $report_month = date('n');
+            $report_year = date('Y');
             $month_year = date('F', mktime(0, 0, 0, $report_month, 10)) . '-' . $report_year;
 
             $otp_dashboard = $this->otp_dashboard_admin($report_month, $report_year);
