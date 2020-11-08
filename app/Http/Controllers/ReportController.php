@@ -1813,7 +1813,7 @@ class ReportController extends Controller
             ]);
         } else
 
-        $facilities = Facility::orderBy('created_at', 'desc')->get();
+        $facilities = Facility::orderBy('created_at', 'desc')->limit(50)->get();
         $monthList = DB::table('facility_followups')->select(DB::raw('count(id) as `data`'),
             DB::raw("DATE_FORMAT(date, '%M-%Y') new_date"), DB::raw('YEAR(date) year, MONTH(date) month'))
             ->groupby('year', 'month')
@@ -1822,6 +1822,7 @@ class ReportController extends Controller
             ->get()->toArray();
         return view('report.summary_report', compact('facilities','monthList','reportStart','reportEnd'));
     }
+
     public function summary_report(){
         $month=date('n');
         $year=date('Y');
