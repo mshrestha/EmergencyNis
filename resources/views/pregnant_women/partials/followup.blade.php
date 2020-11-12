@@ -60,7 +60,7 @@
                         <div class="form-group row">
                             <div class="col-md-6">
                                 <label for="">MUAC (cm)</label>
-                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)"
+                                <input type="number" name="muac" class="form-control" placeholder="MUAC (cm)" id="women_muac"
                                        value="{{ isset($pregnant_followup) ? $pregnant_followup->muac : '' }}" min="0"
                                        step="0.01">
                             </div>
@@ -91,12 +91,14 @@
 
                                 <select name="outcome" class="form-control" id="identification-outcome">
                                     <optgroup label="MAM" id="outcome_mam">
+                                        <option value="">Select Outcome</option>
                                         <option value="MAM new case">MAM New Case</option>
                                         <option value="Follow up visit at TSFP">Follow up visit at TSFP</option>
                                         <option value="Already in program">Already in program</option>
                                         <option value="Referred to other TSFP">Referred to other TSFP</option>
                                     </optgroup>
                                     <optgroup label="NORMAL" id="outcome_normal">
+                                        <option value="">Select Outcome</option>
                                         <option value="Normal new case">Normal New Case</option>
                                         <option value="Already in Program">Already in program</option>
                                         <option value="Referred to other BSFP">Referred to other BSFP</option>

@@ -2,7 +2,14 @@
 	<div class="col-lg-12">
 		<strong>{{ $pregnant_women->pregnant_women_name }}</strong>
 		<p>
-			{{ $pregnant_women->registration_id}}<br />
+			{{ 'Husband : '.$pregnant_women->husbands_name }}<br />
+			{{ 'Father : '.$pregnant_women->fathers_name }}<br /><br />
+			{{ 'Reg. ID : '.$pregnant_women->registration_id}}<br />
+			{{ 'Reg. Date : '.$pregnant_women->registration_date}}<br />
+			{{ 'Moha ID : '.$pregnant_women->moha_id}}<br />
+			{{ 'Progress ID : '.$pregnant_women->progress_id}}<br />
+			{{ 'FCN : '.$pregnant_women->family_count_no}}<br />
+			{{ 'ANC/PNC : '.$pregnant_women->anc_pnc_card_no}}<br />
 			{{ $pregnant_women->age }} years old<br />
 			Block {{ $pregnant_women->block_no }}, Household {{ $pregnant_women->household_no }} <br />
 		</p>
@@ -23,39 +30,3 @@
 	</div>
 </div>
 
-<div class="client-detail">
-	<div class="full-height-scroll">
-		<div id="followup-1" class="tab-pane active">
-			<div style="margin-top: 10px;">
-				<strong>Followups</strong>
-				<div id="vertical-timeline" class="vertical-container dark-timeline">
-					@foreach($pregnant_women->followups as $followup)
-					<div class="vertical-timeline-block">
-						<div class="vertical-timeline-icon gray-bg">
-							<i class="fa fa-briefcase"></i>
-						</div>
-						<div class="vertical-timeline-content">
-							<span class="vertical-date small text-muted"> {{ $followup->actual_date }} </span><br />
-							<p>Visited {{ $followup->facility->facility_id }}</p>
-
-							<strong>MUAC: </strong> {{ $followup['muac'] }} cm <br />							
-							<strong>Weight: </strong> {{ $followup['weight'] }} kg <br />
-							
-							<form action="{{ route('pregnant-women-followup.destroy', $followup->sync_id) }}" method="post" class="delete-form pull-right">
-								@csrf
-								@method('DELETE')
-
-								<button type="submit" onclick="return confirm('Are you sure?')" style="background: none;border: none;color: #337ab7;">Delete</button>
-							</form>
-
-							<span class="pull-right" style="margin-top: 1px;">
-								<a href="{{ route('pregnant-women-followup.edit', $followup->sync_id) }}">Edit</a>
-							</span>
-						</div>
-					</div>
-					@endforeach
-				</div>
-			</div>
-		</div>
-	</div>
-</div>

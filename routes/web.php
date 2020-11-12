@@ -92,6 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/pregnant-women/{women}/info', 'PregnantWomenController@info')->name('pregnant-women.info');
     Route::resource('/pregnant-women', 'PregnantWomenController');
+    Route::get('/nutritionStatusWomen', 'PregnantWomenFollowupController@nutritionStatusWomen')->name('nutritionStatusWomen');
     Route::resource('pregnant-women-followup', 'PregnantWomenFollowupController');
 
 

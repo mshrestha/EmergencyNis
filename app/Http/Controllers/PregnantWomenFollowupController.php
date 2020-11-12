@@ -181,4 +181,19 @@ class PregnantWomenFollowupController extends Controller
             'notify_type' => $this->_notify_type
         ]);
     }
+
+    public function nutritionStatusWomen(Request $request)
+    {
+        $input_muac = $request->womenMuac;
+
+        if ( $input_muac <= 20) {
+            $nStatus = 'MAM';
+            $nStatusColor = 'orange';
+        } else {
+            $nStatus = 'Normal';
+            $nStatusColor = '#21b9bb';
+        }
+
+        return response()->json(['nutritionstatus' => $nStatus, 'nutritionstatusColor' => $nStatusColor]);
+    }
 }

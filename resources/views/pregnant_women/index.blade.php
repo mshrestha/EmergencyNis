@@ -4,7 +4,7 @@
     <div class="col-md-12">
 
         <div class="row">
-            <div class="col-sm-8 tab-content">
+            <div class="col-sm-12 tab-content">
                 <div class="ibox tab-pane" id="tab-1">
                 </div>
                 <!--This is where Pregnant woman register starts -->
@@ -37,17 +37,15 @@
                                             @foreach($pregnant_womens as $pregnant_women)
                                             <tr class="pregnant-women-client" data-pregnant-women-id="{{ $pregnant_women->sync_id }}">
                                                 <td>{{ $pregnant_women->sync_id }}</td>
-                                                <td>{{ $pregnant_women->pregnant_women_name }}</td>
+                                                <td> <a href="{{ route('pregnant-women.show', $pregnant_women->sync_id) }}" class="client-link">{{ $pregnant_women->pregnant_women_name}}</a></td>
                                                 <td>{{ $pregnant_women->block.' '.$pregnant_women->sub_block_no.' '.$pregnant_women->hh_no }} </td>
 
                                                 <td>{{ $pregnant_women->facility->facility_id}}</td>
                                                 <td>
-                                                    <a href="{{ route('pregnant-women-followup.show', $pregnant_women->sync_id) }}"class="edit-btn">
+                                                    <a href="{{ route('pregnant-women.show', $pregnant_women->sync_id) }}"class="edit-btn">
                                                      <button class="btn btn-default btn-circle" type="button" title="Followup"><i
                                                         class="fa fa-plus"></i></button>
                                                     </a>
-                                                    <a href="{{ route('pregnant-women.show', $pregnant_women->sync_id) }}"
-                                                       class="client-link">{{ $pregnant_women->pregnant_women_name}}</a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -60,20 +58,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div class="ibox ">
-                    <div class="ibox-content">
-                        <div class="tab-content">
-                            <div id="contact-1" class="tab-pane active">
-                                <div id="pregnant-women-info">
+            {{--<div class="col-sm-4">--}}
+                {{--<div class="ibox ">--}}
+                    {{--<div class="ibox-content">--}}
+                        {{--<div class="tab-content">--}}
+                            {{--<div id="contact-1" class="tab-pane active">--}}
+                                {{--<div id="pregnant-women-info">--}}
 
-                                </div>
-                            </div> <!-- tab-pane -->
-                        </div> <!-- tab-content -->
-                    </div> <!-- ibox-content -->
-                </div> <!-- ibox -->
-                <canvas id="myChart" width="400" height="400"></canvas>
-            </div> <!-- col -->
+                                {{--</div>--}}
+                            {{--</div> <!-- tab-pane -->--}}
+                        {{--</div> <!-- tab-content -->--}}
+                    {{--</div> <!-- ibox-content -->--}}
+                {{--</div> <!-- ibox -->--}}
+                {{--<canvas id="myChart" width="400" height="400"></canvas>--}}
+            {{--</div> <!-- col -->--}}
         </div>
     </div>
 </div> <!-- row -->
@@ -90,9 +88,9 @@
 <script>
 
     $(document).ready(function () {
-        var first_pregnant_women = {{ isset($pregnant_womens[0]) ? $pregnant_womens[0]->sync_id : '' }}
-        $('#pregnant-women-info').html('Loading ...');
-        load_pregnant_women(first_pregnant_women);
+        {{--var first_pregnant_women = {{ isset($pregnant_womens[0]) ? $pregnant_womens[0]->sync_id : '' }}--}}
+        {{--$('#pregnant-women-info').html('Loading ...');--}}
+        {{--load_pregnant_women(first_pregnant_women);--}}
 
         $('.dataTables').DataTable({
             "aaSorting": [],
@@ -118,22 +116,22 @@
         });
     });
 
-    function load_pregnant_women(pregnant_women) {
-        var abase_url = '{{url('/')}}';
-        $.ajax({
-            url: abase_url+'/pregnant-women/'+pregnant_women+'/info',
-            type: 'get',
-            success: function (res) {
-                $('#pregnant-women-info').html(res);
-            }
-        });
-    }
+    {{--function load_pregnant_women(pregnant_women) {--}}
+        {{--var abase_url = '{{url('/')}}';--}}
+        {{--$.ajax({--}}
+            {{--url: abase_url+'/pregnant-women/'+pregnant_women+'/info',--}}
+            {{--type: 'get',--}}
+            {{--success: function (res) {--}}
+                {{--$('#pregnant-women-info').html(res);--}}
+            {{--}--}}
+        {{--});--}}
+    {{--}--}}
 
-    $('.pregnant-women-client').on('click', function () {
-        var pregnant_women = $(this).data('pregnant-women-id');
-        $('#pregnant-women-info').html('Loading ...');
-        load_pregnant_women(pregnant_women);
-    });
+    {{--$('.pregnant-women-client').on('click', function () {--}}
+        {{--var pregnant_women = $(this).data('pregnant-women-id');--}}
+        {{--$('#pregnant-women-info').html('Loading ...');--}}
+        {{--load_pregnant_women(pregnant_women);--}}
+    {{--});--}}
 </script>
 
 @endpush
