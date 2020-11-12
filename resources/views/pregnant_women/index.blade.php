@@ -46,6 +46,8 @@
                                                      <button class="btn btn-default btn-circle" type="button" title="Followup"><i
                                                         class="fa fa-plus"></i></button>
                                                     </a>
+                                                    <a href="{{ route('pregnant-women.show', $pregnant_women->sync_id) }}"
+                                                       class="client-link">{{ $pregnant_women->pregnant_women_name}}</a>
                                                 </td>
                                             </tr>
                                             @endforeach

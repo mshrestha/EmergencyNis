@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PregnantWomenFollowup;
 use Auth;
 use App\Models\Child;
 use App\Models\Camp;
@@ -45,7 +46,28 @@ class PregnantWomenController extends Controller
      */
     public function show($id)
     {
-        //
+        $pregnant_women = PregnantWomen::with('followups')->findOrFail($id);
+        $pregnant_women_id = $pregnant_women->pregnant_women_id;
+
+        $facility_followup = $pregnant_women->followups->last();
+        $todays_followup = false;
+
+        if ($facility_followup && $facility_followup->actual_date == date('Y-m-d')) {
+            $todays_followup = true;
+        }
+
+        $women_followups = PregnantWomenFollowup::where('pregnant_women_id', $id)->get()->toArray();
+//        dd($women_followups);
+        if (count($women_followups) >= 1) {
+            $facility_followups_latest = PregnantWomenFollowup::where('pregnant_women_id', $id)->orderBy('date', 'desc')->limit(1)->first();
+            $plan_date = $facility_followups_latest->next_visit_date;
+        } else {
+            $plan_date = '';
+        }
+
+
+        return view('pregnant_women.show', compact('pregnant_women','todays_followup','facility_followup','pregnant_women_id','plan_date','women_followups'));
+
     }
 
     /**
