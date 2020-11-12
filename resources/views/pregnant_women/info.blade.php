@@ -29,4 +29,8 @@
 		</form>
 	</div>
 </div>
+<div class=" text-center" onclick="printDiv('qrcode')" id="qrcode">
+	{!! QrCode::size(200)->generate(route('pregnant-women-followup.show', $pregnant_women->sync_id)) !!}
+</div>
+
 
