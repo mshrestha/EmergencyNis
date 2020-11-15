@@ -28,6 +28,10 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
+                                                <th>Husband Name</th>
+                                                <th>Moha ID</th>
+                                                <th>FCN No</th>
+                                                <th>ANC/PNC</th>
                                                 <th>Block HH-no</th>
                                                 <th>Facility</th>
                                                 <th>Follow up</th>
@@ -38,6 +42,10 @@
                                             <tr class="pregnant-women-client" data-pregnant-women-id="{{ $pregnant_women->sync_id }}">
                                                 <td>{{ $pregnant_women->sync_id }}</td>
                                                 <td> <a href="{{ route('pregnant-women.show', $pregnant_women->sync_id) }}" class="client-link">{{ $pregnant_women->pregnant_women_name}}</a></td>
+                                                <td>{{ $pregnant_women->husbands_name}}</td>
+                                                <td>{{ $pregnant_women->moha_id}}</td>
+                                                <td>{{ $pregnant_women->family_count_no}}</td>
+                                                <td>{{ $pregnant_women->anc_pnc_card_no}}</td>
                                                 <td>{{ $pregnant_women->block.' '.$pregnant_women->sub_block_no.' '.$pregnant_women->hh_no }} </td>
 
                                                 <td>{{ $pregnant_women->facility->facility_id}}</td>
