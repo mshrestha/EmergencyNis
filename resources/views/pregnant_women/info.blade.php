@@ -29,6 +29,12 @@
 		</form>
 	</div>
 </div>
+<h4>Related Child</h4>
+@foreach($pregnant_women->childrens as $key=>$child)
+	<a href="{{ route('children.show', $child->sync_id) }}">
+		{{($key+1).'. '.$child->children_name.' ID:'.$child->sync_id.' Moha ID:'.$child->moha_id.' FCN:'.$child->family_count_no }}
+	</a>
+	@endforeach
 <div class=" text-center" onclick="printDiv('qrcode')" id="qrcode">
 	{!! QrCode::size(200)->generate(route('pregnant-women-followup.show', $pregnant_women->sync_id)) !!}
 </div>
