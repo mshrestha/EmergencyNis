@@ -214,6 +214,13 @@
 
     </div>
 </div>
+<h4>Related Mother</h4>
+@foreach($child->pregnant_womens as $key=>$pw)
+    <a href="{{ route('pregnant-women.show', $pw->sync_id) }}">
+        {{$pw->pregnant_women_name.' ID:'.$pw->sync_id.' Moha ID:'.$pw->moha_id.' FCN:'.$pw->family_count_no }}
+    </a>
+@endforeach
+
 <div class=" text-center" onclick="printDiv('qrcode')" id="qrcode">
    {!! QrCode::size(200)->generate(route('facility-followup.show', $child->id)) !!}
 </div>
