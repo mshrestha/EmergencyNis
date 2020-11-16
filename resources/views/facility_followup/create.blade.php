@@ -155,8 +155,8 @@
             var child_height = $("#child_height").val();
             var child_oedema = $("#oedema").val();
             var child_muac = $("#child_muac").val();
-//            console.log(child_muac)
-//            console.log(child_zscore)
+            var actual_date = $("#actual_date").val();
+            var actual_date2 = moment(actual_date, "DD-MM-YYYY");
 //            console.log(child_oedema)
             var abase_url = '{{url('/')}}';
             var url = abase_url + '/nutritionStatusCalculation';
@@ -186,6 +186,7 @@
                     $("#rusf").hide();
                     $("#rutf").show();
                     $("#others").show();
+                    $("#next_visit_date").val(moment(actual_date2, 'DD-MM-YYYY').add(7, 'days').format('DD-MM-YYYY'));
                 }
                 else if (ns == 'MAM') {
                     $("#outcome_mam").show();
@@ -196,6 +197,7 @@
                     $("#rutf").show();
                     $("#rusf").show();
                     $("#others").show();
+                    $("#next_visit_date").val(moment(actual_date2, 'DD-MM-YYYY').add(14, 'days').format('DD-MM-YYYY'));
                 }
                 else if (ns == 'Normal') {
                     $("#outcome_normal").show();
@@ -206,6 +208,7 @@
                     $("#wsbp").show();
 //                    $("#wsbpp").show();
                     $("#others").show();
+                    $("#next_visit_date").val(moment(actual_date2, 'DD-MM-YYYY').add(28, 'days').format('DD-MM-YYYY'));
                 }
                 else {
                     $("#outcome_normal").show();
