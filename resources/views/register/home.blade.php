@@ -43,6 +43,7 @@
                                                 <th>Block HH-no</th>
                                                 <th>Facility</th>
                                                 <th>Nutrition Status</th>
+                                                <th>Plan Date </th>
                                                 <th>Date Status</th>
                                                 <th>Weight Status</th>
                                                 <th>Follow up</th>
@@ -69,6 +70,11 @@
                                                         @endif
                                                     </td>
                                                     <td class="children-show">
+                                                        @if (isset($child->facility_followup[$child->facility_followup->count()-1]['planed_date']))
+                                                            {{\Carbon\Carbon::parse($child->facility_followup[$child->facility_followup->count()-1]['planed_date'])->format(' d-M-Y') }}
+                                                        @endif
+                                                    </td>
+                                                    <td class="children-show">
                                                         @if (isset($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']))
                                                             <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'danger':'' }}">{{ ($child->facility_followup[$child->facility_followup->count()-1]['next_visit_date']<date('Y-m-d'))?'Defaulter':'' }}</small>
                                                         @else
@@ -80,7 +86,8 @@
                                                             @if($child->facility_followup[$child->facility_followup->count()-1]['weight']==null)
                                                                 <small class="label label-warning">weight Missing</small>
                                                             @else
-                                                            <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">{{ ($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain' }}</small>
+                                                            <small class="label label-{{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'danger':'info' }}">
+                                                                {{($child->facility_followup[$child->facility_followup->count()-2]['weight']>$child->facility_followup[$child->facility_followup->count()-1]['weight'])?'Weight Loss':'Weight Gain'}}</small>
                                                                 @endif
                                                             @else
                                                             <small class="label label-success">New</small>
