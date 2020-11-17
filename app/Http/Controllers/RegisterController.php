@@ -110,6 +110,33 @@ class RegisterController extends Controller
             return view('register.home', compact('children','camp_facilities'));
         }
     }
+    public function defaulter_child() {
+
+        if(Auth::user()->facility_id){
+            $facility = Facility::findOrFail(Auth::user()->facility_id);
+            $camp_facilities=DB::table('facilities')->where('camp_id', $facility->camp_id)->get();
+            $children = Child::where('children.camp_id', $facility->camp_id)
+                ->join('facility_followups', 'facility_followups.children_id', '=', 'children.sync_id')
+//                ->select('children.*'
+//           DB::raw('children.date as childEntry'),
+//           DB::raw('facility_followups.date as actualDate')
+//          )
+                ->where('facility_followups.next_visit_date','<', date('Y-m-d'))
+//                ->groupby('facility_followups.children_id')
+//                ->distinct('facility_followups.children_id')
+                ->whereIn('facility_followups.id', function($q){
+                    $q->select(DB::raw('MAX(facility_followups.id) FROM facility_followups GROUP BY facility_followups.children_id'));
+                })
+                ->orderBy('facility_followups.date', 'desc')
+            ->get();
+//            dd($children);
+            return view('register.home_nutritionStatus', compact('children','camp_facilities'));
+        }else{
+            $children = Child::with(['facility', 'facility_followup'])->orderBy('created_at', 'desc')->limit(1000)->get();
+            $camp_facilities=DB::table('facilities')->get();
+            return view('register.home', compact('children','camp_facilities'));
+        }
+    }
 
     public function register_selected_facility($fac) {
 //        dd($facility);

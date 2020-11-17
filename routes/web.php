@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/child-search', 'HomeController@childSearch')->name('child-search');
     Route::get('/facility-search', 'HomeController@facilitySearch')->name('facility-search');
 
+    Route::get('defaulter_child', 'RegisterController@defaulter_child')->name('defaulter_child');
     Route::get('sam_child', 'RegisterController@sam_child')->name('sam_child');
     Route::get('mam_child', 'RegisterController@mam_child')->name('mam_child');
     Route::get('normal_child', 'RegisterController@normal_child')->name('normal_child');

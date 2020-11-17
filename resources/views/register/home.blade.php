@@ -37,6 +37,12 @@
                                         All
                                     </button>
                                 </a>
+                                <a href="{{ route('defaulter_child') }}" >
+                                    <button type="button" class="btn btn-primary"><i
+                                                class="fa fa-user"></i>
+                                        Scheduled Absent
+                                    </button>
+                                </a>
                                 <a href="{{ route('sam_child') }}" >
                                     <button type="button" class="btn btn-danger"><i
                                                 class="fa fa-user"></i>
@@ -78,7 +84,6 @@
                                         Add Child
                                     </button>
                                 </a>
-
                             </div>
                                 <span class="small">All child needs to be registered in order to use this system.</span>
                         </div>
