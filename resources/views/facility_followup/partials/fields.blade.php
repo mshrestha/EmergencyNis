@@ -792,7 +792,7 @@
                     <div class="ibox-content">
                         <div class="form-group">
                             <label for="">Discharge MUAC (cm)</label>
-                            <input type="number" name="discharge_muac" class="form-control"
+                            <input type="number" name="discharge_muac" class="form-control" id="discharge_muac"
                                    placeholder="Discharge MUAC (cm)"
                                    value="{{ isset($facility_followup) ? $facility_followup->discharge_muac : '' }}"
                                    min="0"
@@ -800,7 +800,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">Discharge weight (kg)</label>
-                            <input type="number" name="discharge_weight_kg" class="form-control"
+                            <input type="number" name="discharge_weight_kg" class="form-control" id="discharge_weight_kg"
                                    placeholder="Discharge weight (kg)"
                                    value="{{ isset($facility_followup) ? $facility_followup->discharge_weight_kg : '' }}"
                                    min="0" step="0.1">
@@ -822,14 +822,14 @@
                         </div>
                         <div class="form-group">
                             <label for="">Gain of weight</label>
-                            <input type="number" name="gain_of_weight" class="form-control"
+                            <input type="number" name="gain_of_weight" class="form-control" id="gain_of_weight"
                                    placeholder="Gain of weight"
                                    value="{{ isset($facility_followup) ? $facility_followup->gain_of_weight : '' }}"
                                    min="0" step="0.1">
                         </div>
                         <div class="form-group">
                             <label for="">Duration between discharged and admission days (LOS) (days)</label>
-                            <input type="number" name="duration_between_discharged_and_admission_days"
+                            <input type="number" name="duration_between_discharged_and_admission_days" id="duration_day"
                                    class="form-control"
                                    placeholder="Duration between discharged and admission days (LOS) (days)"
                                    value="{{ isset($facility_followup) ? $facility_followup->duration_between_discharged_and_admission_days : '' }}"

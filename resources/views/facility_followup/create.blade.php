@@ -20,27 +20,27 @@
                     @method('POST')
                     @include('facility_followup.partials.fields')
 
-<div class="row">
-                    <button tyle="submit" class="btn btn-primary pull-right"
-                            style="margin-right: 5px; margin-bottom: 20px; z-index:99999;">Save
-                    </button>
+                    <div class="row">
+                        <button tyle="submit" class="btn btn-primary pull-right"
+                                style="margin-right: 5px; margin-bottom: 20px; z-index:99999;">Save
+                        </button>
                 </form>
-              </div>
-            </div> <!-- col -->
-            <div class="col-lg-4">
-                <div class="ibox ">
-                    <div class="ibox-content">
-                        <div class="tab-content">
-                            <div id="contact-1" class="tab-pane active">
-                                <div id="child-info">
-                                    Loading ...
-                                </div>
-                            </div> <!-- tab-pane -->
-                        </div> <!-- tab-content -->
-                    </div> <!-- ibox-content -->
-                </div> <!-- ibox -->
-            </div> <!-- col -->
-        </div> <!-- row -->
+            </div>
+        </div> <!-- col -->
+        <div class="col-lg-4">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="tab-content">
+                        <div id="contact-1" class="tab-pane active">
+                            <div id="child-info">
+                                Loading ...
+                            </div>
+                        </div> <!-- tab-pane -->
+                    </div> <!-- tab-content -->
+                </div> <!-- ibox-content -->
+            </div> <!-- ibox -->
+        </div> <!-- col -->
+    </div> <!-- row -->
     </div> <!-- wrapper -->
 
 @endsection
@@ -60,9 +60,9 @@
                 $('#followupform').submit();
             }
         });
-{{--        var weight='{{isset($facility_followup) ? $facility_followup->weight : ''}}';--}}
-{{--        var weight='{{isset($startingInfo) ? $startingInfo->weight : ''}}';--}}
-        load_child({{$children->sync_id}});
+        {{--        var weight='{{isset($facility_followup) ? $facility_followup->weight : ''}}';--}}
+        {{--        var weight='{{isset($startingInfo) ? $startingInfo->weight : ''}}';--}}
+load_child({{$children->sync_id}});
         $(".discharge-criteria-tabs").hide();
         $("#identification-outcome").change(function () {
 //             io = $("#identification-outcome").val();
@@ -92,21 +92,33 @@
     });
 
     $(document).ready(function () {
-                var weight='{{isset($startingInfo) ? $startingInfo->weight : ''}}';
-                var startingDate='{{isset($startingInfo) ? \Carbon\Carbon::parse($startingInfo->date)->format('d-m-Y') : ''}}';
-        var actual_date = $("#actual_date").val();
-        var endDate = moment(actual_date, "DD-MM-YYYY");
-        var startDate = moment(startingDate, "DD-MM-YYYY");
-        var duration_between_weight_day = endDate.diff(startDate, 'days');
-//        console.log(duration_between_weight_day);
 
         $("#discharge_criteria_exit").change(function () {
             if ($("#discharge_criteria_exit").val() == '') {
                 $("#lowest_weight_kg").val('');
                 $("#duration_between_weight").val('');
+                $("#gain_of_weight").val('');
+                $("#discharge_muac").val('');
+                $("#discharge_weight_kg").val('');
+                $("#duration_day").val('');
             } else {
+                var weight = '{{isset($startingInfo) ? $startingInfo->weight : ''}}';
+                var discharge_muac = $("#child_muac").val();
+                var discharge_weight_kg = $("#child_weight").val();
+                var startingDate = '{{isset($startingInfo) ? \Carbon\Carbon::parse($startingInfo->date)->format('d-m-Y') : ''}}';
+                var actual_date = $("#actual_date").val();
+                var endDate = moment(actual_date, "DD-MM-YYYY");
+                var startDate = moment(startingDate, "DD-MM-YYYY");
+                var duration_between_weight_day = endDate.diff(startDate, 'days');
+                var weightGain = discharge_weight_kg-weight;
+//                console.log(discharge_weight_kg);
+
                 $("#lowest_weight_kg").val(weight);
                 $("#duration_between_weight").val(duration_between_weight_day);
+                $("#gain_of_weight").val(weightGain);
+                $("#discharge_muac").val(discharge_muac);
+                $("#discharge_weight_kg").val(discharge_weight_kg);
+                $("#duration_day").val(duration_between_weight_day);
             }
 
         });
