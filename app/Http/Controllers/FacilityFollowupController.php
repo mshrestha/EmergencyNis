@@ -58,6 +58,12 @@ class FacilityFollowupController extends Controller
 
         $children = Child::findOrFail($id);
 //        dd($children);
+        $startingInfo= FacilityFollowup::with('facility')
+            ->where('children_id', $id)
+            ->where('outcome', 'LIKE', "%new case%")
+            ->orderBy('created_at', 'desc')
+        ->first();
+//dd($startingInfo);
         $facilities = Facility::orderBy('created_at', 'desc')->get();
         $facility_followups = FacilityFollowup::with('facility')->where('children_id', $id)->orderBy('created_at', 'asc')->get()->toArray();
         if (count($facility_followups) >= 1) {
@@ -71,12 +77,12 @@ class FacilityFollowupController extends Controller
         $child_sex = $children->sex;
 
 
-        return view('facility_followup.create', compact('facilities', 'children', 'chart_date', 'chart_weight', 'child_sex', 'plan_date'));
+        return view('facility_followup.create', compact('facilities', 'children', 'chart_date', 'chart_weight', 'child_sex', 'plan_date','startingInfo'));
     }
 
     public function save($id, Request $request)
     {
-//        dd($request);
+        dd($request);
         try {
             if (!env('SERVER_CODE')) {
                 dd('No server code found.');

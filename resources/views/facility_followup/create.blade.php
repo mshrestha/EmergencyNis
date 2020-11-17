@@ -60,7 +60,9 @@
                 $('#followupform').submit();
             }
         });
-        load_child({{$children->sync_id}})
+{{--        var weight='{{isset($facility_followup) ? $facility_followup->weight : ''}}';--}}
+{{--        var weight='{{isset($startingInfo) ? $startingInfo->weight : ''}}';--}}
+        load_child({{$children->sync_id}});
         $(".discharge-criteria-tabs").hide();
         $("#identification-outcome").change(function () {
 //             io = $("#identification-outcome").val();
@@ -79,17 +81,32 @@
                 $("#admission-criteria-tab").show();
                 $(".discharge-criteria-tabs").hide();
                 $("#admission-discharge-tab-heading").text("Admission Criteria")
-//                $("#rutf").hide();
-//            } else if ($("#identification-outcome").val() == 'Already admitted at OTP') {
-//                $("#admission-criteria-tab").hide();
-//                $(".discharge-criteria-tabs").show();
-//                $("#admission-discharge-tab-heading").text("Discharge Criteria")
-//                $("#rutf").show();
             } else {
                 $("#admission-criteria-tab").hide();
                 $(".discharge-criteria-tabs").show();
                 $('#admission-discharge-tab-heading').text("Discharge Criteria")
-//                $("#rutf").hide();
+//                $("#lowest_weight_kg").val(weight);
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+                var weight='{{isset($startingInfo) ? $startingInfo->weight : ''}}';
+                var startingDate='{{isset($startingInfo) ? \Carbon\Carbon::parse($startingInfo->date)->format('d-m-Y') : ''}}';
+        var actual_date = $("#actual_date").val();
+        var endDate = moment(actual_date, "DD-MM-YYYY");
+        var startDate = moment(startingDate, "DD-MM-YYYY");
+        var duration_between_weight_day = endDate.diff(startDate, 'days');
+//        console.log(duration_between_weight_day);
+
+        $("#discharge_criteria_exit").change(function () {
+            if ($("#discharge_criteria_exit").val() == '') {
+                $("#lowest_weight_kg").val('');
+                $("#duration_between_weight").val('');
+            } else {
+                $("#lowest_weight_kg").val(weight);
+                $("#duration_between_weight").val(duration_between_weight_day);
             }
 
         });
@@ -157,7 +174,7 @@
             var child_muac = $("#child_muac").val();
             var actual_date = $("#actual_date").val();
             var actual_date2 = moment(actual_date, "DD-MM-YYYY");
-//            console.log(child_oedema)
+//            console.log(actual_date)
             var abase_url = '{{url('/')}}';
             var url = abase_url + '/nutritionStatusCalculation';
             var sendData = {

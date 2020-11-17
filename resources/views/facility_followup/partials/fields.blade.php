@@ -718,7 +718,7 @@
                     <div class="ibox-content">
                         <div class="form-group">
                             <label for="">Exit</label>
-                            <select name="discharge_criteria_exit" class="form-control">
+                            <select name="discharge_criteria_exit" class="form-control" id="discharge_criteria_exit">
                                 <option value="">Select exit</option>
                                 <option value="Recovered" {{ (isset($facility_followup) && $facility_followup->discharge_criteria_exit == 'Recovered') ? ' selected' : '' }}>
                                     Recovered
@@ -807,14 +807,14 @@
                         </div>
                         <div class="form-group">
                             <label for="">Lowest weight (kg)</label>
-                            <input type="number" name="lowest_weight_kg" class="form-control"
+                            <input type="number" name="lowest_weight_kg" class="form-control" id="lowest_weight_kg"
                                    placeholder="Lowest weight (kg)"
                                    value="{{ isset($facility_followup) ? $facility_followup->lowest_weight_kg : '' }}"
                                    min="0" step="0.1">
                         </div>
                         <div class="form-group">
                             <label for="">Duration between lowest weight and discharged weight (days)</label>
-                            <input type="number" name="duration_between_lowest_weight_and_discharged_weight_days"
+                            <input type="number" name="duration_between_lowest_weight_and_discharged_weight_days" id="duration_between_weight"
                                    class="form-control"
                                    placeholder="Duration between lowest weight and discharged weight (days)"
                                    value="{{ isset($facility_followup) ? $facility_followup->duration_between_lowest_weight_and_discharged_weight_days : '' }}"
