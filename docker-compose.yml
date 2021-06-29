@@ -1,0 +1,50 @@
+version: '3'
+
+networks:
+  laravel:
+
+volumes:
+  dbdata:
+    driver: local
+
+services: 
+  apache:
+    build: './.docker/apache/'
+    container_name: emergencynutrition_apache
+    ports:
+      - "8888:80"
+    depends_on:
+      - php
+      - mysql
+    volumes:
+      - ./src:/var/www/html/
+    networks:
+      - laravel
+
+  php:
+    build: './.docker/php/'
+    container_name: emergencynutrition_php
+    volumes:
+      - ./src:/var/www/html/
+    ports: 
+      - "9000:9000"
+    networks:
+      - laravel
+  
+  mysql:
+    image: mysql:5.7.22
+    container_name: emergencynutrition_mysql
+    restart: unless-stopped
+    ports: 
+      - "5306:3306"
+    environment:
+      MYSQL_DATABASE: emergencynutrition
+      MYSQL_USER: codexen
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - laravel
